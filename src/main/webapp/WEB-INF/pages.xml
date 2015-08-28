@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.org/schema/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/login.xhtml">
+
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.framework.EntityNotFoundException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['javax.persistence.EntityNotFoundException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['javax.persistence.EntityExistsException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['javax.persistence.OptimisticLockException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">#{messages['org.jboss.seam.security.AuthorizationException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['javax.faces.application.ViewExpiredException']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+        <http-error error-code="503"/>
+    </exception>
+
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">#{messages['UnexpectedError']}</message>
+        </redirect>
+    </exception>
+
+    <exception class="com.dgsoft.common.exception.InitDataException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">#{messages['com.dgsoft.common.exception.InitDataException']}</message>
+        </redirect>
+    </exception>
+
+
+    <exception class="com.dgsoft.common.exception.ProcessDefineException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">#{messages['com.dgsoft.common.exception.ProcessDefineException']}</message>
+        </redirect>
+    </exception>
+</pages>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:s="http://jboss.org/schema/seam/taglib">
+<f:view
+        contentType="text/html">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+        <title>#{messages.mainTitle}</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+
+
+        <ui:insert name="head"/>
+    </h:head>
+    <h:body styleClass="env-production page-dashboard">
+
+
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="bootstrap-select" name="/css/bootstrap-select.css"/>
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.min.css"/>
+        <h:outputStylesheet library="bootstrap-switch" name="/css/bootstrap3/bootstrap-switch.min.css"/>
+        <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
+        <h:outputStylesheet library="fuelux" name="/css/fuelux.min.css"/>
+
+        <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
+        <h:outputStylesheet library="octicons" name="octicons.css"/>
+
+
+
+        <h:outputStylesheet name="theme.css"/>
+
+
+        <a:queue requestDelay="1000" ignoreDupResponses="true"/>
+
+        <a:status id="processWaiting" name="processWaiting"
+                  onstart="#{rich:component('wait')}.show()"
+                  onstop="#{rich:component('wait')}.hide()"/>
+        <rich:popupPanel id="wait" modal="true" autosized="true" styleClass="transparent-popup"
+                      moveable="false" resizeable="false" shadowDepth="0" shadowOpacity="0"  >
+            <p>      <h:graphicImage value="/img/wait-128.gif" width="64" height="64"/></p>
+            <p>#{messages.ContextLoader}...</p>
+
+
+        </rich:popupPanel>
+
+
+                    <ui:insert name="body"/>
+
+
+
+        <div class="container">
+            <div class="site-footer" role="contentinfo">
+                <p>&#xA9; 2013 Cooper's soft Studio.</p>
+                <s:fragment rendered="#{init.debug}">
+                    <a:outputPanel ajaxRendered="true">
+                        <a:log hotkey="D" mode="popup"/>
+
+                        <p style="margin-top: -0.5em;">
+                            Conversation: id = #{conversation.id}, #{conversation.longRunning ? 'long running' : 'temporary'}#{conversation.nested ? ', nested, parent id = '.concat(conversation.parentId) : ''}
+                            #{' - '}
+                            Ajax4jsf Log (Ctrl+Shift+D)
+                            #{' - '}
+                            <s:link id="debugConsole" view="/debug.xhtml" value="Debug console"
+                                    target="debugConsole"/>
+                            #{' - '}
+                            <s:link id="resetSession" view="/home.xhtml"
+                                    action="#{org.jboss.seam.web.session.invalidate()}"
+                                    propagation="none" value="Terminate session"/>
+                        </p>
+                    </a:outputPanel>
+                    <rich:messages globalOnly="false" ajaxRendered="true"/>
+                </s:fragment>
+            </div>
+        </div>
+
+
+        <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
+        <h:outputScript library="bootstrap-select" name="/js/bootstrap-select.js"/>
+        <h:outputScript library="bootstrap-switch" name="/js/bootstrap-switch.js"/>
+        <h:outputScript library="floatThead" name="jquery.floatThead.js"/>
+        <h:outputScript library="bootstrap-datepicker" name="/js/bootstrap-datetimepicker.min.js"/>
+        <h:outputScript library="bootstrap-datepicker" name="/js/locales/bootstrap-datetimepicker.zh-CN.js"/>
+        <h:outputScript library="fuelux" name="/js/fuelux.min.js"/>
+        <a:outputPanel ajaxRendered="true">
+            <h:outputScript name="init.js"/>
+        </a:outputPanel>
+    </h:body>
+
+
+</f:view>
+
+</html>
+

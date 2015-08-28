@@ -1,0 +1,53 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                template="layout/template-base.xhtml">
+
+
+    <ui:define name="body">
+
+
+        <div class="flash-messages container">
+            <r:messages/>
+        </div>
+
+        <div class="auth-form" id="login">
+            <h:form>
+                <r:focus/>
+
+                <div class="auth-form-header">
+                    <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
+                </div>
+                <div class="auth-form-body">
+                    <label for="login_field">
+                        #{messages.login_userName}
+                    </label>
+
+
+                    <h:inputText id="login_field" styleClass="input-block" required="true"
+                                 label="#{messages.login_userName}"
+                                 value="#{credentials.username}"/>
+                    <label for="password">
+                        #{messages.login_password}
+                    </label>
+
+                    <h:inputSecret id="password" styleClass="input-block" required="true"
+                                   label="#{messages.login_password}"
+                                   value="#{credentials.password}"/>
+
+                    <h:commandButton id="loginButton" styleClass="button" data-loading-text="#{messages.SigningIn}"
+                                     value="#{messages.login}" action="#{identity.login}"
+                                     onclick="$(this).button('loading');"/>
+
+
+                </div>
+            </h:form>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib">
+    <div class="js-input-field #{invalid?'has-error':'has-success'}">
+
+        <dl>
+        <dt class="input-label">
+            <s:label for="#{for}" styleClass="control-label #{invalid?'errors':''}" rendered="#{(empty showLabel) or showLabel}">
+                <ui:insert name="label"/>
+                <s:span styleClass="required" rendered="#{ not (empty for) and required}">*</s:span>
+            </s:label>
+        </dt>
+       <dd>
+        <a:outputPanel id="#{for}_inputArea" styleClass="js-form-input #{((empty showTip) or showTip) ?  (invalid?'edit-error':'edit-success') : ''}">
+            <ui:insert/>
+            <a:status name="#{status}" rendered="#{not empty status}"
+                      onstart="startEditValid(this);"/>
+        </a:outputPanel>
+        </dd>
+        <dd>
+            <ui:insert name="message">
+            <r:message for="#{for}" styleClass="edit-below-msg" rendered="#{not empty for}" ajaxRendered="false"/>
+            </ui:insert>
+        </dd>
+            <dd>
+                <ui:insert name="note"/>
+            </dd>
+        </dl>
+
+    </div>
+</ui:composition>

@@ -39,7 +39,9 @@
 
         <h:outputStylesheet name="theme.css"/>
 
-
+        <a:outputPanel ajaxRendered="true">
+            <h:outputScript name="init.js"/>
+        </a:outputPanel>
         <a:queue requestDelay="1000" ignoreDupResponses="true"/>
 
         <a:status id="processWaiting" name="processWaiting"
@@ -91,9 +93,7 @@
         <h:outputScript library="bootstrap-datepicker" name="/js/bootstrap-datetimepicker.min.js"/>
         <h:outputScript library="bootstrap-datepicker" name="/js/locales/bootstrap-datetimepicker.zh-CN.js"/>
         <h:outputScript library="fuelux" name="/js/fuelux.min.js"/>
-        <a:outputPanel ajaxRendered="true">
-            <h:outputScript name="init.js"/>
-        </a:outputPanel>
+
     </h:body>
 
 

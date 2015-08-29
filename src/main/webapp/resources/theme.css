@@ -1,0 +1,27 @@
+.form-control, input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], select, textarea {
+    border-radius: 3px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.required{
+    color: red;
+}
+
+.btn {
+    border-radius: 3px;
+}
+
+.site-footer {
+    position: relative;
+    margin-top: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #767676;
+    border-top: 1px solid #eee;
+}

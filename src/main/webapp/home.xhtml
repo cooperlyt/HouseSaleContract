@@ -40,10 +40,21 @@
                     border-top: 0;
                     border-radius: 0 0 3px 3px;
                 }
+
+                .auth-form-header h1 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 16px;
+                }
+
+                .auth-form-body .input-block {
+                    margin-top: 5px;
+                    margin-bottom: 15px;
+                }
             </h:outputStylesheet>
 
             <div class="flash-messages container">
-                <r:messages/>
+                <r:messages globalOnly="false"/>
             </div>
 
             <div role="main">
@@ -55,29 +66,40 @@
                             <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
                         </div>
                         <div class="auth-form-body">
-                            <label for="login_field">
-                                #{messages.login_userName}
-                            </label>
+
+                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    #{messages.login_userName}
+                                </ui:define>
+                                <h:inputText id="login_field" styleClass="form-control" required="true"
+                                             label="#{messages.login_userName}"
+                                             value="#{credentials.username}"/>
+                            </s:decorate>
+
+                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    #{messages.login_password}
+                                </ui:define>
+                                <h:inputSecret id="password" styleClass="form-control" required="true"
+                                               label="#{messages.login_password}"
+                                               value="#{credentials.password}"/>
+                            </s:decorate>
 
 
-                            <h:inputText id="login_field" styleClass="input-block" required="true"
-                                         label="#{messages.login_userName}"
-                                         value="#{credentials.username}"/>
-                            <label for="password">
-                                #{messages.login_password}
-                            </label>
 
-                            <h:inputSecret id="password" styleClass="input-block" required="true"
-                                           label="#{messages.login_password}"
-                                           value="#{credentials.password}"/>
-
-                            <h:commandButton id="loginButton" styleClass="button" data-loading-text="#{messages.SigningIn}"
+                            <h:commandButton id="loginButton" styleClass="btn btn-default" data-loading-text="#{messages.SigningIn}"
                                              value="#{messages.login}" action="#{identity.login}"
                                              onclick="$(this).button('loading');"/>
 
 
                         </div>
                     </h:form>
+                    <h:outputScript>
+
+                        initEditInput();
+
+
+                    </h:outputScript>
                 </div>
             </div>
 

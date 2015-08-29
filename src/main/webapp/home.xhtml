@@ -15,6 +15,58 @@
 
         <a:outputPanel layout="block" style="padding: 10px" rendered="#{not identity.loggedIn}">
 
+            <h:outputScript library="long-mai" name="mToken_K1.js"/>
+            <h:outputScript library="long-mai" name="K1mTokenPlugin.js"/>
+            <h:outputScript library="long-mai" name="base64.js"/>
+
+            <h:outputScript>
+
+                    //点击登录按钮时调用此函数方法
+                    function OnKeyLogon() {
+
+                        //获取页面文本框的密码
+                        var userpin = document.getElementById("userpin").value;
+
+                        if (userpin == "") {
+                            alert("用户密码不能为空!");
+                            return false;
+                        }
+
+                        //获取本Key的唯一硬件ID
+                        K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                        var keyUID = #{r:element('uid')}.value;
+
+                        //打开加密锁
+                        var nRet = K1mToken.K1_mTokenOpen(keyUID, userpin);
+                        if(nRet != 0)
+                        {
+                            alert("验证用户密码权限失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                            return false;
+                        }
+
+                        //获取本Key的唯一硬件ID
+                        K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                        //进行客户端摘要的计算
+                        var randomMessageFromServer = "#{authenticationManager.encodeRndData}";
+                        var randomStr = randomMessageFromServer;
+                        //var keyUID = document.getElementById("uid").value;
+                        var sha1Str = K1mToken.K1_mTokenSHA1WithSeed(keyUID, randomStr);
+                        if(sha1Str == null || sha1Str == "")
+                        {
+                            alert("SHA1摘要生成失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                            return false;
+                        }
+
+                        #{r:element('ClientDigest')}.value = sha1Str;
+
+                        return true;
+                    }
+
+
+            </h:outputScript>
+
             <h:outputStylesheet>
                 .auth-form {
                     width: 400px;
@@ -59,37 +111,33 @@
 
             <div role="main">
                 <div class="auth-form">
-                    <h:form>
+                    <object id="mTokenPlugin" type="application/x-mtokenplugin" width="0" height="0">
+                        <param value="pluginLoaded" />
+                    </object>
+                    <h:form >
                         <r:focus/>
 
+                        <h:inputHidden id="uid" value="#{credentials.username}"/>
+                        <h:inputHidden id="ClientDigest" value="#{credentials.password}"/>
                         <div class="auth-form-header">
                             <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
                         </div>
                         <div class="auth-form-body">
 
-                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
-                                <ui:define name="label">
-                                    #{messages.login_userName}
-                                </ui:define>
-                                <h:inputText id="login_field" styleClass="form-control" required="true"
-                                             label="#{messages.login_userName}"
-                                             value="#{credentials.username}"/>
-                            </s:decorate>
+
 
                             <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
                                 <ui:define name="label">
                                     #{messages.login_password}
                                 </ui:define>
-                                <h:inputSecret id="password" styleClass="form-control" required="true"
-                                               label="#{messages.login_password}"
-                                               value="#{credentials.password}"/>
+                                <input type="text" class="form-control" id="userpin"/>
                             </s:decorate>
 
 
 
                             <h:commandButton id="loginButton" styleClass="btn btn-default" data-loading-text="#{messages.SigningIn}"
                                              value="#{messages.login}" action="#{identity.login}"
-                                             onclick="$(this).button('loading');"/>
+                                             onclick="if (OnKeyLogon()) {$(this).button('loading');} else {return false;}"/>
 
 
                         </div>

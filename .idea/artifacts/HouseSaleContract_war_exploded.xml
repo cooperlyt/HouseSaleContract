@@ -92,6 +92,7 @@
           <element id="library" level="project" name="Maven: org.apache.lucene:lucene-stempel:3.6.2" />
           <element id="library" level="project" name="Maven: org.jbpm.jbpm3:jbpm-jpdl:3.2.10.SP3_seam2" />
           <element id="library" level="project" name="Maven: biz.source_code:base64coder:2010-09-21" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.51" />
         </element>
       </element>
       <element id="directory" name="META-INF">

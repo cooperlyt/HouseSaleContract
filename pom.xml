@@ -241,6 +241,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>local.house</groupId>
+            <artifactId>houseInterface</artifactId>
+            <version>1.12-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.richfaces</groupId>

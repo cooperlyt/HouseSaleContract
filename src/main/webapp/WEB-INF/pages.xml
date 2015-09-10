@@ -59,16 +59,4 @@
         </redirect>
     </exception>
 
-    <exception class="com.dgsoft.common.exception.InitDataException">
-        <redirect view-id="/error.xhtml">
-            <message severity="error">#{messages['com.dgsoft.common.exception.InitDataException']}</message>
-        </redirect>
-    </exception>
-
-
-    <exception class="com.dgsoft.common.exception.ProcessDefineException">
-        <redirect view-id="/error.xhtml">
-            <message severity="error">#{messages['com.dgsoft.common.exception.ProcessDefineException']}</message>
-        </redirect>
-    </exception>
 </pages>

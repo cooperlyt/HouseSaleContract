@@ -1,6 +1,9 @@
 package com.dgsoft;
 
 import com.K1.biz.uitl.Base64;
+import com.dgsoft.developersale.DeveloperSaleServiceImpl;
+import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.developersale.LogonStatus;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -26,34 +29,57 @@ public class AuthenticationManager {
     @Out(required = false,scope = ScopeType.SESSION)
     private String rndData;
 
+
+    @Out(required = false, scope = ScopeType.SESSION)
+    private LogonInfo logonInfo;
+
     @In
     private FacesMessages facesMessages;
 
     @In
     private Credentials credentials;
 
+
     public boolean authenticate() {
-        String keySeed = "A21D420F322842EBBAA323E7257E2772";
 
-        try {
-            return CheckHashValues(keySeed, rndData, credentials.getPassword());
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e.getMessage(),e);
-        }
+            try {
+                logonInfo = DeveloperSaleServiceImpl.instance().logon(credentials.getUsername(), credentials.getPassword(), rndData);
+                if (logonInfo == null) {
+                    facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
+                    return false;
+                } else
+                    switch (logonInfo.getLogonStatus()) {
 
+                        case KEY_NOT_FOUND:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_KEY_NOT_FOUND");
+                            return false;
+                        case PASSWORD_ERROR:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_PASSWORD_ERROR");
+                            return false;
+                        case TYPE_ERROR:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_TYPE_ERROR");
+                            return false;
+                        case EMP_DISABLE:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_EMP_DISABLE");
+                            return false;
+                        case CORP_DISABLE:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_CORP_DISABLE");
+                            return false;
+                        case CORP_OUT_TIME:
+                            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_CORP_OUT_TIME");
+                            return false;
+                        case LOGON:
+                            return true;
+                    }
+
+                return false;
+            }catch (Exception e){
+                Logging.getLog(getClass()).error(e.getMessage(),e);
+                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
+                return false;
+            }
     }
 
-    public boolean CheckHashValues(String Seed, String Random, String ClientDigest) throws NoSuchAlgorithmException {
-
-        Logging.getLog(getClass()).debug("seed:" + Seed + ";random:" + Random + ";ClientDigest:" + ClientDigest);
-        MessageDigest md = MessageDigest.getInstance("SHA1");
-        String a = Random+Seed;
-        byte[] serverDigest = md.digest(a.getBytes());
-        byte[] clientDigest = Base64.decode(ClientDigest);
-
-        return Arrays.equals(serverDigest, clientDigest);
-
-    }
 
     public void genLogonRnd(){
         rndData = "";

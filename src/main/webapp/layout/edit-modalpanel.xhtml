@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib">
+
+    <!--required param:  panelId -->
+
+
+    <div class="modal fade data-dialog " id="#{panelId}" tabindex="-1" role="dialog"
+         aria-labelledby="#{panelId}_ModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog #{styleClass}">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <a:outputPanel id="#{panelId}_controls">
+                        <ui:insert name="panelControls">
+                        <button type="button" class="close" aria-label="#{messages.close}"
+                                data-dismiss="modal">
+                            <span class="octicon octicon-remove-close" aria-hidden="true"></span>
+                            <span class="sr-only">#{messages.close}</span></button>
+                        </ui:insert>
+                    </a:outputPanel>
+                    <a:outputPanel id="#{panelId}_title">
+                        <h2 class="facebox-header"><ui:insert name="panelTitle">#{panelTitle}</ui:insert></h2>
+                    </a:outputPanel>
+                </div>
+                <h:form id="#{panelId}_form" role="form">
+                    <s:div styleClass="modal-body">
+
+
+                        <a:outputPanel id="#{panelId}_inputs">
+                            <ui:insert name="panelBody">
+                                <ui:insert/>
+
+                              <ui:remove>
+                            <div style="clear:both">
+                                <span class="required">*</span>
+                                #{messages.requiredFields}
+                            </div></ui:remove>
+                            </ui:insert>
+
+                        </a:outputPanel>
+                    </s:div>
+                    <a:outputPanel layout="block" styleClass="modal-footer" id="#{panelId}_buttons">
+                        <ui:insert name="actionButtons"/>
+                    </a:outputPanel>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+
+</ui:composition>

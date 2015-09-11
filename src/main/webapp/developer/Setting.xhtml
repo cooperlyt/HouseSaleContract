@@ -1,0 +1,189 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+
+    <ui:define name="body">
+
+
+        <nav class="navbar navbar-static-top nav-header">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">合同</a></li>
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="header-nav-item">
+                            <a class="header-nav-link tooltipped tooltipped-s" href="/settings/profile"
+                               id="account_settings" aria-label="Settings"
+                               data-ga-click="Header, go to settings, icon:settings">
+                                <span class="octicon octicon-gear"></span>
+                            </a>
+                        </li>
+                        <li class="header-nav-item">
+                            <s:link id="menuLogoutId"
+                                    styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                    view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
+                                    p:aria-label="#{messages.logout}"
+                                    propagation="none">
+
+                                <span class="octicon octicon-sign-out"></span>
+                            </s:link>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+        <div class="col-md-3" role="complementary">
+            <h:graphicImage width="230px" height="230px" styleClass="vcard-avatar tooltipped tooltipped-s" value="/img/project-default.jpg">
+
+            </h:graphicImage>
+            <h1 class="vcard-names"><span class="vcard-username" itemprop="additionalName">cooper-lyt</span></h1>
+            <ul class="vcard-details">
+
+
+
+
+                <li class="vcard-detail"><span class="octicon octicon-clock"></span><span class="join-label">Joined on </span><time class="join-date" datetime="2013-04-22T00:15:46Z" day="numeric" is="local-time" month="short" year="numeric" title="Apr 22, 2013, 8:15 AM GMT+8">Apr 22, 2013</time></li>
+            </ul>
+            <div class="vcard-stats">
+                <a class="vcard-stat" href="/cooper-lyt/followers">
+                    <strong class="vcard-stat-count">0</strong>
+                    <span class="text-muted">Followers</span>
+                </a>
+                <a class="vcard-stat" href="/stars">
+                    <strong class="vcard-stat-count">0</strong>
+                    <span class="text-muted">Starred</span>
+                </a>
+                <a class="vcard-stat" href="/cooper-lyt/following">
+                    <strong class="vcard-stat-count">0</strong>
+                    <span class="text-muted">Following</span>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-md-9" role="main">
+
+            <div class="new-user-avatar-cta">
+                <p style="margin-top: 14px;">
+                    <a href="/account" class="btn btn-sm btn-success" data-ga-click="NUX Profile, click, Clicked Edit Profile Button" data-ga-load="NUX Profile, buttonview, Edit Profile Button">
+                        <span class="octicon octicon-pencil"></span>
+                        Edit profile
+                    </a>
+                </p>
+                <p><strong>Pro tip:</strong> updating your profile with your name, location, and a profile picture helps other GitHub users get to know you.</p>
+            </div>
+
+            <div class="tabnav">
+                <div class="right">
+                </div>
+
+                <nav class="tabnav-tabs" data-pjax="" role="navigation">
+                    <a href="/cooper-lyt" class="tabnav-tab selected" aria-selected="true" role="tab">
+                        <span class="octicon octicon-diff-added"></span>
+                        合同模版
+                    </a>
+                    <a href="/cooper-lyt?tab=repositories" class="tabnav-tab " aria-selected="false" role="tab">
+                        <span class="octicon octicon-repo"></span>
+                        预售许可证
+                    </a>
+                    <a href="/cooper-lyt?tab=activity" class="tabnav-tab " aria-selected="false" role="tab">
+                        <span class="octicon octicon-rss"></span>
+                        项目信息
+                    </a>
+                </nav>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="boxed-group flush">
+                        <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
+                                view="/contract/pre-sale-v1.xhtml"
+                              p:aria-label="Includes contributions from private repositories you can access.">
+                            <span class="octicon octicon-plus"></span>
+                        </s:link>
+
+
+                        <h3>预售合同模版</h3>
+                        <ul class="boxed-group-inner mini-repo-list">
+                            <li class="public source no-description">
+                                <a href="/cooper-lyt/HMPLAT" class="mini-repo-list-item css-truncate">
+                                    <span class="repo-icon octicon octicon-repo"></span>
+      <span class="repo-and-owner css-truncate-target">
+<span class="repo" title="HMPLAT">HMPLAT</span>
+      </span>
+      <span class="stars">
+        0
+        <span class="octicon octicon-star"></span>
+      </span>
+                                    <span class="repo-description css-truncate-target"></span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="boxed-group flush">
+                        <h3>现售合同模版</h3>
+                        <ul class="boxed-group-inner mini-repo-list">
+                            <li class="public source no-description">
+                                <a href="/cooper-lyt/HMPLAT" class="mini-repo-list-item css-truncate">
+                                    <span class="repo-icon octicon octicon-repo"></span>
+      <span class="repo-and-owner css-truncate-target">
+<span class="repo" title="HMPLAT">HMPLAT</span>
+      </span>
+      <span class="stars">
+        0
+        <span class="octicon octicon-star"></span>
+      </span>
+                                    <span class="repo-description css-truncate-target"></span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

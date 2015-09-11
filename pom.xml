@@ -244,7 +244,7 @@
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>1.12-SNAPSHOT</version>
+            <version>1.14-SNAPSHOT</version>
         </dependency>
 
         <dependency>

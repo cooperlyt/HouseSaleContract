@@ -1,17 +1,15 @@
 package com.dgsoft.developersale;
 
-import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
 import java.util.List;
 
 /**
- * Created by cooper on 9/10/15.
+ * Created by cooper on 9/11/15.
  */
 @Name("buildSaleGridMap")
-public class buildSaleGridMap {
-
+public class BuildSaleGridMap2 {
     @In
     private LogonInfo logonInfo;
 
@@ -20,7 +18,7 @@ public class buildSaleGridMap {
     //private SaleBuildGridMap saleBuildGridMap;
     private SaleBuild saleBuild;
 
-    private List<SaleBuildGridMap>  saleBuildGridMapList = null;
+    private List<SaleBuildGridMap> saleBuildGridMapList = null;
 
     private int pageIndex = 0;
 

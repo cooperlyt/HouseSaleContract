@@ -9,7 +9,7 @@ import java.util.List;
  * Created by cooper on 9/11/15.
  */
 @Name("buildSaleGridMap")
-public class BuildSaleGridMap2 {
+public class BuildSaleGridMap {
     @In
     private LogonInfo logonInfo;
 

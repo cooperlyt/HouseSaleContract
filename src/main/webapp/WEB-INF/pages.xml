@@ -6,6 +6,12 @@
        login-view-id="/login.xhtml">
 
 
+    <page view-id="/contract/*" login-required="true">
+        <param name="templateModel" />
+
+
+    </page>
+
     <exception class="org.jboss.seam.framework.EntityNotFoundException">
         <redirect view-id="/error.xhtml">
             <message severity="warn">#{messages['org.jboss.seam.framework.EntityNotFoundException']}</message>

@@ -7,6 +7,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:a="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:s="http://jboss.org/schema/seam/taglib">
 <f:view
         contentType="text/html">
@@ -20,8 +21,6 @@
 
         <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
 
-
-        <ui:insert name="head"/>
     </h:head>
     <h:body>
 
@@ -31,77 +30,148 @@
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.min.css"/>
 
 
-
+        <h:outputStylesheet library="octicons" name="octicons.css"/>
         <h:outputStylesheet name="doc.css"/>
+        <h:outputStylesheet name="theme.css"/>
 
-        <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+        <h:outputStylesheet>
+
+
+
+            .bs-docs-section ul{
+                list-style: none;
+                padding-left: 2em;
+            }
+            .bs-docs-section ul li{
+                margin: 2px 0;
+            }
+
+            .bs-docs-section p{
+                text-indent: 2em;
+            }
+
+            .fullLine{
+                display: table; width: 100%
+            }
+
+
+            .lineValue{
+                display: inline-block;border-bottom: solid 1px #e1e1e8
+            }
+
+            .fullLine .lineValue{
+                display: table-cell;
+            }
+
+            .fullLine .rf-ii{
+                display: table-cell;
+            }
+
+            .bs-docs-section .rf-ii-fld-cntr .rf-ii-none{
+                text-indent: 0 !important;
+            }
+
+            .rf-ii-fld-cntr{
+                padding: 0 3px;
+            }
+
+
+
+        </h:outputStylesheet>
+
+        <nav class="navbar navbar-static-top nav-header">
             <div class="container">
                 <div class="navbar-header">
-                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="../" class="navbar-brand">Bootstrap</a>
+                    <a class="navbar-brand" href="#">Brand</a>
                 </div>
-                <nav id="bs-navbar" class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="../getting-started/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-起步'])">起步</a>
-                        </li>
-                        <li>
-                            <a href="../css/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-全局CSS样式'])">全局 CSS 样式</a>
-                        </li>
-                        <li>
-                            <a href="../components/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-组件'])">组件</a>
-                        </li>
-                        <li class="active">
-                            <a href="../javascript/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-JavaScript插件'])">JavaScript 插件</a>
-                        </li>
-                        <li>
-                            <a href="../customize/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-定制'])">定制</a>
-                        </li>
-                        <li><a href="http://expo.bootcss.com" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-网站实例'])" target="_blank">网站实例</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="http://www.bootcss.com/" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'V3导航-Bootstrap中文网'])" target="_blank">Bootstrap中文网</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <div class="container bs-docs-containe">
+                        <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">合同</a></li>
 
-            <ui:insert/>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="header-nav-item">
+
+                            <s:link styleClass="header-nav-link tooltipped tooltipped-s"
+                                    view="/developer/Setting.xhtml" p:aria-label="Settings">
+                                <span class="octicon octicon-gear"></span>
+                            </s:link>
+                        </li>
+                        <li class="header-nav-item">
+                            <s:link id="menuLogoutId"
+                                    styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                    view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
+                                    p:aria-label="#{messages.logout}"
+                                    propagation="none">
+
+                                <span class="octicon octicon-sign-out"></span>
+                            </s:link>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+        <div class="container bs-docs-containe">
+            <div class="row">
+                <div class="col-md-9" role="main">
+                    <h:form>
+                    <ui:insert/>
+
+                    </h:form>
+                </div>
+                <div class="col-md-3" role="complementary">
+                    <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+                        <ul class="nav bs-docs-sidenav">
+                            <ui:insert name="catalog"/>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
 
         </div>
 
         <ui:remove>
 
-        <div class="container">
-            <div class="site-footer" role="contentinfo">
-                <p>&#xA9; 2013 Cooper's soft Studio.</p>
-                <s:fragment rendered="#{init.debug}">
-                    <a:outputPanel ajaxRendered="true">
-                        <a:log hotkey="D" mode="popup"/>
+            <div class="container">
+                <div class="site-footer" role="contentinfo">
+                    <p>&#xA9; 2013 Cooper's soft Studio.</p>
+                    <s:fragment rendered="#{init.debug}">
+                        <a:outputPanel ajaxRendered="true">
+                            <a:log hotkey="D" mode="popup"/>
 
-                        <p style="margin-top: -0.5em;">
-                            Conversation: id = #{conversation.id}, #{conversation.longRunning ? 'long running' : 'temporary'}#{conversation.nested ? ', nested, parent id = '.concat(conversation.parentId) : ''}
-                            #{' - '}
-                            Ajax4jsf Log (Ctrl+Shift+D)
-                            #{' - '}
-                            <s:link id="debugConsole" view="/debug.xhtml" value="Debug console"
-                                    target="debugConsole"/>
-                            #{' - '}
-                            <s:link id="resetSession" view="/home.xhtml"
-                                    action="#{org.jboss.seam.web.session.invalidate()}"
-                                    propagation="none" value="Terminate session"/>
-                        </p>
-                    </a:outputPanel>
-                    <rich:messages globalOnly="false" ajaxRendered="true"/>
-                </s:fragment>
+                            <p style="margin-top: -0.5em;">
+                                Conversation: id = #{conversation.id}, #{conversation.longRunning ? 'long running' : 'temporary'}#{conversation.nested ? ', nested, parent id = '.concat(conversation.parentId) : ''}
+                                #{' - '}
+                                Ajax4jsf Log (Ctrl+Shift+D)
+                                #{' - '}
+                                <s:link id="debugConsole" view="/debug.xhtml" value="Debug console"
+                                        target="debugConsole"/>
+                                #{' - '}
+                                <s:link id="resetSession" view="/home.xhtml"
+                                        action="#{org.jboss.seam.web.session.invalidate()}"
+                                        propagation="none" value="Terminate session"/>
+                            </p>
+                        </a:outputPanel>
+                        <rich:messages globalOnly="false" ajaxRendered="true"/>
+                    </s:fragment>
+                </div>
             </div>
-        </div>
 
         </ui:remove>
         <h:outputScript library="jquery" name="jquery.min.js"/>

@@ -3515,6 +3515,7 @@ input.rf-ii-fld {
     padding-right: 3px;
     display: inline-block;
     position: relative;
+    text-indent: 0 !important;
 }
 
 *.rf-ii-chng {

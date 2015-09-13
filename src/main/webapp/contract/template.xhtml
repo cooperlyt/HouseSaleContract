@@ -28,8 +28,8 @@
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
 
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.min.css"/>
-
-
+        <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
+        <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
         <h:outputStylesheet library="octicons" name="octicons.css"/>
         <h:outputStylesheet name="doc.css"/>
         <h:outputStylesheet name="theme.css"/>
@@ -38,16 +38,25 @@
 
 
 
-            .bs-docs-section ul{
+            .bs-docs-section > ul{
                 list-style: none;
                 padding-left: 2em;
             }
-            .bs-docs-section ul li{
+            .bs-docs-section > ul > li{
                 margin: 2px 0;
             }
 
             .bs-docs-section p{
                 text-indent: 2em;
+            }
+
+            .bs-docs-section > .paragraph{
+                text-indent: 2em;
+                margin: 0 0 10px;
+            }
+
+            .dropdown-menu{
+                text-indent: 0 !important;
             }
 
             .fullLine{
@@ -177,6 +186,29 @@
         <h:outputScript library="jquery" name="jquery.min.js"/>
         <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
         <h:outputScript name="doc.js"/>
+        <h:outputScript name="select-edit.js"/>
+        <h:outputScript library="bootstrap-datepicker" name="/js/bootstrap-datetimepicker.min.js"/>
+        <h:outputScript library="bootstrap-datepicker" name="/js/locales/bootstrap-datetimepicker.zh-CN.js"/>
+        <h:outputScript>
+
+            $(document).ready(
+                    function () {
+                        $('.contract-date-pick').datetimepicker({
+                            language: "zh-CN",
+                            format: 'yyyy年mm月dd日',
+                            weekStart: 1,
+                            todayBtn: 1,
+                            autoclose: 1,
+                            todayHighlight: 1,
+                            startView: 2,
+                            minView: 2,
+                            forceParse: 0
+                        });
+                    });
+
+
+
+        </h:outputScript>
     </h:body>
 
 

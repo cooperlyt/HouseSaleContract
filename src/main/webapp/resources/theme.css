@@ -542,3 +542,7 @@ label {
     margin-left: -24px;
     color: #999;
 }
+
+.select-edit-group > .dropdown-menu{
+    margin-top: 7px;
+}

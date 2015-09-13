@@ -322,31 +322,148 @@
                     第六条 计价方式与价款
                 </h2>
                 <p>
-                    出卖人与买受人按照下列第 ￼ 种方式计算该商品房价款:
-                    1. 按照套内建筑面积计算,该商品房单价为每平方米 (币种) 元,
-                    ￼￼￼￼￼￼￼￼￼￼总价款为 ￼ (币种) ￼ 元 (大写
-                    2. 按照建筑面积计算,该商品房单价为每平方米 (币种)
-                    总价款为 ￼ (币种) ￼ 元 (大写
-                    元整)。 元,
-                    元整)。 元(大
-                    元
-                    ￼￼￼￼3. 按照套计算,该商品房总价款为 (币种) 元整)。
-                    ￼￼写
-                    (大写
-                    ￼4. 按照 ￼ 计算,该商品房总价款为
+                    出卖人与买受人按照下列第
+
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_1.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+
+                    </r:inplaceSelect> 种方式计算该商品房价款:
+                </p>
+                <p>
+                    1. 按照套内建筑面积计算,该商品房单价为每平方米
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_2.stringValue}" style="width: 60px"/>
                     (币种)
-                    ￼￼元整)。
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_3.numberValue}" style="width: 60px"/>
+
+                    元,总价款为
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_4.numberValue}" style="width: 60px"/>
+                    ￼ (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 100px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_5.numberValue}" style="width: 100px">
+                        <a:ajax event="change" render="c_6_5_big"/>
+                    </r:inplaceInput>
+                    ￼￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_6_5_big" rendered="#{not templateModel}"
+                                value="#{contractContext.contractContextMap.c_6_5.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>)。
+                </p>
+                <p>
+                    2. 按照建筑面积计算,该商品房单价为每平方米
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_6.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_7.numberValue}" style="width: 60px"/>
+
+                    总价款为   <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_8.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_9.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_6_9_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_6_9_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_6_9.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>)。
+                </p>
+                <p>
+                    ￼￼￼￼3. 按照套计算,该商品房总价款为
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_10.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_11.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_6_11_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_6_11_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_6_11.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>)。
+                </p>
+                <p>
+                    ￼4. 按照
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_12.stringValue}" style="width: 60px"/>
+                    ￼ 计算,该商品房总价款为
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_13.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_14.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_6_14_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_6_14_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_6_14.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>)。
                 </p>
                 <h2 id="chapter3-7">
                     <a class="anchorjs-link" href="#chapter3-7" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第七条 付款方式及期限
                 </h2>
+                <div class="paragraph">
+                    (一) 签订本合同前,买受人已向出卖人支付定金
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_1.stringValue}" style="width: 100px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_1_1.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_7_1_1_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_7_1_1_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_7_1_1.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>),该定金于
+                    <h:outputText value="【本合同签订】【交付首付款】【 ￼ 】" rendered="#{templateModel}"/>
+                    <a:outputPanel rendered="#{not templateModel}">
+                        【 <r:inplaceSelect value="#{contractContext.contractContextMap.c_7_2.stringValue}"/>】
+                    </a:outputPanel>
+                    ￼￼时
+                    <h:outputText value="【抵作】【 ￼ 】" rendered="#{templateModel}"/>
+                    <a:outputPanel rendered="#{ templateModel}">
+                        【
+                        <ui:decorate template="/layout/selectEditInput.xhtml">
+                            <li><a href="#" >抵作</a></li>
+
+                        </ui:decorate>
+                        】
+
+
+                    </a:outputPanel> 商品房价款。
+                </div>
                 <p>
-                    (一) 签订本合同前,买受人已向出卖人支付定金 ￼ (币种)
-                    元 (大写),该定金于 【本合同签订】【交付首付款】【 ￼ 】
-                    ￼￼时 【抵作】【 ￼ 】 商品房价款。 (二) 买受人采取下列第
+
+                    (二) 买受人采取下列第
                     种方式付款:
-                    ￼1. 一次性付款。买受人应当在 ￼ 年
+                </p>
+                <div class="paragraph">
+                    ￼1. 一次性付款。买受人应当在 ￼<h:inputText styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_5.dateValue}"/>
+                </div>
+                <p>
                     2. 分期付款。买受人应当在 ￼ 年 房全部价款,首期房价款 ￼ (币种)
                     元整),应当于
                     月 月
@@ -356,13 +473,24 @@
                     月 ￼ 日前支付。
                     】。买受人应当于 元 (大写
                     ￼￼￼。
+                </p>
+                <p>
                     ￼3. 贷款方式付款:【公积金贷款】【商业贷款】【 年 月 日前支付首期房价款 (币种)
                     的 %。
+                </p>
+                <p>
                     余款 (币种) 元 (大写
                     元整),占全部房价款
                     ￼￼￼￼￼￼￼￼￼￼￼￼元整)向 (贷
-                    ￼￼款机构) 申请贷款支付。 4. 其他方式:
-                    。 (三) 出售该商品房的全部房价款应当存入预售资金监管账户,用于本工程建设。
+                    ￼￼款机构) 申请贷款支付。
+                </p>
+                <p>4. 其他方式:
+                    。
+
+                </p>
+                <p>
+                </p>
+                <p>(三) 出售该商品房的全部房价款应当存入预售资金监管账户,用于本工程建设。
                     该商品房的预售资金监管机构为 ￼ ,预售资金监管 账户名称为 ,账号为 ￼ 。
                     该商品房价款的计价方式、总价款、付款方式及期限的具体约定见附件四。
                 </p>

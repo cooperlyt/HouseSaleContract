@@ -54,6 +54,13 @@
                 text-indent: 2em;
                 margin: 0 0 10px;
             }
+            .bs-docs-section > .fullLineParagraph{
+
+                border-bottom: solid 1px #e1e1e8;
+                min-height: 20px;
+                margin: 0 0 10px 2em;
+            }
+
 
             .dropdown-menu{
                 text-indent: 0 !important;
@@ -65,7 +72,7 @@
 
 
             .lineValue{
-                display: inline-block;border-bottom: solid 1px #e1e1e8
+                display: inline-block;border-bottom: solid 1px #e1e1e8; min-height: 25px;
             }
 
             .fullLine .lineValue{
@@ -85,6 +92,19 @@
             }
 
 
+            .bs-docs-section .select-edit-group > input[type="text"] ,.bs-docs-section .contract-date-pick{
+                border-left:0px;
+                border-top:0px;
+                border-right:0px;
+                border-bottom:1px solid #e1e1e8;
+                background-color: #F1F1F1;
+                padding: 0 2px;
+            }
+
+
+            .bs-docs-section .select-edit-group > input[type="text"]:focus , .bs-docs-section .contract-date-pick:focus{
+                background-color: #FEFFDA;
+            }
 
         </h:outputStylesheet>
 

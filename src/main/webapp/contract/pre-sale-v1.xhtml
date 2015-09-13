@@ -424,10 +424,10 @@
                 </h2>
                 <div class="paragraph">
                     (一) 签订本合同前,买受人已向出卖人支付定金
-                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
                     <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_1.stringValue}" style="width: 100px"/>
                     (币种)
-                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
                     <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_1_1.numberValue}" style="width: 60px">
                         <a:ajax event="change" render="c_7_1_1_big"/>
                     </r:inplaceInput>
@@ -440,13 +440,22 @@
                     </span>),该定金于
                     <h:outputText value="【本合同签订】【交付首付款】【 ￼ 】" rendered="#{templateModel}"/>
                     <a:outputPanel rendered="#{not templateModel}">
-                        【 <r:inplaceSelect value="#{contractContext.contractContextMap.c_7_2.stringValue}"/>】
+                        【
+                        <ui:decorate template="/layout/selectEditInput.xhtml">
+                            <ui:param name="inputStyle" value="width: 80px"/>
+                            <ui:param name="inputValue" value="#{contractContext.contractContextMap.c_7_2.stringValue}"/>
+                            <li><a href="#" >本合同签订</a></li>
+                            <li><a href="#" >交付首付款</a></li>
+                        </ui:decorate>
+                        】
                     </a:outputPanel>
                     ￼￼时
                     <h:outputText value="【抵作】【 ￼ 】" rendered="#{templateModel}"/>
-                    <a:outputPanel rendered="#{ templateModel}">
+                    <a:outputPanel rendered="#{not templateModel}">
                         【
                         <ui:decorate template="/layout/selectEditInput.xhtml">
+                            <ui:param name="inputStyle" value="width: 70px"/>
+                            <ui:param name="inputValue" value="#{contractContext.contractContextMap.c_7_3.stringValue}"/>
                             <li><a href="#" >抵作</a></li>
 
                         </ui:decorate>
@@ -458,40 +467,144 @@
                 <p>
 
                     (二) 买受人采取下列第
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_4.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+
+                    </r:inplaceSelect>
                     种方式付款:
                 </p>
                 <div class="paragraph">
-                    ￼1. 一次性付款。买受人应当在 ￼<h:inputText styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_5.dateValue}"/>
+                    ￼1. 一次性付款。买受人应当在 ￼
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_5.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 前支付该商品房全部价款。
                 </div>
                 <p>
-                    2. 分期付款。买受人应当在 ￼ 年 房全部价款,首期房价款 ￼ (币种)
-                    元整),应当于
-                    月 月
-                    日前支付该商品房全部价款。 日前分 ￼ 期支付该商品
-                    ￼￼￼￼元 (大写:
-                    ￼￼年
-                    月 ￼ 日前支付。
-                    】。买受人应当于 元 (大写
-                    ￼￼￼。
-                </p>
-                <p>
-                    ￼3. 贷款方式付款:【公积金贷款】【商业贷款】【 年 月 日前支付首期房价款 (币种)
-                    的 %。
-                </p>
-                <p>
-                    余款 (币种) 元 (大写
-                    元整),占全部房价款
-                    ￼￼￼￼￼￼￼￼￼￼￼￼元整)向 (贷
-                    ￼￼款机构) 申请贷款支付。
-                </p>
-                <p>4. 其他方式:
-                    。
+                    2. 分期付款。买受人应当在
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_6.dateValue}">
+                    <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>  前分
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_8.numberValue}" style="width: 60px"/>
+                    ￼ 期支付该商品房全部价款,首期房价款
+
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_9.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_10.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_7_10_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_7_10_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_7_10.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>)。
+
+                    应当于,
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 90px"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_11.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>
+                    前支付。
 
                 </p>
+                <div class="fullLineParagraph">
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_12.stringValue}" style="width: 100%"/>
+                </div>
+                <div class="paragraph">
+                    ￼3. 贷款方式付款:
+                    <h:outputText value="【公积金贷款】【商业贷款】【  】 " rendered="#{templateModel}"/>
+                    <a:outputPanel rendered="#{not templateModel}">
+                        【
+                        <ui:decorate template="/layout/selectEditInput.xhtml">
+                            <ui:param name="inputStyle" value="width: 70px"/>
+                            <ui:param name="inputValue" value="#{contractContext.contractContextMap.c_7_13.stringValue}"/>
+                            <li><a href="#" >公积金贷款</a></li>
+                            <li><a href="#" >商业贷款</a></li>
+                        </ui:decorate>
+                        】
+
+
+                    </a:outputPanel>
+                    买受人应当于
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 90px"/>
+                    <h:inputText rendered="#{not templateModel}"  styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_7_14.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>
+
+                    前支付首期房价款
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_15.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_16.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_7_16_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_7_16_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_7_16.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>),
+                    占全部房价款的
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" style="width: 60px" value="#{contractContext.contractContextMap.c_7_18.numberValue}"/>
+                    %。
+                </div>
+                <p>
+                    余款
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_19.stringValue}" style="width: 60px"/>
+                    (币种)
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_20.numberValue}" style="width: 60px">
+                        <a:ajax event="change" render="c_7_20_big"/>
+                    </r:inplaceInput>
+                    ￼ 元 (大写
+                    <span style="width: 300px" class="lineValue">
+                        <h:outputText id="c_7_20_big" rendered="#{not templateModel}"
+                                      value="#{contractContext.contractContextMap.c_7_20.numberValue}">
+                            <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
+                        </h:outputText>
+                    </span>),向
+                    <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 100px"/>
+                    <r:inplaceInput rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_21.stringValue}" style="width:100px"/>
+
+                    (贷款机构) 申请贷款支付。
+                </p>
+                <p>4. 其他方式:
+                </p>
+                <div class="fullLineParagraph">
+                    <r:inplaceInput style="width: 100%" rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_22.stringValue}"/>
+                </div>
                 <p>
                 </p>
                 <p>(三) 出售该商品房的全部房价款应当存入预售资金监管账户,用于本工程建设。
-                    该商品房的预售资金监管机构为 ￼ ,预售资金监管 账户名称为 ,账号为 ￼ 。
+                    该商品房的预售资金监管机构为
+                    <span class="lineValue" style="width: 100px">
+                        <h:outputText rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_23.stringValue}"/>
+                    </span>
+
+                    ￼ ,预售资金监管 账户名称为
+                    <span class="lineValue" style="width: 100px">
+                        <h:outputText rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_24.stringValue}"/>
+                    </span>,账号为 ￼
+                    <span class="lineValue" style="width: 100px">
+                        <h:outputText rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_7_25.stringValue}"/>
+                    </span> 。
+                </p>
+                <p>
                     该商品房价款的计价方式、总价款、付款方式及期限的具体约定见附件四。
                 </p>
                 <h2 id="chapter3-8">
@@ -499,21 +612,48 @@
                     第八条 逾期付款责任
                 </h2>
                 <p>
-                    除不可抗力外,买受人未按照约定时间付款的,双方同意按照下列第 种方式
+                    除不可抗力外,买受人未按照约定时间付款的,双方同意按照下列第
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" value="#{contractContext.contractContextMap.c_8_1.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+
+                    </r:inplaceSelect>
+                    种方式
                     处理:
                     1. 按照逾期时间,分别处理((1)和(2)不作累加)。
-                    (1) 逾期在 日之内,买受人按日计算向出卖人支付逾期应付款万分之 的 违约金。
-                    (2) 逾期超过 日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人 有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通 知送达之日起 ￼ 日内按照累计应付款的 ￼ %向出卖人支付违约金,同时,出卖 人退还买受人已付全部房款 (含已付贷款部分)。
-                    出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之 ￼ (该
-                    ￼￼￼￼￼￼- 10 -
-                    比率不低于第 (1) 项中的比率) 的违约金。 本条所称逾期应付款是指依照第七条及附件四约定的到期应付款与该期实际已付
+                    (1) 逾期在
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_2.numberValue}"/>
+                    日之内,买受人按日计算向出卖人支付逾期应付款万分之
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_3.numberValue}"/>的 违约金。
+                    (2) 逾期超过
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_4.numberValue}"/>
+                    日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人 有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通 知送达之日起
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_5.numberValue}"/>￼ 日内按照累计应付款的
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_6.numberValue}"/>￼ %向出卖人支付违约金,同时,出卖 人退还买受人已付全部房款 (含已付贷款部分)。
+
+                  </p>
+                <p>
+
+                    出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_8_7.numberValue}"/>￼￼ (该
+
+                    比率不低于第 (1) 项中的比率) 的违约金。
+                </p>
+                <p>
+
+                本条所称逾期应付款是指依照第七条及附件四约定的到期应付款与该期实际已付
                     款的差额;采取分期付款的,按照相应的分期应付款与该期的实际已付款的差额确定。
-                    2. 。
+
+                </p>
+
+                <p>
+                    2. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_8_8.stringValue}"/>。
                 </p>
 
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter4">
                     <a class="anchorjs-link" href="#chapter4" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第四章 商品房交付条件与交付手续
@@ -523,10 +663,25 @@
                     第九条 商品房交付条件
                 </h2>
                 <p>
-                    该商品房交付时应当符合下列第 1、2、 ￼ 、 ￼ 项所列条件:
+                    该商品房交付时应当符合下列第 1、2、
+                    <r:inplaceInput style="width: 50px" value="#{contractContext.contractContextMap.c_9_1.numberValue}"/>￼￼ 、 ￼
+                    <r:inplaceInput style="width: 50px" value="#{contractContext.contractContextMap.c_9_2.numberValue}"/>￼项所列条件:
+
+                </p>
+                <p>
                     1. 该商品房已取得建设工程竣工验收备案证明文件;
+                </p>
+                <p>
                     2. 该商品房已取得房屋测绘报告;
-                    3. ; 4. 。 该商品房为住宅的,出卖人还需提供 《住宅使用说明书》 和 《住宅质量保证书》。
+                </p>
+                <p>
+                    3. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_9_3.stringValue}"/>;
+                </p>
+                <p>
+                    4. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_9_4.stringValue}"/>。
+                </p>
+                <p>
+                    该商品房为住宅的,出卖人还需提供 《住宅使用说明书》 和 《住宅质量保证书》。
                 </p>
                 <h2 id="chapter4-10">
                     <a class="anchorjs-link" href="#chapter4-10" aria-label="Anchor link for: grid intro" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
@@ -534,72 +689,211 @@
                 </h2>
                 <p>
                     (一) 基础设施设备
+                </p>
+                <p>
                     1. 供水、排水:交付时供水、排水配套设施齐全,并与城市公共供水、排水管网
                     ￼￼￼连接。使用自建设施供水的,供水的水质符合国家规定的饮用水卫生标准,
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_1.stringValue}"/>;
+                </p>
+                <p>
                     2. 供电:交付时纳入城市供电网络并正式供电,
-                    ; ;
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_2.stringValue}"/>;
+                </p>
+                <p>
+
                     ￼￼3. 供暖:交付时供热系统符合供热配建标准,使用城市集中供热的,纳入城市集
                     中供热管网,
-                    应,4. 燃气:交付时完成室内燃气管道的敷设,并与城市燃气管网连接,保证燃气供
-                    ;
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_3.stringValue}"/>;
+                </p>
+                <p>
+                    4. 燃气:交付时完成室内燃气管道的敷设,并与城市燃气管网连接,保证燃气供
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_4.stringValue}"/>;
+                </p>
+                <p>
                     5. 电话通信:交付时线路敷设到户;
+                </p>
+                <p>
                     6. 有线电视:交付时线路敷设到户;
+                </p>
+                <p>
                     7. 宽带网络:交付时线路敷设到户。
+                </p>
+                <p>
                     以上第 1、2、3 项由出卖人负责办理开通手续并承担相关费用;第 4、5、6、7 项
-                    需要买受人自行办理开通手续。 如果在约定期限内基础设施设备未达到交付使用条件,双方同意按照下列第 ￼ 种
+                    需要买受人自行办理开通手续。
+
+                </p>
+                <p>
+                    如果在约定期限内基础设施设备未达到交付使用条件,双方同意按照下列第
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" value="#{contractContext.contractContextMap.c_10_5.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+
+                    </r:inplaceSelect>
+                    ￼ 种
                     方式处理:
-                    ;
-                    ￼￼- 11 -
+                </p>
+                <p>
                     (1) 以上设施中第 1、2、3、4 项在约定交付日未达到交付条件的,出卖人按照本 合同第十二条的约定承担逾期交付责任。
-                    第 5 项未按时达到交付使用条件的,出卖人按日向买受人支付 ￼ 元的违约 金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付 ￼ 元的违约 金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付 ￼ 元的违约 金。出卖人采取措施保证相关设施于约定交付日后 ￼ 日之内达到交付使用条件。
-                    (2)
+
+                </p>
+                <p>
+                    第 5 项未按时达到交付使用条件的,出卖人按日向买受人支付
+                    <r:inplaceInput style="width: 70px" value="#{contractContext.contractContextMap.c_10_6.numberValue}"/>￼ 元的违约 金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付
+                    <r:inplaceInput style="width: 70px" value="#{contractContext.contractContextMap.c_10_7.numberValue}"/>￼￼ 元的违约 金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付
+                    <r:inplaceInput style="width: 70px" value="#{contractContext.contractContextMap.c_10_8.numberValue}"/>￼￼ 元的违约 金。出卖人采取措施保证相关设施于约定交付日后
+                    <r:inplaceInput style="width: 70px" value="#{contractContext.contractContextMap.c_10_9.numberValue}"/>￼￼ 日之内达到交付使用条件。
+                </p>
+                <p>
+                </p>
+                <p>
+                    (2)<r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_11.stringValue}"/>。
+                </p>
+                <p>
                     (二) 公共服务及其他配套设施 (以建设工程规划许可为准)
-                    。
+                </p>
+                <p>
                     ￼1. 小区内绿地率:
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_12.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_13.stringValue}"/>;
+                </p>
+                <p>
                     2. 小区内非市政道路:
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_14.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_15.stringValue}"/>;
+                </p>
+                <p>
                     3. 规划的车位、车库:
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_16.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_17.stringValue}"/>;
+                </p>
+                <p>
                     4. 物业服务用房:
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_18.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_19.stringValue}"/>;
+                </p>
+                <p>
                     5. 医疗卫生机构:
-                    6. 幼儿园: ￼ 年
-                    7. 学校: ￼ 年
-                    8.
-                    9. 以上设施未达到上述条件的,双方同意按照以下方式处理: 1. 小区内绿地率未达到上述约定条件的,
-                    2. 小区内非市政道路未达到上述约定条件的,
-                    3. 规划的车位、车库未达到上述约定条件的,
-                    4. 物业服务用房未达到上述约定条件的,
-                    5. 其他设施未达到上述约定条件的, 关于本项目内相关设施设备的具体约定见附件五。
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_20.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_21.stringValue}"/>;
+                </p>
+                <p>
+                    6. 幼儿园: ￼
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_22.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_23.stringValue}"/>;
+                </p>
+                <p>
+                    7. 学校: ￼
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_10_24.dateValue}">
+                    <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                </h:inputText> 达到
+                    <r:inplaceInput style="width: 100px" value="#{contractContext.contractContextMap.c_10_25.stringValue}"/>;
+                </p>
+                <p>
+                    8.<r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_26.stringValue}"/>;
+                </p>
+                <p>
+                    9.<r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_10_27.stringValue}"/>。
+                </p>
+                <p>以上设施未达到上述条件的,双方同意按照以下方式处理:
+                </p>
+                <p>
+                    1. 小区内绿地率未达到上述约定条件的,<r:inplaceInput style="width: 300px" value="#{contractContext.contractContextMap.c_10_28.stringValue}"/>。
+                </p>
+                <p>
+                    2. 小区内非市政道路未达到上述约定条件的,<r:inplaceInput style="width: 300px" value="#{contractContext.contractContextMap.c_10_29.stringValue}"/>。
+                </p>
+                <p>
+                    3. 规划的车位、车库未达到上述约定条件的,<r:inplaceInput style="width: 300px" value="#{contractContext.contractContextMap.c_10_30.stringValue}"/>。
+                </p>
+                <p>
+                    4. 物业服务用房未达到上述约定条件的,<r:inplaceInput style="width: 300px" value="#{contractContext.contractContextMap.c_10_31.stringValue}"/>。
+                </p>
+                <p>
+                    5. 其他设施未达到上述约定条件的,<r:inplaceInput style="width: 300px" value="#{contractContext.contractContextMap.c_10_32.stringValue}"/>。
+                </p>
+                <p>
+                    关于本项目内相关设施设备的具体约定见附件五。
                 </p>
                 <h2 id="chapter4-11">
                     <a class="anchorjs-link" href="#chapter4-11" aria-label="Anchor link for: grid intro" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第十一条 交付时间和手续
                 </h2>
                 <p>
-                    (一) 出卖人应当在 ￼ 年 ￼ 月 ￼ 日前向买受人交付该商品房。
-                    ; ; ; ; ; ; ; ; 。
-                    。 。 。 。 。
-                    年 月 日达到
-                    年 月 ￼ 日达到 年 月 ￼ 日达到
-                    ￼￼￼￼￼￼￼￼￼￼年 月
-                    年 月
-                    月 日达到
-                    日达到 日达到
-                    ￼￼￼￼￼￼￼￼￼￼￼月
-                    日达到
-                    ￼￼￼￼￼￼￼￼￼￼(二)该商品房达到第九条、第十条约定的交付条件后,出卖人应当在交付日期届 满前 ￼ 日 (不少于 10 日) 将查验房屋的时间、办理交付手续的时间地点以及应当携 带的证件材料的通知书面送达买受人。买受人未收到交付通知书的,以本合同约定的 交付日期届满之日为办理交付手续的时间,以该商品房所在地为办理交付手续的地点。
-                    。 交付该商品房时,出卖人应当出示满足第九条约定的证明文件。出卖人不出示证 明文件或者出示的证明文件不齐全,不能满足第九条约定条件的,买受人有权拒绝接
-                    ￼- 12 -
-                    收,由此产生的逾期交付责任由出卖人承担,并按照第十二条处理。 (三) 查验房屋
+                    (一) 出卖人应当在
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick" value="#{contractContext.contractContextMap.c_11_1.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText> 前向买受人交付该商品房。
+                </p>
+                <p>
+
+                    ￼￼￼￼￼￼￼￼￼￼(二)该商品房达到第九条、第十条约定的交付条件后,出卖人应当在交付日期届 满前
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_11_2.numberValue}"/>￼￼ 日 (不少于 10 日) 将查验房屋的时间、办理交付手续的时间地点以及应当携 带的证件材料的通知书面送达买受人。买受人未收到交付通知书的,以本合同约定的 交付日期届满之日为办理交付手续的时间,以该商品房所在地为办理交付手续的地点。
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_3.stringValue}"/>。
+                </p>
+
+                <p>
+
+                    交付该商品房时,出卖人应当出示满足第九条约定的证明文件。出卖人不出示证 明文件或者出示的证明文件不齐全,不能满足第九条约定条件的,买受人有权拒绝接
+
+                    收,由此产生的逾期交付责任由出卖人承担,并按照第十二条处理。
+
+                </p>
+                <p>
+                    (三) 查验房屋
+                </p>
+                <p>
                     1. 办理交付手续前,买受人有权对该商品房进行查验,出卖人不得以缴纳相关税 费或者签署物业管理文件作为买受人查验和办理交付手续的前提条件。
-                    2. 买受人查验的该商品房存在下列除地基基础和主体结构外的其他质量问题的, 由出卖人按照有关工程和产品质量规范、标准自查验次日起 ￼ 日内负责修复,并承 担修复费用,修复后再行交付。
-                    (1) 屋面、墙面、地面渗漏或开裂等; (2) 管道堵塞;
-                    (3) 门窗翘裂、五金件损坏;
-                    (4) 灯具、电器等电气设备不能正常使用; (5)
+
+                </p>
+                <p>
+                    2. 买受人查验的该商品房存在下列除地基基础和主体结构外的其他质量问题的, 由出卖人按照有关工程和产品质量规范、标准自查验次日起 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_11_4.numberValue}"/>￼日内负责修复,并承 担修复费用,修复后再行交付。
+                </p>
+                <p>
+                    (1) 屋面、墙面、地面渗漏或开裂等;
+                </p>
+                <p>(2) 管道堵塞;
+                </p>
+                <p> (3) 门窗翘裂、五金件损坏;
+                </p>
+                <p>  (4) 灯具、电器等电气设备不能正常使用;
+                </p>
+                <p>
+                    (5)<r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_5.stringValue}"/>
                     ;
-                    ￼(6)
-                    3. 查验该商品房后,双方应当签署商品房交接单。由于买受人原因导致该商品房
+                </p>
+                <p>  ￼(6)<r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_6.stringValue}"/>。
+                </p>
+                <p> 3. 查验该商品房后,双方应当签署商品房交接单。由于买受人原因导致该商品房
                     未能按期交付的,双方同意按照以下方式处理:
-                    (1) ;
-                    (2) 。
+                </p>
+                <p> (1) <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_7.stringValue}"/>;
+                </p>
+                <p> (2) <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_8.stringValue}"/>。
                 </p>
 
                 <h2 id="chapter4-12">
@@ -607,49 +901,120 @@
                     第十二条 逾期交付责任
                 </h2>
                 <p>
-                    除不可抗力外,出卖人未按照第十一条约定的时间将该商品房交付买受人的,双 方同意按照下列第 ￼ 种方式处理:
+                    除不可抗力外,出卖人未按照第十一条约定的时间将该商品房交付买受人的,双 方同意按照下列第 ￼
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" value="#{contractContext.contractContextMap.c_12_1.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+
+                    </r:inplaceSelect>
+                    种方式处理:
+
+                    </p>
+                <p>
+
                     1. 按照逾期时间,分别处理 ((1)和(2)不作累加 ) 。
-                    (1) 逾期在 ￼ 日之内 (该期限应当不多于第八条第 1 (1) 项中的期限),自第
-                    十一条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支 付全部房价款万分之 ￼ 的违约金 (该违约金比率应当不低于第八条第 1 (1) 项中的 比率)。
-                    (2) 逾期超过 ￼ 日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照 ￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利 息;同时,出卖人按照全部房价款的 ￼ %向买受人支付违约金。
-                    买受人要求继续履行合同的,合同继续履行,出卖人按日计算向买受人支付全部 房价款万分之 ￼ (该比率应当不低于本条第 1 (1) 项中的比率) 的违约金。
-                    2. 。
+                </p>
+                <p>
+                    (1) 逾期在 ￼<r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_2.numberValue}"/> 日之内 (该期限应当不多于第八条第 1 (1) 项中的期限),自第
+                    十一条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支 付全部房价款万分之
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_3.numberValue}"/>￼ 的违约金 (该违约金比率应当不低于第八条第 1 (1) 项中的 比率)。
+                </p>
+                <p>
+                    (2) 逾期超过
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_4.numberValue}"/>￼ 日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_5.numberValue}"/>￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利 息;同时,出卖人按照全部房价款的 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_6.numberValue}"/>%向买受人支付违约金。
+                </p>
+                <p>
+                    买受人要求继续履行合同的,合同继续履行,出卖人按日计算向买受人支付全部 房价款万分之 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_12_7.numberValue}"/>(该比率应当不低于本条第 1 (1) 项中的比率) 的违约金。
+                </p>
+                <p>
+                    2.  <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_11_8.stringValue}"/>。
                 </p>
 
 
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter5">
                     <a class="anchorjs-link" href="#chapter5" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
-                    第三章 商品房价款
+                    第五章 面积差异处理方式
                 </h1>
                 <h2 id="chapter5-13">
                     <a class="anchorjs-link" href="#chapter5-13" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第十三条 面积差异处理
                 </h2>
                 <p>
-                    该商品房交付时,出卖人应当向买受人出示房屋测绘报告,并向买受人提供该商 品 房 的 面 积 实 测 数 据 ( 以 下 简 称 实 测 面 积 )。 实 测 面 积 与 第 三 条 载 明 的 预 测 面 积 发 生 误 差的,双方同意按照第 ￼ 种方式处理。
-                    1. 根据第六条按照套内建筑面积计价的约定,双方同意按照下列原则处理: (1) 套内建筑面积误差比绝对值在 3%以内 (含 3%) 的,据实结算房价款; (2) 套内建筑面积误差比绝对值超出 3%时,买受人有权解除合同。
-                    买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日 起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照 % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+                    该商品房交付时,出卖人应当向买受人出示房屋测绘报告,并向买受人提供该商 品 房 的 面 积 实 测 数 据 ( 以 下 简 称 实 测 面 积 )。 实 测 面 积 与 第 三 条 载 明 的 预 测 面 积 发 生 误 差的,双方同意按照第
+                    <r:inplaceSelect inputWidth="58px" style="width: 60px" value="#{contractContext.contractContextMap.c_13_1.stringValue}" >
+
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                    </r:inplaceSelect>￼ 种方式处理。
+                    </p>
+                <p>
+                    1. 根据第六条按照套内建筑面积计价的约定,双方同意按照下列原则处理:
+                </p>
+                <p>
+                    (1) 套内建筑面积误差比绝对值在 3%以内 (含 3%) 的,据实结算房价款;
+                </p>
+                <p>(2) 套内建筑面积误差比绝对值超出 3%时,买受人有权解除合同。
+                </p>
+                <p>
+                    买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日 起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_13_2.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+                </p>
+                <p>
                     买受人选择不解除合同的,实测套内建筑面积大于预测套内建筑面积时,套内建 筑面积误差比在3%以内(含3%)部分的房价款由买受人补足;超出 3% 部分的房价 款由出卖人承担,产权归买受人所有。实测套内建筑面积小于预测套内建筑面积时, 套内建筑面积误差比绝对值在3%以内(含3%)部分的房价款由出卖人返还买受人; 绝对值超出 3%部分的房价款由出卖人双倍返还买受人。
-                    套内建筑面积误差比= 实测套内建筑面积-预测套内建筑面积 × 100% 预测套内建筑面积
-                    2. 根据第六条按照建筑面积计价的约定,双方同意按照下列原则处理: (1)建筑面积、套内建筑面积误差比绝对值均在3%以内(含3%)的,根据实测
+
+                </p>
+                <p>
+                    套内建筑面积误差比= (实测套内建筑面积-预测套内建筑面积) / 预测套内建筑面积 × 100%
+
+                </p>
+                <p>
+                    2. 根据第六条按照建筑面积计价的约定,双方同意按照下列原则处理:
+                </p>
+                <p>
+                    (1)建筑面积、套内建筑面积误差比绝对值均在3%以内(含3%)的,根据实测
                     建筑面积结算房价款;
+                </p>
+                <p>
                     (2) 建筑面积、套内建筑面积误差比绝对值其中有一项超出 3%时,买受人有权解
-                    除合同。 买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日
-                    起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照 % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+                    除合同。
+                </p>
+                <p>买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日
+                    起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_13_3.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+                </p>
+                <p>
                     买受人选择不解除合同的,实测建筑面积大于预测建筑面积时,建筑面积误差比 在3%以内(含3%)部分的房价款由买受人补足,超出3%部分的房价款由出卖人承 担,产权归买受人所有。实测建筑面积小于预测建筑面积时,建筑面积误差比绝对值 在 3%以内 (含 3%) 部分的房价款由出卖人返还买受人;绝对值超出 3%部分的房价款 由出卖人双倍返还买受人。
-                    ￼￼￼- 14 -
-                    建筑面积误差比= 实测建筑面积-预测建筑面积 × 100% 预测建筑面积
+                </p>
+                <p>
+                    建筑面积误差比 = (实测建筑面积-预测建筑面积) / 预测建筑面积 × 100%
+                </p>
+                <p>
                     (3) 因设计变更造成面积差异,双方不解除合同的,应当签署补充协议。
+                </p>
+                <p>
                     3. 根据第六条按照套计价的,出卖人承诺在房屋平面图中标明详细尺寸,并约定 误差范围。该商品房交付时,套型与设计图纸不一致或者相关尺寸超出约定的误差范
                     ￼围,双方约定如下:
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_13_4.stringValue}"/>。
+                </p>
+                <p>
                     4. 双方自行约定:
-                    。 。
+                </p>
+                <p>
+                     <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_13_5.stringValue}"/> 。
                 </p>
             </div>
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter6">
                     <a class="anchorjs-link" href="#chapter6" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第六章 规划设计变更
@@ -660,12 +1025,23 @@
                 </h2>
                 <p>
                     (一)出卖人应当按照城乡规划主管部门核发的建设工程规划许可证规定的条件建
-                    设商品房,不得擅自变更。 双方签订合同后,涉及该商品房规划用途、面积、容积率、绿地率、基础设施、
+                    设商品房,不得擅自变更。
+                    </p>
+                <p>
+
+                    双方签订合同后,涉及该商品房规划用途、面积、容积率、绿地率、基础设施、
                     公共服务及其他配套设施等规划许可内容经城乡规划主管部门批准变更的,出卖人应 当在变更确立之日起 10 日内将书面通知送达买受人。出卖人未在规定期限内通知买受 人的,买受人有权解除合同。
-                    (二) 买受人应当在通知送达之日起 15 日内做出是否解除合同的书面答复。买受人 逾期未予以书面答复的,视同接受变更。
-                    (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼ %向买受人支付违约金。
-                    买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
-                    。
+                </p>
+                <p>(二) 买受人应当在通知送达之日起 15 日内做出是否解除合同的书面答复。买受人 逾期未予以书面答复的,视同接受变更。
+                </p>
+                <p>   (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_14_1.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_14_2.numberValue}"/>%向买受人支付违约金。
+                </p>
+                <p> 买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_14_3.stringValue}"/> 。
                 </p>
                 <h2 id="chapter6-15">
                     <a class="anchorjs-link" href="#chapter6-15" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
@@ -674,18 +1050,36 @@
                 <p>
                     (一)双方签订合同后,出卖人按照法定程序变更建筑工程施工图设计文件,涉及
                     下列可能影响买受人所购商品房质量或使用功能情形的,出卖人应当在变更确立之日 起 10 日内将书面通知送达买受人。出卖人未在规定期限内通知买受人的,买受人有权 解除合同。
-                    1. 该商品房结构形式、户型、空间尺寸、朝向; 2. 供热、采暖方式;
-                    ￼- 15 -
-                    3. ; 4. ; 5. 。
+                </p>
+                <p>
+                    1. 该商品房结构形式、户型、空间尺寸、朝向;
+                </p>
+                <p>2. 供热、采暖方式;
+                </p>
+                <p>
+                    3. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_15_1.stringValue}"/> ;
+                </p>
+                <p>4. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_15_2.stringValue}"/> ;
+                </p>
+                <p>5. <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_15_3.stringValue}"/> 。
+                </p>
+                <p>
                     (二) 买受人应当在通知送达之日起 15 日内做出是否解除合同的书面答复。买受人 逾期未予以书面答复的,视同接受变更。
-                    (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼ %向买受人支付违约金。
-                    买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
-                    。
+                </p>
+                <p>
+                    (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_15_4.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼
+                    <r:inplaceInput style="width: 60px" value="#{contractContext.contractContextMap.c_15_5.numberValue}"/>%向买受人支付违约金。
+                </p>
+                <p>买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
+                </p>
+                <p>
+                    <r:inplaceInput style="width: 90%" value="#{contractContext.contractContextMap.c_14_6.stringValue}"/> 。
                 </p>
 
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter7">
                     <a class="anchorjs-link" href="#chapter7" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第七章 商品房质量及保修责任
@@ -747,7 +1141,7 @@
                 </p>
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter8">
                     <a class="anchorjs-link" href="#chapter8" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第八章 合同备案与房屋登记
@@ -777,7 +1171,7 @@
 
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter9">
                     <a class="anchorjs-link" href="#chapter9" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第九章 前期物业管理
@@ -796,7 +1190,7 @@
                 </p>
             </div>
 
-            <div class="bs-doc-section">
+            <div class="bs-docs-section">
                 <h1 id="chapter10">
                     <a class="anchorjs-link" href="#chapter10" aria-label="Anchor link for: overview" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>
                     第十章 其他事项

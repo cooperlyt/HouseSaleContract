@@ -1,5 +1,8 @@
-package com.dgsoft.developersale;
+package com.dgsoft.house.sale.developer;
 
+import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.developersale.SaleBuild;
+import com.dgsoft.developersale.SaleBuildGridMap;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 

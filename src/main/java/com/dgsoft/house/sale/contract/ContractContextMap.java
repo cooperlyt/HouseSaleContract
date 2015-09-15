@@ -1,4 +1,4 @@
-package com.dgsoft.contract;
+package com.dgsoft.house.sale.contract;
 
 import org.json.JSONArray;
 import org.json.JSONException;

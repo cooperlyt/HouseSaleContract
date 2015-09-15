@@ -1,4 +1,6 @@
-package com.dgsoft.developersale;
+package com.dgsoft.house.sale.developer;
+
+import com.dgsoft.developersale.DeveloperSaleService;
 
 import java.net.MalformedURLException;
 

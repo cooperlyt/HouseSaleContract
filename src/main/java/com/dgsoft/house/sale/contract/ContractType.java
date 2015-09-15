@@ -1,4 +1,4 @@
-package com.dgsoft.contract;
+package com.dgsoft.house.sale.contract;
 
 
 /**
@@ -6,9 +6,9 @@ package com.dgsoft.contract;
  */
 public enum ContractType {
 
-    MAP_SALE_NEW_HOUSE(new String[]{"/contract/pre-sale-v1"}),
-    SALE_NEW_HOUSE(new String[]{}),
-    SALE_OLD_HOUSE(new String[]{});
+    MAP_SALE_NEW_HOUSE("/contract/pre-sale-v1"),
+    SALE_NEW_HOUSE(""),
+    SALE_OLD_HOUSE("");
 
 
     private String[] versions;
@@ -18,7 +18,7 @@ public enum ContractType {
     }
 
     public String getCurrentPatch(){
-        if (versions.length > 1){
+        if (versions.length > 0){
             return versions[versions.length - 1];
         }
         return null;
@@ -30,7 +30,7 @@ public enum ContractType {
         return versions[version-1];
     }
 
-    ContractType(String[] versions){
+    ContractType(String... versions){
         this.versions = versions;
 
     }

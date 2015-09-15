@@ -132,10 +132,12 @@
                 <div class="col-md-6">
                     <div class="boxed-group flush">
                         <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
-                                view="/contract/pre-sale-v1.xhtml"
+                                action="#{contractContext.createTemplate}"
                               p:aria-label="Includes contributions from private repositories you can access.">
                             <span class="octicon octicon-plus"></span>
                             <f:param name="templateModel" value="#{true}"/>
+                            <f:param name="templateId" value=""/>
+                            <f:param name="contractType" value="MAP_SALE_NEW_HOUSE"/>
                         </s:link>
 
 

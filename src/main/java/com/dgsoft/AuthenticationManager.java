@@ -1,9 +1,8 @@
 package com.dgsoft;
 
 import com.K1.biz.uitl.Base64;
-import com.dgsoft.developersale.DeveloperSaleServiceImpl;
+import com.dgsoft.house.sale.developer.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
-import com.dgsoft.developersale.LogonStatus;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -13,10 +12,7 @@ import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.security.Credentials;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 /**
  * Created by cooper on 8/29/15.

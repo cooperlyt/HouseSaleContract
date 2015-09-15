@@ -33,10 +33,13 @@
         <h:outputStylesheet library="octicons" name="octicons.css"/>
         <h:outputStylesheet name="doc.css"/>
         <h:outputStylesheet name="theme.css"/>
+        <h:outputStylesheet name="patch.css"/>
 
         <h:outputStylesheet>
 
-
+            .bs-docs-section{
+                line-height: 25px;
+            }
 
             .bs-docs-section > ul{
                 list-style: none;
@@ -91,23 +94,29 @@
                 padding: 0 3px;
             }
 
+            .bs-docs-section  .rf-is{
+                line-height: 18px;
+            }
 
-            .bs-docs-section .select-edit-group > input[type="text"] ,.bs-docs-section .contract-date-pick{
-                border-left:0px;
-                border-top:0px;
-                border-right:0px;
+            .bs-docs-section .select-edit-group > input[type="text"] ,.bs-docs-section .contract-date-pick, .bs-docs-section .contract-input{
+                border-left:0;
+                border-top:0;
+                border-right:0;
                 border-bottom:1px solid #e1e1e8;
                 background-color: #F1F1F1;
-                padding: 0 2px;
+
+                line-height: 1px;
             }
 
 
-            .bs-docs-section .select-edit-group > input[type="text"]:focus , .bs-docs-section .contract-date-pick:focus{
+            .bs-docs-section .select-edit-group > input[type="text"]:focus , .bs-docs-section .contract-date-pick:focus , .bs-docs-section .contract-input:focus{
                 background-color: #FEFFDA;
+                border-bottom: 0;
             }
 
         </h:outputStylesheet>
 
+        <h:form>
         <nav id="top" class="navbar navbar-static-top nav-header">
             <div class="container">
                 <div class="navbar-header">
@@ -121,11 +130,18 @@
                     <a class="navbar-brand" href="#">Brand</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">合同</a></li>
+                    <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
+                        <div class="form-group">
+                            <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
 
-                    </ul>
+                        </div>
+                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">
+
+                        </h:commandLink>
+                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="修改" action="#{contractTemplateHome.update}" rendered="#{contractTemplateHome.managed}">
+
+                        </h:commandLink>
+                    </a:outputPanel>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="header-nav-item">
@@ -144,9 +160,7 @@
 
                                 <span class="octicon octicon-sign-out"></span>
                             </s:link>
-
                         </li>
-
 
                     </ul>
 
@@ -158,10 +172,10 @@
         <div class="container bs-docs-containe">
             <div class="row">
                 <div class="col-md-9" role="main">
-                    <h:form>
+
                     <ui:insert/>
 
-                    </h:form>
+
                 </div>
                 <div class="col-md-3" role="complementary">
                     <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
@@ -182,11 +196,12 @@
 
 
         </div>
+        </h:form>
 
-        <ui:remove>
 
+        <footer class="bs-docs-footer" role="contentinfo">
             <div class="container">
-                <div class="site-footer" role="contentinfo">
+                <div role="contentinfo">
                     <p>&#xA9; 2013 Cooper's soft Studio.</p>
                     <s:fragment rendered="#{init.debug}">
                         <a:outputPanel ajaxRendered="true">
@@ -209,8 +224,8 @@
                     </s:fragment>
                 </div>
             </div>
+        </footer>
 
-        </ui:remove>
         <h:outputScript library="jquery" name="jquery.min.js"/>
         <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
         <h:outputScript name="doc.js"/>

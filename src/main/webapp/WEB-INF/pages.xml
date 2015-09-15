@@ -8,8 +8,19 @@
 
     <page view-id="/contract/*" login-required="true">
         <param name="templateModel" />
-
-
+        <param name="templateId" value="#{contractTemplateHome.id}"/>
+        <param name="contractType" value="#{contractContext.contractTypeName}"/>
+        
+        <navigation from-action="#{contractTemplateHome.persist}">
+            <rule if-outcome="persisted">
+                <redirect view-id="/developer/Setting.xhtml"/>
+            </rule>
+        </navigation>
+        <navigation from-action="#{contractTemplateHome.update}">
+            <rule if-outcome="updated">
+                <redirect view-id="/developer/Setting.xhtml"/>
+            </rule>
+        </navigation>
     </page>
 
     <exception class="org.jboss.seam.framework.EntityNotFoundException">

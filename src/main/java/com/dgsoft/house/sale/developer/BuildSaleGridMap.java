@@ -1,5 +1,6 @@
 package com.dgsoft.house.sale.developer;
 
+import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.developersale.SaleBuild;
 import com.dgsoft.developersale.SaleBuildGridMap;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Name("buildSaleGridMap")
 public class BuildSaleGridMap {
+
     @In
     private LogonInfo logonInfo;
 
@@ -66,7 +68,7 @@ public class BuildSaleGridMap {
 
     public SaleBuild getSelectBuild() {
         if (isBuildDefined()){
-            for(SaleBuild build: logonInfo.getSaleProject().getSaleBuildList()){
+            for(SaleBuild build: ((DeveloperLogonInfo)logonInfo).getSaleProject().getSaleBuildList()){
                 if (build.getBuildCode().equals(buildCode)){
                     return build;
                 }

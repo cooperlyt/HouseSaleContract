@@ -11,6 +11,13 @@
     <name>HouseSaleContract</name>
     <description>INTERNATE</description>
     <repositories>
+
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+            <url>file://${project.basedir}/lib/</url>
+        </repository>
+
         <repository>
             <id>repository.jboss.org</id>
             <name>JBoss Public Maven Repository Group</name>
@@ -63,11 +70,6 @@
         </repository>
 
 
-        <repository>
-            <id>in-project</id>
-            <name>In Project Repo</name>
-            <url>file://${project.basedir}/lib/</url>
-        </repository>
     </repositories>
 
     <developers>
@@ -244,7 +246,7 @@
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>1.14-SNAPSHOT</version>
+            <version>1.20-SNAPSHOT</version>
         </dependency>
 
         <dependency>

@@ -66,7 +66,7 @@ public class ContractContext {
 
     }
 
-    public String createTemplate(){
+    public String toContextEdit(){
         //operType = OperType.CREATE_TEMPLATE;
         Logging.getLog(getClass()).debug(contractType.getCurrentVersion());
         Logging.getLog(getClass()).debug(contractType.getCurrentPatch());

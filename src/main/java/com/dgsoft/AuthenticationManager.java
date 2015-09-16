@@ -3,6 +3,7 @@ package com.dgsoft;
 import com.K1.biz.uitl.Base64;
 import com.dgsoft.house.sale.developer.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.house.sale.model.ProjectNumber;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -12,6 +13,7 @@ import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.security.Credentials;
 
+import javax.persistence.EntityManager;
 import java.security.SecureRandom;
 
 /**
@@ -34,6 +36,9 @@ public class AuthenticationManager {
 
     @In
     private Credentials credentials;
+
+    @In
+    private EntityManager entityManager;
 
 
     public boolean authenticate() {
@@ -65,6 +70,17 @@ public class AuthenticationManager {
                             facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_CORP_OUT_TIME");
                             return false;
                         case LOGON:
+                            ProjectNumber projectNumber = entityManager.find(ProjectNumber.class, logonInfo.getGroupCode());
+                            if (projectNumber == null){
+
+                                Long max = entityManager.createQuery("select max(p.number) from ProjectNumber p", Long.class).getSingleResult();
+
+                                if (max == null){
+                                    max = new Long(0);
+                                }
+                                entityManager.persist(new ProjectNumber(logonInfo.getGroupCode(), max + 1));
+                                entityManager.flush();
+                            }
                             return true;
                     }
 

@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                template="edit-modalpanel.xhtml">
+    <ui:param name="panelTitle" value="#{messages.deleteConfirm}"/>
+    <ui:param name="styleClass" value="modal-sm"/>
+
+    <ui:define name="panelBody">
+        <p>#{messages.deleteWran1}#{' '}<strong>#{entityTitle}</strong>#{' '} <h:outputText value="#{messages.deleteWran2}" style="color: #900"/> </p>
+        <ui:insert name="deleteNote">
+        <p>#{messages.deleteNote}</p>
+        </ui:insert>
+    </ui:define>
+
+
+    <ui:define name="actionButtons">
+        <ui:insert/>
+    </ui:define>
+
+</ui:composition>

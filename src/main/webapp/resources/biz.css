@@ -1,0 +1,42 @@
+
+
+
+.CAN_SALE .label{
+    background-color: #5cb85c;
+}
+.NO_SALE .label{
+    background-color: #777;
+}
+.HAVE_SALE .label{
+    background-color: #337ab7;
+}
+
+.CONTRACT_SUBMIT .label{
+    background-color: #5bc0de;
+}
+.CONTRACTS_RECORD .label{
+    background-color: #337ab7;
+}
+.COURT_CLOSE .label{
+    background-color: #d9534f;
+}
+.PREPARE_CONTRACT .label{
+    background-color: #5bc0de;
+}
+
+.PROJECT_PLEDGE .label{
+    background-color: #f0ad4e;
+}
+
+
+.CAN_SALE .house-title ,.PROJECT_PLEDGE .house-title{
+    color: #3c763d;
+}
+
+.NO_SALE .house-title ,.COURT_CLOSE .house-title{
+    color: #777;
+}
+
+.HAVE_SALE .house-title , .CONTRACT_SUBMIT .house-title , .CONTRACTS_RECORD .house-title ,.PREPARE_CONTRACT .house-title{
+    color: #337ab7;
+}

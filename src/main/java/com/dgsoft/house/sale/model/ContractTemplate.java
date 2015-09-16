@@ -91,4 +91,10 @@ public class ContractTemplate implements java.io.Serializable, ContractInfo{
     public void setContext(String context) {
         this.context = context;
     }
+
+
+    @Transient
+    public boolean isCurrentVersion(){
+        return getContractVersion() == getType().getCurrentVersion();
+    }
 }

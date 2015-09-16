@@ -38,7 +38,7 @@
         <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
         <h:outputStylesheet library="octicons" name="octicons.css"/>
 
-
+        <h:outputStylesheet name="biz.css"/>
 
         <h:outputStylesheet name="theme.css"/>
 
@@ -174,6 +174,7 @@
                 min-height: 17px;
                 max-height: 17px;
                 height: 17px;
+                margin-bottom: 4px;
             }
 
 
@@ -261,7 +262,7 @@
             .house-info li h2{
                 margin: 3px 0;
                 font-size: 19px;
-                color: #337ab7;
+                /*color: #337ab7;*/
             }
 
 
@@ -323,10 +324,10 @@
                                     rowspan="#{_cell.rowspan}" height="#{_cell.rowspan * 90}px">
 
                                     <a:outputPanel layout="block" styleClass="house-info" rendered="#{not empty _cell.house}" ondblclick="houseClick('#{_cell.house.houseCode}')">
-                                        <div class="#{_cell.status}" >
+                                        <div class="#{_cell.saleStatus}" >
                                             <div class="house-info-context">
                                                 <ul >
-                                                    <li><ui:insert name="houseTitle"><h2>#{_cell.house.houseOrder}  </h2> </ui:insert> </li>
+                                                    <li><ui:insert name="houseTitle"><h2 class="house-title">#{_cell.house.houseOrder}  </h2> </ui:insert> </li>
                                                     <li><h:outputText style="color: #666" value="#{_cell.house.houseArea}"><f:convertNumber pattern="#0.000"/></h:outputText></li>
                                                 </ul>
                                             </div>
@@ -336,8 +337,8 @@
                                                 </a:outputPanel>
                                             </div>
                                             <div class="house-status" >
-                                                <a:outputPanel styleClass="label" rendered="#{not empty _cell.status}">
-                                                    #{_cell.status}
+                                                <a:outputPanel styleClass="label" >
+                                                    #{messages[_cell.saleStatus.name()]}
                                                 </a:outputPanel>
                                             </div>
                                         </div>
@@ -354,6 +355,14 @@
             </div>
 
         </div>
+
+
+
+
+
+
+
+
         <h:outputScript>
             $(document).ready(
             function () {

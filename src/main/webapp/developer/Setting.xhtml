@@ -15,6 +15,21 @@
     <ui:define name="body">
 
 
+        <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+            <ui:param name="panelId" value="templateDeleteConfirmPanel"/>
+            <ui:param name="entityTitle" value="#{contractTemplateHome.instance.name}"/>
+            <ui:define name="deleteNote">
+                模版删除后并不影响已签订的合同。
+            </ui:define>
+            <a:commandButton styleClass="btn btn-danger btn-block btn-reversal" action="#{contractTemplateHome.remove}"
+                             value="#{messages.confirmDelete}" oncomplete="$('#templateDeleteConfirmPanel').modal('hide')"
+                             render="mapSaleContractTemplate" immediate="true" execute="@this">
+
+                <a:attachQueue requestDelay="0"/>
+            </a:commandButton>
+        </ui:decorate>
+
+
         <nav class="navbar navbar-static-top nav-header">
             <div class="container">
                 <div class="navbar-header">
@@ -63,128 +78,172 @@
         </nav>
         <div class="container">
             <div class="row">
-        <div class="col-md-3" role="complementary">
-            <h:graphicImage width="230px" height="230px" styleClass="vcard-avatar tooltipped tooltipped-s" value="/img/project-default.jpg">
+                <div class="col-md-3" role="complementary">
+                    <h:graphicImage width="230px" height="230px" styleClass="vcard-avatar tooltipped tooltipped-s"
+                                    value="/img/project-default.jpg">
 
-            </h:graphicImage>
-            <h1 class="vcard-names"><span class="vcard-username" itemprop="additionalName">cooper-lyt</span></h1>
-            <ul class="vcard-details">
+                    </h:graphicImage>
+
+                    <h1 class="vcard-names"><span class="vcard-username" itemprop="additionalName">#{logonInfo.saleProject.projectName}</span>
+                    </h1>
+                    <ul class="vcard-details">
 
 
+                        <li class="vcard-detail"><span class="octicon octicon-clock"></span><span
+                                class="join-label">年审时间</span>
+                            <time class="join-date" datetime="2013-04-22T00:15:46Z" day="numeric" is="local-time"
+                                  month="short" year="numeric" title="Apr 22, 2013, 8:15 AM GMT+8">Apr 22, 2013
+                            </time>
+                        </li>
+                    </ul>
+                    <div class="vcard-stats">
+                        <a class="vcard-stat" href="/cooper-lyt/followers">
+                            <strong class="vcard-stat-count">0</strong>
+                            <span class="text-muted">可售</span>
+                        </a>
+                        <a class="vcard-stat" href="/stars">
+                            <strong class="vcard-stat-count">0</strong>
+                            <span class="text-muted">已售</span>
+                        </a>
+                        <a class="vcard-stat" href="/cooper-lyt/following">
+                            <strong class="vcard-stat-count">0</strong>
+                            <span class="text-muted">不可售</span>
+                        </a>
+                    </div>
 
-
-                <li class="vcard-detail"><span class="octicon octicon-clock"></span><span class="join-label">Joined on </span><time class="join-date" datetime="2013-04-22T00:15:46Z" day="numeric" is="local-time" month="short" year="numeric" title="Apr 22, 2013, 8:15 AM GMT+8">Apr 22, 2013</time></li>
-            </ul>
-            <div class="vcard-stats">
-                <a class="vcard-stat" href="/cooper-lyt/followers">
-                    <strong class="vcard-stat-count">0</strong>
-                    <span class="text-muted">Followers</span>
-                </a>
-                <a class="vcard-stat" href="/stars">
-                    <strong class="vcard-stat-count">0</strong>
-                    <span class="text-muted">Starred</span>
-                </a>
-                <a class="vcard-stat" href="/cooper-lyt/following">
-                    <strong class="vcard-stat-count">0</strong>
-                    <span class="text-muted">Following</span>
-                </a>
-            </div>
-
-        </div>
-
-        <div class="col-md-9" role="main">
-
-            <div class="new-user-avatar-cta">
-                <p style="margin-top: 14px;">
-                    <a href="/account" class="btn btn-sm btn-success" data-ga-click="NUX Profile, click, Clicked Edit Profile Button" data-ga-load="NUX Profile, buttonview, Edit Profile Button">
-                        <span class="octicon octicon-pencil"></span>
-                        Edit profile
-                    </a>
-                </p>
-                <p><strong>Pro tip:</strong> updating your profile with your name, location, and a profile picture helps other GitHub users get to know you.</p>
-            </div>
-
-            <div class="tabnav">
-                <div class="right">
                 </div>
 
-                <nav class="tabnav-tabs" data-pjax="" role="navigation">
-                    <a href="/cooper-lyt" class="tabnav-tab selected" aria-selected="true" role="tab">
-                        <span class="octicon octicon-diff-added"></span>
-                        合同模版
-                    </a>
-                    <a href="/cooper-lyt?tab=repositories" class="tabnav-tab " aria-selected="false" role="tab">
-                        <span class="octicon octicon-repo"></span>
-                        预售许可证
-                    </a>
-                    <a href="/cooper-lyt?tab=activity" class="tabnav-tab " aria-selected="false" role="tab">
-                        <span class="octicon octicon-rss"></span>
-                        项目信息
-                    </a>
-                </nav>
+                <div class="col-md-9" role="main">
+
+                    <div class="new-user-avatar-cta">
+                        <p style="margin-top: 14px;">
+                            <a:commandLink styleClass="btn btn-sm btn-success">
+                                <span class="octicon octicon-pencil"></span>
+                                更改密码
+                            </a:commandLink>
+
+                        </p>
+
+                        <p>
+                            <strong>更改密码:</strong> 仅更改电子钥匙密码，更改后下次使用电子钥匙将使用新密码，如果需要更改钥匙的配置信息，请联系管理部门.
+                        </p>
+                    </div>
+
+                    <div class="tabnav">
+                        <div class="right">
+                        </div>
+
+                        <nav class="tabnav-tabs" data-pjax="" role="navigation">
+                            <a href="/cooper-lyt" class="tabnav-tab selected" aria-selected="true" role="tab">
+                                <span class="octicon octicon-diff-added"></span>
+                                合同模版
+                            </a>
+                            <a href="/cooper-lyt?tab=repositories" class="tabnav-tab " aria-selected="false" role="tab">
+                                <span class="octicon octicon-repo"></span>
+                                预售许可证
+                            </a>
+                            <a href="/cooper-lyt?tab=activity" class="tabnav-tab " aria-selected="false" role="tab">
+                                <span class="octicon octicon-rss"></span>
+                                项目信息
+                            </a>
+                        </nav>
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h:form id="mapSaleContractTemplate">
+                            <div class="boxed-group flush">
+                                <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
+                                        action="#{contractContext.toContextEdit}"
+                                        p:aria-label="新建预售合同模版">
+                                    <span class="octicon octicon-plus"></span>
+                                    <f:param name="templateModel" value="#{true}"/>
+                                    <f:param name="templateId" value=""/>
+                                    <f:param name="contractType" value="MAP_SALE_NEW_HOUSE"/>
+                                </s:link>
+
+
+                                <h3>预售合同模版</h3>
+                                <ul class="boxed-group-inner mini-repo-list">
+
+                                    <a:repeat value="#{mapSaleContractTemplateList.resultList}" var="_contract">
+
+
+                                        <li class="public source no-description">
+                                            <span class="mini-repo-list-item css-truncate">
+                                                  <span class="repo-icon octicon octicon-repo"></span>
+                                                     <s:link  action="#{contractContext.toContextEdit}"
+                                                              rendered="#{_contract.currentVersion}"
+                                                              style="display:inline-block; width:100%">
+                                                         <f:param name="templateModel" value="#{true}"/>
+                                                         <f:param name="templateId" value="#{_contract.id}"/>
+                                                         <f:param name="contractType" value="MAP_SALE_NEW_HOUSE"/>
+                                                        <span class="repo-and-owner css-truncate-target">
+                                                            <span class="repo" title="#{_contract.name}">#{_contract.name}</span>
+                                                        </span>
+                                                     </s:link>
 
 
 
-            </div>
+                                                      <span class="stars">
+                                                    #{_contract.contractVersion}
+                                                          <a:commandLink style="color: #900" execute="@this" immediate="true"
+                                                                         p:aria-label="删除此预售合同模版"
+                                                                         render="templateDeleteConfirmPanel_title,templateDeleteConfirmPanel_form"
+                                                                         oncomplete="$('#templateDeleteConfirmPanel').modal('show')">
+                                                              <f:param name="templateId" value="#{_contract.id}"/>
+                                                              <span class="octicon octicon-trashcan"></span>
+                                                              <a:attachQueue requestDelay="0"/>
+                                                          </a:commandLink>
+
+                                                    </span>
+                                            </span>
 
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="boxed-group flush">
-                        <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
-                                action="#{contractContext.createTemplate}"
-                              p:aria-label="Includes contributions from private repositories you can access.">
-                            <span class="octicon octicon-plus"></span>
-                            <f:param name="templateModel" value="#{true}"/>
-                            <f:param name="templateId" value=""/>
-                            <f:param name="contractType" value="MAP_SALE_NEW_HOUSE"/>
-                        </s:link>
 
+                                            <s:link
+                                                    rendered="#{ not _contract.currentVersion}"
+                                                    styleClass="mini-repo-list-item css-truncate">
+                                                <f:param name="templateModel" value="#{true}"/>
+                                                <f:param name="templateId" value="#{_contract.id}"/>
+                                                <f:param name="contractType" value="MAP_SALE_NEW_HOUSE"/>
+                                                <span class="repo-icon octicon octicon-repo"></span>
+                                                <span class="repo-and-owner css-truncate-target">
+                                                    <span class="repo" title="#{_contract.name}">#{_contract.name}</span>
+                                                </span>
 
-                        <h3>预售合同模版</h3>
-                        <ul class="boxed-group-inner mini-repo-list">
-                            <li class="public source no-description">
-                                <a href="/cooper-lyt/HMPLAT" class="mini-repo-list-item css-truncate">
-                                    <span class="repo-icon octicon octicon-repo"></span>
-      <span class="repo-and-owner css-truncate-target">
-<span class="repo" title="HMPLAT">HMPLAT</span>
-      </span>
-      <span class="stars">
+                                                      <span class="stars">
         0
         <span class="octicon octicon-star"></span>
       </span>
-                                    <span class="repo-description css-truncate-target"></span>
-                                </a>
-                            </li>
+                                                <span class="repo-description css-truncate-target"></span>
+                                            </s:link>
+                                        </li>
 
 
-                        </ul>
+                                    </a:repeat>
+
+                                </ul>
+                            </div>
+                            </h:form>
+                        </div>
+                        <div class="col-md-6">
+                            <h:form>
+                            <div class="boxed-group flush">
+                                <h3>现售合同模版</h3>
+                                <ul class="boxed-group-inner mini-repo-list">
+
+
+
+                                </ul>
+                            </div>
+                            </h:form>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="boxed-group flush">
-                        <h3>现售合同模版</h3>
-                        <ul class="boxed-group-inner mini-repo-list">
-                            <li class="public source no-description">
-                                <a href="/cooper-lyt/HMPLAT" class="mini-repo-list-item css-truncate">
-                                    <span class="repo-icon octicon octicon-repo"></span>
-      <span class="repo-and-owner css-truncate-target">
-<span class="repo" title="HMPLAT">HMPLAT</span>
-      </span>
-      <span class="stars">
-        0
-        <span class="octicon octicon-star"></span>
-      </span>
-                                    <span class="repo-description css-truncate-target"></span>
-                                </a>
-                            </li>
-
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
             </div>
         </div>
     </ui:define>

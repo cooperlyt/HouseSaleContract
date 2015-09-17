@@ -2,7 +2,7 @@ package com.dgsoft.house.sale;
 
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.sale.model.*;
-import com.dgsoft.house.sale.model.Number;
+import com.dgsoft.house.sale.model.NumberRecord;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
@@ -30,13 +30,13 @@ public class NumberPool {
 
     public String genContractNumber(){
         try {
-            com.dgsoft.house.sale.model.Number number = entityManager.createQuery("select numberPool from Number numberPool where numberPool.getProjectNumber.projectCode = :projectCode and numberPool.type =:poolType", Number.class)
+            NumberRecord numberRecord = entityManager.createQuery("select numberPool from NumberRecord numberPool where numberPool.projectNumber.projectCode = :projectCode and numberPool.type =:poolType", NumberRecord.class)
                     .setParameter("projectCode", logonInfo.getGroupCode())
                     .setParameter("poolType", CONTRACT_NUMBER_TYPE).getSingleResult();
-            if (number != null){
-                long i =  number.getNumber() + 1;
-                number.setNumber(i);
-                return "N" + number.getProjectNumber().getNumber() + "-" + i;
+            if (numberRecord != null){
+                long i =  numberRecord.getNumber() + 1;
+                numberRecord.setNumber(i);
+                return "N" + numberRecord.getProjectNumber().getNumber() + "-" + i;
             }
         }catch(NoResultException e){
 
@@ -44,7 +44,7 @@ public class NumberPool {
         ProjectNumber projectNumber = entityManager.createQuery("select p from ProjectNumber p where p.projectCode = :projectCode", ProjectNumber.class)
                 .setParameter("projectCode",logonInfo.getGroupCode()).getSingleResult();
 
-        entityManager.persist(new Number(projectNumber,CONTRACT_NUMBER_TYPE));
+        entityManager.persist(new NumberRecord(projectNumber,CONTRACT_NUMBER_TYPE));
 
         return "N" + projectNumber.getNumber() + "-" + 1;
 

@@ -1,7 +1,7 @@
 package com.dgsoft;
 
 import com.K1.biz.uitl.Base64;
-import com.dgsoft.house.sale.developer.DeveloperSaleServiceImpl;
+import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.sale.model.ProjectNumber;
 import org.jboss.seam.ScopeType;

@@ -586,3 +586,61 @@ label {
 .select-edit-group > .dropdown-menu{
     margin-top: 7px;
 }
+
+
+.modal-header h4{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.input-group-first button{
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+}
+
+.select-menu-btn:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+    width: 140px;
+}
+
+.select-menu-btn .selectpicker:focus {
+    outline: 0 !important;
+    outline: 0px auto -webkit-focus-ring-color !important;
+    /* outline-offset: -2px; */
+}
+
+.dropdown-menu > li > a > .octicon, .dropdown-menu > li > a > .menu-icon, .dropdown-menu > li > a > .glyphicon {
+    float: left;
+    margin-top: 1px;
+    margin-left: -23px;
+    opacity: 0.5;
+}
+
+
+.edit-below-msg .rf-msg-err{
+    display: inline-block;
+    padding: 5px;
+    font-size: 11px;
+    color: #494620;
+    background: #f7ea57;
+    border: 1px solid #c0b536;
+    border-top-color: #fff;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    font-weight: bold;
+    position: relative;
+    margin-left: 0;
+}
+
+.edit-below-msg .rf-msg-err .rf-msg-det{
+    font-family: "microsoft yahei", Helvetica, Arial, "宋体", sans-serif;
+    font-weight: bold;
+}
+
+.edit-below-msg .rf-msg-err .rf-msg-det:before{
+    content: "";
+}
+
+.sub-details-body{
+    margin-left: 50px;"
+}

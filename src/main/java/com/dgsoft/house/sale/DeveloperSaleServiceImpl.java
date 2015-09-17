@@ -1,4 +1,4 @@
-package com.dgsoft.house.sale.developer;
+package com.dgsoft.house.sale;
 
 import com.dgsoft.developersale.DeveloperSaleService;
 

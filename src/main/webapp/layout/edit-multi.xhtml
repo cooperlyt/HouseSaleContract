@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib">
+
+    <div style="clear: both"/>
+
+
+        <h:panelGroup>
+            <ui:insert name="topValue"/>
+
+            <ui:insert name="values">
+
+                <div style="clear: both;"/>
+                <hr/>
+                <div style="display: block;">
+                    <div class="sub-details-body">
+                    <ui:insert/>
+                    </div>
+                </div>
+                <div style="clear: both;"/>
+                <hr />
+
+            </ui:insert>
+        </h:panelGroup>
+
+
+</ui:composition>

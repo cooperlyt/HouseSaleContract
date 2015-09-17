@@ -5,10 +5,6 @@
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
 
-    <param name="templateModel" />
-    <param name="templateId" value="#{contractTemplateHome.id}"/>
-
-    <param name="contractType" value="#{contractContext.contractTypeName}"/>
-
+    <param name="houseCode" value="#{contractCreate.houseCode}"/>
 
 </page>

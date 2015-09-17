@@ -1,7 +1,7 @@
 package com.dgsoft.house.sale.model;
 
+import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.contract.ContractInfo;
-import com.dgsoft.house.sale.contract.ContractType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ public class ContractTemplate implements java.io.Serializable, ContractInfo{
     private String id;
     private String name;
     private String projectCode;
-    private ContractType type;
+    private SaleType type;
     private int contractVersion;
     private String context;
 
@@ -63,12 +63,12 @@ public class ContractTemplate implements java.io.Serializable, ContractInfo{
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false, length = 20)
     @NotNull
-    public ContractType getType() {
+    public SaleType getType() {
         return type;
     }
 
     @Override
-    public void setType(ContractType type) {
+    public void setType(SaleType type) {
         this.type = type;
     }
 

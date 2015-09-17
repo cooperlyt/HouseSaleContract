@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "NUMBER_POOL", catalog = "CONTRACT", uniqueConstraints = @UniqueConstraint(columnNames = {
         "TYPE", "PROJECT_CODE"}))
-public class Number implements java.io.Serializable{
+public class NumberRecord implements java.io.Serializable{
 
     private String id;
     private long number;
@@ -20,10 +20,10 @@ public class Number implements java.io.Serializable{
     private ProjectNumber projectNumber;
     private long version;
 
-    public Number() {
+    public NumberRecord() {
     }
 
-    public Number(ProjectNumber projectNumber, String type) {
+    public NumberRecord(ProjectNumber projectNumber, String type) {
         this.projectNumber = projectNumber;
         this.type = type;
         number = 1;

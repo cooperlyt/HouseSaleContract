@@ -1,0 +1,83 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+
+
+    <ui:decorate template="/layout/system/PersonInput.xhtml">
+
+        <ui:param name="personEntityHelper" value="#{houseContractHome.contractOwnerHelper}"/>
+        <ui:param name="personStatus" value="mainOwner_personCredentiaslNumberStatus"/>
+
+
+            <s:decorate rendered="#{(houseContractHome.contractOwnerHelper.credentialsType.name() eq 'COMPANY_CODE')}"
+                        id="legalPersonField" styleClass="form-group" template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    #{messages.ContractOwner_legalPerson}
+                </ui:define>
+                <h:inputText value="#{houseContractHome.contractOwnerHelper.personEntity.legalPerson}" maxlength="50"
+                             styleClass="form-control"/>
+            </s:decorate>
+
+
+            <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    #{messages.Tel}
+                </ui:define>
+                <ui:param name="for" value="persionPhoneInput"/>
+                <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
+                             styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
+                             value="#{houseContractHome.contractOwnerHelper.personEntity.phone}" required="true" id="persionPhoneInput">
+                    <f:validateRegex pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                    <r:validator event="blur" />
+                </h:inputText>
+
+            </s:decorate>
+
+
+            <s:decorate template="/layout/edit.xhtml">
+                <ui:param name="for" value="persionRootAddressInput"/>
+
+                <ui:define name="label">
+                    #{ (houseContractHome.contractOwnerHelper.credentialsType.name() eq 'PASSPORT') ? messages.ContractOwner_country : messages.ContractOwner_rootAddress}
+                </ui:define>
+                <h:inputText label="#{ (houseContractHome.contractOwnerHelper.credentialsType.name() eq 'PASSPORT') ? messages.ContractOwner_country : messages.ContractOwner_rootAddress}" size="55" maxlength="50" styleClass="form-control"
+                                p:placeHolder="#{ (houseContractHome.contractOwnerHelper.credentialsType.name() eq 'PASSPORT') ? messages.ContractOwner_country : messages.ContractOwner_rootAddress}"
+                             value="#{houseContractHome.contractOwnerHelper.personEntity.rootAddress}" id="persionRootAddressInput">
+                    <r:validator event="blur"/>
+                </h:inputText>
+
+            </s:decorate>
+
+
+
+
+            <s:decorate template="/layout/edit.xhtml">
+                <ui:param name="for" value="addressInput"/>
+
+                <ui:define name="label">
+                    #{messages.ContractOwner_address}
+                </ui:define>
+                <h:inputTextarea
+                        label="#{messages.ContractOwner_address}"
+                        cols="50"
+                        rows="3"
+                        value="#{houseContractHome.contractOwnerHelper.personEntity.address}"
+                        styleClass="form-control"
+                        id="addressInput">
+                </h:inputTextarea>
+
+            </s:decorate>
+
+
+
+
+    </ui:decorate>
+
+</ui:composition>

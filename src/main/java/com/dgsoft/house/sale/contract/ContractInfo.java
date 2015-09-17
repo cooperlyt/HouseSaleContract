@@ -1,5 +1,7 @@
 package com.dgsoft.house.sale.contract;
 
+import com.dgsoft.house.SaleType;
+
 /**
  * Created by cooper on 9/14/15.
  */
@@ -17,9 +19,9 @@ public interface ContractInfo {
 
     void setContractVersion(int version);
 
-    ContractType getType();
+    SaleType getType();
 
-    void setType(ContractType type);
+    void setType(SaleType type);
 
 
 }

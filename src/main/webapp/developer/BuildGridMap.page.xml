@@ -4,7 +4,16 @@
       login-required="true"
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
-      <param name="build" value="#{buildSaleGridMap.buildCode}"/>
-      <param name="pageIndex" value="#{buildSaleGridMap.pageIndex}"/>
+    <param name="build" value="#{buildSaleGridMap.buildCode}"/>
+    <param name="pageIndex" value="#{buildSaleGridMap.pageIndex}"/>
+    <param name="houseCode" value="#{contractCreate.houseCode}"/>
+
+    <navigation from-action="#{contractCreate.createContract}">
+        <rule if-outcome="contract-begin">
+            <begin-conversation flush-mode="MANUAL"/>
+            <redirect view-id="/developer/ContractBegin.xhtml"/>
+
+        </rule>
+    </navigation>
 
 </page>

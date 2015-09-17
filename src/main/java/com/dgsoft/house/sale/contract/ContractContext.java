@@ -1,5 +1,6 @@
 package com.dgsoft.house.sale.contract;
 
+import com.dgsoft.house.SaleType;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -39,13 +40,13 @@ public class ContractContext {
         return contractContextMap;
     }
 
-    private ContractType contractType;
+    private SaleType contractType;
 
-    public ContractType getContractType() {
+    public SaleType getContractType() {
         return contractType;
     }
 
-    public void setContractType(ContractType contractType) {
+    public void setContractType(SaleType contractType) {
         this.contractType = contractType;
     }
 
@@ -61,7 +62,7 @@ public class ContractContext {
         if ((name == null) || name.trim().equals("")){
             contractType = null;
         }else{
-            contractType = ContractType.valueOf(name);
+            contractType = SaleType.valueOf(name);
         }
 
     }
@@ -71,7 +72,7 @@ public class ContractContext {
         Logging.getLog(getClass()).debug(contractType.getCurrentVersion());
         Logging.getLog(getClass()).debug(contractType.getCurrentPatch());
 
-        return contractType.getCurrentPatch();
+        return "contract-edit" + contractType.getCurrentPatch();
 
     }
 

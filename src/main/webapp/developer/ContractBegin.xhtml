@@ -1,0 +1,107 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-form.xhtml">
+
+<h:form>
+    <ui:decorate template="/layout/edit-multi.xhtml">
+
+        <ui:define name="topValue">
+
+
+            <s:decorate template="/layout/edit.xhtml">
+
+                <ui:define name="label">计价方式与价款</ui:define>
+
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <h:selectOneMenu label="计价方式"
+                                         id="personCredentialsTypeInput"
+                                         styleClass="selectpicker select-menu-btn input-group-first"
+                                         value="#{contractCreate.calcType}" required="true">
+                            <f:selectItem itemValue="1" itemLabel="按套内面积"/>
+                            <f:selectItem itemValue="2" itemLabel="按建筑面积"/>
+                            <f:selectItem itemValue="3" itemLabel="按套计算"/>
+                            <f:selectItem itemValue="4" itemLabel="其它"/>
+                            <a:ajax execute="@this" event="valueChange" render="calcFields" oncomplete="initDynamicEditInputs('#{r:clientId('calcFields')}')">
+                                <a:attachQueue requestDelay="0"/>
+                            </a:ajax>
+                        </h:selectOneMenu>
+
+
+                    </div>
+
+
+                    <h:inputText disabled="true" value="#{contractCreate.moneyType}" styleClass="form-control"/>
+
+
+                </div>
+
+            </s:decorate>
+        </ui:define>
+
+        <a:outputPanel id="calcFields">
+
+            <s:decorate template="/layout/edit.xhtml">
+                <div class="input-group">
+
+                    <a:outputPanel rendered="#{contractCreate.calcType eq 1}" class="input-group-addon">
+                        <h:outputText value="#{contractCreate.house.useArea}">
+                            <f:convertNumber pattern="#0.000"/>
+                        </h:outputText>
+
+                        <strong>m<sup>2</sup></strong>
+                    </a:outputPanel>
+
+                    <a:outputPanel rendered="#{contractCreate.calcType eq 2}" class="input-group-addon">
+                        <h:outputText value="#{contractCreate.house.houseArea}">
+                            <f:convertNumber pattern="#0.000"/>
+                        </h:outputText>
+                        <strong>m<sup>2</sup></strong>
+                    </a:outputPanel>
+
+                    <h:inputText styleClass="form-control" p:placeholder="计算方式" value="#{contractCreate.calcTypeName}" rendered="#{contractCreate.calcType eq 4}"/>
+
+                    <a:outputPanel rendered="#{contractCreate.calcType eq 4}" class="input-group-addon">
+                        ¥
+                    </a:outputPanel>
+
+
+
+
+                    <h:inputText required="true" p:placeholder="价格" value="#{contractCreate.unitPrice}" styleClass="form-control">
+                        <f:convertNumber type="currency" locale="#{contractCreate.locale}"
+                                         groupingUsed="false" currencySymbol="" />
+                        <a:ajax event="change" execute="@this" render="totalMoney"/>
+                    </h:inputText>
+
+
+                    <div class="input-group-addon">
+                        <h:outputText id="totalMoney" value="#{contractCreate.totalMoney}">
+                            <f:convertNumber type="currency" locale="#{contractCreate.locale}"
+                                             groupingUsed="true"/>
+                        </h:outputText>
+                    </div>
+                </div>
+            </s:decorate>
+
+
+        </a:outputPanel>
+
+    </ui:decorate>
+
+
+    <ui:include src="ContractOwnerEdit.xhtml">
+        <ui:param name="label" value="#{messages.ContractOwner_personName}"/>
+    </ui:include>
+</h:form>
+
+</ui:composition>

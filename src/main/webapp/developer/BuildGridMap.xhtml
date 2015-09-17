@@ -135,28 +135,198 @@
         </nav>
 
 
+        <h:form>
+            <a:jsFunction name="houseClick" execute="@this" render="houseView_title,houseView_form"
+                          oncomplete="$('#houseView').modal({backdrop: 'static'})">
+                <a:param name="houseCode" assignTo="#{contractCreate.houseCode}"/>
+            </a:jsFunction>
+        </h:form>
+
+
         <ui:decorate template="/layout/edit-modalpanel.xhtml">
             <ui:param name="panelId" value="houseView"/>
-            <ui:param name="panelTitle" value="#{messages.fallback}"/>
+            <ui:param name="styleClass" value="modal-lg"/>
+            <ui:param name="panelTitle" value="#{contractCreate.house.houseOrder}"/>
 
-            <table class="detailsTable table table-bordered">
-                <tbody>
-                <tr>
-                    <th>房屋编号</th>
-                    <td></td>
 
-                </tr>
-                </tbody>
 
-            </table>
+
+            <a:outputPanel styleClass="row" style="margin: 0" rendered="#{not empty contractCreate.houseCode}">
+
+                <div class="col-md-12">
+                <a:outputPanel rendered="#{contractCreate.house.inBiz}"
+                               layout="block" styleClass="alert alert-danger" p:role="alert">
+                    <strong>不能销售！</strong> 此房屋正在产权部门办理业务中，不可销售！详情请咨询产权管理部门。
+                </a:outputPanel>
+
+                <a:outputPanel layout="block" styleClass="alert alert-danger" p:role="alert">
+                    <strong>#{messages[contractCreate.house.status.name()]}!</strong> 此房屋不可以销售。
+                </a:outputPanel>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="houseCode">房屋编号</label>
+
+                    <span class="info-value-block" id="houseCode">
+                        #{contractCreate.house.houseCode}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="displayHouseCode">产籍号</label>
+                    <span class="info-value-block" id="displayHouseCode">
+                        #{contractCreate.house.displayHouseCode}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="inFloorName">所在层</label>
+                    <span class="info-value-block" id="inFloorName">
+                        #{contractCreate.house.inFloorName}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="houseUnitName">单元</label>
+                    <span class="info-value-block" id="houseUnitName">
+                        #{contractCreate.house.houseUnitName}
+                    </span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="houseArea">建筑面积</label>
+                    <span class="info-value-block" id="houseArea">
+                        #{contractCreate.house.houseArea}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="useArea">套内面积</label>
+                    <span class="info-value-block" id="useArea">
+                        #{contractCreate.house.useArea}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="commArea">公摊面积</label>
+                    <span class="info-value-block" id="commArea">
+                        #{contractCreate.house.commArea}
+                    </span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="commParam">公摊系数</label>
+                    <span class="info-value-block" id="commParam">
+                        #{contractCreate.house.commParam}
+                    </span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="shineArea">阳台面积</label>
+                    <span class="info-value-block" id="shineArea">
+                        #{contractCreate.house.shineArea}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="loftArea">阁楼面积</label>
+                    <span class="info-value-block" id="loftArea">
+                        #{contractCreate.house.loftArea}
+                    </span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="houseType">房屋类型</label>
+                    <span class="info-value-block" id="houseType">
+                        #{contractCreate.house.houseType}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="useType">设计用途</label>
+                    <span class="info-value-block" id="useType">
+                        #{contractCreate.house.useType}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="structure">结构</label>
+                    <span class="info-value-block" id="structure">
+                        #{contractCreate.house.structure}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="knotSize">套型</label>
+                    <span class="info-value-block" id="knotSize">
+                        #{contractCreate.house.knotSize}
+                    </span>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="address">房屋座落</label>
+                    <span class="info-value-block" id="address">
+                        #{contractCreate.house.address}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="useType">朝向</label>
+                    <span class="info-value-block" id="direction">
+                        #{contractCreate.house.direction}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="eastWall">东墙</label>
+                    <span class="info-value-block" id="eastWall">
+                        #{contractCreate.house.eastWall}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="westWall">西墙</label>
+                    <span class="info-value-block" id="westWall">
+                        #{contractCreate.house.westWall}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="southWall">南墙</label>
+                    <span class="info-value-block" id="southWall">
+                        #{contractCreate.house.southWall}
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <label for="northWall">北墙</label>
+                    <span class="info-value-block" id="northWall">
+                        #{contractCreate.house.northWall}
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+a
+                        </div>
+                        <div class="col-md-2">
+a
+                        </div>
+                        <div class="col-md-2">
+a
+                        </div>
+                        <div class="col-md-2">
+a
+                        </div>
+                        <div class="col-md-2">
+a
+                        </div>
+                        <div class="col-md-2">
+a
+                        </div>
+                    </div>
+                </div>
+
+            </a:outputPanel>
+
 
             <ui:define name="actionButtons">
-                <button type="button" class="button default" data-dismiss="modal">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
 
                     #{messages.cancel}</button>
 
-                <s:link styleClass="button submit primary">
+                <s:link value="签约" rendered="#{not empty contractCreate.houseCode}"
+                        action="#{contractCreate.createContract}"
 
+                        disabled="#{contractCreate.house.inBiz or (not contractCreate.house.status.canSale)}"
+                        styleClass="btn btn-success #{(contractCreate.house.inBiz or (not contractCreate.house.status.canSale)) ? 'disabled' : ''}">
+                    <f:param name="houseCode" value="#{contractCreate.house.houseCode}"/>
                 </s:link>
 
 
@@ -270,7 +440,9 @@
 
         </h:outputStylesheet>
 
-        <div style="position: absolute; top:51px; bottom: 0; left: 0; right: 0; background-color: #FFFFFF;" onselectstart="return false;">
+        <a:outputPanel rendered="#{not empty buildSaleGridMap.saleBuildGridMap}"
+                       layout="block" style="position: absolute; top:51px; bottom: 0; left: 0; right: 0; background-color: #FFFFFF;"
+                       onselectstart="return false;">
             <div style="position: absolute; left: 0; top: 0; width: 50px; height: 50px; border-bottom: 2px solid #ddd;"/>
 
 
@@ -324,27 +496,24 @@
                                     rowspan="#{_cell.rowspan}" height="#{_cell.rowspan * 90}px">
 
                                     <a:outputPanel layout="block" styleClass="house-info" rendered="#{not empty _cell.house}" ondblclick="houseClick('#{_cell.house.houseCode}')">
-                                        <div class="#{_cell.saleStatus}" >
+                                        <div class="#{_cell.house.status}" >
                                             <div class="house-info-context">
                                                 <ul >
                                                     <li><ui:insert name="houseTitle"><h2 class="house-title">#{_cell.house.houseOrder}  </h2> </ui:insert> </li>
                                                     <li><h:outputText style="color: #666" value="#{_cell.house.houseArea}"><f:convertNumber pattern="#0.000"/></h:outputText></li>
                                                 </ul>
                                             </div>
-                                            <div style="float: left">
-                                                <a:outputPanel styleClass=" icon-lock" rendered="#{_cell.locked}">
 
-                                                </a:outputPanel>
-                                            </div>
                                             <div class="house-status" >
                                                 <a:outputPanel styleClass="label" >
-                                                    #{messages[_cell.saleStatus.name()]}
+                                                    #{messages[_cell.house.status.name()]}
                                                 </a:outputPanel>
                                             </div>
                                         </div>
 
 
                                     </a:outputPanel>
+
 
                                 </td>
                             </a:repeat>
@@ -354,10 +523,7 @@
                 </table>
             </div>
 
-        </div>
-
-
-
+        </a:outputPanel>
 
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+
+    <ui:define name="body">
+
+
+        <nav class="navbar navbar-static-top nav-header">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">合同</a></li>
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="header-nav-item">
+
+                            <s:link styleClass="header-nav-link tooltipped tooltipped-s"
+                                    propagation="end"
+                                    view="/developer/Setting.xhtml" p:aria-label="Settings">
+                                <span class="octicon octicon-gear"></span>
+                            </s:link>
+                        </li>
+                        <li class="header-nav-item">
+                            <s:link id="menuLogoutId"
+                                    styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                    view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
+                                    p:aria-label="#{messages.logout}"
+                                    propagation="end">
+
+                                <span class="octicon octicon-sign-out"></span>
+                            </s:link>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+
+        <r:messages globalOnly="true"/>
+        <div style="width: 700px;
+    margin: 30px auto 0;">
+            <ui:insert/>
+        </div>
+
+        <h:outputScript rendered="#{(facesContext.maximumSeverity==null) or (facesContext.maximumSeverity.ordinal lt 2)}">
+            $(document).ready(
+            function(){
+            initEditInput();
+            });
+
+        </h:outputScript>
+
+    </ui:define>
+
+
+</ui:composition>

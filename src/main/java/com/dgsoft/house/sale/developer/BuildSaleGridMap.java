@@ -4,6 +4,7 @@ import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.developersale.SaleBuild;
 import com.dgsoft.developersale.SaleBuildGridMap;
+import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
@@ -63,7 +64,14 @@ public class BuildSaleGridMap {
 
 
     public SaleBuildGridMap getSaleBuildGridMap(){
-        return getSaleBuildGridMapList().get(pageIndex);
+        List<SaleBuildGridMap> result = getSaleBuildGridMapList();
+
+        if (!isBuildDefined() || (result == null) ||
+                result.isEmpty() || ( pageIndex > (getSaleBuildGridMapList().size() - 1))){
+            return null;
+
+        }
+        return result.get(pageIndex);
     }
 
     public SaleBuild getSelectBuild() {

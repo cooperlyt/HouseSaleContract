@@ -40,9 +40,7 @@
 
         <h:outputStylesheet name="theme.css"/>
 
-        <a:outputPanel ajaxRendered="true">
-            <h:outputScript name="init.js"/>
-        </a:outputPanel>
+
         <a:queue requestDelay="1000" ignoreDupResponses="true"/>
 
         <a:status id="processWaiting" name="processWaiting"
@@ -86,6 +84,9 @@
             </div>
         </div>
 
+        <a:outputPanel ajaxRendered="true">
+            <h:outputScript name="init.js"/>
+        </a:outputPanel>
 
         <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
         <h:outputScript library="bootstrap-select" name="/js/bootstrap-select.js"/>

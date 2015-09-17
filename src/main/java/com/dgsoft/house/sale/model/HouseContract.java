@@ -1,8 +1,8 @@
 package com.dgsoft.house.sale.model;
 
 import com.dgsoft.house.PoolType;
+import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.contract.ContractInfo;
-import com.dgsoft.house.sale.contract.ContractType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private String id;
     private String projectCode;
     private String HouseCode;
-    private ContractType type;
+    private SaleType type;
     private String password;
     private Date createTime;
     private ContractStatus status;
@@ -95,12 +95,12 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE",length = 20, nullable = false)
     @NotNull
-    public ContractType getType() {
+    public SaleType getType() {
         return type;
     }
 
     @Override
-    public void setType(ContractType type) {
+    public void setType(SaleType type) {
         this.type = type;
     }
 

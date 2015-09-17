@@ -23,6 +23,14 @@
         </navigation>
     </page>
 
+    <page view-id="/*">
+        <navigation>
+            <rule if-outcome="contract-edit-v1">
+                <redirect view-id="/contract/pre-sale-v1.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+
     <exception class="org.jboss.seam.framework.EntityNotFoundException">
         <redirect view-id="/error.xhtml">
             <message severity="warn">#{messages['org.jboss.seam.framework.EntityNotFoundException']}</message>

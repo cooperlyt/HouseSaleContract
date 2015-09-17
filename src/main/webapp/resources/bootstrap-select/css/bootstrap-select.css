@@ -330,7 +330,7 @@
     background: #fff;
 }
 
-.bootstrap-select.btn-group .dropdown-menu .selected a span.check-mark{
+.bootstrap-select.btn-group .dropdown-menu .selected a .check-mark{
     display: inline-block;
     position:absolute ;
     left:23px;

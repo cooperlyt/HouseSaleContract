@@ -25,7 +25,23 @@
 
     <page view-id="/*">
         <navigation>
-            <rule if-outcome="contract-edit-v1">
+            <rule if-outcome="pre-contract-v1">
+                <redirect view-id="/contract/pre-sale-v1.xhtml"/>
+            </rule>
+
+            <rule if-outcome="pre-contract-edit-v1">
+                <redirect view-id="/contract/pre-sale-v1.xhtml">
+                    <param name="templateModel" value="false"/>
+                </redirect>
+            </rule>
+
+            <rule if-outcome="pre-contract-template-v1">
+                <redirect view-id="/contract/pre-sale-v1.xhtml">
+                    <param name="templateModel" value="true"/>
+                </redirect>
+            </rule>
+
+            <rule if-outcome="pre-contract-view-v1">
                 <redirect view-id="/contract/pre-sale-v1.xhtml"/>
             </rule>
         </navigation>

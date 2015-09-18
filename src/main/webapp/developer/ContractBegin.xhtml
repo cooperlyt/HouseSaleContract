@@ -51,6 +51,8 @@
         <a:outputPanel id="calcFields">
 
             <s:decorate template="/layout/edit.xhtml">
+                <ui:param name="for" value="priceInput"/>
+                <ui:param name="showLabel" value="false"/>
                 <div class="input-group">
 
                     <a:outputPanel rendered="#{contractCreate.calcType eq 1}" class="input-group-addon">
@@ -77,10 +79,13 @@
 
 
 
-                    <h:inputText required="true" p:placeholder="价格" value="#{contractCreate.unitPrice}" styleClass="form-control">
+                    <h:inputText label="价格" id="priceInput" required="true" p:placeholder="价格" value="#{contractCreate.unitPrice}" styleClass="form-control">
                         <f:convertNumber type="currency" locale="#{contractCreate.locale}"
                                          groupingUsed="false" currencySymbol="" />
-                        <a:ajax event="change" execute="@this" render="totalMoney"/>
+                        <a:ajax event="change" execute="@this" render="calcFields">
+                            <a:attachQueue requestDelay="0"/>
+                        </a:ajax>
+                        <a:ajax event="keyup" execute="@this" render="totalMoney"/>
                     </h:inputText>
 
 
@@ -102,6 +107,46 @@
     <ui:include src="ContractOwnerEdit.xhtml">
         <ui:param name="label" value="#{messages.ContractOwner_personName}"/>
     </ui:include>
+
+
+    <s:decorate id="poolTypeField" template="/layout/edit.xhtml">
+        <ui:define name="label">
+            #{messages.HouseContract_poolType}
+        </ui:define>
+        <ui:param name="for" value="poolCountInput"/>
+        <div class="input-group">
+            <div class="input-group-btn">
+                <h:selectOneMenu label="#{messages.HouseContract_poolType}"
+                                 styleClass="selectpicker select-menu-btn input-group-first"
+                                 value="#{houseContractHome.poolType}" required="true">
+                    <s:selectItems value="#{poolTypes}" var="_poolType" label="#{messages[_poolType.name()]}"/>
+                    <s:convertEnum/>
+                    <a:ajax render="poolTypeField" event="valueChange" execute="@this">
+                        <a:attachQueue requestDelay="0"/>
+                    </a:ajax>
+                </h:selectOneMenu>
+
+
+            </div>
+
+            <h:inputText label="共有权人数量" p:placeHolder="共有权人数量"
+                         styleClass="form-control" required="true"
+                         disabled="#{houseContractHome.poolType eq 'SINGLE_OWNER'}"
+                    id="poolCountInput" value="#{houseContractHome.poolOwnerCount}">
+               <f:converter converterId="javax.faces.Integer"/>
+                <f:validateLongRange minimum="1"/>
+
+                <r:validator/>
+            </h:inputText>
+
+
+        </div>
+    </s:decorate>
+
+    <hr/>
+
+    <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.beginContract}"/>
+
 </h:form>
 
 </ui:composition>

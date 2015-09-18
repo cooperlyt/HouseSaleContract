@@ -1,13 +1,11 @@
 package com.dgsoft.house.sale.developer;
 
 import com.dgsoft.developersale.*;
+import com.dgsoft.house.PoolType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.house.sale.action.HouseContractHome;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.*;
 import org.jboss.seam.log.Logging;
 
 import java.math.BigDecimal;
@@ -125,5 +123,25 @@ public class ContractCreate {
                 return  getUnitPrice().setScale(0,BigDecimal.ROUND_HALF_UP);
         }
 
+    }
+
+    public String fillContractContext(){
+
+        return "pre-contract-edit-" + houseContractHome.getInstance().getType().getCurrentPatch();
+    }
+
+    @Transactional
+    public String beginContract(){
+        houseContractHome.getInstance().setPrice(getTotalMoney());
+        houseContractHome.getInstance().setContractVersion(houseContractHome.getInstance().getType().getCurrentVersion());
+        if ("persisted".equals(houseContractHome.persist())){
+            if (!PoolType.SINGLE_OWNER.equals(houseContractHome.getPoolType())) {
+                houseContractHome.genPoolOwner();
+                return "persisted-poolOwner";
+            }else{
+                return fillContractContext();
+            }
+        }
+        return null;
     }
 }

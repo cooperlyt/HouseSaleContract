@@ -7,4 +7,11 @@
 
     <param name="houseCode" value="#{contractCreate.houseCode}"/>
 
+    <navigation from-action="#{contractCreate.beginContract}">
+        <rule if-outcome="persisted-poolOwner">
+            <redirect view-id="/developer/ContractPoolOwner.xhtml"/>
+        </rule>
+
+    </navigation>
+
 </page>

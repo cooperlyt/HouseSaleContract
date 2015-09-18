@@ -46,13 +46,14 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     public HouseContract() {
     }
 
-    public HouseContract(String id, String projectCode, Date createTime, ContractStatus status, String attachEmpId, String attachEmpName) {
+    public HouseContract(String id, String projectCode, Date createTime, ContractStatus status, String attachEmpId, String attachEmpName, PoolType poolType) {
         this.id = id;
         this.projectCode = projectCode;
         this.createTime = createTime;
         this.status = status;
         this.attachEmpId = attachEmpId;
         this.attachEmpName = attachEmpName;
+        this.poolType = poolType;
     }
 
     @Id
@@ -104,8 +105,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.type = type;
     }
 
-    @Column(name = "PASSWORD", length = 50, nullable = false)
-    @NotNull
+    @Column(name = "PASSWORD", length = 50, nullable = true)
     @Size(max = 50)
     public String getPassword() {
         return password;

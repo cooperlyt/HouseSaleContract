@@ -3,6 +3,7 @@ package com.dgsoft.house.sale.action;
 import com.dgsoft.common.SetLinkList;
 import com.dgsoft.common.system.PersonHelper;
 import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.house.PoolType;
 import com.dgsoft.house.sale.ContractOwnerHelper;
 import com.dgsoft.house.sale.NumberPool;
 import com.dgsoft.house.sale.model.BusinessPool;
@@ -31,6 +32,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     private ContractOwnerHelper contractOwner;
 
+    private int poolOwnerCount = 0;
 
     @Override
     protected HouseContract createInstance(){
@@ -38,7 +40,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
         return new HouseContract(NumberPool.instance().genContractNumber(),
                 logonInfo.getGroupCode(),new Date(),
-                HouseContract.ContractStatus.PREPARE,logonInfo.getUserId(),logonInfo.getEmployeeName());
+                HouseContract.ContractStatus.PREPARE,logonInfo.getUserId(),logonInfo.getEmployeeName(), PoolType.SINGLE_OWNER);
     }
 
     @Override
@@ -92,5 +94,34 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return super.update();
     }
 
+    public int getPoolOwnerCount() {
+        return poolOwnerCount;
+    }
 
+    public void setPoolOwnerCount(int poolOwnerCount) {
+        this.poolOwnerCount = poolOwnerCount;
+    }
+
+    public PoolType getPoolType(){
+        return getInstance().getPoolType();
+    }
+
+    public void setPoolType(PoolType poolType){
+        if (PoolType.SINGLE_OWNER.equals(poolType)){
+            setPoolOwnerCount(0);
+        }
+        getInstance().setPoolType(poolType);
+    }
+
+    public String genPoolOwner(){
+
+        while (getContractPoolOwners().size() != poolOwnerCount){
+            if (getContractPoolOwners().size() > getPoolOwnerCount()){
+                getContractPoolOwners().remove(0);
+            }else{
+                getContractPoolOwners().add(new PersonHelper<BusinessPool>(new BusinessPool()));
+            }
+        }
+        return "pool-owner-ok";
+    }
 }

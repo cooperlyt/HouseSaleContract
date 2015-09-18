@@ -29,8 +29,6 @@ public class BusinessPool implements PersonEntity, java.io.Serializable {
 
     private HouseContract houseContract;
 
-
-
     public BusinessPool() {
     }
 

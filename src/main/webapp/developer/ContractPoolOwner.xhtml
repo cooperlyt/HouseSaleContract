@@ -13,6 +13,8 @@
 
     <h:form>
 
+
+
         <a:repeat value="#{houseContractHome.contractPoolOwners}" var="_person">
             <f:subview id="#{_person.uuid}_persion_item">
 
@@ -107,7 +109,7 @@
                         <ui:param name="for" value="persionPhoneInput"/>
                         <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
                                      styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
-                                     value="#{houseContractHome.contractOwnerHelper.personEntity.phone}" id="persionPhoneInput">
+                                     value="#{_person.personEntity.phone}" id="persionPhoneInput">
 
                         </h:inputText>
 
@@ -122,6 +124,11 @@
             </f:subview>
 
         </a:repeat>
+
+
+        <hr/>
+
+        <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.fillContractContext}"/>
     </h:form>
 
 </ui:composition>

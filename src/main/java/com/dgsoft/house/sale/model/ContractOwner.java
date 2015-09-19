@@ -16,6 +16,10 @@ import javax.validation.constraints.Size;
 @Table(name = "CONTRACT_OWNER", catalog = "CONTRACT")
 public class ContractOwner implements PersonEntity, java.io.Serializable {
 
+    public enum LegalType{
+        LEGAL_OWNER,LEGAL_MANAGER
+    }
+
     private String id;
     private String personName;
     private CredentialsType credentialsType;
@@ -25,12 +29,17 @@ public class ContractOwner implements PersonEntity, java.io.Serializable {
     private String address;
     private String legalPerson;
     private HouseContract houseContract;
+    private LegalType legalType;
+
 
 
 
     public ContractOwner() {
     }
 
+    public ContractOwner(HouseContract houseContract) {
+        this.houseContract = houseContract;
+    }
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, length = 32)
@@ -136,6 +145,13 @@ public class ContractOwner implements PersonEntity, java.io.Serializable {
         this.legalPerson = legalPerson;
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "LEGAL_TYPE",length = 20)
+    public LegalType getLegalType() {
+        return legalType;
+    }
 
-
+    public void setLegalType(LegalType legalType) {
+        this.legalType = legalType;
+    }
 }

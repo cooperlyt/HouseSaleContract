@@ -28,11 +28,14 @@ public class BusinessPool implements PersonEntity, java.io.Serializable {
     private String legalPerson;
 
     private HouseContract houseContract;
+    private ContractOwner.LegalType legalType;
 
     public BusinessPool() {
     }
 
-
+    public BusinessPool(HouseContract houseContract) {
+        this.houseContract = houseContract;
+    }
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, length = 32)
@@ -148,5 +151,15 @@ public class BusinessPool implements PersonEntity, java.io.Serializable {
 
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "LEGAL_TYPE",length = 20)
+    public ContractOwner.LegalType getLegalType() {
+        return legalType;
+    }
+
+    public void setLegalType(ContractOwner.LegalType legalType) {
+        this.legalType = legalType;
     }
 }

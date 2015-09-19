@@ -12,6 +12,22 @@
                 template="/layout/template-form.xhtml">
 
 <h:form>
+
+    <ui:decorate template="/layout/edit.xhtml">
+        <ui:define name="label">
+            合同模版
+        </ui:define>
+        <h:selectOneMenu label="合同模版" id="contractTemplateInput"
+                         styleClass="selectpicker select-menu-btn input-group-first"
+                         value="#{contractCreate.contractTemplate}">
+            <s:selectItems value="#{houseContractHome.contractTemplateList}" var="_item"
+                           label="#{_item.name}" itemValue="#{_item}" noSelectionLabel="不使用模版"/>
+
+            <s:convertEntity/>
+        </h:selectOneMenu>
+
+    </ui:decorate>
+
     <ui:decorate template="/layout/edit-multi.xhtml">
 
         <ui:define name="topValue">
@@ -145,7 +161,9 @@
 
     <hr/>
 
-    <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.beginContract}"/>
+    <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.beginContract}">
+        <f:param name="templateModel" value="false"/>
+    </h:commandButton>
 
 </h:form>
 

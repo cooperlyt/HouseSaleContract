@@ -5,14 +5,9 @@
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
 
-    <param name="houseCode" value="#{contractCreate.houseCode}"/>
+
     <param name="templateModel" />
 
-    <navigation from-action="#{contractCreate.beginContract}">
-        <rule if-outcome="persisted-poolOwner">
-            <redirect view-id="/developer/ContractPoolOwner.xhtml"/>
-        </rule>
 
-    </navigation>
 
 </page>

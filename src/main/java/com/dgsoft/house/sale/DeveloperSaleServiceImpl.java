@@ -11,16 +11,13 @@ public class DeveloperSaleServiceImpl extends DeveloperSaleService {
 
     private static DeveloperSaleService saleService;
 
-    private DeveloperSaleServiceImpl() throws MalformedURLException {
+    private DeveloperSaleServiceImpl() {
     }
 
     public static DeveloperSaleService instance(){
         if (saleService == null){
-            try {
                 saleService = new DeveloperSaleServiceImpl();
-            } catch (MalformedURLException e) {
-                throw new IllegalArgumentException(e);
-            }
+
         }
         return saleService;
     }

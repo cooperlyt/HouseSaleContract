@@ -8,6 +8,7 @@ import com.dgsoft.house.sale.ContractOwnerHelper;
 import com.dgsoft.house.sale.NumberPool;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.ContractOwner;
+import com.dgsoft.house.sale.model.ContractTemplate;
 import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -43,12 +44,24 @@ public class HouseContractHome extends EntityHome<HouseContract> {
                 HouseContract.ContractStatus.PREPARE,logonInfo.getUserId(),logonInfo.getEmployeeName(), PoolType.SINGLE_OWNER);
     }
 
+    private List<ContractTemplate> contractTemplateList;
+
+    public List<ContractTemplate> getContractTemplateList() {
+        if (contractTemplateList == null){
+            LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
+            contractTemplateList = getEntityManager().createQuery("select contract from ContractTemplate contract where contract.type = :contractType and contract.projectCode = :groupCode",ContractTemplate.class)
+                    .setParameter("groupCode",logonInfo.getGroupCode()).setParameter("contractType", getInstance().getType()).getResultList();
+        }
+        return contractTemplateList;
+    }
+
     @Override
     protected void initInstance(){
         super.initInstance();
         ContractOwner owner = getInstance().getContractOwner();
         if (owner == null){
-            owner = new ContractOwner();
+            owner = new ContractOwner(getInstance());
+            getInstance().setContractOwner(owner);
         }
         contractOwner = new ContractOwnerHelper(owner);
 
@@ -117,9 +130,11 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
         while (getContractPoolOwners().size() != poolOwnerCount){
             if (getContractPoolOwners().size() > getPoolOwnerCount()){
-                getContractPoolOwners().remove(0);
+                getInstance().getBusinessPools().remove(getContractPoolOwners().remove(0).getPersonEntity());
             }else{
-                getContractPoolOwners().add(new PersonHelper<BusinessPool>(new BusinessPool()));
+                BusinessPool pool = new BusinessPool(getInstance());
+                getContractPoolOwners().add(new PersonHelper<BusinessPool>(pool));
+                getInstance().getBusinessPools().add(pool);
             }
         }
         return "pool-owner-ok";

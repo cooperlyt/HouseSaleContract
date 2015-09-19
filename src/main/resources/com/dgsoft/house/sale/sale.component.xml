@@ -7,10 +7,10 @@
 
 
     <framework:entity-query name="mapSaleContractTemplateList"
-                            ejbql="select contract from ContractTemplate contract where contract.type = &apos;MAP_SALE_NEW_HOUSE&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
+                            ejbql="select contract from ContractTemplate contract where contract.type = &apos;MAP_SELL&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
 
     <framework:entity-query name="saleNewContractTemplateList"
-                            ejbql="select contract from ContractTemplate contract where contract.type = &apos;SALE_NEW_HOUSE&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
+                            ejbql="select contract from ContractTemplate contract where contract.type = &apos;NOW_SELL&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
 
 
 

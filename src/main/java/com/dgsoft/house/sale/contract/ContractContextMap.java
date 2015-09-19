@@ -62,6 +62,22 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
         public ContarctContextItem() {
         }
 
+        public ContarctContextItem(String data) {
+            setStringValue(data);
+        }
+
+        public ContarctContextItem(BigDecimal data) {
+            setNumberValue(data);
+        }
+
+        public ContarctContextItem(Date data) {
+            setDataValue(data);
+        }
+
+        public ContarctContextItem(List<ContractContextMap> data) {
+            this.data = data;
+        }
+
         public ContarctContextItem(JSONArray value) throws JSONException {
             if (STRING_TYPE.equals(value.getString(0))) {
                 data = value.getString(1);

@@ -202,7 +202,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     }
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     public ContractOwner getContractOwner() {
         return contractOwner;

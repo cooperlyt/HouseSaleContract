@@ -1,0 +1,47 @@
+<p:document xmlns:p="http://jboss.org/schema/seam/pdf"
+            xmlns:f="http://xmlns.jcp.org/jsf/core"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:a="http://richfaces.org/a4j"
+            xmlns:s="http://jboss.org/schema/seam/taglib"
+            xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+            title="商品房买卖合同(预售)">
+
+<ui:repeat value="#{houseContractHome.instance.contractNumberList}" var="_contract">
+
+
+    <p:paragraph>
+
+        <p:font size="14" name="STSong-Light" style="bold" encoding="UniGB-UCS2-H">
+        #{_contract.contractNumber}                        合同编号:#{houseContractHome.instance.id}
+
+
+
+
+
+
+
+
+        <p:font alignment="center" size="20" name="STSong-Light" style="bold" encoding="UniGB-UCS2-H">
+
+                    商品房买卖合同(预售)
+
+        </p:font>
+
+        出卖人: #{contractContext.contractContextMap.dname.stringValue}
+
+        买受人:#{houseContractHome.instance.contractOwner.personName}<ui:repeat value="#{houseContractHome.contractPoolOwners}" var="_poolOwner">,#{_poolOwner.personName}</ui:repeat>
+
+
+
+        中华人民共和国住房和城乡建设部
+        中华人民共和国国家工商行政管理总局   制定
+                    二〇一四年四月
+
+        </p:font>
+    </p:paragraph>
+
+    <p:newPage/>
+</ui:repeat>
+
+
+</p:document>

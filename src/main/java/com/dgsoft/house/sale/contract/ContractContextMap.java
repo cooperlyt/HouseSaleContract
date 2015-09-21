@@ -71,7 +71,7 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
         }
 
         public ContarctContextItem(Date data) {
-            setDataValue(data);
+            setDateValue(data);
         }
 
         public ContarctContextItem(List<ContractContextMap> data) {
@@ -167,7 +167,7 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
             return (Date) data;
         }
 
-        public void setDataValue(Date value) {
+        public void setDateValue(Date value) {
             this.data = value;
         }
 

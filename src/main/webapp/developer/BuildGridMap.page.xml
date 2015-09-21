@@ -12,7 +12,6 @@
         <rule if-outcome="contract-begin">
             <begin-conversation flush-mode="MANUAL"/>
             <redirect view-id="/developer/ContractBegin.xhtml"/>
-
         </rule>
     </navigation>
 

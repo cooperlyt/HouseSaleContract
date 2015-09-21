@@ -14,6 +14,14 @@ public class ContractNumber implements java.io.Serializable  {
     private String contractNumber;
     private HouseContract houseContract;
 
+    public ContractNumber() {
+    }
+
+    public ContractNumber(String contractNumber, HouseContract houseContract) {
+        this.contractNumber = contractNumber;
+        this.houseContract = houseContract;
+    }
+
     @Id
     @Column(name = "CONTRACT_NUMBER", unique = true, nullable = false, length = 32)
     @NotNull

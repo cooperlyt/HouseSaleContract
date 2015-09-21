@@ -1,13 +1,14 @@
 package com.dgsoft.house.sale.developer;
 
-import com.dgsoft.developersale.DeveloperLogonInfo;
-import com.dgsoft.developersale.LogonInfo;
-import com.dgsoft.developersale.SaleBuild;
-import com.dgsoft.developersale.SaleBuildGridMap;
+import com.dgsoft.developersale.*;
+import com.dgsoft.house.BuildGridMapBlockInfo;
+import com.dgsoft.house.BuildGridMapInfo;
+import com.dgsoft.house.BuildGridMapRowInfo;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class BuildSaleGridMap {
     private LogonInfo logonInfo;
 
     private String buildCode;
+
+    @In
+    private EntityManager entityManager;
 
     //private SaleBuildGridMap saleBuildGridMap;
     private SaleBuild saleBuild;
@@ -58,6 +62,24 @@ public class BuildSaleGridMap {
     public List<SaleBuildGridMap> getSaleBuildGridMapList() {
         if (isBuildDefined() && (saleBuildGridMapList == null)){
             saleBuildGridMapList = DeveloperSaleServiceImpl.instance().getBuildGridMap(buildCode);
+
+            List<String> prepareContractHouseCodes = entityManager.createQuery("select contract.houseCode from HouseContract contract where contract.status = 'PREPARE' and contract.projectCode = :projectCode", String.class)
+                    .setParameter("projectCode", logonInfo.getGroupCode()).getResultList();
+
+            for(SaleBuildGridMap saleBuildGridMap: saleBuildGridMapList){
+                for(BuildGridMapRowInfo row: saleBuildGridMap.getRows()){
+                    for(BuildGridMapBlockInfo block: row.getBlocks()){
+                        if (block.getHouse() != null && ((SaleHouse)block.getHouse()).getStatus().isCanSale()){
+                            if (prepareContractHouseCodes.contains(block.getHouse().getHouseCode())){
+                                ((SaleHouse) block.getHouse()).setStatus(SaleStatus.PREPARE_CONTRACT);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
         }
         return saleBuildGridMapList;
     }

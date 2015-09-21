@@ -29,6 +29,9 @@
 
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.min.css"/>
         <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
+        <h:outputStylesheet library="bootstrap-sco" name="/css/scojs.css"/>
+        <h:outputStylesheet library="bootstrap-sco" name="/css/sco.message.css"/>
+
         <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
         <h:outputStylesheet library="octicons" name="octicons.css"/>
         <h:outputStylesheet name="doc.css"/>
@@ -75,7 +78,7 @@
 
 
             .lineValue{
-                display: inline-block;border-bottom: solid 1px #e1e1e8; min-height: 25px ; padding-left: 10px;
+                display: inline-block;border-bottom: solid 1px #e1e1e8; min-height: 25px ; padding-left: 10px; text-indent: 0 !important;
             }
 
             .fullLine .lineValue{
@@ -151,6 +154,22 @@
 
                         </h:commandLink>
                     </a:outputPanel>
+                    <a:outputPanel layout="block" rendered="#{not templateModel}" styleClass="navbar-form navbar-left">
+                        <div class="form-group">
+                            <h:inputText style="width: 200px" required="true" value="#{contractCreate.contractCount}"
+
+                                         styleClass="form-control" p:placeholder="合同份数">
+                                <f:converter converterId="javax.faces.Integer"/>
+                                <f:validateLongRange minimum="1"/>
+                            </h:inputText>
+
+                        </div>
+                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成"
+                                       action="#{contractCreate.contextComplete}" >
+                            <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
+                        </h:commandLink>
+                    </a:outputPanel>
+
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="header-nav-item">
@@ -261,6 +280,30 @@
 
 
         </h:outputScript>
+
+        <h:outputScript library="bootstrap-sco" name="/js/sco.message.js"/>
+
+        <a:outputPanel ajaxRendered="true">
+
+            <a:outputPanel rendered="#{facesContext.maximumSeverity!=null}">
+                <a:repeat value="#{statusMessages.currentGlobalMessages}" var="_msg">
+
+                    <h:outputScript>
+                        if (#{_msg.severity.ordinal == 2}){
+                        $.scojs_message.options.delay = 4000;
+                        $.scojs_message('#{_msg.summary}',$.scojs_message.TYPE_ERROR);
+
+
+                        }
+
+
+                    </h:outputScript>
+
+                </a:repeat>
+            </a:outputPanel>
+
+
+        </a:outputPanel>
     </h:body>
 
 

@@ -7,10 +7,12 @@
 
 
     <page view-id="/contract/*" login-required="true">
+
         <param name="templateModel" />
         <param name="templateId" value="#{contractTemplateHome.id}"/>
         <param name="contractType" value="#{contractContext.contractTypeName}"/>
-        
+        <param name="houseContractId" value="#{houseContractHome.id}"/>
+
         <navigation from-action="#{contractTemplateHome.persist}">
             <rule if-outcome="persisted">
                 <redirect view-id="/developer/Setting.xhtml"/>
@@ -21,20 +23,28 @@
                 <redirect view-id="/developer/Setting.xhtml"/>
             </rule>
         </navigation>
+
+        <navigation from-action="#{contractCreate.contextComplete}">
+            <rule if-outcome="updated">
+                <redirect view-id="/developer/ContractCommit.xhtml"/>
+            </rule>
+        </navigation>
     </page>
 
     <page view-id="/*">
         <navigation>
             <rule if-outcome="edit-contract-MAP_SELL-v1">
+                <end-conversation/>
                 <redirect view-id="/contract/pre-sale-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="edit-contract-NOW_SELL-v1">
+                <end-conversation/>
                 <redirect view-id="/contract/new-sale-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="view-contract-MAP_SELL-v1">
-                <redirect view-id="/contract/pre-sale-v1.xhtml"/>
+                <redirect view-id="/contract/pre-sale-print-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="view-contract-NOW_SELL-v1">

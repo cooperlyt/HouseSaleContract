@@ -453,6 +453,7 @@
 
         <a:repeat rendered="#{(not templateModel) and (not contractContext.contractContextMap.poolOwner.isNull())}" value="#{contractContext.contractContextMap.poolOwner.arrayValue}"
                   var="_pool">
+
             <ul>
                 <li>
                     <div class="fullLine">
@@ -678,21 +679,21 @@
         <p>
             1. 出卖人以 <h:outputText rendered="#{templateModel}" value="【出让】【划拨】【 ￼ 】"/>
             <h:outputText rendered="#{not templateModel}"
-                          value="【 #{contractContext.contractContextMap.c_1_1.stringValue}】"/> 方式取得坐落于
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
+                          value="【#{contractContext.contractContextMap.c_1_1.stringValue}】"/> 方式取得坐落于
+            <span class="lineValue" style="min-width: 150px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContext.contractContextMap.c_1_2.stringValue}"/></span>
             地块 的建设用地使用权。该地块
             <h:outputText rendered="#{templateModel}" value="【国有土地使用证号】【 】"/><h:outputText
                 rendered="#{not templateModel}" value="【#{contractContext.contractContextMap.c_1_3.stringValue}】"/> 为
-            ￼<span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
+            ￼<span class="lineValue" style="min-width: 170px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContext.contractContextMap.c_1_4.stringValue}"/></span> , 土地使用权面积为
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="min-width: 150px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContext.contractContextMap.c_1_5.numberValue}"><f:convertNumber
                     pattern="#0.000"/></h:outputText></span>平方米。买受人购买的商品房(以下简称该商品
 
-            ￼￼￼￼房) 所占用的土地用途为 <span class="lineValue" style="width: 50px"><h:outputText rendered="#{not templateModel}"
+            ￼￼￼￼房) 所占用的土地用途为 <span class="lineValue" style="min-width: 90px"><h:outputText rendered="#{not templateModel}"
                                                                                        value="#{contractContext.contractContextMap.c_1_6.stringValue}"/></span>￼ ,土地使用权终止日期为
-            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="width: 200px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContext.contractContextMap.c_1_7.dateValue}"><s:convertDateTime
                     pattern="#{messages.displayDatePattern}"/></h:outputText></span>。
 
@@ -700,11 +701,11 @@
 
         <p>
 
-            2. 出卖人经批准,在上述地块上建设的商品房项目核准名称为 <span class="lineValue" style="width: 100px"><h:outputText
+            2. 出卖人经批准,在上述地块上建设的商品房项目核准名称为 <span class="lineValue" style="min-width: 200px"><h:outputText
                 rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_1_8.stringValue}"/></span>
-            建设工程规划许可证号为 <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
+            建设工程规划许可证号为 <span class="lineValue" style="min-width: 100px"><h:outputText rendered="#{not templateModel}"
                                                                                   value="#{contractContext.contractContextMap.c_1_9.stringValue}"/></span>￼ ,建筑工程施工许可证号为
-            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="min-width: 100px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContext.contractContextMap.c_1_10.stringValue}"/></span>。
 
         </p>
@@ -718,9 +719,9 @@
 
         <p>
             该商品房已由
-            <span class="lineValue" style="width: 400px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="min-width: 400px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContext.contractContextMap.c_2_1.stringValue}"/></span>批准预售, 预售许可证号为
-            <span class="lineValue" style="width: 300px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="min-width: 300px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContext.contractContextMap.c_2_2.stringValue}"/></span>。
         </p>
 
@@ -755,8 +756,7 @@
             ￼￼￼3. 该商品房为第一条规定项目中的
             <span class="lineValue" style="width: 100px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContext.contractContextMap.c_3_6.stringValue}"/></span>
-            <h:outputText rendered="#{templateModel}" value="【幢】【座】【 】"/><h:outputText rendered="#{not templateModel}"
-                                                                                       value="【#{contractContext.contractContextMap.c_3_7.stringValue}】"/>
+            <h:outputText value="【幢】"/>
             <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContext.contractContextMap.c_3_8.stringValue}"/></span>单元
             <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
@@ -784,18 +784,26 @@
 
         <p>
             该商品房层高为
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
-                                                                      value="#{contractContext.contractContextMap.c_3_15.numberValue}"><f:convertNumber
-                    pattern="#0.00"/></h:outputText></span>米,有
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
-                                                                      value="#{contractContext.contractContextMap.c_3_16.numberValue}"><f:convertNumber
-                    pattern="#0"/></h:outputText></span>￼ 个阳台,其中
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
-                                                                      value="#{contractContext.contractContextMap.c_3_17.numberValue}"><f:convertNumber
-                    pattern="#0"/></h:outputText></span>￼ 个阳台为封闭式,
-            <span class="lineValue" style="width: 60px"><h:outputText rendered="#{not templateModel}"
-                                                                      value="#{contractContext.contractContextMap.c_3_18.numberValue}"><f:convertNumber
-                    pattern="#0"/></h:outputText></span>个阳台为非封闭式。阳台是否封闭以规划设计文件为准。
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+
+                <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 层高"
+                             style="width: 60px" value="#{contractContext.contractContextMap.c_3_15.numberValue}">
+                    <f:convertNumber
+                    pattern="#0.000"/>
+                </h:inputText>米,有
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+
+            <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 阳台数"
+                         style="width: 60px" value="#{contractContext.contractContextMap.c_3_16.numberValue}"><f:convertNumber
+                    pattern="#0"/></h:inputText>￼ 个阳台,其中
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+            <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 封闭阳台数"
+                          style="width: 60px" value="#{contractContext.contractContextMap.c_3_17.numberValue}"><f:convertNumber
+                    pattern="#0"/></h:inputText>￼ 个阳台为封闭式,
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+            <h:inputText rendered="#{not templateModel}"  styleClass="contract-input" label="第二章 第三条 非封闭阳台数"
+                         style="width: 60px" value="#{contractContext.contractContextMap.c_3_18.numberValue}"><f:convertNumber
+                    pattern="#0"/></h:inputText>个阳台为非封闭式。阳台是否封闭以规划设计文件为准。
         </p>
 
         <h2 id="chapter2-4">
@@ -806,9 +814,8 @@
 
         <p>
             与该商品房有关的抵押情况为
-            <h:outputText rendered="#{templateModel}" value="【抵押】【未抵押】"/><h:outputText rendered="#{not templateModel}"
-                                                                                       value="【#{contractContext.contractContextMap.c_4_1.stringValue}】"/>
-            。
+            <h:outputText rendered="#{templateModel}" value="【抵押】【未抵押】"/>
+            <h:outputText rendered="#{not templateModel}" value="【#{contractContext.contractContextMap.plg.isNull() ? '未抵押' : '抵押'}】"/>。
         </p>
 
         <p>
@@ -852,12 +859,64 @@
                 </ul>
             </c:if>
 
-            <a:repeat rendered="#{not templateModel}" value="#{contractContext.contractContextMap.plg.arrayValue}"
+            <c:if test="#{(not templateModel) and (not contractContext.contractContextMap.plg.isNull())}">
+            <ul>
+            <a:repeat value="#{contractContext.contractContextMap.plg.arrayValue}"
                       var="_plg">
-                抵押类型: ￼ ,抵押人: ,
-                抵押权人: ￼ ,抵押登记机构: ,
-                抵押登记日期: ￼ ,债务履行期限: 。
+                <li>
+                    <div class="fullLine">
+                        <div style="display: table-cell;width: 80px">抵押类型:</div>
+                        <span class="lineValue" style="width: 200px">
+                            #{_plg.plg_type.stringValue}
+                        </span>
+
+                        <div style="display: table-cell;width: 80px"> ,抵押人:</div>
+                        <span class="lineValue">
+                            #{_plg.plg_owner.stringValue}
+                        </span>
+
+                        <div style="display: table-cell;width: 5px"> ,</div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="fullLine">
+                        <div style="display: table-cell;width: 80px">抵押权人:</div>
+                        <span class="lineValue" style="width: 200px">
+                            #{_plg.plg_corp.stringValue}
+                        </span>
+
+                        <div style="display: table-cell;width: 120px"> ,抵押登记机构:</div>
+                        <span class="lineValue">
+                            #{_plg.plg_org.stringValue}
+                        </span>
+
+                        <div style="display: table-cell;width: 5px"> ,</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="fullLine">
+                        <div style="display: table-cell;width: 110px">抵押登记日期:</div>
+                        <span class="lineValue" style="width: 170px">
+                            <h:outputText value="#{_plg.plg_begin.dateValue}">
+                                <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                            </h:outputText>
+                        </span>
+
+                        <div style="display: table-cell;width: 120px"> ,债务履行期限:</div>
+                        <span class="lineValue">
+                                     <h:outputText value="#{_plg.plg_end.dateValue}">
+                                         <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                                     </h:outputText>
+                        </span>
+
+                        <div style="display: table-cell;width: 5px"> ,</div>
+                    </div>
+                </li>
+
             </a:repeat>
+            </ul>
+            </c:if>
 
         </p>
         <p>
@@ -898,10 +957,23 @@
         </ul>
 
         <p>
-            如该商品房权利状况与上述情况不符,导致不能完成本合同登记备案或房屋所有权转移登记的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出 卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部 分),并自买受人付款之日起,按照 ￼
+            如该商品房权利状况与上述情况不符,导致不能完成本合同登记备案或房屋所有权转移登记的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出 卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起,按照 ￼
             <h:inputText styleClass="contract-input" value="#{contractContext.contractContextMap.c_5_3.stringValue}"
                             style="width: 60px"><f:convertNumber
-                    pattern="#0.00"/></h:inputText> % (不低于中国人民银行公布的同期贷款基 准利率) 计算给付利息。给买受人造成损失的,由出卖人支付 【已付房价款一倍】【买 受人全部损失】 的赔偿金。
+                    pattern="#0.00"/></h:inputText> % (不低于中国人民银行公布的同期贷款基 准利率) 计算给付利息。给买受人造成损失的,由出卖人支付
+
+            <r:inplaceSelect inputWidth="148px" style="width: 150px" rendered="#{not templateModel}"
+                             value="#{contractContext.contractContextMap.c_5_4.stringValue}">
+
+                <f:selectItem itemLabel="已付房价款一倍" itemValue="已付房价款一倍"/>
+                <f:selectItem itemLabel="买受人全部损失" itemValue="买受人全部损失"/>
+
+
+            </r:inplaceSelect>
+
+            <h:outputText rendered="#{templateModel}" value="【已付房价款一倍】【买受人全部损失】"/>
+
+             的赔偿金。
         </p>
 
 
@@ -923,42 +995,39 @@
         <p>
             出卖人与买受人按照下列第
 
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <r:inplaceSelect inputWidth="58px" style="width: 60px" rendered="#{not templateModel}"
-                             value="#{contractContext.contractContextMap.c_6_1.stringValue}">
-
-                <f:selectItem itemLabel="1" itemValue="1"/>
-                <f:selectItem itemLabel="2" itemValue="2"/>
-                <f:selectItem itemLabel="3" itemValue="3"/>
-                <f:selectItem itemLabel="4" itemValue="4"/>
-
-            </r:inplaceSelect> 种方式计算该商品房价款:
+            <a:outputPanel  styleClass="lineValue" style="width: 60px">
+                <h:outputText rendered="#{not templateModel}" value="#{contractContext.contractContextMap.c_6_1.numberValue}"/>
+            </a:outputPanel>
+            种方式计算该商品房价款:
         </p>
 
         <p>
             1. 按照套内建筑面积计算,该商品房单价为每平方米
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_2.stringValue}" style="width: 60px"/>
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_3.numberValue}" style="width: 60px"/>
+            <a:outputPanel  styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContext.contractContextMap.unit_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
 
             元,总价款为
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_4.numberValue}" style="width: 60px"/>
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             ￼ (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 100px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_5.numberValue}" style="width: 100px">
-                <a:ajax event="change" render="c_6_5_big"/>
-            </h:inputText>
+            <a:outputPanel styleClass="lineValue" style="min-width: 100px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContext.contractContextMap.total_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
+
             ￼￼ 元 (大写
-                    <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_6_5_big" rendered="#{not templateModel}"
-                                      value="#{contractContext.contractContextMap.c_6_5.numberValue}">
+                    <span style="min-width: 100px" class="lineValue">
+                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}"
+                                      value="#{contractContext.contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>)。
@@ -966,27 +1035,31 @@
 
         <p>
             2. 按照建筑面积计算,该商品房单价为每平方米
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_6.stringValue}" style="width: 60px"/>
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_7.numberValue}" style="width: 60px"/>
+            <a:outputPanel  styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContext.contractContextMap.unit_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
 
-            总价款为 <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_8.stringValue}" style="width: 60px"/>
+            总价款为
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_9.numberValue}" style="width: 60px">
-                <a:ajax event="change" render="c_6_9_big"/>
-            </h:inputText>
-            ￼ 元 (大写
-                    <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_6_9_big" rendered="#{not templateModel}"
-                                      value="#{contractContext.contractContextMap.c_6_9.numberValue}">
+            <a:outputPanel styleClass="lineValue" style="min-width: 100px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContext.contractContextMap.total_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
+
+            ￼￼ 元 (大写
+                    <span style="min-width: 100px" class="lineValue">
+                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}"
+                                      value="#{contractContext.contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>)。
@@ -994,19 +1067,20 @@
 
         <p>
             ￼￼￼￼3. 按照套计算,该商品房总价款为
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_10.stringValue}" style="width: 60px"/>
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_11.numberValue}" style="width: 60px">
-                <a:ajax event="change" render="c_6_11_big"/>
-            </h:inputText>
-            ￼ 元 (大写
-                    <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_6_11_big" rendered="#{not templateModel}"
-                                      value="#{contractContext.contractContextMap.c_6_11.numberValue}">
+            <a:outputPanel styleClass="lineValue" style="min-width: 100px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContext.contractContextMap.total_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
+
+            ￼￼ 元 (大写
+                    <span style="min-width: 100px" class="lineValue">
+                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}"
+                                      value="#{contractContext.contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>)。
@@ -1014,23 +1088,26 @@
 
         <p>
             ￼4. 按照
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_12.stringValue}" style="width: 60px"/>
+            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContext.contractContextMap.c_6_12.stringValue}"/>
+            </a:outputPanel>
+
+
             ￼ 计算,该商品房总价款为
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_13.stringValue}" style="width: 60px"/>
+            <a:outputPanel styleClass="lineValue" style="min-width: 60px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContext.contractContextMap.money_type.stringValue}"/>
+            </a:outputPanel>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
-                            value="#{contractContext.contractContextMap.c_6_14.numberValue}" style="width: 60px">
-                <a:ajax event="change" render="c_6_14_big"/>
-            </h:inputText>
-            ￼ 元 (大写
-                    <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_6_14_big" rendered="#{not templateModel}"
-                                      value="#{contractContext.contractContextMap.c_6_14.numberValue}">
+            <a:outputPanel styleClass="lineValue" style="min-width: 100px">
+                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContext.contractContextMap.total_price.numberValue}">
+                    <f:convertNumber type="currency" currencySymbol=""/>
+                </h:outputText>
+            </a:outputPanel>
+
+            ￼￼ 元 (大写
+                    <span style="min-width: 100px" class="lineValue">
+                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}"
+                                      value="#{contractContext.contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>)。
@@ -1119,7 +1196,7 @@
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 前分
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 付款期数"
                             value="#{contractContext.contractContextMap.c_7_8.numberValue}" style="width: 60px"/>
             ￼ 期支付该商品房全部价款,首期房价款
 
@@ -1128,7 +1205,7 @@
                             value="#{contractContext.contractContextMap.c_7_9.stringValue}" style="width: 60px"/>
             (币种)
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 分期金额"
                             value="#{contractContext.contractContextMap.c_7_10.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_10_big"/>
             </h:inputText>
@@ -1182,7 +1259,7 @@
                             value="#{contractContext.contractContextMap.c_7_15.stringValue}" style="width: 60px"/>
             (币种)
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 货款金额"
                             value="#{contractContext.contractContextMap.c_7_16.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_16_big"/>
             </h:inputText>
@@ -1196,6 +1273,7 @@
             占全部房价款的
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
             <h:inputText styleClass="contract-input" rendered="#{not templateModel}" style="width: 60px"
+                         label="第三章 第七条 货款比例"
                             value="#{contractContext.contractContextMap.c_7_18.numberValue}"/>
             %。
         </div>
@@ -1207,6 +1285,7 @@
             (币种)
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
             <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+                         label="第三章 第七条 货款余额"
                             value="#{contractContext.contractContextMap.c_7_20.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_20_big"/>
             </h:inputText>
@@ -1275,11 +1354,11 @@
             处理:
             1. 按照逾期时间,分别处理((1)和(2)不作累加)。
             (1) 逾期在
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_2.numberValue}"/>
+            <h:inputText label="第三章 第八条 逾期限制（1）" styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_2.numberValue}"/>
             日之内,买受人按日计算向出卖人支付逾期应付款万分之
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_3.numberValue}"/>的 违约金。
+            <h:inputText label="第三章 第八条 违约金比例（1）" styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_3.numberValue}"/>的 违约金。
             (2) 逾期超过
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_4.numberValue}"/>
+            <h:inputText label="第三章 第八条 逾期限制（2）" styleClass="contract-input" style="width: 60px" value="#{contractContext.contractContextMap.c_8_4.numberValue}"/>
             日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人 有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通 知送达之日起
             <h:inputText styleClass="contract-input" style="width: 60px"
                             value="#{contractContext.contractContextMap.c_8_5.numberValue}"/>￼ 日内按照累计应付款的
@@ -2376,8 +2455,8 @@
         </p>
 
         <p>本合同及附件共 <span class="lineValue" style="width: 40px"/> ￼ 页,一式 ￼
-            <h:inputText styleClass="contract-input" style="width: 40px" value="#{contractContext.contractContextMap.c_29_1.numberValue}"/>
-            份,,其中出卖人 ￼
+            <span class="lineValue" style="width: 40px"/>
+            份,其中出卖人 ￼
             <h:inputText styleClass="contract-input" style="width: 40px"
                             value="#{contractContext.contractContextMap.c_29_2.numberValue}"/>份,买受人 ￼
             <h:inputText styleClass="contract-input" style="width: 40px" value="#{contractContext.contractContextMap.c_29_3.numberValue}"/>份,

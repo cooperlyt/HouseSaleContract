@@ -30,11 +30,14 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
     public void initInstance(){
         super.initInstance();
         if (isIdDefined()){
+
             try {
                 contractContext.setContext(getInstance().getContext());
             } catch (JSONException e) {
-                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"ContractTemplateFail");
+                facesMessages.addFromResourceBundle(StatusMessage.Severity.WARN,"ContractTemplateFail");
+                contractContext.clearContext();
             }
+
         }
     }
 

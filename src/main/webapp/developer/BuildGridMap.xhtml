@@ -290,28 +290,39 @@
                         #{contractCreate.house.northWall}
                     </span>
                 </div>
-                <div class="col-md-12">
+
+                <a:outputPanel rendered="#{not empty contractCreate.house.pledgeInfoList}" styleClass="col-md-12">
+                    <a:repeat value="#{contractCreate.house.pledgeInfoList}" var="_pledge">
+
+
+
                     <div class="row">
                         <div class="col-md-2">
-a
+                            #{_pledge.type}
                         </div>
                         <div class="col-md-2">
-a
+                            #{_pledge.ownerPersonName}
                         </div>
                         <div class="col-md-2">
-a
+                            #{_pledge.pledgePersonName}
                         </div>
                         <div class="col-md-2">
-a
+                            #{_pledge.pledgeCorpName}
                         </div>
                         <div class="col-md-2">
-a
+
+                            <h:outputText value="#{_pledge.beginTime}">
+                                <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                            </h:outputText>
                         </div>
                         <div class="col-md-2">
-a
+                            <h:outputText value="#{_pledge.endTime}">
+                                <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                            </h:outputText>
                         </div>
                     </div>
-                </div>
+                    </a:repeat>
+                </a:outputPanel>
 
             </a:outputPanel>
 
@@ -322,9 +333,7 @@ a
                     #{messages.cancel}</button>
 
                 <s:link value="签约" rendered="#{not empty contractCreate.houseCode}"
-                        action="#{contractCreate.createContract}"
-
-                        disabled="#{contractCreate.house.inBiz or (not contractCreate.house.status.canSale)}"
+                        action="#{contractCreate.createContract}" disabled="#{contractCreate.house.inBiz or (not contractCreate.house.status.canSale)}"
                         styleClass="btn btn-success #{(contractCreate.house.inBiz or (not contractCreate.house.status.canSale)) ? 'disabled' : ''}">
                     <f:param name="houseCode" value="#{contractCreate.house.houseCode}"/>
                 </s:link>

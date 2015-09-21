@@ -8,9 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by cooper on 9/14/15.
@@ -239,5 +237,17 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setContractNumbers(Set<ContractNumber> contractNumbers) {
         this.contractNumbers = contractNumbers;
+    }
+
+    @Transient
+    public List<ContractNumber> getContractNumberList(){
+        List<ContractNumber> result = new ArrayList<ContractNumber>(getContractNumbers());
+        Collections.sort(result, new Comparator<ContractNumber>() {
+            @Override
+            public int compare(ContractNumber o1, ContractNumber o2) {
+                return o1.getContractNumber().compareTo(o2.getContractNumber());
+            }
+        });
+        return result;
     }
 }

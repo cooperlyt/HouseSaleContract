@@ -43,8 +43,12 @@
                 <redirect view-id="/contract/new-sale-v1.xhtml"/>
             </rule>
 
-            <rule if-outcome="view-contract-MAP_SELL-v1">
+            <rule if-outcome="print-contract-MAP_SELL-v1">
                 <redirect view-id="/contract/pre-sale-print-v1.xhtml"/>
+            </rule>
+
+            <rule if-outcome="view-contract-MAP_SELL-v1">
+                <redirect view-id="/contract/pre-sale-view-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="view-contract-NOW_SELL-v1">

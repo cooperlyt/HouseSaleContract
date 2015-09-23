@@ -32,6 +32,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private String attachEmpName;
     private BigDecimal price;
     private String context;
+    private String houseDescription;
     private int contractVersion;
     private int version;
 
@@ -237,6 +238,17 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setContractNumbers(Set<ContractNumber> contractNumbers) {
         this.contractNumbers = contractNumbers;
+    }
+
+    @Column(name = "HOUSE_DESCRIPTION", nullable = false, length = 52)
+    @NotNull
+    @Size(max = 52)
+    public String getHouseDescription() {
+        return houseDescription;
+    }
+
+    public void setHouseDescription(String houseDescription) {
+        this.houseDescription = houseDescription;
     }
 
     @Transient

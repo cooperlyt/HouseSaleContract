@@ -5,4 +5,8 @@
 
     <action execute="#{authenticationManager.genLogonRnd}" if="#{not identity.loggedIn}" on-postback="false"/>
 
+    <param name="contractId" value="#{houseContractHome.id}"/>
+    <param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
+
+
 </page>

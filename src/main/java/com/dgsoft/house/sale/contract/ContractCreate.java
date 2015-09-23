@@ -32,9 +32,6 @@ public class ContractCreate {
     @In(create = true)
     private HouseContractHome houseContractHome;
 
-    @In(create = true)
-    private ContractContext contractContext;
-
     @In
     private FacesMessages facesMessages;
 
@@ -168,19 +165,20 @@ public class ContractCreate {
 
     @Transactional
     public String fillContractContext(){
+        houseContractHome.getInstance().setHouseDescription(getHouse().getBuildName() + " " + getHouse().getHouseOrder());
+
 
         if (contractTemplate != null){
             try {
-                contractContext.setContext(contractTemplate.getContext());
+                houseContractHome.setContext(contractTemplate.getContext());
             } catch (JSONException e) {
                 facesMessages.addFromResourceBundle(StatusMessage.Severity.WARN,"ContractTemplateFail");
-                contractContext.clearContext();
+                houseContractHome.clearContext();
             }
         }
         Logging.getLog(getClass()).debug("fill sale info");
         genContractContext();
 
-        houseContractHome.getInstance().setContext(contractContext.getContext());
 
         if ("persisted".equals(houseContractHome.persist())) {
             //contractContext.
@@ -194,31 +192,31 @@ public class ContractCreate {
         DeveloperLogonInfo dLogonInfo = (DeveloperLogonInfo) logonInfo;
 
         //出卖人
-        contractContext.getContractContextMap().put("dname",new ContractContextMap.ContarctContextItem(getHouse().getSaleBuild().getProjectSellCard().getDeveloperName()));
-        contractContext.getContractContextMap().put("daddress", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getAddress()));
-        contractContext.getContractContextMap().put("dpost", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getPostCode()));
-        contractContext.getContractContextMap().put("dln",new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getLicenseNumber()));
-        contractContext.getContractContextMap().put("dln2", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getCerCode()));
-        contractContext.getContractContextMap().put("downer", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerPerson()));
-        contractContext.getContractContextMap().put("downertel",new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerTel()));
+        houseContractHome.getContractContextMap().put("dname",new ContractContextMap.ContarctContextItem(getHouse().getSaleBuild().getProjectSellCard().getDeveloperName()));
+        houseContractHome.getContractContextMap().put("daddress", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getAddress()));
+        houseContractHome.getContractContextMap().put("dpost", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getPostCode()));
+        houseContractHome.getContractContextMap().put("dln",new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getLicenseNumber()));
+        houseContractHome.getContractContextMap().put("dln2", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getCerCode()));
+        houseContractHome.getContractContextMap().put("downer", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerPerson()));
+        houseContractHome.getContractContextMap().put("downertel",new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerTel()));
 
 
         //买受人
-        contractContext.getContractContextMap().put("owner",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPersonName()));
+        houseContractHome.getContractContextMap().put("owner",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPersonName()));
 
         if (PersonEntity.CredentialsType.COMPANY_CODE.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
-            contractContext.getContractContextMap().put("ownertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getLegalType().name())));
+            houseContractHome.getContractContextMap().put("ownertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getLegalType().name())));
         }
         if(PersonEntity.CredentialsType.PASSPORT.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
-            contractContext.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
+            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
         }else{
-            contractContext.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
+            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
         }
-        contractContext.getContractContextMap().put("ownercityname", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getRootAddress()));
-        contractContext.getContractContextMap().put("ownertypevalue", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getLegalPerson()));
-        contractContext.getContractContextMap().put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getCredentialsType().name())));
-        contractContext.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
-        contractContext.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
+        houseContractHome.getContractContextMap().put("ownercityname", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getRootAddress()));
+        houseContractHome.getContractContextMap().put("ownertypevalue", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getLegalPerson()));
+        houseContractHome.getContractContextMap().put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getCredentialsType().name())));
+        houseContractHome.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
+        houseContractHome.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
 
 
         List<ContractContextMap> poolOwners = new ArrayList<ContractContextMap>();
@@ -241,41 +239,41 @@ public class ContractCreate {
             poolOwners.add(poolInfoMap);
         }
 
-        contractContext.getContractContextMap().put("poolOwner", new ContractContextMap.ContarctContextItem(poolOwners));
+        houseContractHome.getContractContextMap().put("poolOwner", new ContractContextMap.ContarctContextItem(poolOwners));
 
         // sale card
 
         ProjectSellCard sellCard = getHouse().getSaleBuild().getProjectSellCard();
 
-        contractContext.getContractContextMap().put("c_1_1", new ContractContextMap.ContarctContextItem(sellCard.getLandGetMode()));
-        contractContext.getContractContextMap().put("c_1_2", new ContractContextMap.ContarctContextItem(sellCard.getLandAddress()));
-        contractContext.getContractContextMap().put("c_1_3", new ContractContextMap.ContarctContextItem(sellCard.getLandCardType()));
-        contractContext.getContractContextMap().put("c_1_4", new ContractContextMap.ContarctContextItem(sellCard.getLandCardNumber()));
-        contractContext.getContractContextMap().put("c_1_5", new ContractContextMap.ContarctContextItem(sellCard.getLandArea()));
-        contractContext.getContractContextMap().put("c_1_6", new ContractContextMap.ContarctContextItem(sellCard.getLandUseType()));
-        contractContext.getContractContextMap().put("c_1_7", new ContractContextMap.ContarctContextItem(sellCard.getLandEndUseTime()));
+        houseContractHome.getContractContextMap().put("c_1_1", new ContractContextMap.ContarctContextItem(sellCard.getLandGetMode()));
+        houseContractHome.getContractContextMap().put("c_1_2", new ContractContextMap.ContarctContextItem(sellCard.getLandAddress()));
+        houseContractHome.getContractContextMap().put("c_1_3", new ContractContextMap.ContarctContextItem(sellCard.getLandCardType()));
+        houseContractHome.getContractContextMap().put("c_1_4", new ContractContextMap.ContarctContextItem(sellCard.getLandCardNumber()));
+        houseContractHome.getContractContextMap().put("c_1_5", new ContractContextMap.ContarctContextItem(sellCard.getLandArea()));
+        houseContractHome.getContractContextMap().put("c_1_6", new ContractContextMap.ContarctContextItem(sellCard.getLandUseType()));
+        houseContractHome.getContractContextMap().put("c_1_7", new ContractContextMap.ContarctContextItem(sellCard.getLandEndUseTime()));
 
-        contractContext.getContractContextMap().put("c_1_8", new ContractContextMap.ContarctContextItem(getHouse().getProjectName()));
-        contractContext.getContractContextMap().put("c_1_9", new ContractContextMap.ContarctContextItem(sellCard.getCreatePrepareCardNumber()));
-        contractContext.getContractContextMap().put("c_1_10", new ContractContextMap.ContarctContextItem(sellCard.getCreateCardNumber()));
+        houseContractHome.getContractContextMap().put("c_1_8", new ContractContextMap.ContarctContextItem(getHouse().getProjectName()));
+        houseContractHome.getContractContextMap().put("c_1_9", new ContractContextMap.ContarctContextItem(sellCard.getCreatePrepareCardNumber()));
+        houseContractHome.getContractContextMap().put("c_1_10", new ContractContextMap.ContarctContextItem(sellCard.getCreateCardNumber()));
 
-        contractContext.getContractContextMap().put("c_2_1", new ContractContextMap.ContarctContextItem(dLogonInfo.getOrgName()));
-        contractContext.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
+        houseContractHome.getContractContextMap().put("c_2_1", new ContractContextMap.ContarctContextItem(dLogonInfo.getOrgName()));
+        houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
 
         //house
-        contractContext.getContractContextMap().put("c_3_1" , new ContractContextMap.ContarctContextItem(getHouse().getUseType()));
-        contractContext.getContractContextMap().put("c_3_2", new ContractContextMap.ContarctContextItem(getHouse().getStructure()));
-        contractContext.getContractContextMap().put("c_3_3", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getFloorCount())));
-        contractContext.getContractContextMap().put("c_3_4" , new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getUpFloorCount())));
-        contractContext.getContractContextMap().put("c_3_5", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getDownFloorCount())));
-        contractContext.getContractContextMap().put("c_3_6", new ContractContextMap.ContarctContextItem(getHouse().getBuildNo()));
-        contractContext.getContractContextMap().put("c_3_8", new ContractContextMap.ContarctContextItem(getHouse().getHouseUnitName()));
-        contractContext.getContractContextMap().put("c_3_9", new ContractContextMap.ContarctContextItem(getHouse().getInFloorName()));
-        contractContext.getContractContextMap().put("c_3_10", new ContractContextMap.ContarctContextItem(getHouse().getHouseOrder()));
-        contractContext.getContractContextMap().put("c_3_11", new ContractContextMap.ContarctContextItem(getHouse().getSaleBuild().getProjectSellCard().getMappingCropName()));
-        contractContext.getContractContextMap().put("c_3_12", new ContractContextMap.ContarctContextItem(getHouse().getHouseArea()));
-        contractContext.getContractContextMap().put("c_3_13", new ContractContextMap.ContarctContextItem(getHouse().getUseArea()));
-        contractContext.getContractContextMap().put("c_3_14", new ContractContextMap.ContarctContextItem(getHouse().getCommArea()));
+        houseContractHome.getContractContextMap().put("c_3_1" , new ContractContextMap.ContarctContextItem(getHouse().getUseType()));
+        houseContractHome.getContractContextMap().put("c_3_2", new ContractContextMap.ContarctContextItem(getHouse().getStructure()));
+        houseContractHome.getContractContextMap().put("c_3_3", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getFloorCount())));
+        houseContractHome.getContractContextMap().put("c_3_4" , new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getUpFloorCount())));
+        houseContractHome.getContractContextMap().put("c_3_5", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getDownFloorCount())));
+        houseContractHome.getContractContextMap().put("c_3_6", new ContractContextMap.ContarctContextItem(getHouse().getBuildNo()));
+        houseContractHome.getContractContextMap().put("c_3_8", new ContractContextMap.ContarctContextItem(getHouse().getHouseUnitName()));
+        houseContractHome.getContractContextMap().put("c_3_9", new ContractContextMap.ContarctContextItem(getHouse().getInFloorName()));
+        houseContractHome.getContractContextMap().put("c_3_10", new ContractContextMap.ContarctContextItem(getHouse().getHouseOrder()));
+        houseContractHome.getContractContextMap().put("c_3_11", new ContractContextMap.ContarctContextItem(getHouse().getSaleBuild().getProjectSellCard().getMappingCropName()));
+        houseContractHome.getContractContextMap().put("c_3_12", new ContractContextMap.ContarctContextItem(getHouse().getHouseArea()));
+        houseContractHome.getContractContextMap().put("c_3_13", new ContractContextMap.ContarctContextItem(getHouse().getUseArea()));
+        houseContractHome.getContractContextMap().put("c_3_14", new ContractContextMap.ContarctContextItem(getHouse().getCommArea()));
 
 
         //pleg
@@ -298,29 +296,23 @@ public class ContractCreate {
 
             }
 
-            contractContext.getContractContextMap().put("plg",new ContractContextMap.ContarctContextItem(pledgeInfoContext));
+            houseContractHome.getContractContextMap().put("plg",new ContractContextMap.ContarctContextItem(pledgeInfoContext));
 
         }
 
         //price
 
-        contractContext.getContractContextMap().put("c_6_1", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(calcType)));
-        contractContext.getContractContextMap().put("money_type", new ContractContextMap.ContarctContextItem(moneyType));
-        contractContext.getContractContextMap().put("total_price", new ContractContextMap.ContarctContextItem(getTotalMoney()));
-        contractContext.getContractContextMap().put("unit_price", new ContractContextMap.ContarctContextItem(unitPrice));
+        houseContractHome.getContractContextMap().put("c_6_1", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(calcType)));
+        houseContractHome.getContractContextMap().put("money_type", new ContractContextMap.ContarctContextItem(moneyType));
+        houseContractHome.getContractContextMap().put("total_price", new ContractContextMap.ContarctContextItem(getTotalMoney()));
+        houseContractHome.getContractContextMap().put("unit_price", new ContractContextMap.ContarctContextItem(unitPrice));
         if (calcType == 4){
-            contractContext.getContractContextMap().put("c_6_12", new ContractContextMap.ContarctContextItem(calcTypeName));
+            houseContractHome.getContractContextMap().put("c_6_12", new ContractContextMap.ContarctContextItem(calcTypeName));
         }
     }
 
     public String commitContract(){
 
-        try {
-            contractContext.setContext(houseContractHome.getInstance().getContext());
-        } catch (JSONException e) {
-            facesMessages.addFromResourceBundle(StatusMessage.Severity.WARN,"ContractContextFail");
-            return null;
-        }
 
 
         return "view-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
@@ -328,8 +320,6 @@ public class ContractCreate {
 
     public String contextComplete(){
 
-
-        houseContractHome.getInstance().setContext(contractContext.getContext());
         for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,contractCount,houseContractHome.getInstance().getType())){
             houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
         }

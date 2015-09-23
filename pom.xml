@@ -198,6 +198,24 @@
             </dependency>
 
 
+            <!-- <dependency>
+                <groupId>org.metawidget</groupId>
+                <artifactId>metawidget-backend</artifactId>
+                <version>0.95</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.metawidget</groupId>
+                <artifactId>metawidget-frontend</artifactId>
+                <version>0.95</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.metawidget</groupId>
+                <artifactId>metawidget</artifactId>
+                <version>0.95</version>
+            </dependency>-->
+
             <dependency>
                 <groupId>org.apache.myfaces.trinidad</groupId>
                 <artifactId>trinidad-api</artifactId>
@@ -246,9 +264,8 @@
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>1.45-SNAPSHOT</version>
+            <version>1.46-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
@@ -257,9 +274,36 @@
 
 
         <dependency>
+            <groupId>org.eclipse.birt.runtime</groupId>
+            <artifactId>org.eclipse.birt.runtime</artifactId>
+            <version>4.3.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.apache.poi</artifactId>
+                    <groupId>org.eclipse.birt.runtime</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.birt.runtime</groupId>
+            <artifactId>viewservlets</artifactId>
+            <version>4.3.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-discovery</groupId>
+                    <artifactId>axis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.birt.runtime</groupId>
+                    <artifactId>org.eclipse.birt.runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -525,7 +569,6 @@
             <artifactId>base64coder</artifactId>
             <version>2010-09-21</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.bouncycastle</groupId>

@@ -203,15 +203,104 @@
 
                 </div>
             </nav>
+
+
+            <h:outputStylesheet>
+                .wellcome-user {
+                    margin-bottom: 20px;
+                    font-size: 20px;
+                    color: #444;
+                    cursor: pointer;
+                    text-decoration: none;
+                    outline: 0;
+                }
+            </h:outputStylesheet>
+
             <div class="container">
+
                 <div class="row">
 
-                    <div class="col-md-8" role="main"></div>
+                    <div class="col-md-8" role="main">
+
+                        <div class="wellcome-user">
+                        <span class="mega-octicon octicon-organization">
+
+                        </span>
+                            欢迎回来: #{logonInfo.employeeName}
+                        </div>
+
+                        <div class="background-panel">
+                            <r:chart title="30天销售图" styleClass="graf">
+
+                                <r:chartSeries label="" type="line">
+                                    <a:repeat value="#{daySaleTotalChart.totalDatas}" var="_count">
+                                        <r:chartPoint x="#{_count.title}" y="#{_count.count}"/>
+                                    </a:repeat>
+                                </r:chartSeries>
+
+                                <r:chartXAxis label=""/>
+                                <r:chartYAxis label=""/>
+                            </r:chart>
+                        </div>
+
+
+                        <a:outputPanel id="contractList">
+
+                            <a:repeat value="#{contractList.resultList}" var="_contract">
+                                <div class="sub-list-item">
+                                    <div class="body">
+                                        <span class="mega-octicon octicon-git-commit"></span>
+
+                                        <div class="time">
+                                            <h:outputText value="#{_contract.createTime}">
+                                                <s:convertDateTime pattern="#{messages.displayDateTimePattern}"/>
+                                            </h:outputText>
+                                        </div>
+                                        <div class="title">
+                                            <s:link rendered="#{_contract.status eq 'PREPARE'}" value="#{_contract.id}"/>
+                                            <h:outputText value="#{_contract.id}"
+                                                          rendered="#{not (_contract.status eq 'PREPARE')}"/>
+                                            <strong> #{_contract.houseDescription} </strong>
+                                        </div>
+                                        <div class="details">
+
+                                            <div class="commits pusher-is-only-committer">
+                                                <ul>
+                                                    <a:repeat value="#{_contract.contractNumberList}"
+                                                              var="_numberContract">
+                                                        <li>
+                                                            <span class="type-icon octicon octicon-git-commit">
+
+                                                            </span>
+
+                                                            <s:link style="font-size: 12px;font-weight: bold"
+                                                                    action="#{houseContractHome.viewSingleContract}"
+                                                                    value="#{_numberContract.contractNumber}">
+                                                                <f:param value="#{_numberContract.contractNumber}" name="contractNumber"/>
+                                                                <f:param value="#{_contract.id}" name="contractId"/>
+                                                            </s:link>
+
+                                                        </li>
+
+                                                    </a:repeat>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </a:repeat>
+                        </a:outputPanel>
+
+                    </div>
 
                     <div class="col-md-4" role="complementary">
                         <div class="boxed-group flush ">
                             <h3>
-                                所有功能
+                                #{logonInfo.saleProject.projectName}
                                 <span class="counter"></span>
                             </h3>
                             <ul class="boxed-group-inner mini-repo-list">
@@ -219,7 +308,8 @@
                                 <a:repeat value="#{logonInfo.saleProject.saleBuildList}" var="_build">
 
                                     <li>
-                                        <s:link  class="mini-repo-list-item css-truncate" view="/developer/BuildGridMap.xhtml">
+                                        <s:link class="mini-repo-list-item css-truncate"
+                                                view="/developer/BuildGridMap.xhtml">
                                             <f:param name="build" value="#{_build.buildCode}"/>
                                             <span class="repo-icon octicon octicon-repo"></span>
       <span class="repo-and-owner css-truncate-target">

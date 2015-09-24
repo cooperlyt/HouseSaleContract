@@ -9,7 +9,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessage;
-import org.jboss.seam.log.Logging;
 import org.json.JSONException;
 import org.json.JSONObject;
 

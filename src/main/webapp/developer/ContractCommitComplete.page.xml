@@ -4,13 +4,7 @@
       login-required="true"
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
+    <param name="contractId" value="#{houseContractHome.id}"/>
 
-<param name="houseContractId" value="#{houseContractHome.id}"/>
-
-      <navigation from-action="#{houseContractHome.commit}">
-            <rule if-outcome="updated">
-                  <redirect view-id="/developer/ContractCommitComplete.xhtml"/>
-            </rule>
-      </navigation>
-
+    <param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
 </page>

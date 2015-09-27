@@ -13,7 +13,38 @@
 
 
     <ui:define name="body">
+        <ui:include src="/layout/brand.xhtml"/>
+        <div class="container">
 
+        <r:messages globalOnly="false"/>
+</div>
+        <div style="width: 700px;
+    margin: 30px auto 0;">
+        <div class="background-panel notice-panel">
+            <span class="mega-octicon octicon-mail" style="color: #4078c0"></span>
+            <h2 style="margin-top: 0">备案合同 <strong>#{houseContractHome.instance.id}</strong> 已经提交到房屋登记机构!</h2>
+            <p>请在合同约定日期内到房屋登记机构办理商品房合同登记备案手续.</p>
+            <ul>
+                <a:repeat value="#{houseContractHome.instance.contractNumberList}" var="_number">
+                    <li>
+                        <strong>#{_number.ownerName}</strong>
+
+
+                        <s:link action="#{houseContractHome.viewSingleContract}" target="_blank" >
+                            <span class="glyphicon glyphicon-print"/>
+                            <f:param value="#{_number.contractNumber}" name="contractNumber"/>
+                            <f:param value="#{houseContractHome.instance.id}" name="contractId"/>
+                            #{_number.contractNumber}
+                        </s:link>
+
+                    </li>
+                </a:repeat>
+
+
+            </ul>
+        </div>
+
+        </div>
 
     </ui:define>
 

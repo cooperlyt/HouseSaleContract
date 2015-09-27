@@ -157,52 +157,7 @@
 
 
         <a:outputPanel rendered="#{identity.loggedIn}">
-            <nav class="navbar navbar-static-top nav-header">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Brand</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">合同</a></li>
-
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="header-nav-item">
-
-                                <s:link styleClass="header-nav-link tooltipped tooltipped-s"
-                                        view="/developer/Setting.xhtml" p:aria-label="Settings">
-                                    <span class="octicon octicon-gear"></span>
-                                </s:link>
-                            </li>
-                            <li class="header-nav-item">
-                                <s:link id="menuLogoutId"
-                                        styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
-                                        view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
-                                        p:aria-label="#{messages.logout}"
-                                        propagation="none">
-
-                                    <span class="octicon octicon-sign-out"></span>
-                                </s:link>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-
-                </div>
-            </nav>
+            <ui:include src="/layout/brand.xhtml"/>
 
 
             <h:outputStylesheet>
@@ -273,7 +228,7 @@
 
                                                             </span>
 
-                                                            <s:link style="font-size: 12px;font-weight: bold"
+                                                            <s:link style="font-size: 12px;font-weight: bold" target="_blank"
                                                                     action="#{houseContractHome.viewSingleContract}"
                                                                     value="#{_numberContract.contractNumber}">
                                                                 <f:param value="#{_numberContract.contractNumber}" name="contractNumber"/>

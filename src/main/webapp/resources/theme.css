@@ -656,6 +656,17 @@ label {
     border-radius: 3px;
 }
 
+.background-panel.notice-panel .mega-octicon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.background-panel.notice-panel{
+    padding: 15px 15px 15px 55px;
+}
+
+
 .sub-list-item{
     margin-bottom: 0;
     position: relative;

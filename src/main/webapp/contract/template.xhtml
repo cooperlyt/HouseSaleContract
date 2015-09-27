@@ -133,74 +133,39 @@
         </h:outputStylesheet>
 
         <h:form>
-        <nav id="top" class="navbar navbar-static-top nav-header">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
-                        <div class="form-group">
-                            <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
+        <div id="top">
+            <ui:decorate template="/layout/brand.xhtml">
+                <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
+                    <div class="form-group">
+                        <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
 
-                        </div>
-                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">
+                    </div>
+                    <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">
 
-                        </h:commandLink>
-                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="修改" action="#{contractTemplateHome.update}" rendered="#{contractTemplateHome.managed}">
+                    </h:commandLink>
+                    <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="修改" action="#{contractTemplateHome.update}" rendered="#{contractTemplateHome.managed}">
 
-                        </h:commandLink>
-                    </a:outputPanel>
-                    <a:outputPanel layout="block" rendered="#{not templateModel}" styleClass="navbar-form navbar-left">
-                        <div class="form-group">
-                            <h:inputText style="width: 200px" required="true" value="#{contractCreate.contractCount}"
+                    </h:commandLink>
+                </a:outputPanel>
+                <a:outputPanel layout="block" rendered="#{not templateModel}" styleClass="navbar-form navbar-left">
+                    <div class="form-group">
+                        <h:inputText label="合同份数" style="width: 200px" required="true" value="#{contractCreate.contractCount}"
 
-                                         styleClass="form-control" p:placeholder="合同份数">
-                                <f:converter converterId="javax.faces.Integer"/>
-                                <f:validateLongRange minimum="1"/>
-                            </h:inputText>
+                                     styleClass="form-control" p:placeholder="合同份数">
+                            <f:converter converterId="javax.faces.Integer"/>
+                            <f:validateLongRange minimum="1"/>
+                        </h:inputText>
 
-                        </div>
-                        <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成"
-                                       action="#{contractCreate.contextComplete}" >
-                            <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
-                        </h:commandLink>
-                    </a:outputPanel>
+                    </div>
+                    <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成"
+                                   action="#{contractCreate.contextComplete}" >
+                        <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
+                    </h:commandLink>
+                </a:outputPanel>
 
+            </ui:decorate>
+        </div>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="header-nav-item">
-
-                            <s:link styleClass="header-nav-link tooltipped tooltipped-s"
-                                    view="/developer/Setting.xhtml" p:aria-label="Settings">
-                                <span class="octicon octicon-gear"></span>
-                            </s:link>
-                        </li>
-                        <li class="header-nav-item">
-                            <s:link id="menuLogoutId"
-                                    styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
-                                    view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
-                                    p:aria-label="#{messages.logout}"
-                                    propagation="none">
-
-                                <span class="octicon octicon-sign-out"></span>
-                            </s:link>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-            </div>
-        </nav>
         <div class="container bs-docs-containe">
             <div class="row">
                 <div class="col-md-9" role="main">
@@ -217,9 +182,7 @@
                         <a class="back-to-top" href="#top">
                             返回顶部
                         </a>
-                        <a href="#" class="bs-docs-theme-toggle" role="button">
-                            主题预览
-                        </a>
+
 
                     </nav>
                 </div>
@@ -258,6 +221,8 @@
             </div>
         </footer>
 
+
+
         <h:outputScript library="jquery" name="jquery.min.js"/>
         <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
         <h:outputScript name="doc.js"/>
@@ -290,9 +255,10 @@
         <a:outputPanel ajaxRendered="true">
 
             <a:outputPanel rendered="#{facesContext.maximumSeverity!=null}">
-                <a:repeat value="#{statusMessages.currentGlobalMessages}" var="_msg">
+                <a:repeat value="#{statusMessages.currentMessages}" var="_msg">
 
                     <h:outputScript>
+
                         if (#{_msg.severity.ordinal == 2}){
                         $.scojs_message.options.delay = 4000;
                         $.scojs_message('#{_msg.summary}',$.scojs_message.TYPE_ERROR);

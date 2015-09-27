@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib">
+
+    <nav class="navbar navbar-static-top nav-header">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <s:link class="navbar-brand" style="padding: 12px 15px" view="/home.xhtml">
+                    <h:graphicImage width="24" height="24" value="/img/logo-icon.png"/>
+                </s:link>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ui:remove>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">项目 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">合同</a></li>
+
+                </ul>
+                </ui:remove>
+
+                <ui:insert>
+
+                <h:form class="navbar-form navbar-left" role="search" style="padding-left: 0">
+                    <div class="form-group">
+                        <h:inputText size="60" styleClass="form-control" p:placeholder="合同查询"/>
+                    </div>
+                </h:form>
+
+                </ui:insert>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <s:link styleClass="header-nav-link tooltipped tooltipped-s" propagation="end">
+                            <span class="octicon octicon-file-text"/>
+                        </s:link>
+                    </li>
+                    <li class="header-nav-item">
+
+                        <s:link styleClass="header-nav-link tooltipped tooltipped-s"
+                                propagation="end"
+                                view="/developer/Setting.xhtml" p:aria-label="Settings">
+                            <span class="octicon octicon-gear"></span>
+                        </s:link>
+                    </li>
+                    <li class="header-nav-item">
+                        <s:link id="menuLogoutId"
+                                styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
+                                p:aria-label="#{messages.logout}"
+                                propagation="none">
+
+                            <span class="octicon octicon-sign-out"></span>
+                        </s:link>
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+
+        </div>
+    </nav>
+
+
+</ui:composition>

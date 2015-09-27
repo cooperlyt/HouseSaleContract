@@ -182,7 +182,9 @@
                 <div class="fullLine">
                     <div style="display: table-cell;width: 80px">出生日期:</div>
                     <s:div rendered="#{templateModel}" styleClass="lineValue"/>
-                    <h:inputText styleClass="contract-date-pick contract-input full" rendered="#{not templateModel}" value="#{contractContextMap.ownerbirthday.dateValue}"/>
+                    <h:inputText label="第一章 买受人 出生日期" styleClass="contract-date-pick contract-input full" rendered="#{not templateModel}" value="#{contractContextMap.ownerbirthday.dateValue}">
+                        <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>
                     <div style="display: table-cell;width: 50px">, 性别:</div>
                     <a:outputPanel rendered="#{not templateModel}">
                         <ui:decorate  template="/layout/selectEditInput.xhtml">
@@ -388,7 +390,9 @@
                     <div class="fullLine">
                         <div style="display: table-cell;width: 80px">出生日期:</div>
                         <h:inputText styleClass="contract-date-pick contract-input full"
-                                     value="#{_pool.ownerbirthday.dateValue}"/>
+                                     value="#{_pool.ownerbirthday.dateValue}">
+                            <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                        </h:inputText>
                         <div style="display: table-cell;width: 50px">, 性别:</div>
 
                         <ui:decorate  template="/layout/selectEditInput.xhtml">

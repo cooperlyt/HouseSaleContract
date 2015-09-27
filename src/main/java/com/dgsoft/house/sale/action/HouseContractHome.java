@@ -19,6 +19,7 @@ import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessage;
+import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.security.Credentials;
 import org.json.JSONArray;
@@ -39,6 +40,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return ContractOwner.LegalType.values();
     }
 
+
     @In
     private FacesMessages facesMessages;
 
@@ -52,8 +54,8 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     private String contractNumber;
 
-    public String getContractNumber() {
-        return contractNumber;
+    public String getContractNumber()  {
+         return contractNumber;
     }
 
     public void setContractNumber(String contractNumber) {
@@ -225,7 +227,8 @@ public class HouseContractHome extends EntityHome<HouseContract> {
     public String commit(){
         DeveloperSaleService.CommitResult result = DeveloperSaleServiceImpl.instance().commitContract((DeveloperLogonInfo)Component.getInstance("logonInfo",true,true),toJson().toString());
         if (DeveloperSaleService.CommitResult.COMMIT_OK.equals(result)){
-            return "SUBMITED";
+            getInstance().setStatus(HouseContract.ContractStatus.SUBMIT);
+            return super.update();
         }
         facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"commitError_" + result.name());
         return null;

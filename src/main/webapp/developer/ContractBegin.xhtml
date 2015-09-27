@@ -19,7 +19,7 @@
         </ui:define>
         <h:selectOneMenu label="合同模版" id="contractTemplateInput"
                          styleClass="selectpicker select-menu-btn input-group-first"
-                         value="#{contractCreate.contractTemplate}">
+                         value="#{contractCreate.contractTemplate}" p:data-width="200">
             <s:selectItems value="#{houseContractHome.contractTemplateList}" var="_item"
                            label="#{_item.name}" itemValue="#{_item}" noSelectionLabel="不使用模版"/>
 

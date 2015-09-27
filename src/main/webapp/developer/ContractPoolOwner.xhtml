@@ -93,12 +93,26 @@
 
                     <s:decorate rendered="#{(_person.credentialsType.name() eq 'COMPANY_CODE')}"
                                 id="legalPersonField" styleClass="form-group" template="/layout/edit.xhtml">
-                        <ui:define name="label">
-                            #{messages.ContractOwner_legalPerson}
-                        </ui:define>
-                        <h:inputText value="#{_person.personEntity.legalPerson}"
+                       <ui:param name="showLabel" value="false"/>
+                        <ui:param name="for" value="legalPersonInput"/>
+
+                        <div class="input-group">
+
+                    <span class="input-group-btn">
+
+                        <h:selectOneMenu value="#{_person.personEntity.legalType}" styleClass="selectpicker select-menu-btn input-group-first">
+
+                            <s:selectItems value="#{houseContractHome.legalTypes}" var="_legal"
+                                           label="#{messages[_legal.name()]}" itemValue="#{_legal}"/>
+                            <s:convertEnum/>
+
+                        </h:selectOneMenu>
+                    </span>
+                        <h:inputText id="legalPersonInput" value="#{_person.personEntity.legalPerson}"
                                      maxlength="50"
                                      styleClass="form-control"/>
+
+                        </div>
                     </s:decorate>
 
 
@@ -114,8 +128,6 @@
                         </h:inputText>
 
                     </s:decorate>
-
-
 
 
                 </a:outputPanel>

@@ -145,7 +145,7 @@
                 </div>
             </li>
             <li>
-                <a:outputPanel rendered="#{templateModel or (not contractContext.contractContextMap.ownertype.isNull())}"  styleClass="fullLine">
+                <a:outputPanel rendered="#{templateModel or (not contractContextMap.ownertype.isEmpty())}"  styleClass="fullLine">
                     <div style="display: table-cell;width: 200px"><h:outputText rendered="#{templateModel}"
                                                                                 value="【法定代表人】【负责人】:"/> <h:outputText
                             rendered="#{not templateModel}"
@@ -223,8 +223,8 @@
 
             <li>
                 <div class="fullLine">
-                    <div style="display: table-cell;width: #{templateModel ? '250' : '130'}px"><h:outputText rendered="#{templateModel}"
-                                                                                                             value="【委托代理人】【法定代理人】:"/>
+                    <div style="display: table-cell;width: #{templateModel ? '250' : '130'}px">
+                        <h:outputText rendered="#{templateModel}" value="【委托代理人】【法定代理人】:"/>
                         <a:outputPanel rendered="#{not templateModel}">
                             【
                             <ui:decorate  template="/layout/selectEditInput.xhtml">
@@ -345,7 +345,7 @@
 
         </ul>
 
-        <a:repeat rendered="#{(not templateModel) and (not contractContext.contractContextMap.poolOwner.isNull())}" value="#{contractContextMap.poolOwner.arrayValue}"
+        <a:repeat rendered="#{(not templateModel) and (not contractContextMap.poolOwner.isNull())}" value="#{contractContextMap.poolOwner.arrayValue}"
                   var="_pool">
 
             <ul>
@@ -753,7 +753,7 @@
                 </ul>
             </c:if>
 
-            <c:if test="#{(not templateModel) and (not contractContext.contractContextMap.plg.isNull())}">
+            <c:if test="#{(not templateModel) and (not contractContextMap.plg.isNull())}">
                 <ul>
                     <a:repeat value="#{contractContextMap.plg.arrayValue}"
                               var="_plg">
@@ -898,29 +898,29 @@
         <p>
             1. 按照套内建筑面积计算,该商品房单价为每平方米
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             (币种)
             <a:outputPanel  styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.unit_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.unit_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             元,总价款为
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             ￼ (币种)
             <a:outputPanel styleClass="lineValue" style="min-width: 100px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.total_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.total_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             ￼￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
-                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 1}"
+                        <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}"
                                       value="#{contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
@@ -930,29 +930,29 @@
         <p>
             2. 按照建筑面积计算,该商品房单价为每平方米
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             (币种)
             <a:outputPanel  styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.unit_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.unit_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             总价款为
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             (币种)
             <a:outputPanel styleClass="lineValue" style="min-width: 100px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.total_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}" value="#{contractContextMap.total_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             ￼￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
-                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 2}"
+                        <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}"
                                       value="#{contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
@@ -962,18 +962,18 @@
         <p>
             ￼￼￼￼3. 按照套计算,该商品房总价款为
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             (币种)
             <a:outputPanel styleClass="lineValue" style="min-width: 100px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContextMap.total_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 3}" value="#{contractContextMap.total_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             ￼￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
-                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 3}"
+                        <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 3}"
                                       value="#{contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
@@ -983,24 +983,24 @@
         <p>
             ￼4. 按照
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.c_6_12.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.c_6_12.stringValue}"/>
             </a:outputPanel>
 
 
             ￼ 计算,该商品房总价款为
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.money_type.stringValue}"/>
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
             (币种)
             <a:outputPanel styleClass="lineValue" style="min-width: 100px">
-                <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.total_price.numberValue}">
+                <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.total_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
             ￼￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
-                        <h:outputText rendered="#{not templateModel and contractContext.contractContextMap.c_6_1.numberValue eq 4}"
+                        <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}"
                                       value="#{contractContextMap.total_price.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>

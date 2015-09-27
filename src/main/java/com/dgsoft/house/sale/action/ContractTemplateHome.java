@@ -2,6 +2,7 @@ package com.dgsoft.house.sale.action;
 
 import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.contract.ContractContextMap;
 import com.dgsoft.house.sale.model.ContractTemplate;
 import org.jboss.seam.annotations.In;
@@ -75,5 +76,24 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
             getInstance();
         }
         return contractContextMap;
+    }
+
+    public void setContractTypeName(String value){
+        if (value  == null || value.trim().equals("")){
+            getInstance().setType(null);
+        }
+        getInstance().setType(SaleType.valueOf(value));
+    }
+
+    public String getContractTypeName(){
+        if (getInstance().getType() == null){
+            return null;
+        }
+        return getInstance().getType().name();
+    }
+
+    public String editTemplate(){
+
+        return "template-contract-" + getInstance().getType().getCurrentPatch();
     }
 }

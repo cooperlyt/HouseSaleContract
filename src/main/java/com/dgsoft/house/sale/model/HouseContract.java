@@ -25,7 +25,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private String projectCode;
     private String HouseCode;
     private SaleType type;
-    private String password;
+
     private Date createTime;
     private ContractStatus status;
     private String attachEmpId;
@@ -103,17 +103,6 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     public void setType(SaleType type) {
         this.type = type;
     }
-
-    @Column(name = "PASSWORD", length = 50, nullable = true)
-    @Size(max = 50)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATE_TIME",nullable = false)

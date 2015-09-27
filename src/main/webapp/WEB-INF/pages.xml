@@ -10,7 +10,7 @@
 
         <param name="templateModel" />
         <param name="templateId" value="#{contractTemplateHome.id}"/>
-        <param name="contractType" value="#{contractContext.contractTypeName}"/>
+        <param name="contractType" value="#{contractTemplateHome.contractTypeName}"/>
         <param name="houseContractId" value="#{houseContractHome.id}"/>
 
         <navigation from-action="#{contractTemplateHome.persist}">
@@ -43,12 +43,12 @@
                 <redirect view-id="/contract/new-sale-v1.xhtml"/>
             </rule>
 
-            <rule if-outcome="print-contract-MAP_SELL-v1">
-                <redirect view-id="/contract/pre-sale-print-v1.xhtml"/>
-            </rule>
-
             <rule if-outcome="view-contract-MAP_SELL-v1">
                 <redirect view-id="/contract/pre-sale-view-v1.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-MAP_SELL-v1">
+                <redirect view-id="/contract/pre-sale-template-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="view-contract-NOW_SELL-v1">

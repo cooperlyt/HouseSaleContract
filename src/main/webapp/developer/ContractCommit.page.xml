@@ -7,4 +7,10 @@
 
 <param name="houseContractId" value="#{houseContractHome.id}"/>
 
+      <navigation from-action="#{houseContractHome.commit}">
+            <rule if-outcome="SUBMITED">
+                  <redirect view-id="/developer/ContractCommitComplete.xhtml"/>
+            </rule>
+      </navigation>
+
 </page>

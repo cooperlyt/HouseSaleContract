@@ -102,6 +102,20 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
             return data == null;
         }
 
+        public boolean isEmpty(){
+            if (data == null){
+                return true;
+            }
+            if (isString()) {
+                return getStringValue().trim().equals("");
+            }else if(isArray()){
+                return getArrayValue().isEmpty();
+            }else{
+                return false;
+            }
+
+        }
+
         public boolean isArray() {
             if (data == null) {
                 return false;

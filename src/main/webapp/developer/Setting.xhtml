@@ -157,7 +157,7 @@
                             <h:form id="mapSaleContractTemplate">
                             <div class="boxed-group flush">
                                 <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
-                                        action="#{contractContext.toContextEdit}"
+                                        action="#{contractTemplateHome.editTemplate}"
                                         p:aria-label="新建预售合同模版">
                                     <span class="octicon octicon-plus"></span>
                                     <f:param name="templateModel" value="#{true}"/>
@@ -175,12 +175,11 @@
                                         <li class="public source no-description">
                                             <span class="mini-repo-list-item css-truncate">
                                                   <span class="repo-icon octicon octicon-repo"></span>
-                                                     <s:link  action="#{contractContext.toContextEdit}"
+                                                     <s:link  action="#{contractTemplateHome.editTemplate}"
                                                               rendered="#{_contract.currentVersion}"
                                                               style="display:inline-block; width:100%">
                                                          <f:param name="templateModel" value="#{true}"/>
                                                          <f:param name="templateId" value="#{_contract.id}"/>
-                                                         <f:param name="contractType" value="MAP_SELL"/>
                                                         <span class="repo-and-owner css-truncate-target">
                                                             <span class="repo" title="#{_contract.name}">#{_contract.name}</span>
                                                         </span>

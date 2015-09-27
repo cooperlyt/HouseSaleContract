@@ -8,7 +8,7 @@
     <param name="templateModel" />
     <param name="templateId" value="#{contractTemplateHome.id}"/>
 
-    <param name="contractType" value="#{contractContext.contractTypeName}"/>
+    <param name="contractType" value="#{contractTemplateHome.contractTypeName}"/>
 
 
 </page>

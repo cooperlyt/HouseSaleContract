@@ -4,26 +4,48 @@
                 xmlns:s="http://jboss.org/schema/seam/taglib"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:r="http://richfaces.org/rich"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:a="http://richfaces.org/a4j"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="/layout/template-form.xhtml">
 
+    <h:outputStylesheet>
+        .group-last{
+            border-bottom-right-radius: 3px !important;
+            border-top-right-radius: 3px !important;
+        }
+    </h:outputStylesheet>
 
     <h:form>
 
         <a:repeat value="#{houseContractHome.instance.contractNumberList}" var="_contractNumber">
 
-            <h:inputText  value="#{_contractNumber.contractNumber}" disabled="true"/>
+            <s:decorate template="/layout/edit.xhtml">
+
+                <div class="input-group">
+
+                <h:inputText  styleClass="form-control" value="#{_contractNumber.contractNumber}" disabled="true"/>
+
+                    <span class="input-group-addon" id="basic-addon1">@</span>
+                    <div class="input-group">
+                    <ui:decorate template="/layout/selectEditInput.xhtml">
+                        <ui:param name="inputStyleClass" value="form-control group-last"/>
+                        <ui:param name="inputValue"
+                                  value="#{_contractNumber.ownerName}"/>
+                        <li><a href="#">出卖人</a></li>
+                        <li><a href="#">买受人</a></li>
+                    </ui:decorate>
+                    </div>
+                </div>
+            </s:decorate>
+
+
 
         </a:repeat>
 
-
-        <h:commandButton styleClass="btn btn-success" value="提交合同" action="#{contractCreate.commitContract}"/>
+        <hr/>
+        <h:commandButton styleClass="btn btn-success" value="提交合同" action="#{houseContractHome.commit}"/>
 
     </h:form>
 
+    <h:outputScript name="select-edit.js"/>
 
-    </ui:composition>
+</ui:composition>

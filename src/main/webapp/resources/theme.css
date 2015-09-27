@@ -734,3 +734,8 @@ label {
     font-size: 13px;
     color: #666;
 }
+
+
+.input-group .btn-group.select-edit-group{
+    vertical-align: inherit;
+}

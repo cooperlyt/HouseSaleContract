@@ -15,6 +15,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -309,13 +310,6 @@ public class ContractCreate {
         if (calcType == 4){
             houseContractHome.getContractContextMap().put("c_6_12", new ContractContextMap.ContarctContextItem(calcTypeName));
         }
-    }
-
-    public String commitContract(){
-
-
-
-        return "view-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
     }
 
     public String contextComplete(){

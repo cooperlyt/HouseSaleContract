@@ -13,6 +13,8 @@ public class ContractNumber implements java.io.Serializable  {
 
     private String contractNumber;
     private HouseContract houseContract;
+    private String ownerName;
+    private String password;
 
     public ContractNumber() {
     }
@@ -44,4 +46,25 @@ public class ContractNumber implements java.io.Serializable  {
     public void setHouseContract(HouseContract houseContract) {
         this.houseContract = houseContract;
     }
+
+    @Column(name = "OWNER_NAME", nullable = true, length = 64)
+    @Size(max = 64)
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    @Column(name = "PASSWORD", length = 64, nullable = true)
+    @Size(max = 64)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.dgsoft.house.sale.model;
 
 import com.dgsoft.house.PoolType;
+import com.dgsoft.house.SalePayType;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.contract.ContractInfo;
 
@@ -37,6 +38,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private int version;
 
     private PoolType poolType;
+    private SalePayType salePayType;
 
     private ContractOwner contractOwner;
     private Set<BusinessPool> businessPools = new HashSet<BusinessPool>(0);
@@ -209,6 +211,17 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setPoolType(PoolType poolType) {
         this.poolType = poolType;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SALE_PAY_TYPE", nullable = false, length = 32)
+    @NotNull
+    public SalePayType getSalePayType() {
+        return salePayType;
+    }
+
+    public void setSalePayType(SalePayType salePayType) {
+        this.salePayType = salePayType;
     }
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "houseContract")

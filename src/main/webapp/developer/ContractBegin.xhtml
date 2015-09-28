@@ -58,6 +58,14 @@
 
                     <h:inputText disabled="true" value="#{contractCreate.moneyType}" styleClass="form-control"/>
 
+                    <h:selectOneMenu label="付款方式"
+                                     id="salePayTypeInput" p:data-width="150"
+                                     styleClass="selectpicker select-menu-btn"
+                                     value="#{houseContractHome.instance.salePayType}" required="true">
+                        <s:selectItems value="#{salePayType}" var="_type" label="#{messages[_type.name()]}"
+                                       itemValue="#{_type}"/>
+                        <s:convertEnum/>
+                    </h:selectOneMenu>
 
                 </div>
 

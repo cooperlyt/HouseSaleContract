@@ -1,4 +1,4 @@
-package com.com.dgsoft.house;
+package com.dgsoft.house;
 
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.house.PoolType;
@@ -20,6 +20,11 @@ public class HelpTools {
     @Factory(value = "poolTypes",scope = ScopeType.SESSION )
     public PoolType[] getPoolTypes(){
         return PoolType.values();
+    }
+
+    @Factory(value = "salePayType", scope = ScopeType.SESSION)
+    public SalePayType[] getSalePayType(){
+        return SalePayType.values();
     }
 
 }

@@ -224,6 +224,11 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     }
 
+    public String editContract(){
+        return "edit-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
+    }
+
+
     public String commit(){
         DeveloperSaleService.CommitResult result = DeveloperSaleServiceImpl.instance().commitContract((DeveloperLogonInfo)Component.getInstance("logonInfo",true,true),toJson().toString());
         if (DeveloperSaleService.CommitResult.COMMIT_OK.equals(result)){

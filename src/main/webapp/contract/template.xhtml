@@ -135,6 +135,7 @@
         <h:form>
         <div id="top">
             <ui:decorate template="/layout/brand.xhtml">
+                <ui:define name="brand">
                 <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
                     <div class="form-group">
                         <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
@@ -162,7 +163,7 @@
                         <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
                     </h:commandLink>
                 </a:outputPanel>
-
+                </ui:define>
             </ui:decorate>
         </div>
 

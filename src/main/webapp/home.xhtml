@@ -212,8 +212,11 @@
                                             </h:outputText>
                                         </div>
                                         <div class="title">
-                                            <s:link rendered="#{_contract.status eq 'PREPARE'}" value="#{_contract.id}"/>
-                                            <h:outputText value="#{_contract.id}"
+                                            <s:link rendered="#{_contract.status eq 'PREPARE'}"
+                                                    action="#{houseContractHome.editContract}" value="#{_contract.id}">
+                                                <f:param name="contractId" value="#{_contract.id}"/>
+                                            </s:link>
+                                            <h:outputText value="#{_contract.id}" style="font-weight: bold"
                                                           rendered="#{not (_contract.status eq 'PREPARE')}"/>
                                             <strong> #{_contract.houseDescription} </strong>
                                         </div>
@@ -224,7 +227,7 @@
                                                     <a:repeat value="#{_contract.contractNumberList}"
                                                               var="_numberContract">
                                                         <li>
-                                                            <span class="type-icon octicon octicon-git-commit">
+                                                            <span title="#{_numberContract.contractNumber}" class="type-icon octicon octicon-git-commit">
 
                                                             </span>
 
@@ -235,6 +238,11 @@
                                                                 <f:param value="#{_contract.id}" name="contractId"/>
                                                             </s:link>
 
+                                                            <div class="message">
+                                                                <blockquote>
+                                                                    #{_numberContract.ownerName}
+                                                                </blockquote>
+                                                            </div>
                                                         </li>
 
                                                     </a:repeat>
@@ -249,6 +257,23 @@
                                 </div>
                             </a:repeat>
                         </a:outputPanel>
+
+                        <a:status id="moreResultWaiting" name="moreResultWaiting"
+                                  onstart="$('.pagination').addClass('loading')"
+                                  onstop="$('.pagination').removeClass('loading');"/>
+                        <h:form id="moreAction">
+
+
+                            <a:outputPanel layout="block" class="pagination ajax_paginate">
+                                <a:commandLink class="js-events-pagination" execute="@this" immediate="true"
+                                               render="moreAction,contractList" status="moreResultWaiting"
+                                               rendered="#{contractList.nextExists}">
+                                    更多...
+                                    <a:attachQueue requestDelay="0"/>
+                                    <a:param value="#{contractList.maxResults + 30}" assignTo="#{contractList.maxResults}"/>
+                                </a:commandLink>
+                            </a:outputPanel>
+                        </h:form>
 
                     </div>
 

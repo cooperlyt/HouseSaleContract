@@ -744,9 +744,58 @@ label {
     display: inline;
     font-size: 13px;
     color: #666;
+    padding-left: inherit;
+    margin: inherit;
+    border-left: 0;
 }
 
 
 .input-group .btn-group.select-edit-group{
     vertical-align: inherit;
+}
+
+.pagination{
+    display: block;
+    margin-top: 20px;
+}
+
+.pagination a{
+
+    position: relative;
+    margin-left: -1px;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: normal;
+    color: #4078c0;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    border-radius: 3px;
+    float: none;
+    display: block;
+    padding: 6px;
+    text-align: center;
+}
+
+.pagination a:hover{
+    z-index: 2;
+    background-color: #e7e7e7;
+    border-color: #e5e5e5;
+    text-decoration: none;
+}
+
+.pagination.loading a{
+    text-indent: -3000px;
+    background-color: #eaeaea;
+    background-image: url("#{facesContext.externalContext.requestContextPath}/img/octocat-spinner-16px.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-color: #c5c5c5;
 }

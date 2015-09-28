@@ -5,14 +5,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:a="http://richfaces.org/a4j"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="/layout/template-form.xhtml">
 
-    <h:outputStylesheet>
-        .group-last{
-            border-bottom-right-radius: 3px !important;
-            border-top-right-radius: 3px !important;
-        }
-    </h:outputStylesheet>
 
     <h:form>
 
@@ -27,13 +22,17 @@
                     <span class="input-group-addon" id="basic-addon1">@</span>
                     <div class="input-group">
                     <ui:decorate template="/layout/selectEditInput.xhtml">
-                        <ui:param name="inputStyleClass" value="form-control group-last"/>
+                        <ui:param name="inputStyleClass" value="form-control"/>
                         <ui:param name="inputValue"
                                   value="#{_contractNumber.ownerName}"/>
+                        <ui:param name="placeholder" value="合同所有者"/>
                         <li><a href="#">出卖人</a></li>
                         <li><a href="#">买受人</a></li>
                     </ui:decorate>
+                        <span class="input-group-addon" id="sizing-addon1">*</span>
+                        <h:inputText styleClass="form-control" p:placeholder="合同查询密码" value="#{_contractNumber.password}"/>
                     </div>
+
                 </div>
             </s:decorate>
 

@@ -2,13 +2,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
                 xmlns:s="http://jboss.org/schema/seam/taglib">
 
 
     <div class="btn-group select-edit-group">
         <button type="button" class="select-edit-input-toggle" style="display: none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
-        <h:inputText styleClass="select-edit-input #{inputStyleClass}" style="#{inputStyle}" value="#{inputValue}"  data-toggle="dropdown"/>
+        <h:inputText styleClass="select-edit-input #{inputStyleClass}" p:placeholder="#{placeholder}" style="#{inputStyle}" value="#{inputValue}"  data-toggle="dropdown"/>
         <ul class="dropdown-menu">
             <ui:insert/>
 

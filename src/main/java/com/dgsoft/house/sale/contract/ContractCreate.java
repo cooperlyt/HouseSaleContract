@@ -276,6 +276,22 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_3_13", new ContractContextMap.ContarctContextItem(getHouse().getUseArea()));
         houseContractHome.getContractContextMap().put("c_3_14", new ContractContextMap.ContarctContextItem(getHouse().getCommArea()));
 
+        //pay Type
+        switch (houseContractHome.getInstance().getSalePayType()){
+
+            case ALL_PAY:
+                houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("1"));
+                break;
+            case PART_PAY:
+                houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("2"));
+                break;
+            case DEBIT_PAY:
+                houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("3"));
+                break;
+            case OTHER_PAY:
+                houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("4"));
+                break;
+        }
 
         //pleg
         List<PledgeInfo> pledgeInfos = getHouse().getPledgeInfoList();

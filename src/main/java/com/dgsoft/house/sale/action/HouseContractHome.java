@@ -249,10 +249,11 @@ public class HouseContractHome extends EntityHome<HouseContract> {
             contractJson.put("createTime", getInstance().getCreateTime().getTime());
             contractJson.put("attachEmpId", getInstance().getAttachEmpId());
             contractJson.put("attachEmpName", getInstance().getAttachEmpName());
-            contractJson.put("contractPrice", getInstance().getPrice());
+            contractJson.put("contractPrice", getInstance().getPrice().doubleValue());
             contractJson.put("contract", new JSONObject(getInstance().getContext()));
             contractJson.put("contractVersion", getInstance().getContractVersion());
             contractJson.put("poolType", getInstance().getPoolType().name());
+            contractJson.put("salePayType", getInstance().getSalePayType().name());
 
             contractJson.put("name", getInstance().getContractOwner().getPersonName());
             contractJson.put("credentialsType", getInstance().getContractOwner().getCredentialsType().name());

@@ -1064,59 +1064,53 @@
         <p>
 
             (二) 买受人采取下列第
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <r:inplaceSelect inputWidth="58px" style="width: 60px" rendered="#{not templateModel}"
-                             value="#{contractContextMap.c_7_4.stringValue}">
+            <a:outputPanel styleClass="lineValue" style="width: 30px">
+                <h:outputText rendered="#{not templateModel}" value="#{contractContextMap.c_7_4.stringValue}"/>
+            </a:outputPanel>
 
-                <f:selectItem itemLabel="1" itemValue="1"/>
-                <f:selectItem itemLabel="2" itemValue="2"/>
-                <f:selectItem itemLabel="3" itemValue="3"/>
-                <f:selectItem itemLabel="4" itemValue="4"/>
-
-            </r:inplaceSelect>
             种方式付款:
         </p>
 
         <div class="paragraph">
             ￼1. 一次性付款。买受人应当在 ￼
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '1')}" styleClass="lineValue" style="width: 80px"/>
+            <h:inputText rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '1')}" styleClass="contract-date-pick"
                          value="#{contractContextMap.c_7_5.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 前支付该商品房全部价款。
         </div>
         <p>
             2. 分期付款。买受人应当在
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 80px"/>
+            <h:inputText rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="contract-date-pick"
                          value="#{contractContextMap.c_7_6.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 前分
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 付款期数"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}" label="第三章 第七条 付款期数"
                          value="#{contractContextMap.c_7_8.numberValue}" style="width: 60px"/>
             ￼ 期支付该商品房全部价款,首期房价款
 
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}"
                          value="#{contractContextMap.c_7_9.stringValue}" style="width: 60px"/>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 分期金额"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}" label="第三章 第七条 分期金额"
                          value="#{contractContextMap.c_7_10.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_10_big"/>
             </h:inputText>
             ￼ 元 (大写
                     <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_7_10_big" rendered="#{not templateModel}"
+                        <h:outputText id="c_7_10_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}"
                                       value="#{contractContextMap.c_7_10.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>)。
 
             应当于,
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 90px"/>
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 90px"/>
+            <h:inputText rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="contract-date-pick"
                          value="#{contractContextMap.c_7_11.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText>
@@ -1125,13 +1119,13 @@
         </p>
 
         <div class="fullLineParagraph">
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}"
                          value="#{contractContextMap.c_7_12.stringValue}" style="width: 100%"/>
         </div>
         <div class="paragraph">
             ￼3. 贷款方式付款:
-            <h:outputText value="【公积金贷款】【商业贷款】【  】 " rendered="#{templateModel}"/>
-            <a:outputPanel rendered="#{not templateModel}">
+            <h:outputText value="【公积金贷款】【商业贷款】【  】 " rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}"/>
+            <a:outputPanel rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}">
                 【
                 <ui:decorate template="/layout/selectEditInput.xhtml">
                     <ui:param name="inputStyle" value="width: 70px"/>
@@ -1144,57 +1138,57 @@
 
             </a:outputPanel>
             买受人应当于
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 90px"/>
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 90px"/>
+            <h:inputText rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="contract-date-pick"
                          value="#{contractContextMap.c_7_14.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText>
 
             前支付首期房价款
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                          value="#{contractContextMap.c_7_15.stringValue}" style="width: 60px"/>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" label="第三章 第七条 货款金额"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}" label="第三章 第七条 货款金额"
                          value="#{contractContextMap.c_7_16.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_16_big"/>
             </h:inputText>
             ￼ 元 (大写
                     <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_7_16_big" rendered="#{not templateModel}"
+                        <h:outputText id="c_7_16_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                                       value="#{contractContextMap.c_7_16.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>),
             占全部房价款的
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}" style="width: 60px"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}" style="width: 60px"
                          label="第三章 第七条 货款比例"
                          value="#{contractContextMap.c_7_18.numberValue}"/>
             %。
         </div>
         <p>
             余款
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                          value="#{contractContextMap.c_7_19.stringValue}" style="width: 60px"/>
             (币种)
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 60px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 60px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                          label="第三章 第七条 货款余额"
                          value="#{contractContextMap.c_7_20.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_20_big"/>
             </h:inputText>
             ￼ 元 (大写
                     <span style="width: 300px" class="lineValue">
-                        <h:outputText id="c_7_20_big" rendered="#{not templateModel}"
+                        <h:outputText id="c_7_20_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                                       value="#{contractContextMap.c_7_20.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>),向
-            <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 100px"/>
-            <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+            <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '3')}" styleClass="lineValue" style="width: 100px"/>
+            <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                          value="#{contractContextMap.c_7_21.stringValue}" style="width:100px"/>
 
             (贷款机构) 申请贷款支付。
@@ -1204,7 +1198,7 @@
         </p>
 
         <div class="fullLineParagraph">
-            <h:inputText styleClass="contract-input" style="width: 100%" rendered="#{not templateModel}"
+            <h:inputText styleClass="contract-input" style="width: 100%" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '4')}"
                          value="#{contractContextMap.c_7_22.stringValue}"/>
         </div>
         <p>

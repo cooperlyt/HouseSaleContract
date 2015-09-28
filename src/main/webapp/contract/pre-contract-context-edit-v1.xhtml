@@ -859,8 +859,8 @@
             <h:inputText styleClass="contract-input" value="#{contractContextMap.c_5_3.stringValue}"
                          style="width: 60px"><f:convertNumber
                     pattern="#0.00"/></h:inputText> % (不低于中国人民银行公布的同期贷款基 准利率) 计算给付利息。给买受人造成损失的,由出卖人支付
-
-            <r:inplaceSelect inputWidth="148px" style="width: 150px" rendered="#{not templateModel}"
+            【
+            <r:inplaceSelect inputWidth="148px" style="width: 150px"
                              value="#{contractContextMap.c_5_4.stringValue}">
 
                 <f:selectItem itemLabel="已付房价款一倍" itemValue="已付房价款一倍"/>
@@ -868,8 +868,7 @@
 
 
             </r:inplaceSelect>
-
-            <h:outputText rendered="#{templateModel}" value="【已付房价款一倍】【买受人全部损失】"/>
+            】
 
             的赔偿金。
         </p>

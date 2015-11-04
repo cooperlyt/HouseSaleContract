@@ -58,7 +58,7 @@
         <div class="input-group-addon">
 @
         </div>
-        <h:inputText id="cerdentialsName" disabled="#{_person.manager}" value="#{_person.personName}"
+        <h:inputText id="cerdentialsName" disabled="#{not empty _person.idCard}" value="#{_person.personName}"
                      p:placeholder="#{messages.Person_personName}"
                      required="true"  styleClass="form-control" label="#{messages.Person_personName}">
 

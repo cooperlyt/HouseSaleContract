@@ -17,8 +17,8 @@ public class Dictionary {
 
         @Override
         protected String getWsdlLocation() {
-            Logging.getLog(getClass()).debug("call -------------------------------");
-            return "http://localhost:8080/HMPLAT/DictionaryWS?wsdl";
+
+            return RunParam.instance().getParamValue("server_address") + "DictionaryWS?wsdl";
         }
     };
 

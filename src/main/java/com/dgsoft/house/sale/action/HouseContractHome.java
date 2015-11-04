@@ -280,8 +280,16 @@ public class HouseContractHome extends EntityHome<HouseContract> {
                     poolObj.put("name", businessPool.getPersonName());
                     poolObj.put("credentialsType", businessPool.getCredentialsType().name());
                     poolObj.put("credentialsNumber", businessPool.getCredentialsNumber());
-                    poolObj.put("poolArea", businessPool.getPoolArea().doubleValue());
-                    poolObj.put("relation", businessPool.getRelation());
+                    if (businessPool.getPoolArea() != null) {
+                        poolObj.put("poolArea", businessPool.getPoolArea().doubleValue());
+                    }else{
+                        poolObj.put("poolArea",0.0);
+                    }
+                    if (businessPool.getRelation() != null) {
+                        poolObj.put("relation", businessPool.getRelation());
+                    }else{
+                        poolObj.put("relation", "0");
+                    }
                     poolObj.put("perc", businessPool.getPerc());
                     poolObj.put("tel", businessPool.getPhone());
                     poolObj.put("legalPerson", businessPool.getLegalPerson());

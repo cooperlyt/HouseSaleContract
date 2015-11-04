@@ -28,6 +28,6 @@ public class DeveloperSaleServiceImpl extends DeveloperSaleService {
 
     @Override
     protected String getWsdlLocation() {
-        return "http://localhost:8080/HMPLAT/DeveloperService?wsdl";
+        return RunParam.instance().getParamValue("server_address") +  "DeveloperService?wsdl";
     }
 }

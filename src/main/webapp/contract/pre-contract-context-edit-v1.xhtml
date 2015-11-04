@@ -672,10 +672,10 @@
             共 <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
                                                                         value="#{contractContextMap.c_3_12.numberValue}"><f:convertNumber
                 pattern="#0.000"/></h:outputText></span>平方米,其中套内建筑面积
-            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel and (contractContextMap.c_3_13.numberValue gt 0)}"
                                                                       value="#{contractContextMap.c_3_13.numberValue}"><f:convertNumber
                     pattern="#0.000"/></h:outputText></span>平方米,分摊共有建筑
-            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel and (contractContextMap.c_3_13.numberValue gt 0)}"
                                                                       value="#{contractContextMap.c_3_14.numberValue}"><f:convertNumber
                     pattern="#0.000"/></h:outputText></span>面积 平方米。该商品房共用部位见附件二。
         </p>

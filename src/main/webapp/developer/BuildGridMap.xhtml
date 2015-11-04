@@ -107,11 +107,13 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="header-nav-item">
-                            <a class="header-nav-link tooltipped tooltipped-s" href="/settings/profile"
-                               id="account_settings" aria-label="Settings"
-                               data-ga-click="Header, go to settings, icon:settings">
+
+
+                            <s:link styleClass="header-nav-link tooltipped tooltipped-s"
+                                    propagation="end"
+                                    view="/developer/Setting.xhtml" p:aria-label="设置">
                                 <span class="octicon octicon-gear"></span>
-                            </a>
+                            </s:link>
                         </li>
                         <li class="header-nav-item">
                             <s:link id="menuLogoutId"
@@ -148,20 +150,36 @@
             <ui:param name="panelTitle" value="#{contractCreate.house.houseOrder}"/>
 
 
-
-
-            <a:outputPanel styleClass="row" style="margin: 0" rendered="#{not empty contractCreate.houseCode}">
-
-                <div class="col-md-12">
-                <a:outputPanel rendered="#{contractCreate.house.inBiz}"
+                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and contractCreate.house.inBiz}"
                                layout="block" styleClass="alert alert-danger" p:role="alert">
-                    <strong>不能销售！</strong> 此房屋正在产权部门办理业务中，不可销售！详情请咨询产权管理部门。
+                    <strong>业务办理中！</strong> 此房屋正在产权部门办理业务中，不可销售！详情请咨询产权管理部门。
                 </a:outputPanel>
 
-                <a:outputPanel layout="block" styleClass="alert alert-danger" p:role="alert">
-                    <strong>#{messages[contractCreate.house.status.name()]}!</strong> 此房屋不可以销售。
+                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and (not contractCreate.house.status.canSale)}" layout="block" styleClass="alert alert-danger" p:role="alert">
+                    <strong>#{messages[contractCreate.house.status.name()]}!</strong> 此状态的房屋不可以进行销售。
                 </a:outputPanel>
-                </div>
+
+                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and (contractCreate.house.status eq 'PROJECT_PLEDGE')}"
+                               layout="block" styleClass="alert alert-warning" p:role="alert">
+                    <strong>在建工程抵押!</strong>
+
+                    <a:repeat value="#{contractCreate.house.pledgeInfoList}" var="_pledge">
+                        本房屋在<strong> #{_pledge.pledgeCorpName} </strong>进行了<strong> #{_pledge.type} </strong>
+                        债权人为<strong> #{_pledge.pledgePersonName} </strong> 债务人为 <strong> #{_pledge.ownerPersonName} </strong>
+                        期限为 <strong> <h:outputText value="#{_pledge.beginTime}">
+                        <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:outputText> 至    </strong><strong> <h:outputText value="#{_pledge.endTime}">
+                        <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
+                    </h:outputText> </strong>
+
+
+                    </a:repeat>。
+                </a:outputPanel>
+
+
+            <a:outputPanel layout="block" styleClass="row details-info" style="margin: 0" rendered="#{not empty contractCreate.houseCode}">
+
+
 
                 <div class="col-md-8">
                     <label for="houseCode">房屋编号</label>
@@ -190,140 +208,118 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="houseArea">建筑面积</label>
-                    <span class="info-value-block" id="houseArea">
-                        #{contractCreate.house.houseArea}
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <label for="useArea">套内面积</label>
-                    <span class="info-value-block" id="useArea">
-                        #{contractCreate.house.useArea}
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <label for="commArea">公摊面积</label>
-                    <span class="info-value-block" id="commArea">
-                        #{contractCreate.house.commArea}
-                    </span>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="commParam">公摊系数</label>
-                    <span class="info-value-block" id="commParam">
-                        #{contractCreate.house.commParam}
-                    </span>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="shineArea">阳台面积</label>
-                    <span class="info-value-block" id="shineArea">
-                        #{contractCreate.house.shineArea}
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <label for="loftArea">阁楼面积</label>
-                    <span class="info-value-block" id="loftArea">
-                        #{contractCreate.house.loftArea}
-                    </span>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="houseType">房屋类型</label>
+                    <label for="houseType">房屋性质</label>
                     <span class="info-value-block" id="houseType">
                         #{contractCreate.house.houseType}
                     </span>
                 </div>
+
                 <div class="col-md-4">
+                    <s:label for="houseArea">建筑面积</s:label>
+                    <h:outputText value="#{contractCreate.house.houseArea}" styleClass="info-value-block" id="houseArea">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+
+                </div>
+                <div class="col-md-4">
+                    <s:label for="useArea">套内面积</s:label>
+                    <h:outputText value="#{contractCreate.house.useArea}" rendered="#{contractCreate.house.useArea gt 0 }" styleClass="info-value-block" id="useArea">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+
+                </div>
+                <div class="col-md-4">
+                    <s:label for="commArea">公摊面积</s:label>
+
+                    <h:outputText value="#{contractCreate.house.commArea}" rendered="#{contractCreate.house.useArea gt 0 }"  styleClass="info-value-block" id="commArea">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+                </div>
+
+                <div class="col-md-4">
+                    <s:label for="commParam">公摊系数</s:label>
+
+                    <h:outputText value="#{contractCreate.house.commParam}" rendered="#{contractCreate.house.useArea gt 0 }"  styleClass="info-value-block" id="commParam">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+                </div>
+
+                <div class="col-md-4">
+                    <s:label for="shineArea">阳台面积</s:label>
+
+                    <h:outputText value="#{contractCreate.house.shineArea}" styleClass="info-value-block" id="shineArea">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+                </div>
+                <div class="col-md-4">
+                    <s:label for="loftArea">阁楼面积</s:label>
+
+                    <h:outputText value="#{contractCreate.house.loftArea}" styleClass="info-value-block" id="loftArea">
+                        <f:convertNumber pattern="#0.000"/>
+                    </h:outputText>
+                </div>
+                <div class="col-md-12">
+                    <label for="address">房屋座落</label>
+                    <span class="info-value-block" id="address">
+                        #{contractCreate.house.address}
+                    </span>
+                </div>
+
+                <div class="col-md-3">
                     <label for="useType">设计用途</label>
                     <span class="info-value-block" id="useType">
                         #{contractCreate.house.useType}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="structure">结构</label>
                     <span class="info-value-block" id="structure">
                         #{contractCreate.house.structure}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="knotSize">套型</label>
                     <span class="info-value-block" id="knotSize">
                         #{contractCreate.house.knotSize}
                     </span>
                 </div>
 
-                <div class="col-md-4">
-                    <label for="address">房屋座落</label>
-                    <span class="info-value-block" id="address">
-                        #{contractCreate.house.address}
-                    </span>
-                </div>
-                <div class="col-md-4">
+
+                <div class="col-md-3">
                     <label for="useType">朝向</label>
                     <span class="info-value-block" id="direction">
                         #{contractCreate.house.direction}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="eastWall">东墙</label>
                     <span class="info-value-block" id="eastWall">
                         #{contractCreate.house.eastWall}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="westWall">西墙</label>
                     <span class="info-value-block" id="westWall">
                         #{contractCreate.house.westWall}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="southWall">南墙</label>
                     <span class="info-value-block" id="southWall">
                         #{contractCreate.house.southWall}
                     </span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="northWall">北墙</label>
                     <span class="info-value-block" id="northWall">
                         #{contractCreate.house.northWall}
                     </span>
                 </div>
 
-                <a:outputPanel rendered="#{not empty contractCreate.house.pledgeInfoList}" styleClass="col-md-12">
-                    <a:repeat value="#{contractCreate.house.pledgeInfoList}" var="_pledge">
-
-
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            #{_pledge.type}
-                        </div>
-                        <div class="col-md-2">
-                            #{_pledge.ownerPersonName}
-                        </div>
-                        <div class="col-md-2">
-                            #{_pledge.pledgePersonName}
-                        </div>
-                        <div class="col-md-2">
-                            #{_pledge.pledgeCorpName}
-                        </div>
-                        <div class="col-md-2">
-
-                            <h:outputText value="#{_pledge.beginTime}">
-                                <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
-                            </h:outputText>
-                        </div>
-                        <div class="col-md-2">
-                            <h:outputText value="#{_pledge.endTime}">
-                                <f:convertDateTime pattern="#{messages.displayDatePattern}"/>
-                            </h:outputText>
-                        </div>
-                    </div>
-                    </a:repeat>
-                </a:outputPanel>
 
             </a:outputPanel>
+
+
 
 
             <ui:define name="actionButtons">
@@ -332,8 +328,8 @@
                     #{messages.cancel}</button>
 
                 <s:link value="签约" rendered="#{not empty contractCreate.houseCode}"
-                        action="#{contractCreate.createContract}" disabled="#{contractCreate.house.inBiz or (not contractCreate.house.status.canSale)}"
-                        styleClass="btn btn-success #{(contractCreate.house.inBiz or (not contractCreate.house.status.canSale)) ? 'disabled' : ''}">
+                        action="#{contractCreate.createContract}" disabled="#{not contractCreate.houseCanSale}"
+                        styleClass="btn btn-success #{contractCreate.houseCanSale ? '' : 'disabled'}">
                     <f:param name="houseCode" value="#{contractCreate.house.houseCode}"/>
                 </s:link>
 

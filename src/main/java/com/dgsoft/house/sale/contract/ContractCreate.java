@@ -5,6 +5,7 @@ import com.dgsoft.developersale.*;
 import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.PoolType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
+import com.dgsoft.house.sale.RunParam;
 import com.dgsoft.house.sale.action.HouseContractHome;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.ContractNumber;
@@ -76,6 +77,25 @@ public class ContractCreate {
 
         }
         return house;
+    }
+
+    public boolean isHouseCanSale(){
+
+        if (getHouse() == null){
+            return false;
+        }
+        if (getHouse().getInBiz()){
+            return false;
+        }
+        if (SaleStatus.PROJECT_PLEDGE.equals(getHouse().getStatus())){
+            return RunParam.instance().getParamValue("allow_project_pledge_sale").equals("yes");
+        }
+
+        return getHouse().getStatus().isCanSale();
+
+
+
+
     }
 
     public String getHouseCode() {
@@ -346,6 +366,8 @@ public class ContractCreate {
         }else{
             return fillContractContext();
         }
-
     }
+
+
+
 }

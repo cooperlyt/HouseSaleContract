@@ -5,5 +5,13 @@
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
 
+    <param name="firstResult" value="#{contractSearchList.firstResult}"/>
+    <param name="searchKey" value="#{contractSearchList.searchKey}"/>
 
+
+    <param name="sort" value="#{contractSearchList.orderColumn}"/>
+    <param name="dir" value="#{contractSearchList.orderDirection}"/>
+
+    <param name="contractId" value="#{houseContractHome.id}"/>
+    <param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
  </page>

@@ -24,7 +24,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     private String id;
     private String projectCode;
-    private String HouseCode;
+    private String houseCode;
     private SaleType type;
 
     private Date createTime;
@@ -86,11 +86,11 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     @NotNull
     @Size(max = 32)
     public String getHouseCode() {
-        return HouseCode;
+        return houseCode;
     }
 
     public void setHouseCode(String houseCode) {
-        HouseCode = houseCode;
+        this.houseCode = houseCode;
     }
 
     @Override

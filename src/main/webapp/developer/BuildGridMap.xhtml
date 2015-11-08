@@ -33,6 +33,16 @@
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.min.css"/>
         <h:outputStylesheet library="bootstrap-switch" name="/css/bootstrap3/bootstrap-switch.min.css"/>
         <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
+
+
+
+        <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false" />
+
+        <h:outputScript library="bootstrap" name="/js/html5shiv.min.js"/>
+        <h:outputScript library="bootstrap" name="/js/respond.min.js"/>
+
+        <h:outputText value="&lt;![endif]--&gt;" escape="false" />
+
         <h:outputStylesheet library="fuelux" name="/css/fuelux.min.css"/>
 
         <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
@@ -446,7 +456,7 @@
 
         <a:outputPanel rendered="#{not empty buildSaleGridMap.saleBuildGridMap}"
                        layout="block" style="position: absolute; top:51px; bottom: 0; left: 0; right: 0; background-color: #FFFFFF;"
-                       onselectstart="return false;">
+                       p:onselectstart="return false;">
             <div style="position: absolute; left: 0; top: 0; width: 50px; height: 50px; border-bottom: 2px solid #ddd;"/>
 
 

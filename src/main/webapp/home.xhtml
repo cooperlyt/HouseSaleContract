@@ -138,7 +138,7 @@
                             <h:commandButton id="loginButton" styleClass="btn btn-default"
                                              data-loading-text="#{messages.SigningIn}"
                                              value="#{messages.login}" action="#{identity.login}"
-                                             onclick="if (OnKeyLogon()) {$(this).button('正在登录');} else {return false;}"/>
+                                             onclick="if (OnKeyLogon()) {$(this).button('loading');} else {return false;}"/>
 
 
                         </div>

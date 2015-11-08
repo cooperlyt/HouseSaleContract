@@ -55,7 +55,7 @@ public class ContractCreate {
 
     private Locale locale = Locale.CHINA;
 
-    private int contractCount;
+    private Integer contractCount;
 
     private SaleHouse house;
 
@@ -154,11 +154,11 @@ public class ContractCreate {
         this.calcType = calcType;
     }
 
-    public int getContractCount() {
+    public Integer getContractCount() {
         return contractCount;
     }
 
-    public void setContractCount(int contractCount) {
+    public void setContractCount(Integer contractCount) {
         this.contractCount = contractCount;
     }
 

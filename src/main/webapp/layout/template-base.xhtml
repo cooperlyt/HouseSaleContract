@@ -33,7 +33,15 @@
         <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
         <h:outputStylesheet library="fuelux" name="/css/fuelux.min.css"/>
 
-        <h:outputStylesheet library="fontawesome" name="font-awesome.min.css"/>
+
+        <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false" />
+
+<h:outputScript library="bootstrap" name="/js/html5shiv.min.js"/>
+<h:outputScript library="bootstrap" name="/js/respond.min.js"/>
+
+        <h:outputText value="&lt;![endif]--&gt;" escape="false" />
+
+        <h:outputStylesheet  library="fontawesome" name="font-awesome.min.css"/>
         <h:outputStylesheet library="octicons" name="octicons.css"/>
 
 

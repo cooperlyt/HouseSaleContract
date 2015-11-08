@@ -8,6 +8,7 @@
       xmlns:a="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:s="http://jboss.org/schema/seam/taglib">
 <f:view
         contentType="text/html">
@@ -132,6 +133,19 @@
 
         </h:outputStylesheet>
 
+        <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+            <ui:param name="panelId" value="deleteConfirmPanel"/>
+            <ui:define name="deleteNote">
+                合同删除后房屋将不再是草签状态
+            </ui:define>
+
+            <s:link rendered="#{not templateModel}" styleClass="btn btn-danger btn-block btn-reversal" action="#{houseContractHome.remove}"
+                             value="#{messages.confirmDelete}">
+                <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
+            </s:link>
+
+        </ui:decorate>
+
         <h:form>
         <div id="top">
             <ui:decorate template="/layout/brand.xhtml">
@@ -162,7 +176,19 @@
                                    action="#{contractCreate.contextComplete}" >
                         <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
                     </h:commandLink>
+
+
+
                 </a:outputPanel>
+                    <c:if test="#{not templateModel}">
+                    <ul class="nav navbar-nav">
+                    <li>
+                    <h:outputLink styleClass="header-nav-link text-danger" onclick="$('#deleteConfirmPanel').modal('show');return false;" style="font-size: 15px">删除
+
+                    </h:outputLink>
+                    </li>
+                    </ul>
+                    </c:if>
                 </ui:define>
             </ui:decorate>
         </div>

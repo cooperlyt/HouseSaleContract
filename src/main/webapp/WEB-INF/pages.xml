@@ -3,12 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
        no-conversation-view-id="/home.xhtml"
-       login-view-id="/login.xhtml">
+       login-view-id="/home.xhtml">
 
 
     <page view-id="/contract/*" login-required="true">
 
         <param name="templateModel" />
+        <param name="from"/>
         <param name="templateId" value="#{contractTemplateHome.id}"/>
         <param name="contractType" value="#{contractTemplateHome.contractTypeName}"/>
         <param name="houseContractId" value="#{houseContractHome.id}"/>
@@ -21,6 +22,12 @@
         <navigation from-action="#{contractTemplateHome.update}">
             <rule if-outcome="updated">
                 <redirect view-id="/developer/Setting.xhtml"/>
+            </rule>
+        </navigation>
+
+        <navigation from-action="#{contractTemplateHome.remove}">
+            <rule if-outcome="removed">
+                <redirect view-id="#{from}"/>
             </rule>
         </navigation>
 

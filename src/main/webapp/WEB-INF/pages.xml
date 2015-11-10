@@ -27,7 +27,7 @@
 
         <navigation from-action="#{contractTemplateHome.remove}">
             <rule if-outcome="removed">
-                <redirect view-id="#{from}"/>
+                <redirect view-id="/home.xhtml"/>
             </rule>
         </navigation>
 

@@ -174,12 +174,12 @@ public class ContractCreate {
         switch (calcType){
             case 1:
 
-                return getHouse().getUseArea().multiply(getUnitPrice()).setScale(0,BigDecimal.ROUND_HALF_UP);
+                return getHouse().getUseArea().multiply(getUnitPrice()).setScale(2,BigDecimal.ROUND_HALF_UP);
             case 2:
 
-                return getHouse().getHouseArea().multiply(getUnitPrice()).setScale(0,BigDecimal.ROUND_HALF_UP);
+                return getHouse().getHouseArea().multiply(getUnitPrice()).setScale(2,BigDecimal.ROUND_HALF_UP);
             default:
-                return  getUnitPrice().setScale(0,BigDecimal.ROUND_HALF_UP);
+                return  getUnitPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
         }
 
     }

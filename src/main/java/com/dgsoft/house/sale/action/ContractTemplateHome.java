@@ -54,7 +54,7 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
             return null;
         }
 
-        getInstance().setProjectCode(((DeveloperLogonInfo)logonInfo).getSaleProject().getProjectCode());
+        getInstance().setProjectCode(logonInfo.getGroupCode());
 
         return super.persist();
     }

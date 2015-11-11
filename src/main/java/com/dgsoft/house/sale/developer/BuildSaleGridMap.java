@@ -98,12 +98,15 @@ public class BuildSaleGridMap {
 
     public SaleBuild getSelectBuild() {
         if (isBuildDefined()){
-            for(SaleBuild build: ((DeveloperLogonInfo)logonInfo).getSaleProject().getSaleBuildList()){
-                if (build.getBuildCode().equals(buildCode)){
-                    return build;
+            for(SaleProject project: ((DeveloperLogonInfo)logonInfo).getSaleProjects()) {
+                for (SaleBuild build : project.getSaleBuildList()) {
+                    if (build.getBuildCode().equals(buildCode)) {
+                        return build;
+                    }
                 }
             }
         }
+
         return null;
 
     }

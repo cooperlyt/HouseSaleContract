@@ -280,12 +280,12 @@
                     <div class="col-md-4" role="complementary">
                         <div class="boxed-group flush ">
                             <h3>
-                                #{logonInfo.saleProject.projectName}
+                                #{logonInfo.groupName}
                                 <span class="counter"></span>
                             </h3>
                             <ul class="boxed-group-inner mini-repo-list">
 
-                                <a:repeat value="#{logonInfo.saleProject.saleBuildList}" var="_build">
+                                <a:repeat value="#{logonInfo.saleBuildList}" var="_build">
 
                                     <li>
                                         <s:link class="mini-repo-list-item css-truncate"

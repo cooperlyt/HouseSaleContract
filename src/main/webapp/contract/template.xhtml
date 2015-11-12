@@ -23,7 +23,7 @@
         <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
 
     </h:head>
-    <h:body>
+    <h:body style="margin-top: 50px" >
 
 
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
@@ -165,49 +165,45 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                        <ui:insert name="brand">
 
-                            <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
-                                <div class="form-group">
-                                    <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
 
-                                </div>
-                                <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">
+                        <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
+                            <div class="form-group">
+                                <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
 
+                            </div>
+                            <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">
+
+                            </h:commandLink>
+                            <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="修改" action="#{contractTemplateHome.update}" rendered="#{contractTemplateHome.managed}">
+
+                            </h:commandLink>
+                        </a:outputPanel>
+                        <c:if test="#{not templateModel}">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a:commandLink execute="@form" action="#{houseContractHome.update}" render="@none" >
+                                    <a:attachQueue requestDelay="0"/>
+                                    保存合同
+                                </a:commandLink>
+                            </li>
+
+
+                                <li>
+                                    <h:outputLink styleClass="header-nav-link" onclick="$('#deleteConfirmPanel').modal('show');return false;" style="font-size: 15px">
+                                        删除合同
+
+                                    </h:outputLink>
+                                </li>
+
+                            <li>
+                                <h:commandLink action="#{contractCreate.contextComplete}">
+                                    完成合同
                                 </h:commandLink>
-                                <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="修改" action="#{contractTemplateHome.update}" rendered="#{contractTemplateHome.managed}">
+                            </li>
+                        </ul>
 
-                                </h:commandLink>
-                            </a:outputPanel>
-                            <a:outputPanel layout="block" rendered="#{not templateModel}" styleClass="navbar-form navbar-left">
-                                <div class="form-group">
-                                    <h:inputText label="合同份数" style="width: 200px" required="true" value="#{contractCreate.contractCount}"
-
-                                                 styleClass="form-control" p:placeholder="合同份数">
-                                        <f:converter converterId="javax.faces.Integer"/>
-                                        <f:validateLongRange minimum="1"/>
-                                    </h:inputText>
-
-                                </div>
-                                <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成"
-                                               action="#{contractCreate.contextComplete}" >
-                                    <f:param value="#{houseContractHome.instance.id}" name="houseContractId"/>
-                                </h:commandLink>
-
-
-
-                            </a:outputPanel>
-                            <c:if test="#{not templateModel}">
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <h:outputLink styleClass="header-nav-link text-danger" onclick="$('#deleteConfirmPanel').modal('show');return false;" style="font-size: 15px">删除
-
-                                        </h:outputLink>
-                                    </li>
-                                </ul>
-                            </c:if>
-
-                        </ui:insert>
+                        </c:if>
 
                         <ul class="nav navbar-nav navbar-right">
 
@@ -243,7 +239,7 @@
         </div>
 
 
-            <div id="top" style="padding: 50px;">
+            <div id="top" >
 
             </div>
 
@@ -355,6 +351,14 @@
 
 
         </a:outputPanel>
+
+
+        <h:outputScript>
+            $('.bs-docs-sidebar').on('activate.bs.scrollspy', function () {
+                scrollBy(0, -20);
+            })
+        </h:outputScript>
+
     </h:body>
 
 

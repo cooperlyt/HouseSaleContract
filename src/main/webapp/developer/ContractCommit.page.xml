@@ -5,7 +5,10 @@
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
 
-<param name="houseContractId" value="#{houseContractHome.id}"/>
+      <param name="houseContractId" value="#{houseContractHome.id}"/>
+
+
+      <param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
 
       <navigation from-action="#{houseContractHome.commit}">
             <rule if-outcome="updated">

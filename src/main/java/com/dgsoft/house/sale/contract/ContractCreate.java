@@ -1,5 +1,6 @@
 package com.dgsoft.house.sale.contract;
 
+import com.dgsoft.common.system.DictionaryService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
 import com.dgsoft.house.PledgeInfo;
@@ -43,6 +44,9 @@ public class ContractCreate {
     @In
     private Map<String, String> messages;
 
+    @In(create = true)
+    private DictionaryService dictionary;
+
     private ContractTemplate contractTemplate;
 
     private BigDecimal unitPrice;
@@ -55,7 +59,7 @@ public class ContractCreate {
 
     private Locale locale = Locale.CHINA;
 
-    private Integer contractCount;
+    //private Integer contractCount;
 
     private SaleHouse house;
 
@@ -154,14 +158,6 @@ public class ContractCreate {
         this.calcType = calcType;
     }
 
-    public Integer getContractCount() {
-        return contractCount;
-    }
-
-    public void setContractCount(Integer contractCount) {
-        this.contractCount = contractCount;
-    }
-
     public Locale getLocale() {
         return locale;
     }
@@ -239,6 +235,20 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
         houseContractHome.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
 
+        switch (houseContractHome.getInstance().getPoolType()) {
+
+            case SINGLE_OWNER:
+                houseContractHome.getContractContextMap().put("ownerpooltype",new ContractContextMap.ContarctContextItem(BigDecimal.ZERO));
+                break;
+            case TOGETHER_OWNER:
+                houseContractHome.getContractContextMap().put("ownerpooltype",new ContractContextMap.ContarctContextItem(new BigDecimal("2")));
+                break;
+            case SHARE_OWNER:
+                houseContractHome.getContractContextMap().put("ownerpooltype",new ContractContextMap.ContarctContextItem(BigDecimal.ONE));
+                break;
+        }
+        houseContractHome.getContractContextMap().put("houseaddress",new ContractContextMap.ContarctContextItem(getHouse().getAddress()));
+
 
         List<ContractContextMap> poolOwners = new ArrayList<ContractContextMap>();
         for(BusinessPool poolOwner: houseContractHome.getInstance().getBusinessPools()){
@@ -257,8 +267,12 @@ public class ContractCreate {
             poolInfoMap.put("ownertypevalue", new ContractContextMap.ContarctContextItem(poolOwner.getLegalPerson()));
             poolInfoMap.put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getCredentialsType().name())));
             poolInfoMap.put("ownercernumber", new ContractContextMap.ContarctContextItem(poolOwner.getCredentialsNumber()));
+            poolInfoMap.put("poolRelation", new ContractContextMap.ContarctContextItem(dictionary.getWordValue(poolOwner.getRelation())));
+            poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPerc()));
             poolOwners.add(poolInfoMap);
         }
+
+        Logging.getLog(getClass()).debug("put pool count:" + poolOwners.size());
 
         houseContractHome.getContractContextMap().put("poolOwner", new ContractContextMap.ContarctContextItem(poolOwners));
 
@@ -350,9 +364,12 @@ public class ContractCreate {
 
     public String contextComplete(){
 
-        for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,contractCount,houseContractHome.getInstance().getType())){
-            houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
+        if (houseContractHome.getInstance().getContractNumbers().isEmpty()){
+            for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,1,houseContractHome.getInstance().getType())){
+                houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
+            }
         }
+
         return houseContractHome.update();
     }
 

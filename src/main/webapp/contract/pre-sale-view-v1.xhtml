@@ -166,7 +166,7 @@
         </p:table>
 
 
-        <a:repeat rendered="#{not contractTemplateHome.contractContextMap.poolOwner.isNull()}" value="#{contractTemplateHome.contractContextMap.poolOwner.arrayValue}" var="_pool">
+        <a:repeat rendered="#{not empty houseContractHome.contractContextMap.poolOwner}" value="#{houseContractHome.contractContextMap.poolOwner.arrayValue}" var="_pool">
             <p:table widthPercentage="90" columns="1">
                 <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
                 <p:cell padding="10"></p:cell>
@@ -199,7 +199,7 @@
         </p:paragraph>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第二条</p:font>  预售依据
-            该商品房已由<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_2_1.stringValue}       </p:font>预售许可证号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_2_2.stringValue}      </p:font>。
+            该商品房已由<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_2_1.stringValue}   </p:font>预售许可证号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_2_2.stringValue}      </p:font>。
         </p:paragraph>
 
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
@@ -207,8 +207,8 @@
             1. 该商品房的规划用途为【#{houseContractHome.contractContextMap.c_3_1.stringValue}】。
             2. 该商品房所在建筑物的主体结构为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_2.stringValue}    </p:font>,建筑总层数为   <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    <p:text value="#{houseContractHome.contractContextMap.c_3_3.numberValue}"><f:convertNumber pattern="#0"/></p:text> 层   </p:font>,其中地上  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_3_4.numberValue}"><f:convertNumber pattern="#0"/> </p:text>层    </p:font>,地下  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value="#{houseContractHome.contractContextMap.c_3_5.numberValue}"><f:convertNumber pattern="#0"/></p:text>层   </p:font>。
             3. 该商品房为第一条规定项目中的<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_6.stringValue}     </p:font>【幢】<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_8.stringValue}    </p:font>单元<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_9.stringValue}    </p:font>层<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    #{houseContractHome.contractContextMap.c_3_10.stringValue}     </p:font>号。房屋竣工后,如房号发生改变,不影响该商品房的特定位置。该商品房的平面图见附件一。
-            4. 该商品房的房产测绘机构为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    #{houseContractHome.contractContextMap.c_3_11.stringValue}      </p:font> ,其预测建筑面积共  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_12.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>       平方米   </p:font>,其中套内建筑面积  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}" value="#{houseContractHome.contractContextMap.c_3_13.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>      平方米  </p:font>,分摊共有建筑面积 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}" value="#{houseContractHome.contractContextMap.c_3_14.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text> 平方米  </p:font>。该商品房共用部位见附件二。
-            该商品房层高为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_15.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text> 米  </p:font>,有<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_16.numberValue}"><f:convertNumber pattern="#0"/> </p:text> 个   </p:font>阳台,其中<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_17.numberValue}"><f:convertNumber pattern="#0"/> </p:text> 个   </p:font>阳台为封闭式, <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_19.numberValue}"><f:convertNumber pattern="#0"/> </p:text> 个   </p:font>阳台为非封闭式。阳台是否封闭以规划设计文件为准。
+            4. 该商品房的房产测绘机构为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    #{houseContractHome.contractContextMap.c_3_11.stringValue}      </p:font> ,其预测建筑面积共  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_12.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>    </p:font> 平方米,其中套内建筑面积 <p:text value="_________" rendered="#{not (houseContractHome.contractContextMap.c_3_13.numberValue gt 0)}"/> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H" rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}">   <p:text value="#{houseContractHome.contractContextMap.c_3_13.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>    </p:font>平方米,分摊共有建筑面积<p:text rendered="#{not (houseContractHome.contractContextMap.c_3_13.numberValue gt 0)}" value="________"/> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H" rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}">   <p:text  value="#{houseContractHome.contractContextMap.c_3_14.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>   </p:font>平方米。该商品房共用部位见附件二。
+            该商品房层高为<ui:include src="number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_15.numberValue}"/><ui:param name="mask" value="#0.000"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>米,有<ui:include src="number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_16.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台,其中<ui:include src="number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_17.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台为封闭式, <ui:include src="number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_18.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台为非封闭式。阳台是否封闭以规划设计文件为准。
         </p:paragraph>
 
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
@@ -459,7 +459,7 @@
             第二十一条</p:font>  前期物业管理
             (一) 出卖人依法选聘的前期物业服务企业为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_21_1.stringValue}   </p:font>。
             (二)物业服务时间从<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_21_2.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text> </p:font>到<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_21_3.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text> </p:font>。
-            ( 三 ) 物业服务期间, 物业收费计费方式为【#{houseContractHome.contractContextMap.c_21_4.stringValue}】。物业服务费为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_21_5.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text> 元/月·平方米 </p:font>(建筑面积)。
+            ( 三 ) 物业服务期间, 物业收费计费方式为【#{houseContractHome.contractContextMap.c_21_4.stringValue}】。物业服务费为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_21_5.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text>      元/月·平方米 </p:font>(建筑面积)。
             (四)买受人同意由出卖人选聘的前期物业服务企业代为查验并承接物业共用部位、共用设施设备,出卖人应当将物业共用部位、共用设施设备承接查验的备案情况书面告知买受人。
             (五) 买受人已详细阅读前期物业服务合同和临时管理规约,同意由出卖人依法选聘的物业服务企业实施前期物业管理,遵守临时管理规约。业主委员会成立后,由业主大会决定选聘或续聘物业服务企业。
             该商品房前期物业服务合同、临时管理规约见附件九。
@@ -668,6 +668,34 @@
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件十一 补充协议</p:font>
 
         </p:paragraph>
+        <p:newPage/>
+        <p:paragraph rendered="#{not empty houseContractHome.contractContextMap.poolOwner and (not (houseContractHome.contractContextMap.ownerpooltype.numberValue eq 0))}"><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件十二 共有购买房屋协议</p:font>
+            本补充协议适用于购买人(乙方)为两个或两个以上民事主体时双方权利义务约定。
+            1、经甲、乙双方协商一致同意，甲方向乙方出售的房屋地址为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.houseaddress.stringValue}   </p:font>  ，房号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_10.stringValue}   </p:font>，总房款为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text>   </p:font>  元，建筑面积为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_3_10.stringValue}"><f:convertNumber pattern="#0.000"/></p:text>   </p:font>平方米，系乙方共同购买的房屋。（乙方填写全体购买人）
+            2、乙方共有的方式按第  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.ownerpooltype.numberValue}￼ </p:font>  种方式。
+            （1）按份共有；
+            （2）共同共有。具体情况见下表：#{houseContractHome.contractContextMap.poolOwner.arrayValue.size}
+
+            <p:table columns="8" widths="1 1 1 1 2 1 1 1" widthPercentage="100">
+                <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
+
+                <ui:repeat value="#{houseContractHome.contractContextMap.poolOwner.arrayValue}" var="_pool">
+                    <p:cell> #{_pool.owner.stringValue} </p:cell>
+                    <p:cell>#{_pool.ownersex.stringValue}</p:cell>
+                    <p:cell>#{_pool.ownercityname.stringValue}</p:cell>
+                    <p:cell>#{_pool.ownercertype.stringValue}</p:cell>
+                    <p:cell>#{_pool.ownercernumber.stringValue}</p:cell>
+                    <p:cell>#{_pool.ownertel.stringValue}</p:cell>
+                    <p:cell>#{_pool.poolRelation.stringValue}</p:cell>
+                    <p:cell><p:text value="#{_pool.poolPerc.poolPerc}" rendered="#{houseContractHome.contractContextMap.ownerpooltype.numberValue eq 1}"/> </p:cell>
+                </ui:repeat>
+
+            </p:table>
+
+
+        </p:paragraph>
+
+
 
     </p:font>
 

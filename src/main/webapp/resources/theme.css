@@ -1011,6 +1011,15 @@ label {
     font-weight: bold;
 }
 
+.btn .btn-icon.octicon{
+    padding: 2px 0;
+}
+
+.btn .btn-icon.glyphicon{
+    padding: 3.5px 0;
+}
+
+
 
 
 

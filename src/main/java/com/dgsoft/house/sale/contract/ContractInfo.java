@@ -7,9 +7,6 @@ import com.dgsoft.house.SaleType;
  */
 public interface ContractInfo {
 
-    String getProjectCode();
-
-    void setProjectCode(String code);
 
     String getContext();
 

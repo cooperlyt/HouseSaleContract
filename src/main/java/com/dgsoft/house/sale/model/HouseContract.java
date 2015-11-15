@@ -40,6 +40,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     private PoolType poolType;
     private SalePayType salePayType;
+    private String projectCerNumber;
 
     private ContractOwner contractOwner;
     private Set<BusinessPool> businessPools = new HashSet<BusinessPool>(0);
@@ -84,17 +85,25 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.groupId = groupId;
     }
 
-    @Override
-    @Column(name = "PROJECT_ID",nullable = false, length = 32)
-    @NotNull
+    @Column(name = "PROJECT_ID",nullable = true, length = 32)
     @Size(max = 32)
     public String getProjectCode() {
         return projectCode;
     }
 
-    @Override
     public void setProjectCode(String projectCode) {
         this.projectCode = projectCode;
+    }
+
+
+    @Column(name = "PROJECT_CER_NUMBER", nullable = true, length = 100)
+    @Size(max = 100)
+    public String getProjectCerNumber() {
+        return projectCerNumber;
+    }
+
+    public void setProjectCerNumber(String projectCerNumber) {
+        this.projectCerNumber = projectCerNumber;
     }
 
     @Column(name = "HOUSE_CODE", nullable = false,length = 32, unique = true)

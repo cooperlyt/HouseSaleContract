@@ -114,7 +114,11 @@ public class ContractCreate {
         houseContractHome.clearInstance();
         houseContractHome.getInstance().setHouseCode(houseCode);
 
-        houseContractHome.getInstance().setType(getHouse().getSaleBuild().getProjectSellCard().getCardType());
+        houseContractHome.getInstance().setProjectCode(getHouse().getProjectCode());
+        houseContractHome.getInstance().setHouseDescription(getHouse().getBuildName() + " " + getHouse().getHouseOrder());
+        houseContractHome.getInstance().setProjectCerNumber(getHouse().getSaleBuild().getProjectSellCard().getCardNumber());
+
+        houseContractHome.getInstance().setType(getHouse().getSaleType());
         return "contract-begin";
     }
 
@@ -182,9 +186,6 @@ public class ContractCreate {
 
     @Transactional
     public String fillContractContext(){
-        houseContractHome.getInstance().setProjectCode(getHouse().getProjectCode());
-        houseContractHome.getInstance().setHouseDescription(getHouse().getBuildName() + " " + getHouse().getHouseOrder());
-
 
         if (contractTemplate != null){
             try {

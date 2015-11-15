@@ -368,14 +368,49 @@ public class ContractCreate {
         }
     }
 
-    public String contextComplete(){
+    private Integer contractCount;
+    private String removeContractNumber;
 
-        if (houseContractHome.getInstance().getContractNumbers().isEmpty()){
-            for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,1,houseContractHome.getInstance().getType())){
-                houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
+    public Integer getContractCount() {
+        return contractCount;
+    }
+
+    public void setContractCount(Integer contractCount) {
+        this.contractCount = contractCount;
+    }
+
+    public String getRemoveContractNumber() {
+        return removeContractNumber;
+    }
+
+    public void setRemoveContractNumber(String removeContractNumber) {
+        this.removeContractNumber = removeContractNumber;
+    }
+
+
+    public String removeContract(){
+        for(ContractNumber contractNumber: houseContractHome.getInstance().getContractNumbers()){
+            if (contractNumber.getContractNumber().equals(removeContractNumber)){
+                houseContractHome.getInstance().getContractNumbers().remove(contractNumber);
+                return houseContractHome.update();
             }
         }
+        return null;
+    }
 
+    private void addContractToCount(){
+        Logging.getLog(getClass()).debug("add number to:" + contractCount);
+
+        int count = ((contractCount == null) ? 1 : contractCount) - houseContractHome.getInstance().getContractNumbers().size();
+        if (count > 0)
+            for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,count,houseContractHome.getInstance().getType())){
+                houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
+            }
+
+    }
+
+    public String contextComplete(){
+        addContractToCount();
         return houseContractHome.update();
     }
 

@@ -678,7 +678,7 @@
             （1）按份共有；
             （2）共同共有。具体情况见下表：
         </p:paragraph>
-            <p:table columns="8" widths="2 1 2 2 4 2 2 2" widthPercentage="100">
+            <p:table rendered="#{not empty houseContractHome.contractContextMap.poolOwner and (not (houseContractHome.contractContextMap.ownerpooltype.numberValue eq 0))}" columns="8" widths="2 1 2 2 4 2 2 2" widthPercentage="100">
                 <f:facet name="defaultCell"><p:cell horizontalAlignment="center" borderWidth="1" padding="2" paddingBottom="5"/></f:facet>
                 <p:font style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
                 <p:cell ><p:paragraph>姓名</p:paragraph></p:cell><p:cell><p:paragraph>性别</p:paragraph></p:cell><p:cell><p:paragraph>国籍或户籍所在地</p:paragraph></p:cell><p:cell><p:paragraph>证件名称</p:paragraph></p:cell><p:cell><p:paragraph>证件号码</p:paragraph></p:cell><p:cell><p:paragraph>联系方式</p:paragraph></p:cell><p:cell><p:paragraph>与主买受人关系</p:paragraph></p:cell><p:cell><p:paragraph>持有份额情况</p:paragraph></p:cell>

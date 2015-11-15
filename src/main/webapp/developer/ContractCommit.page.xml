@@ -10,6 +10,7 @@
 
       <param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
 
+
       <navigation from-action="#{houseContractHome.commit}">
             <rule if-outcome="updated">
                   <redirect view-id="/developer/ContractCommitComplete.xhtml"/>

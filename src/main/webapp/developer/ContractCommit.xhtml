@@ -9,20 +9,26 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="/layout/template-form.xhtml">
 
+    <h:form id="addActionForm">
+        <div class="subhead">
+            <a:commandLink styleClass="btn btn-primary right"
+                           render="numberForm,addActionForm"
+                           action="#{contractCreate.contextComplete}">
+                <span class="octicon octicon-plus"></span>
+                <a:attachQueue requestDelay="0"/>
 
-    <div class="subhead">
-        <a:commandLink styleClass="btn btn-primary right"><span class="octicon octicon-plus"></span>
-        <a:attachQueue requestDelay="0"/>
+                <a:param value="#{houseContractHome.instance.contractNumbers.size + 1}"
+                         assignTo="#{contractCreate.contractCount}"/>
+            </a:commandLink>
 
-        </a:commandLink>
+            <h2 class="subhead-heading">#{houseContractHome.instance.id}</h2>
 
-        <h2 class="subhead-heading">#{houseContractHome.instance.id}</h2>
-        <p class="subhead-description">
-            合同即将完成，这是最后一步，您可以在此打印合同，也可在合同提交到产权登记部门后打印合同。
-        </p>
-    </div>
-
-    <h:form>
+            <p class="subhead-description">
+                合同即将完成，这是最后一步，您可以在此打印合同，也可在合同提交到产权登记部门后打印合同。
+            </p>
+        </div>
+    </h:form>
+    <h:form id="numberForm">
 
         <a:repeat value="#{houseContractHome.instance.contractNumberList}" var="_contractNumber">
 
@@ -31,22 +37,25 @@
                 <div class="input-group">
                     <span class="input-group-btn">
                                                     <!-- TODO inputNumber form -->
-                    <s:link styleClass="btn btn-default"
-                            target="_blank"
-                            action="#{houseContractHome.viewSingleContract}">
-                        <span class="btn-icon glyphicon glyphicon-print"/>
-                        <f:param value="#{_contractNumber.contractNumber}"
-                                 name="contractNumber"/>
-                        <f:param value="#{_contractNumber.houseContract.id}" name="houseContractId"/>
-                    </s:link>
+                        <s:link styleClass="btn btn-default"
+                                target="_blank"
+                                action="#{houseContractHome.viewSingleContract}">
+                            <span class="btn-icon glyphicon glyphicon-print"/>
+                            <f:param value="#{_contractNumber.contractNumber}"
+                                     name="contractNumber"/>
+                            <f:param value="#{_contractNumber.houseContract.id}" name="houseContractId"/>
+                        </s:link>
 
                     </span>
 
                     <h:inputText styleClass="form-control" value="#{_contractNumber.contractNumber}" disabled="true"/>
                     <span class="input-group-btn">
                         <a:commandLink styleClass="btn btn-danger btn-reversal"
-                                action="#{houseContractHome.viewSingleContract}">
+                                       execute="@this" immediate="true" render="numberForm, addActionForm"
+                                       action="#{contractCreate.removeContract}">
                             <a:attachQueue requestDelay="0"/>
+                            <a:param value="#{_contractNumber.contractNumber}"
+                                     assignTo="#{contractCreate.removeContractNumber}"/>
                             <span class="btn-icon octicon octicon-trashcan "/>
                         </a:commandLink>
 
@@ -60,10 +69,77 @@
         </a:repeat>
 
         <hr/>
-        <h:commandButton styleClass="btn btn-success" value="提交合同" action="#{houseContractHome.commit}"/>
+        <a id="commit-link" class="btn btn-success">
+            提交合同
+        </a>
 
+        <h:outputScript>
+
+            $(document).ready(
+                    function () {
+
+
+                        $("#commit-link").click(function () {
+                            if ($(".js-passwd-input").val().trim().length > 0) {
+                                $(".js-commit-btn").removeAttr('disabled');
+                            } else {
+                                $(".js-commit-btn").attr('disabled', 'disabled');
+                            }
+                            $('#commitPanel').modal('show');return false;
+
+                        });
+                    });
+
+        </h:outputScript>
     </h:form>
 
+
+    <ui:decorate template="/layout/edit-modalpanel.xhtml">
+        <ui:param name="panelId" value="commitPanel"/>
+        <ui:param name="panelTitle" value="合同提交确认"/>
+
+
+        <ui:define name="panelBody">
+            <p>您确认要提交合同#{' '}<strong>#{houseContractHome.instance.id}</strong>#{' '} 到产权登记部门 </p>
+            <ui:insert name="deleteNote">
+                <p>提交后合同将从草签状态转为签约状态，签约状态的合同将无法被修改，但您仍然可以打印合同。</p>
+            </ui:insert>
+        </ui:define>
+
+        <ui:define name="actionButtons">
+
+            <s:decorate style="text-align:left;" template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    请设置合同查询密码
+                </ui:define>
+                <ui:param name="for" value="passwdInput"/>
+
+                <h:inputText value="#{houseContractHome.searchPassword}" label="查询密码" required="true" id="passwdInput" styleClass="form-control js-passwd-input"/>
+            </s:decorate>
+
+            <h:commandButton value="我确认要提交合同" action="#{houseContractHome.commit}"
+                             styleClass="btn btn-block btn-success btn-reversal js-commit-btn"/>
+        </ui:define>
+
+    </ui:decorate>
+
     <h:outputScript name="select-edit.js"/>
+
+    <h:outputScript>
+
+        $(document).ready(
+                function () {
+
+
+                    $(".js-passwd-input").keyup(function () {
+                        if ($(this).val().trim().length > 0) {
+                            $(".js-commit-btn").removeAttr('disabled');
+                        } else {
+                            $(".js-commit-btn").attr('disabled', 'disabled');
+                        }
+                    });
+                });
+
+    </h:outputScript>
 
 </ui:composition>

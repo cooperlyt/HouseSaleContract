@@ -243,10 +243,22 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return "edit-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
     }
 
+    private String searchPassword;
+
+    public String getSearchPassword() {
+        return searchPassword;
+    }
+
+    public void setSearchPassword(String searchPassword) {
+        this.searchPassword = searchPassword;
+    }
 
     public String commit(){
         DeveloperSaleService.CommitResult result = DeveloperSaleServiceImpl.instance().commitContract((DeveloperLogonInfo)Component.getInstance("logonInfo",true,true),toJson().toString());
         if (DeveloperSaleService.CommitResult.COMMIT_OK.equals(result)){
+            for(ContractNumber cn: getInstance().getContractNumbers()){
+                cn.setPassword(searchPassword);
+            }
             getInstance().setStatus(HouseContract.ContractStatus.SUBMIT);
             return super.update();
         }

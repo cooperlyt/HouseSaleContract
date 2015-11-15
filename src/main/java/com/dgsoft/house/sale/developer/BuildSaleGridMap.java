@@ -63,8 +63,8 @@ public class BuildSaleGridMap {
         if (isBuildDefined() && (saleBuildGridMapList == null)){
             saleBuildGridMapList = DeveloperSaleServiceImpl.instance().getBuildGridMap(buildCode);
 
-            List<String> prepareContractHouseCodes = entityManager.createQuery("select contract.houseCode from HouseContract contract where contract.status = 'PREPARE' and contract.projectCode = :projectCode", String.class)
-                    .setParameter("projectCode", logonInfo.getGroupCode()).getResultList();
+            List<String> prepareContractHouseCodes = entityManager.createQuery("select contract.houseCode from HouseContract contract where contract.status = 'PREPARE' and contract.groupId = :groupId", String.class)
+                    .setParameter("groupId", logonInfo.getGroupCode()).getResultList();
 
             for(SaleBuildGridMap saleBuildGridMap: saleBuildGridMapList){
                 for(BuildGridMapRowInfo row: saleBuildGridMap.getRows()){

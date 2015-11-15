@@ -177,7 +177,7 @@ fieldset[disabled] .btn-primary.active {
 .btn-success:hover,
 .btn-success:focus {
   background-color: #419641;
-  background-position: 0 -15px;
+
 }
 .btn-success:active,
 .btn-success.active {

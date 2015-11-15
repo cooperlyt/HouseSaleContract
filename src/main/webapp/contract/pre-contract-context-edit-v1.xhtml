@@ -84,15 +84,25 @@
             <li>
                 <div class="fullLine">
                     <div style="display: table-cell;width: 90px">委托代理人:</div>
-                    <div style="display:table-cell;width: 320px">
-                        <h:inputText styleClass="contract-input" value="#{contractContextMap.dproxy.stringValue}"
-                                     style="width: 100%"/>
+                    <div class="lineValue" style="width: 320px"><h:outputText rendered="#{not templateModel}"
+                                                                              value="#{contractContextMap.dproxy.stringValue}"/>
                     </div>
                     <div style="display: table-cell;width: 80px"> 联系电话:</div>
-                    <div style="display:table-cell">
-                        <h:inputText style="width: 100%" styleClass="contract-input" value="#{contractContextMap.dproxytel.stringValue}"/></div></div>
-
+                    <div class="lineValue"><h:outputText rendered="#{not templateModel}"
+                                                         value="#{contractContextMap.dproxytel.stringValue}"/>
+                    </div>
+                </div>
             </li>
+            <div class="fullLine">
+                <div style="display: table-cell;width: #{templateModel ? '410' : '210'}px"> 证件类型: <h:outputText rendered="#{templateModel}"
+                                                                                                                value="【居民身份证】【护照】【营业执照】"/>
+                    <h:outputText rendered="#{not templateModel}"
+                                  value="【#{contractContextMap.dproxycertype.stringValue}】:"/> ,证号:
+                </div>
+                <div class="lineValue"><h:outputText rendered="#{not templateModel}"
+                                                     value="#{contractContextMap.dproxycernumber.stringValue}"/>
+                </div>
+            </div>
             <li>
                 <div class="fullLine">
                     <div style="display: table-cell;width: 140px">委托销售经纪机构:</div>

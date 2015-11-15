@@ -217,6 +217,11 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("dln2", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getCerCode()));
         houseContractHome.getContractContextMap().put("downer", new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerPerson()));
         houseContractHome.getContractContextMap().put("downertel",new ContractContextMap.ContarctContextItem(dLogonInfo.getAttachCorpInfo().getOwnerTel()));
+        houseContractHome.getContractContextMap().put("dproxy",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getSaleProxyPerson().getPersonName()));
+        houseContractHome.getContractContextMap().put("dproxytel",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getSaleProxyPerson().getTel()));
+
+        houseContractHome.getContractContextMap().put("dproxycertype",new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getSaleProxyPerson().getCredentialsType().name())));
+        houseContractHome.getContractContextMap().put("dproxycernumber",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getSaleProxyPerson().getCredentialsNumber()));
 
 
         //买受人

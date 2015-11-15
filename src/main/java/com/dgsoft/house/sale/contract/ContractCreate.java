@@ -182,6 +182,7 @@ public class ContractCreate {
 
     @Transactional
     public String fillContractContext(){
+        houseContractHome.getInstance().setProjectCode(getHouse().getProjectCode());
         houseContractHome.getInstance().setHouseDescription(getHouse().getBuildName() + " " + getHouse().getHouseOrder());
 
 

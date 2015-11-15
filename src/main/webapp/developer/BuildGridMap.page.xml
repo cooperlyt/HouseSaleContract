@@ -10,7 +10,7 @@
 
     <navigation from-action="#{contractCreate.createContract}">
         <rule if-outcome="contract-begin">
-            <begin-conversation flush-mode="MANUAL"/>
+            <begin-conversation flush-mode="MANUAL" join="true"/>
             <redirect view-id="/developer/ContractBegin.xhtml"/>
         </rule>
     </navigation>

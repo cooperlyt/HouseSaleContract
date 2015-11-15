@@ -24,6 +24,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     private String id;
     private String projectCode;
+    private String groupId;
     private String houseCode;
     private SaleType type;
 
@@ -44,12 +45,15 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private Set<BusinessPool> businessPools = new HashSet<BusinessPool>(0);
     private Set<ContractNumber> contractNumbers = new HashSet<ContractNumber>(0);
 
+    private SaleProxyPerson saleProxyPerson;
+
     public HouseContract() {
     }
 
-    public HouseContract(String id, String projectCode, Date createTime, ContractStatus status, String attachEmpId, String attachEmpName, PoolType poolType) {
+    public HouseContract(String id,String groupId, Date createTime, ContractStatus status, String attachEmpId, String attachEmpName, PoolType poolType) {
         this.id = id;
-        this.projectCode = projectCode;
+        this.groupId = groupId;
+       // this.projectCode = projectCode;
         this.createTime = createTime;
         this.status = status;
         this.attachEmpId = attachEmpId;
@@ -67,6 +71,17 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Column(name = "GROUP_ID" , nullable = false, length = 32)
+    @NotNull
+    @Size(max = 32)
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @Override
@@ -251,6 +266,16 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setHouseDescription(String houseDescription) {
         this.houseDescription = houseDescription;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    public SaleProxyPerson getSaleProxyPerson() {
+        return saleProxyPerson;
+    }
+
+    public void setSaleProxyPerson(SaleProxyPerson saleProxyPerson) {
+        this.saleProxyPerson = saleProxyPerson;
     }
 
     @Transient

@@ -28,6 +28,43 @@
 
     </ui:decorate>
 
+    <f:subview id="saleProxyPerson">
+
+        <ui:decorate template="/layout/system/PersonInput.xhtml">
+
+            <ui:param name="label" value="出卖方代理人"/>
+            <ui:param name="personEntityHelper" value="#{houseContractHome.proxyPersonHelper}"/>
+            <ui:param name="personStatus" value="proxyPersonNumberStatus"/>
+
+            <ui:define name="after">
+                <span class="input-group-btn">
+                <a:commandLink styleClass="btn btn-default">
+                    <span class="btn-icon octicon octicon-triangle-down"></span>
+                </a:commandLink>
+                </span>
+            </ui:define>
+
+            <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    #{messages.Tel}
+                </ui:define>
+                <ui:param name="for" value="proxypersionPhoneInput"/>
+                <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
+                             styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
+                             value="#{houseContractHome.proxyPersonHelper.personEntity.tel}" required="true"
+                             id="proxypersionPhoneInput">
+                    <f:validateRegex
+                            pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                    <r:validator event="blur"/>
+                </h:inputText>
+
+            </s:decorate>
+
+
+
+        </ui:decorate>
+    </f:subview>
+
     <ui:decorate template="/layout/edit-multi.xhtml">
 
         <ui:define name="topValue">
@@ -126,6 +163,7 @@
         </a:outputPanel>
 
     </ui:decorate>
+
 
 
     <ui:include src="ContractOwnerEdit.xhtml">

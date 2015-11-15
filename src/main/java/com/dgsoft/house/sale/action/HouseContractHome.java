@@ -1,12 +1,11 @@
 package com.dgsoft.house.sale.action;
 
-import com.dgsoft.common.SetLinkList;
 import com.dgsoft.common.system.PersonHelper;
 import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.DeveloperSaleService;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.PoolType;
-import com.dgsoft.house.sale.ContractOwnerHelper;
+import com.dgsoft.house.sale.ContractOwnerPersonHelper;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.house.sale.NumberPool;
 import com.dgsoft.house.sale.contract.ContractContextMap;
@@ -19,9 +18,7 @@ import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessage;
-import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Logging;
-import org.jboss.seam.security.Credentials;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,9 +43,11 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     private List<PersonHelper<BusinessPool>> housePoolList;
 
-    private ContractOwnerHelper contractOwner;
+    private ContractOwnerPersonHelper contractOwner;
 
     private ContractContextMap contractContextMap;
+
+    private PersonHelper<SaleProxyPerson> proxyPersonHelper;
 
     private int poolOwnerCount = 0;
 
@@ -61,6 +60,14 @@ public class HouseContractHome extends EntityHome<HouseContract> {
     public void setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
     }
+
+    public PersonHelper<SaleProxyPerson> getProxyPersonHelper(){
+        if (proxyPersonHelper == null){
+            getInstance();
+        }
+        return proxyPersonHelper;
+    }
+
 
     @Override
     protected HouseContract createInstance(){
@@ -98,7 +105,15 @@ public class HouseContractHome extends EntityHome<HouseContract> {
             owner = new ContractOwner(getInstance());
             getInstance().setContractOwner(owner);
         }
-        contractOwner = new ContractOwnerHelper(owner);
+        contractOwner = new ContractOwnerPersonHelper(owner);
+
+        SaleProxyPerson proxyPerson = getInstance().getSaleProxyPerson();
+        if (proxyPerson == null){
+            proxyPerson = new SaleProxyPerson(getInstance());
+            getInstance().setSaleProxyPerson(proxyPerson);
+        }
+        proxyPersonHelper = new PersonHelper<SaleProxyPerson>(proxyPerson);
+
 
         try {
             fillContextMap();
@@ -120,7 +135,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return housePoolList;
     }
 
-    public ContractOwnerHelper getContractOwnerHelper(){
+    public ContractOwnerPersonHelper getContractOwnerHelper(){
         if (contractOwner == null){
             getInstance();
         }

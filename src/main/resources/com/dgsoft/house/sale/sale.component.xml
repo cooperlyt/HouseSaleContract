@@ -12,8 +12,5 @@
     <framework:entity-query name="saleNewContractTemplateList"
                             ejbql="select contract from ContractTemplate contract where contract.type = &apos;NOW_SELL&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
 
-    <framework:entity-query name="saleProxyPersonList"
-                            ejbql="select saleProxyPerson from SaleProxyPerson saleProxyPerson where saleProxyPerson.groupId = &apos;#{logonInfo.groupCode}&apos;"/>
-
 
 </components>

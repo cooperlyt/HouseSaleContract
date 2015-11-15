@@ -18,7 +18,7 @@ public class ContractList extends EntityQuery<HouseContract> {
             "left join fetch c.contractOwner";
 
     private static final String[] RESTRICTIONS = {
-            "c.projectCode = #{logonInfo.groupCode}"
+            "c.groupId = #{logonInfo.groupCode}"
     };
 
     public ContractList() {

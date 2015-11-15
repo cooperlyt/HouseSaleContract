@@ -10,6 +10,18 @@
                 template="/layout/template-form.xhtml">
 
 
+    <div class="subhead">
+        <a:commandLink styleClass="btn btn-primary right"><span class="octicon octicon-plus"></span>
+        <a:attachQueue requestDelay="0"/>
+
+        </a:commandLink>
+
+        <h2 class="subhead-heading">#{houseContractHome.instance.id}</h2>
+        <p class="subhead-description">
+            合同即将完成，这是最后一步，您可以在此打印合同，也可在合同提交到产权登记部门后打印合同。
+        </p>
+    </div>
+
     <h:form>
 
         <a:repeat value="#{houseContractHome.instance.contractNumberList}" var="_contractNumber">
@@ -17,22 +29,30 @@
             <s:decorate template="/layout/edit.xhtml">
 
                 <div class="input-group">
-
-                    <h:inputText styleClass="form-control" value="#{_contractNumber.contractNumber}" disabled="true"/>
-
-
                     <span class="input-group-btn">
                                                     <!-- TODO inputNumber form -->
-                                                            <s:link styleClass="btn btn-default"
-                                                                    target="_blank"
-                                                                    action="#{houseContractHome.viewSingleContract}">
-                                                                <span class="btn-icon glyphicon glyphicon-print"/>
-                                                                <f:param value="#{_contractNumber.contractNumber}"
-                                                                         name="contractNumber"/>
-                                                                <f:param value="#{_contractNumber.houseContract.id}" name="houseContractId"/>
-                                                            </s:link>
+                    <s:link styleClass="btn btn-default"
+                            target="_blank"
+                            action="#{houseContractHome.viewSingleContract}">
+                        <span class="btn-icon glyphicon glyphicon-print"/>
+                        <f:param value="#{_contractNumber.contractNumber}"
+                                 name="contractNumber"/>
+                        <f:param value="#{_contractNumber.houseContract.id}" name="houseContractId"/>
+                    </s:link>
 
                     </span>
+
+                    <h:inputText styleClass="form-control" value="#{_contractNumber.contractNumber}" disabled="true"/>
+                    <span class="input-group-btn">
+                        <a:commandLink styleClass="btn btn-danger btn-reversal"
+                                action="#{houseContractHome.viewSingleContract}">
+                            <a:attachQueue requestDelay="0"/>
+                            <span class="btn-icon octicon octicon-trashcan "/>
+                        </a:commandLink>
+
+                    </span>
+
+
                 </div>
             </s:decorate>
 

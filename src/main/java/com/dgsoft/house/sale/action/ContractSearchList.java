@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class ContractSearchList extends MultiOperatorEntityQuery<HouseContract> {
 
     private static final String EJBQL = "select c from HouseContract c " +
-            "left join fetch c.contractOwner o where c.projectCode = #{logonInfo.groupCode}";
+            "left join fetch c.contractOwner o where c.groupId = #{logonInfo.groupCode}";
 
 
     private static final String[] RESTRICTIONS = {

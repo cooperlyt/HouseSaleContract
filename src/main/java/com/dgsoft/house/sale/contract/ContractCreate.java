@@ -5,6 +5,7 @@ import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
 import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.PoolType;
+import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.house.sale.RunParam;
 import com.dgsoft.house.sale.action.HouseContractHome;
@@ -300,7 +301,13 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_1_10", new ContractContextMap.ContarctContextItem(sellCard.getCreateCardNumber()));
 
         houseContractHome.getContractContextMap().put("c_2_1", new ContractContextMap.ContarctContextItem(dLogonInfo.getOrgName()));
-        houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
+
+
+        if (getHouse().getSaleType().equals(SaleType.MAP_SELL)) {
+            houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
+        }else{
+            houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(getHouse().getOwnerCardNumber()));
+        }
 
         //house
         houseContractHome.getContractContextMap().put("c_3_1" , new ContractContextMap.ContarctContextItem(getHouse().getUseType()));

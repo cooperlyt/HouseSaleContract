@@ -54,13 +54,20 @@
                 <redirect view-id="/contract/pre-sale-view-v1.xhtml"/>
             </rule>
 
+
+            <rule if-outcome="view-contract-NOW_SELL-v1">
+                <redirect view-id="/contract/new-sale-view-v1.xhtml"/>
+            </rule>
+
             <rule if-outcome="template-contract-MAP_SELL-v1">
                 <redirect view-id="/contract/pre-sale-template-v1.xhtml"/>
             </rule>
 
-            <rule if-outcome="view-contract-NOW_SELL-v1">
-                <redirect view-id="/contract/new-sale-v1.xhtml"/>
+            <rule if-outcome="template-contract-NOW_SELL-v1">
+                <redirect view-id="/contract/new-sale-template-v1.xhtml"/>
             </rule>
+
+
 
         </navigation>
     </page>

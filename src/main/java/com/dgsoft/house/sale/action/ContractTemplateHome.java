@@ -5,6 +5,8 @@ import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.contract.ContractContextMap;
 import com.dgsoft.house.sale.model.ContractTemplate;
+import org.jboss.seam.Component;
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.faces.FacesMessages;
@@ -25,8 +27,11 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
     @In
     private FacesMessages facesMessages;
 
-    @In
-    private LogonInfo logonInfo;
+    @Override
+    public ContractTemplate createInstance(){
+        LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
+        return new ContractTemplate(logonInfo.getGroupCode());
+    }
 
     public void initInstance(){
         super.initInstance();
@@ -53,8 +58,6 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
             facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ContractTemplateFail");
             return null;
         }
-
-        getInstance().setProjectCode(logonInfo.getGroupCode());
 
         return super.persist();
     }

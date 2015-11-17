@@ -169,7 +169,7 @@
 
                         <a:outputPanel layout="block" rendered="#{templateModel}" styleClass="navbar-form navbar-left">
                             <div class="form-group">
-                                <h:inputText style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
+                                <h:inputText label="模板名称" required="true" style="width: 400px" value="#{contractTemplateHome.instance.name}" styleClass="form-control" p:placeholder="模板名称"/>
 
                             </div>
                             <h:commandLink styleClass="btn btn-success" style="margin-left: 5px" value="完成" action="#{contractTemplateHome.persist}" rendered="#{not contractTemplateHome.managed}">

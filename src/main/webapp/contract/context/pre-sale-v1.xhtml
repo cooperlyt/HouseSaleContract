@@ -9,11 +9,11 @@
                 xmlns:a="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                template="template.xhtml">
+                template="../template.xhtml">
 
     <ui:define name="catalog">
         <li>
-            <a href="#overview">商品房买卖合同</a>
+            <a href="#overview">商品房买卖合同(预售)</a>
         </li>
         <li>
             <a href="#chapter1">第一章 合同当事人</a>
@@ -115,8 +115,8 @@
 
     </ui:define>
 
-    <ui:include src="pre-contract-context-edit-v1.xhtml">
-        <ui:param name="contractContextMap" value="#{contractTemplateHome.contractContextMap}"/>
+    <ui:include src="../pre-contract-context-edit-v1.xhtml">
+        <ui:param name="contractContextMap" value="#{houseContractHome.contractContextMap}"/>
     </ui:include>
 
 </ui:composition>

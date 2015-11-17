@@ -12,6 +12,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.security.Credentials;
+import org.jboss.seam.security.Identity;
 
 import javax.persistence.EntityManager;
 import java.security.SecureRandom;
@@ -35,7 +36,7 @@ public class AuthenticationManager {
     private FacesMessages facesMessages;
 
     @In
-    private Credentials credentials;
+    private Identity identity;
 
     @In
     private EntityManager entityManager;
@@ -44,7 +45,7 @@ public class AuthenticationManager {
     public boolean authenticate() {
 
             try {
-                logonInfo = DeveloperSaleServiceImpl.instance().logon(credentials.getUsername(), credentials.getPassword(), rndData);
+                logonInfo = DeveloperSaleServiceImpl.instance().logon(identity.getCredentials().getUsername(), identity.getCredentials().getPassword(), rndData);
                 if (logonInfo == null) {
                     facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
                     return false;
@@ -70,6 +71,7 @@ public class AuthenticationManager {
                             facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_CORP_OUT_TIME");
                             return false;
                         case LOGON:
+                            identity.addRole("developer");
                             ProjectNumber projectNumber = entityManager.find(ProjectNumber.class, logonInfo.getGroupCode());
                             if (projectNumber == null){
 

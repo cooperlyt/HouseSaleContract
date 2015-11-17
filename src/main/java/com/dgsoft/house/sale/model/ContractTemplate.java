@@ -22,6 +22,13 @@ public class ContractTemplate implements java.io.Serializable, ContractInfo{
     private int contractVersion;
     private String context;
 
+    public ContractTemplate() {
+    }
+
+    public ContractTemplate(String projectCode) {
+        this.projectCode = projectCode;
+    }
+
     @Id
     @Column(name = "ID", unique = true, nullable = false, length = 32)
     @NotNull

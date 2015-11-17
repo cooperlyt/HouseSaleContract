@@ -23,7 +23,7 @@
             </ui:define>
             <a:commandButton styleClass="btn btn-danger btn-block btn-reversal" action="#{contractTemplateHome.remove}"
                              value="#{messages.confirmDelete}" oncomplete="$('#templateDeleteConfirmPanel').modal('hide')"
-                             render="mapSaleContractTemplate" immediate="true" execute="@this">
+                             render="mapSaleContractTemplate,nowSaleContractTemplate" immediate="true" execute="@this">
 
                 <a:attachQueue requestDelay="0"/>
             </a:commandButton>
@@ -186,11 +186,73 @@
                             </h:form>
                         </div>
                         <div class="col-md-6">
-                            <h:form>
+                            <h:form id="nowSaleContractTemplate">
                             <div class="boxed-group flush">
+                                <s:link class="boxed-group-action boxed-group-icon tooltipped tooltipped-nw tooltipped-multiline"
+                                        action="#{contractTemplateHome.editTemplate}"
+                                        p:aria-label="新建现售合同模版">
+                                    <span class="octicon octicon-plus"></span>
+                                    <f:param name="templateModel" value="#{true}"/>
+                                    <f:param name="templateId" value=""/>
+                                    <f:param name="contractType" value="NOW_SELL"/>
+                                </s:link>
                                 <h3>现售合同模版</h3>
                                 <ul class="boxed-group-inner mini-repo-list">
+                                    <a:repeat value="#{saleNewContractTemplateList.resultList}" var="_contract">
 
+
+                                        <li class="public source no-description">
+                                            <span class="mini-repo-list-item css-truncate">
+                                                  <span class="repo-icon octicon octicon-repo"></span>
+                                                     <s:link  action="#{contractTemplateHome.editTemplate}"
+                                                              rendered="#{_contract.currentVersion}"
+                                                              style="display:inline-block; width:100%">
+                                                         <f:param name="templateModel" value="#{true}"/>
+                                                         <f:param name="templateId" value="#{_contract.id}"/>
+                                                        <span class="repo-and-owner css-truncate-target">
+                                                            <span class="repo" title="#{_contract.name}">#{_contract.name}</span>
+                                                        </span>
+                                                     </s:link>
+
+
+
+                                                      <span class="stars">
+                                                    #{_contract.contractVersion}
+                                                          <a:commandLink style="color: #900" execute="@this" immediate="true"
+                                                                         p:aria-label="删除此现售合同模版"
+                                                                         render="templateDeleteConfirmPanel_title,templateDeleteConfirmPanel_form"
+                                                                         oncomplete="$('#templateDeleteConfirmPanel').modal('show')">
+                                                              <f:param name="templateId" value="#{_contract.id}"/>
+                                                              <span class="octicon octicon-trashcan"></span>
+                                                              <a:attachQueue requestDelay="0"/>
+                                                          </a:commandLink>
+
+                                                    </span>
+                                            </span>
+
+
+
+                                            <s:link
+                                                    rendered="#{ not _contract.currentVersion}"
+                                                    styleClass="mini-repo-list-item css-truncate">
+                                                <f:param name="templateModel" value="#{true}"/>
+                                                <f:param name="templateId" value="#{_contract.id}"/>
+                                                <f:param name="contractType" value="MAP_SELL"/>
+                                                <span class="repo-icon octicon octicon-repo"></span>
+                                                <span class="repo-and-owner css-truncate-target">
+                                                    <span class="repo" title="#{_contract.name}">#{_contract.name}</span>
+                                                </span>
+
+                                                      <span class="stars">
+        0
+        <span class="octicon octicon-star"></span>
+      </span>
+                                                <span class="repo-description css-truncate-target"></span>
+                                            </s:link>
+                                        </li>
+
+
+                                    </a:repeat>
 
 
                                 </ul>

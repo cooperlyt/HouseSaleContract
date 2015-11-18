@@ -224,6 +224,8 @@ public class ContractCreate {
 
         houseContractHome.getContractContextMap().put("dproxycertype",new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getSaleProxyPerson().getCredentialsType().name())));
         houseContractHome.getContractContextMap().put("dproxycernumber",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getSaleProxyPerson().getCredentialsNumber()));
+        houseContractHome.getContractContextMap().put("houseCode",new ContractContextMap.ContarctContextItem(getHouse().getHouseCode()));
+        houseContractHome.getContractContextMap().put("houseDisplayCode",new ContractContextMap.ContarctContextItem(getHouse().getDisplayHouseCode()));
 
 
         //买受人

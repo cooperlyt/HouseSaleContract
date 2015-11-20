@@ -89,13 +89,13 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return contractTemplateList;
     }
 
-    private void fillContextMap() throws JSONException {
-        if (getInstance().getContext() == null || getInstance().getContext().trim().equals("")){
-            contractContextMap = new ContractContextMap();
-        }else{
-            contractContextMap = new ContractContextMap(new JSONObject(getInstance().getContext()));
-        }
-    }
+//    private void fillContextMap() throws JSONException {
+//        if (getInstance().getContext() == null || getInstance().getContext().trim().equals("")){
+//            contractContextMap = new ContractContextMap();
+//        }else{
+//            contractContextMap = new ContractContextMap(new JSONObject(getInstance().getContext()));
+//        }
+//    }
 
     @Override
     protected void initInstance(){
@@ -115,12 +115,13 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         proxyPersonHelper = new PersonHelper<SaleProxyPerson>(proxyPerson);
 
 
-        try {
-            fillContextMap();
-        } catch (JSONException e) {
-            Logging.getLog(getClass()).error("load contract context error.", e);
-            throw new IllegalArgumentException("load contract context error.");
-        }
+        contractContextMap = null;
+//        try {
+//            fillContextMap();
+//        } catch (JSONException e) {
+//            Logging.getLog(getClass()).error("load contract context error.", e);
+//            throw new IllegalArgumentException("load contract context error.");
+//        }
 
         housePoolList = new ArrayList<PersonHelper<BusinessPool>>(getInstance().getBusinessPools().size());
         for(BusinessPool pool: getInstance().getBusinessPools()){
@@ -204,7 +205,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     public void setContext(String context) throws JSONException {
         getInstance().setContext(context);
-        fillContextMap();
+        contractContextMap = null;
     }
 
     public void clearContext(){
@@ -228,7 +229,17 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     public ContractContextMap getContractContextMap() {
         if (contractContextMap == null){
-            getInstance();
+            Logging.getLog(getClass()).debug("load context");
+           if (getInstance().getContext() == null || getInstance().getContext().trim().equals("")){
+               contractContextMap = new ContractContextMap();
+
+            }else {
+               try {
+                   contractContextMap = new ContractContextMap(new JSONObject(getInstance().getContext()));
+               } catch (JSONException e) {
+                   throw new IllegalArgumentException("context fail");
+               }
+           }
         }
         return contractContextMap;
     }

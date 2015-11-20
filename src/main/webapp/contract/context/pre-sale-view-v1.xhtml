@@ -28,7 +28,6 @@
 
 
 
-
             </p:paragraph>
         </p:font>
 
@@ -75,7 +74,6 @@
             第十章 其他事项
 
     </p:font>
-
     <p:newPage/>
     <p:font size="20" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
         <p:paragraph alignment="center">说       明</p:paragraph>
@@ -90,7 +88,6 @@
             6. 双方当事人可以根据实际情况决定本合同原件的份数,并在签订合 同时认真核对,以确保各份合同内容一致;在任何情况下,出卖人和买受 人都应当至少持有一份合同原件。
     </p:paragraph>
     </p:font>
-
     <p:newPage/>
     <p:font size="20" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
         <p:paragraph alignment="center">专业术语解释</p:paragraph>
@@ -118,7 +115,6 @@
     <p:font size="18"  name="STSong-Light" encoding="UniGB-UCS2-H">
         <p:paragraph alignment="center">(预       售)</p:paragraph>
     </p:font>
-
     <p:font size="13" name="STSong-Light" encoding="UniGB-UCS2-H">
         <p:paragraph>
             出卖人向买受人出售其开发建设的房屋,双方当事人应当在自愿、平等、公平及 诚实信用的基础上,根据 《中华人民共和国合同法》、《中华人民共和国物权法》、《中 华人民共和国城市房地产管理法》 等法律、法规的规定,就商品房买卖相关内容协商 达成一致意见,签订本商品房买卖合同。
@@ -147,8 +143,6 @@
             <p:cell><p:table widthPercentage="100" columns="4" widths="1 2 1 2"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>法定代表人:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.sellowner.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.sellownertel.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
 
         </p:table>
-
-
         <p:table widthPercentage="90" columns="1">
             <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
             <p:cell padding="20"></p:cell>
@@ -166,10 +160,7 @@
             <p:cell rendered="#{(not empty contractContext.contractContextMap.ownertype2)}"><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>出生日期:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph><p:text value="#{houseContractHome.contractContextMap.ownerbirthday2.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>,性别:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.ownersex2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
             <p:cell rendered="#{(not empty contractContext.contractContextMap.ownertype2)}"><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>通讯地址:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.owneraddress2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
             <p:cell rendered="#{(not empty contractContext.contractContextMap.ownertype2)}"><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>邮政编码:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.ownerpost2.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{houseContractHome.contractContextMap.ownertel2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
-
         </p:table>
-
-
         <a:repeat rendered="#{not empty houseContractHome.contractContextMap.poolOwner}" value="#{houseContractHome.contractContextMap.poolOwner.arrayValue}" var="_pool">
             <p:table widthPercentage="90" columns="1">
                 <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
@@ -181,21 +172,17 @@
                 <p:cell><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>出生日期:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph><p:text value="#{_pool.ownerbirthday.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>,性别:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownersex.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>通讯地址:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.owneraddress.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>邮政编码:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerpost.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertel.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
-
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>【#{_pool.ownertype2.stringValue}】</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertype2value.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>【#{_pool.ownertype3.stringValue}】</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertype3value.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="2" widths="3 5"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>证件类型:【#{_pool.ownercertype4.stringValue}】,证号:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertype4value.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>出生日期:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph><p:text value="#{_pool.ownerbirthday2.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>,性别:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownersex2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>通讯地址:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.owneraddress2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownertype2) and (not empty _pool.ownertype2.stringValue)}"><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>邮政编码:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerpost2.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertel2.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
-
             </p:table>
         </a:repeat>
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第二章 商品房基本状况</p:paragraph>
         </p:font>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第一条</p:font>  项目建设依据
             1. 出卖人以【#{houseContractHome.contractContextMap.c_1_1.stringValue}】方式取得坐落于<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_1_2.stringValue}      </p:font>地块的建设用地使用权。该地块【#{houseContractHome.contractContextMap.c_1_3.stringValue}】为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_1_4.stringValue}       </p:font>, 土地使用权面积为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    <p:text value="#{houseContractHome.contractContextMap.c_1_5.numberValue}"><f:convertNumber pattern="#0.000"/></p:text>     </p:font>平方米。买受人购买的商品房 (以下简称该商品房) 所占用的土地用途为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_1_6.stringValue}￼      </p:font>,土地使用权终止日期为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">     <p:text value="#{houseContractHome.contractContextMap.c_1_7.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text>           </p:font>。
@@ -205,7 +192,6 @@
             第二条</p:font>  预售依据
             该商品房已由<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_2_1.stringValue}   </p:font>预售许可证号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_2_2.stringValue}      </p:font>。
         </p:paragraph>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第三条</p:font>  商品房基本情况
             1. 该商品房的规划用途为【#{houseContractHome.contractContextMap.c_3_1.stringValue}】。
@@ -214,7 +200,6 @@
             4. 该商品房的房产测绘机构为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">    #{houseContractHome.contractContextMap.c_3_11.stringValue}      </p:font> ,其预测建筑面积共  <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{houseContractHome.contractContextMap.c_3_12.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>    </p:font> 平方米,其中套内建筑面积 <p:text value="_________" rendered="#{not (houseContractHome.contractContextMap.c_3_13.numberValue gt 0)}"/> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H" rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}">   <p:text value="#{houseContractHome.contractContextMap.c_3_13.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>    </p:font>平方米,分摊共有建筑面积<p:text rendered="#{not (houseContractHome.contractContextMap.c_3_13.numberValue gt 0)}" value="________"/> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H" rendered="#{houseContractHome.contractContextMap.c_3_13.numberValue gt 0}">   <p:text  value="#{houseContractHome.contractContextMap.c_3_14.numberValue}"><f:convertNumber pattern="#0.000"/> </p:text>   </p:font>平方米。该商品房共用部位见附件二。
             该商品房层高为<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_15.numberValue}"/><ui:param name="mask" value="#0.000"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>米,有<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_16.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台,其中<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_17.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台为封闭式, <ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_3_18.numberValue}"/><ui:param name="mask" value="#0"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>个阳台为非封闭式。阳台是否封闭以规划设计文件为准。
         </p:paragraph>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第四条</p:font>  抵押情况
             与该商品房有关的抵押情况为 【#{houseContractHome.contractContextMap.plg.isNull() ? '未抵押' : '抵押'}】。
@@ -228,8 +213,6 @@
             </ui:repeat>
             抵押权人同意该商品房转让的证明及关于抵押的相关约定见附件三。
         </p:paragraph>
-
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第五条</p:font>  房屋权利状况承诺
             1. 出卖人对该商品房享有合法权利;
@@ -239,8 +222,6 @@
             5. <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_5_2.stringValue}</p:font>。
             如该商品房权利状况与上述情况不符,导致不能完成本合同登记备案或房屋所有权转移登记的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部 分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_5_3.stringValue}  </p:font> % (不低于中国人民银行公布的同期贷款基 准利率) 计算给付利息。给买受人造成损失的,由出卖人支付【#{houseContractHome.contractContextMap.c_5_4.stringValue}】 的赔偿金。
         </p:paragraph>
-
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第三章 商品房价款</p:paragraph>
         </p:font>
@@ -254,8 +235,7 @@
             3. 按照套计算,该商品房总价款为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.money_type.stringValue}  </p:font>￼(币种)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:convertNumber type="currency" currencySymbol=""/></p:text> ￼元  </p:font> (<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">大写  <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/></p:text></p:font>)</p:paragraph><p:paragraph rendered="#{not (houseContractHome.contractContextMap.c_6_1.numberValue eq 3)}">
             3. 按照套计算,该商品房总价款为_________(币种)___________元 (大写__________元整)。</p:paragraph><p:paragraph rendered="#{houseContractHome.contractContextMap.c_6_1.numberValue eq 4}">
             4. 按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_6_12.stringValue} </p:font>计算,该商品房总价款为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.money_type.stringValue}  </p:font>￼(币种)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:convertNumber type="currency" currencySymbol=""/></p:text> ￼元  </p:font> (<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">大写  <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/></p:text></p:font>)</p:paragraph><p:paragraph rendered="#{not (houseContractHome.contractContextMap.c_6_1.numberValue eq 4)}">
-            4. 按照______________计算,该商品房总价款为_________(币种)___________元 (大写__________元整)。</p:paragraph>
-        ￼￼￼￼￼￼￼￼￼￼
+            4. 按照______________计算,该商品房总价款为_________(币种)___________元 (大写__________元整)。</p:paragraph>￼￼￼￼
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第七条</p:font>  付款方式及期限
             (一) 签订本合同前,买受人已向出卖人支付定金<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_1.stringValue}￼  </p:font>(币种)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  <p:text value="#{houseContractHome.contractContextMap.c_7_1_1.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text> 元   </p:font>(大写),该定金于 【#{houseContractHome.contractContextMap.c_7_2.stringValue}】时 【#{houseContractHome.contractContextMap.c_7_3.stringValue}】商品房价款。
@@ -263,7 +243,7 @@
             1. 一次性付款。买受人应当在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_5.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></p:text> </p:font>前支付该商品房全部价款。
             2. 分期付款。买受人应当在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  <p:text value="#{houseContractHome.contractContextMap.c_7_6.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></p:text>  </p:font>日前分<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_8.numberValue}  </p:font>期支付该商品房全部价款,首期房价款<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_7_9.stringValue}￼ </p:font>(币种)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_10.numberValue}"><f:convertNumber type="currency"/> </p:text>  元   </p:font>(<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> 大写:  <p:text value="#{houseContractHome.contractContextMap.c_7_10.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/> </p:text></p:font>),应当于<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_11.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></p:text> </p:font>前支付。
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_7_12.stringValue}</p:font>
-            3. 贷款方式付款:【#{houseContractHome.contractContextMap.c_7_13.stringValue}】买受人应当于<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_14.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></p:text> </p:font>前支付首期房价款<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_15.stringValue}  </p:font> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_16.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text>  元 </p:font>(<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">大写  <p:text value="#{houseContractHome.contractContextMap.c_7_16.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/></p:text></p:font>),占全部房价款的<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_18.numberValue} %  </p:font>。
+            3. 贷款方式付款:【#{houseContractHome.contractContextMap.c_7_13.stringValue}】买受人应当于<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_14.dateValue}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></p:text> </p:font>前支付首期房价款<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_15.stringValue}  </p:font> <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_16.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text>  元 </p:font>(<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">大写  <p:text value="#{houseContractHome.contractContextMap.c_7_16.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/></p:text></p:font>),占全部房价款的<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_7_18.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%。
             余款<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_7_19.stringValue}</p:font> (币种) <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_7_20.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text> 元 </p:font>(<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  大写 <p:text value="#{houseContractHome.contractContextMap.c_7_20.numberValue}"><f:converter converterId="dgsoft.faces.BigMoneyConverter"/></p:text> </p:font>  向 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_21.stringValue}   </p:font>(贷款机构) 申请贷款支付。
             4. 其他方式:
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_7_22.stringValue}</p:font>
@@ -271,18 +251,16 @@
             该商品房的预售资金监管机构为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_23.stringValue}    </p:font>,预售资金监管账户名称为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_24.stringValue}   </p:font>,账号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_7_25.stringValue}   </p:font>。
             该商品房价款的计价方式、总价款、付款方式及期限的具体约定见附件四。
         </p:paragraph>￼￼￼￼
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第八条</p:font>  逾期付款责任
             除不可抗力外,买受人未按照约定时间付款的,双方同意按照下列第<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_1.stringValue} </p:font>种方式处理:
             1. 按照逾期时间,分别处理((1)和(2)不作累加)。
-            (1) 逾期在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_2.numberValue} </p:font>日之内,买受人按日计算向出卖人支付逾期应付款万分之<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_3.numberValue}  </p:font>的违约金。
-            (2) 逾期超过<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_4.numberValue}   </p:font>日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通知送达之日起<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_5.numberValue}￼ </p:font>日内按照累计应付款的<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_8_6.numberValue}%   </p:font>向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。
-            出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_8_7.numberValue} </p:font>(该比率不低于第 (1) 项中的比率) 的违约金。
+            (1) 逾期在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_2.numberValue} </p:font>日之内,买受人按日计算向出卖人支付逾期应付款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_8_3.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_____"/><ui:param name="allowZero" value="true"/></ui:include>的违约金。
+            (2) 逾期超过<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_4.numberValue}   </p:font>日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通知送达之日起<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_5.numberValue}￼ </p:font>日内按照累计应付款的<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_8_6.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_____"/><ui:param name="allowZero" value="true"/></ui:include>%向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。
+            出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_8_7.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_____"/><ui:param name="allowZero" value="true"/></ui:include>(该比率不低于第 (1) 项中的比率) 的违约金。
             本条所称逾期应付款是指依照第七条及附件四约定的到期应付款与该期实际已付款的差额;采取分期付款的,按照相应的分期应付款与该期的实际已付款的差额确定。
             2.<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_8_8.stringValue}</p:font>
-        </p:paragraph>
-        ￼￼￼￼
+        </p:paragraph>￼￼
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第四章 商品房交付条件与交付手续</p:paragraph>
         </p:font>
@@ -352,17 +330,15 @@
             (1)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_11_7.stringValue}</p:font>
             (2)<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_11_8.stringValue}</p:font>
         </p:paragraph>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第十二条</p:font>  逾期交付责任
             除不可抗力外,出卖人未按照第十一条约定的时间将该商品房交付买受人的,双方同意按照下列第<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_12_1.stringValue}￼ </p:font>种方式处理:
             1. 按照逾期时间,分别处理 ((1)和(2)不作累加 ) 。
-            (1) 逾期在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_2.numberValue} </p:font>日之内 (该期限应当不多于第八条第 1 (1) 项中的期限),自第十一条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支 付全部房价款万分之<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_12_3.numberValue}  </p:font>的违约金 (该违约金比率应当不低于第八条第 1 (1) 项中的 比率)。
-            (2) 逾期超过<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_4.numberValue} </p:font>日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_5.numberValue} </p:font>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同时,出卖人按照全部房价款的<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_6.numberValue} </p:font>%向买受人支付违约金。
-            买受人要求继续履行合同的,合同继续履行,出卖人按日计算向买受人支付全部 房价款万分之<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_7.numberValue} </p:font>(该比率应当不低于本条第 1 (1) 项中的比率) 的违约金。
+            (1) 逾期在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_2.numberValue} </p:font>日之内 (该期限应当不多于第八条第 1 (1) 项中的期限),自第十一条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支 付全部房价款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_12_3.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>的违约金 (该违约金比率应当不低于第八条第 1 (1) 项中的 比率)。
+            (2) 逾期超过<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_12_4.numberValue} </p:font>日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_12_5.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同时,出卖人按照全部房价款的<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_12_6.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%向买受人支付违约金。
+            买受人要求继续履行合同的,合同继续履行,出卖人按日计算向买受人支付全部 房价款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_12_7.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>(该比率应当不低于本条第 1 (1) 项中的比率) 的违约金。
             2.<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_11_8.stringValue}</p:font>
         </p:paragraph>
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第五章 面积差异处理方式</p:paragraph>
         </p:font>
@@ -372,13 +348,13 @@
             1. 根据第六条按照套内建筑面积计价的约定,双方同意按照下列原则处理:
             (1) 套内建筑面积误差比绝对值在 3%以内 (含 3%) 的,据实结算房价款;
             (2) 套内建筑面积误差比绝对值超出 3%时,买受人有权解除合同。
-            买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_13_2.numberValue}  %</p:font> (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+            买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按照 <ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_13_2.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%(不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
             买受人选择不解除合同的,实测套内建筑面积大于预测套内建筑面积时,套内建 筑面积误差比在3%以内(含3%)部分的房价款由买受人补足;超出 3% 部分的房价 款由出卖人承担,产权归买受人所有。实测套内建筑面积小于预测套内建筑面积时, 套内建筑面积误差比绝对值在3%以内(含3%)部分的房价款由出卖人返还买受人; 绝对值超出 3%部分的房价款由出卖人双倍返还买受人。
             套内建筑面积误差比= (实测套内建筑面积-预测套内建筑面积) / 预测套内建筑面积 × 100%
             2. 根据第六条按照建筑面积计价的约定,双方同意按照下列原则处理:
             (1)建筑面积、套内建筑面积误差比绝对值均在3%以内(含3%)的,根据实测建筑面积结算房价款;
             (2) 建筑面积、套内建筑面积误差比绝对值其中有一项超出 3%时,买受人有权解除合同。
-            买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_13_3.numberValue} %</p:font> (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
+            买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按照 <ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_13_3.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%(不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
             买受人选择不解除合同的,实测建筑面积大于预测建筑面积时,建筑面积误差比 在3%以内(含3%)部分的房价款由买受人补足,超出3%部分的房价款由出卖人承 担,产权归买受人所有。实测建筑面积小于预测建筑面积时,建筑面积误差比绝对值 在 3%以内 (含 3%) 部分的房价款由出卖人返还买受人;绝对值超出 3%部分的房价款由出卖人双倍返还买受人。
             建筑面积误差比= (实测建筑面积-预测建筑面积) / 预测建筑面积 × 100%
             (3) 因设计变更造成面积差异,双方不解除合同的,应当签署补充协议。
@@ -387,16 +363,14 @@
             4. 双方自行约定:
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_13_5.stringValue}</p:font>
         </p:paragraph>
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第七章 商品房质量及保修责任</p:paragraph>
         </p:font>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第十六条</p:font>  商品房质量
             (一) 地基基础和主体结构
             出卖人承诺该商品房地基基础和主体结构合格,并符合国家及行业标准。
-            经检测不合格的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付 贷款部分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_16_1.numberValue} % </p:font>(不低于中国人民银行公布的同期 贷款基准利率)计算给付利息。给买受人造成损失的,由出卖人支付【已付房价款一 倍】【买受人全部损失】 的赔偿金。因此而发生的检测费用由出卖人承担。
+            经检测不合格的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付 贷款部分),并自买受人付款之日起,按照<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_16_1.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%(不低于中国人民银行公布的同期 贷款基准利率)计算给付利息。给买受人造成损失的,由出卖人支付【已付房价款一 倍】【买受人全部损失】 的赔偿金。因此而发生的检测费用由出卖人承担。
             买受人不解除合同的,<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_16_2.stringValue}</p:font>。
             (二) 其他质量问题
             该商品房质量应当符合有关工程质量规范、标准和施工图设计文件的要求。发现除地基基础和主体结构外质量问题的,双方按照以下方式处理:
@@ -413,12 +387,11 @@
             (四) 室内空气质量、建筑隔声和民用建筑节能措施
             1. 该商品房室内空气质量符合【#{houseContractHome.contractContextMap.c_16_10.stringValue}】标准,标准名称: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_16_11.stringValue}   </p:font>,标准文号:<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_16_12.stringValue}   </p:font>。
             该商品房为住宅的,建筑隔声情况符合 【#{houseContractHome.contractContextMap.c_16_13.stringValue}】标准,标准名称:<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_16_4.stringValue}    </p:font> ,标准文号:<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_16_15.stringValue}   </p:font>。
-            该商品房室内空气质量或建筑隔声情况经检测不符合标准,由出卖人负责整改, 整改后仍不符合标准的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_16_16.numberValue} ￼ % </p:font>(不低于中国人民银行公布的同 期贷款基准利率)计算给付利息。给买受人造成损失的,由出卖人承担相应赔偿责任。经检测不符合标准的,检测费用由出卖人承担,整改后再次检测发生的费用仍由出卖人承担。因整改导致该商品房逾期交付的,出卖人应当承担逾期交付责任。
+            该商品房室内空气质量或建筑隔声情况经检测不符合标准,由出卖人负责整改, 整改后仍不符合标准的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起,按照<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_16_16.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%(不低于中国人民银行公布的同 期贷款基准利率)计算给付利息。给买受人造成损失的,由出卖人承担相应赔偿责任。经检测不符合标准的,检测费用由出卖人承担,整改后再次检测发生的费用仍由出卖人承担。因整改导致该商品房逾期交付的,出卖人应当承担逾期交付责任。
             2. 该商品房应当符合国家有关民用建筑节能强制性标准的要求。
             未达到标准的,出卖人应当按照相应标准要求补做节能措施,并承担全部费用; 给买受人造成损失的,出卖人应当承担相应赔偿责任。
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_16_17.stringValue}</p:font>
         </p:paragraph>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第十七条</p:font>  保修责任
             (一) 商品房实行保修制度。该商品房为住宅的,出卖人自该商品房交付之日起,按照《住宅质量保证书》承诺的内容承担相应的保修责任。该商品房为非住宅的,双方应当签订补充协议详细约定保修范围、保修期限和保修责任等内容。具体内容见附件七。
@@ -433,12 +406,9 @@
             出卖人不按照第十六条、第十七条约定承担相关责任的,由<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_18_1.stringValue} ￼ </p:font>承担连带责任。
             关于质量担保的证明见附件八。
         </p:paragraph>
-
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第八章 合同备案与房屋登记</p:paragraph>
         </p:font>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第十九条</p:font>  预售合同登记备案
             (一)出卖人应当自本合同签订之日起【#{houseContractHome.contractContextMap.c_19_1.numberValue}日内】(不超过30日)办理商品房预售合同登记备案手续,并将本合同登记备案情况告知买受人。
@@ -446,16 +416,14 @@
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_19_2.stringValue}</p:font>
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_19_3.stringValue}</p:font>
         </p:paragraph>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第二十条</p:font>  房屋登记
             (一) 双方同意共同向房屋登记机构申请办理该商品房的房屋所有权转移登记。
             (二)因出卖人的原因,买受人未能在该商品房交付之日起<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_20_1.numberValue} 日</p:font>内取得该商品房的房屋所有权证书的,双方同意按照下列第<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_20_2.stringValue} ￼ </p:font>种方式处理:
-            1. 买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起,按照<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> ￼#{houseContractHome.contractContextMap.c_20_3.numberValue} % </p:font>(不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。买受人不解除合同的,自买受人应当完成房屋所有权登记的期限届满之次日起至实际完成房屋所有权登记之日止,出卖人按日计算向买受人支付全部房价 款万分之<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_20_4.numberValue}￼ </p:font>的违约金。
+            1. 买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起,按照<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_20_3.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>%(不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。买受人不解除合同的,自买受人应当完成房屋所有权登记的期限届满之次日起至实际完成房屋所有权登记之日止,出卖人按日计算向买受人支付全部房价 款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_20_4.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_______"/><ui:param name="allowZero" value="true"/></ui:include>的违约金。
             2. <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.c_20_5.stringValue}</p:font>
             (三) 因买受人的原因未能在约定期限内完成该商品房的房屋所有权转移登记的,出卖人不承担责任。
         </p:paragraph>
-
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第九章 前期物业管理</p:paragraph>
         </p:font>
@@ -471,7 +439,6 @@
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第十章 其他事项</p:paragraph>
         </p:font>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第二十二条</p:font>  建筑物区分所有权
             (一) 买受人对其建筑物专有部分享有占有、使用、收益和处分的权利。
@@ -522,8 +489,6 @@
             本合同自双方签字或盖章之日起生效。本合同的解除应当采用书面形式。
             本合同及附件共_____页,一式_____份,其中出卖人_____份,买受人_____份, 【__________】_________份,【____________】 _________份。合同附件与本合同具有同等法律效力。
         </p:paragraph>
-
-
         <p:table keepTogether="true" widthPercentage="90" columns="2" widths="1 1">
             <f:facet name="defaultCell"><p:cell paddingRight="20" borderWidth="0"/></f:facet>
             <p:cell paddingTop="50"/><p:cell paddingTop="50"/>
@@ -535,21 +500,19 @@
             <p:cell>签订地点: _____________________</p:cell><p:cell>签订地点: _____________________</p:cell>
             <p:cell paddingTop="60"/><p:cell paddingTop="60"/>
         </p:table>
-
         <p:newPage/>
-
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件一  房屋平面图 (应当标明方位)</p:font>
 
             1. 房屋分层分户图(应当标明详细尺寸,并约定误差范围)
             2. 建设工程规划方案总平面图
         </p:paragraph>
-        <p:newPage/>
+
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件二  关于该商品房共用部位的具体说明 (可附图说明)</p:font>
 
             1. 纳入该商品房分摊的共用部位的名称、面积和所在位置
             2. 未纳入该商品房分摊的共用部位的名称、所在位置
         </p:paragraph>
-        <p:newPage/>
+
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件三 抵押权人同意该商品房转让的证明及关于抵押的相关约定</p:font>
 
             1. 抵押权人同意该商品房转让的证明
@@ -557,18 +520,16 @@
             3. 关于抵押的其他约定
         </p:paragraph>
 
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件四 关于该商品房价款的计价方式、总价款、付款方式及期限的具体 约定</p:font>
 
         </p:paragraph>
 
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件五 关于本项目内相关设施、设备的具体约定</p:font>
 
             1. 相关设施的位置及用途
             2. 其他约定
         </p:paragraph>
-        <p:newPage/>
+
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件六 关于装饰装修及相关设备标准的约定</p:font>
 
             交付的商品房达不到本附件约定装修标准的,按照本合同第十六条第 (三) 款约 定处理。出卖人未经双方约定增加的装置、装修、装饰,视为无条件赠送给买受人。
@@ -611,7 +572,6 @@
             10. <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.ps_6_30.stringValue}</p:font>
         </p:paragraph>
 
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件七 关于保修范围、保修期限和保修责任的约定</p:font>
 
             该商品房为住宅的,出卖人应当提供 《住宅质量保证书》;该商品房为非住宅的, 双方可参照《住宅质量保证书》中的内容对保修范围、保修期限和保修责任等进行约定。
@@ -639,40 +599,31 @@
             <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.ps_7_14.stringValue}</p:font>
         </p:paragraph>
 
-
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件八 关于质量担保的证明</p:font>
 
         </p:paragraph>
 
-
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件九 关于前期物业管理的约定</p:font>
 
             1. 前期物业服务合同
             2. 临时管理规约
         </p:paragraph>
 
-
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件五 关于本项目内相关设施、设备的具体约定</p:font>
 
             1. 相关设施的位置及用途
             2. 其他约定
         </p:paragraph>
 
-
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件十 出卖人关于遮挡或妨碍房屋正常使用情况的说明</p:font>
 
             (如:该商品房公共管道检修口、柱子、变电箱等有遮挡或妨碍房屋正常使用的情况)
         </p:paragraph>
 
-        <p:newPage/>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件十一 补充协议</p:font>
 
         </p:paragraph>
-        <p:newPage/>
+
         <p:paragraph rendered="#{not empty houseContractHome.contractContextMap.poolOwner and (not (houseContractHome.contractContextMap.ownerpooltype.numberValue eq 0))}"><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">附件十二 共有购买房屋协议</p:font>
             本补充协议适用于购买人(乙方)为两个或两个以上民事主体时双方权利义务约定。
             1、经甲、乙双方协商一致同意，甲方向乙方出售的房屋地址为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.houseaddress.stringValue}   </p:font>  ，房号为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_3_10.stringValue}   </p:font>，总房款为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.total_price.numberValue}"><f:convertNumber type="currency" currencySymbol=""/> </p:text>   </p:font>  元，建筑面积为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> <p:text value="#{houseContractHome.contractContextMap.c_3_12.numberValue}"><f:convertNumber pattern="#0.000"/></p:text>   </p:font>平方米，系乙方共同购买的房屋。（乙方填写全体购买人）

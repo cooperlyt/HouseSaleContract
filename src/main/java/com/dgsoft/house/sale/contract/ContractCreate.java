@@ -244,6 +244,8 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getCredentialsType().name())));
         houseContractHome.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
         houseContractHome.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
+        houseContractHome.getContractContextMap().put("ownertel", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPhone()));
+
 
         switch (houseContractHome.getInstance().getPoolType()) {
 
@@ -279,6 +281,7 @@ public class ContractCreate {
             poolInfoMap.put("ownercernumber", new ContractContextMap.ContarctContextItem(poolOwner.getCredentialsNumber()));
             poolInfoMap.put("poolRelation", new ContractContextMap.ContarctContextItem(dictionary.getWordValue(poolOwner.getRelation())));
             poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPerc()));
+            poolInfoMap.put("ownertel", new ContractContextMap.ContarctContextItem(poolOwner.getPhone()));
             poolOwners.add(poolInfoMap);
         }
 

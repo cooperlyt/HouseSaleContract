@@ -83,7 +83,7 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
                 data = value.getString(1);
             }
             if (NUMBER_TYPE.equals(value.getString(0))) {
-                data = new BigDecimal(value.getDouble(1));
+                data = new BigDecimal(value.getString(1));
             }
             if (DATE_TYPE.equals(value.getString(0))) {
                 data = new Date(value.getLong(1));
@@ -193,7 +193,7 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
                     jsonArray.put(getStringValue());
                 } else if (isNumber()) {
                     jsonArray.put(NUMBER_TYPE);
-                    jsonArray.put(getNumberValue().doubleValue());
+                    jsonArray.put(getNumberValue().toString());
                 } else if (isDate()) {
                     jsonArray.put(DATE_TYPE);
                     jsonArray.put(getDateValue().getTime());

@@ -4,6 +4,7 @@
             xmlns:a="http://richfaces.org/a4j"
             xmlns:s="http://jboss.org/schema/seam/taglib"
             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+            margins="50 25 25 25"
             title="商品房买卖合同(预售)">
 
     <p:footer borderWidthTop="0"
@@ -253,7 +254,7 @@
         </p:paragraph>￼￼￼￼
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第八条</p:font>  逾期付款责任
-            除不可抗力外,买受人未按照约定时间付款的,双方同意按照下列第<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_1.stringValue} </p:font>种方式处理:
+            除不可抗力外,买受人未按照约定时间付款的,双方同意按照下列第<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_1.stringValue} </p:font>种方式处理
             1. 按照逾期时间,分别处理((1)和(2)不作累加)。
             (1) 逾期在<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"> #{houseContractHome.contractContextMap.c_8_2.numberValue} </p:font>日之内,买受人按日计算向出卖人支付逾期应付款万分之<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_8_3.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_____"/><ui:param name="allowZero" value="true"/></ui:include>的违约金。
             (2) 逾期超过<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_4.numberValue}   </p:font>日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通知送达之日起<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_8_5.numberValue}￼ </p:font>日内按照累计应付款的<ui:include src="../number-out.xhtml"><ui:param name="value" value="#{houseContractHome.contractContextMap.c_8_6.numberValue}"/><ui:param name="mask" value="#0.#####"/><ui:param name="blank" value="_____"/><ui:param name="allowZero" value="true"/></ui:include>%向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。

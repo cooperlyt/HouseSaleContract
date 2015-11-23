@@ -1,0 +1,6 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://jboss.org/schema/seam/pdf"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.org/schema/seam/taglib"><p:text value="_____年___月___日" rendered="#{empty value }"/><p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{value}"><s:convertDateTime pattern="#{messages.displayDatePattern}" /> </p:text></p:font></ui:composition>

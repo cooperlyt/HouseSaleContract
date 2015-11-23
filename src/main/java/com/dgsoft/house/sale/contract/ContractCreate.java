@@ -228,6 +228,7 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("houseDisplayCode",new ContractContextMap.ContarctContextItem(getHouse().getDisplayHouseCode()));
 
 
+
         //买受人
         houseContractHome.getContractContextMap().put("owner",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPersonName()));
 
@@ -328,8 +329,9 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_3_12", new ContractContextMap.ContarctContextItem(getHouse().getHouseArea()));
         houseContractHome.getContractContextMap().put("c_3_13", new ContractContextMap.ContarctContextItem(getHouse().getUseArea()));
         houseContractHome.getContractContextMap().put("c_3_14", new ContractContextMap.ContarctContextItem(getHouse().getCommArea()));
+        houseContractHome.getContractContextMap().put("houseAddress", new ContractContextMap.ContarctContextItem(getHouse().getAddress()));
 
-        //pay Type
+                //pay Type
         switch (houseContractHome.getInstance().getSalePayType()){
 
             case ALL_PAY:

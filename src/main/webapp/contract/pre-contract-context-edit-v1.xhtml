@@ -670,14 +670,16 @@
             <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContextMap.c_3_9.stringValue}"/></span>层
             <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
-                                                                      value="#{contractContextMap.c_3_10.stringValue}"/></span>号。房屋竣工后,如房号发生改变,不影响该商
+                                                                      value="#{contractContextMap.c_3_10.stringValue}"/></span>号,坐落于
+            <span class="lineValue" style="width: 450px"><h:outputText rendered="#{not templateModel}"
+                                                                       value="#{contractContextMap.houseAddress.stringValue}"/></span>。房屋竣工后,如房号发生改变,不影响该商
 
             ￼￼￼品房的特定位置。该商品房的平面图见附件一。
         </p>
 
         <p>
             4. 该商品房的房产测绘机构为
-            <span class="lineValue" style="width: 150px"><h:outputText rendered="#{not templateModel}"
+            <span class="lineValue" style="width: 200px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContextMap.c_3_11.stringValue}"/></span> ,其预测建筑面积
             共 <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
                                                                         value="#{contractContextMap.c_3_12.numberValue}"><f:convertNumber
@@ -1435,7 +1437,7 @@
 
         <p>
             ￼1. 小区内绿地率:
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_12.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1444,7 +1446,7 @@
 
         <p>
             2. 小区内非市政道路:
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_14.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1453,7 +1455,7 @@
 
         <p>
             3. 规划的车位、车库:
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_16.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1462,7 +1464,7 @@
 
         <p>
             4. 物业服务用房:
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_18.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1471,7 +1473,7 @@
 
         <p>
             5. 医疗卫生机构:
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_20.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1480,7 +1482,7 @@
 
         <p>
             6. 幼儿园: ￼
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_22.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1489,7 +1491,7 @@
 
         <p>
             7. 学校: ￼
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_10_24.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText> 达到
@@ -1544,10 +1546,10 @@
 
         <p>
             (一) 出卖人应当在
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText styleClass="contract-date-pick"
                          value="#{contractContextMap.c_11_1.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
-            </h:inputText> 前向买受人交付该商品房。
+            </h:inputText>  前向买受人交付该商品房。
         </p>
 
         <p>
@@ -2148,11 +2150,11 @@
 
         <p>
             (二)物业服务时间从
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_21_2.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText>到
-            <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick"
+            <h:inputText  styleClass="contract-date-pick"
                          value="#{contractContextMap.c_21_3.dateValue}">
                 <s:convertDateTime pattern="#{messages.displayDatePattern}"/>
             </h:inputText>。
@@ -2383,8 +2385,10 @@
                     <td>签订时间:________年_____月_____日</td>
                 </tr>
                 <tr>
-                    <td>签订地点:_______________________</td>
-                    <td>签订地点:_______________________</td>
+                    <td>签订地点:<h:inputText styleClass="contract-input" style="width: 100px"
+                                          value="#{contractContextMap.contractAddress1.stringValue}"/></td>
+                    <td>签订地点:<h:inputText styleClass="contract-input" style="width: 100px"
+                                          value="#{contractContextMap.contractAddress2.stringValue}"/></td>
                 </tr>
             </table>
 

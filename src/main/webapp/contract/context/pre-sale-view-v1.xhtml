@@ -660,7 +660,7 @@
 
             </p:table>
 
-        <p:table keepTogether="true" widthPercentage="90" columns="2" widths="1 1">
+        <p:table rendered="#{not empty houseContractHome.contractContextMap.poolOwner and (not (houseContractHome.contractContextMap.ownerpooltype.numberValue eq 0))}" keepTogether="true" widthPercentage="90" columns="2" widths="1 1">
             <f:facet name="defaultCell"><p:cell paddingRight="20" paddingTop="10" paddingBottom="10"  borderWidth="0"/></f:facet>
             <p:cell paddingTop="20"/><p:cell paddingTop="20"/>
             <p:cell>甲方签章:</p:cell><p:cell>乙方签章:</p:cell>

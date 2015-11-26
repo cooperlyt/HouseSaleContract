@@ -159,8 +159,7 @@
             <ui:param name="styleClass" value="modal-lg"/>
             <ui:param name="panelTitle" value="#{contractCreate.house.houseOrder}"/>
 
-
-                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and contractCreate.house.inBiz}"
+                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and contractCreate.house.inBiz and not (contractCreate.house.status eq 'CONTRACT_SUBMIT')}"
                                layout="block" styleClass="alert alert-danger" p:role="alert">
                     <strong>业务办理中！</strong> 此房屋正在产权部门办理业务中，不可销售！详情请咨询产权管理部门。
                 </a:outputPanel>

@@ -168,7 +168,13 @@
                     <strong>#{messages[contractCreate.house.status.name()]}!</strong> 此状态的房屋不可以进行销售。
                 </a:outputPanel>
 
-                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and (contractCreate.house.status eq 'PROJECT_PLEDGE')}"
+                <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and (contractCreate.house.status eq 'PREPARE_CONTRACT') and (contractCreate.house.status.canSale)}" layout="block" styleClass="alert alert-warning" p:role="alert">
+                    <strong>#{messages[contractCreate.house.status.name()]}!</strong> 此房屋已经存在一份合同，点签约将直接转到合同编辑页面。
+                </a:outputPanel>
+
+
+
+            <a:outputPanel rendered="#{(not empty contractCreate.houseCode) and (contractCreate.house.status eq 'PROJECT_PLEDGE')}"
                                layout="block" styleClass="alert alert-warning" p:role="alert">
                     <strong>在建工程抵押!</strong>
 

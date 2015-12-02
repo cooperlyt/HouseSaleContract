@@ -52,7 +52,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: local.house:houseInterface:1.67-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: local.house:houseInterface:1.68-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.richfaces:richfaces:4.5.4.Final" level="project" />
     <orderEntry type="library" name="Maven: org.richfaces:richfaces-core:4.5.4.Final" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.cssparser:cssparser:0.9.5" level="project" />

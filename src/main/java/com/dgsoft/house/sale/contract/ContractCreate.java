@@ -12,6 +12,7 @@ import com.dgsoft.house.sale.action.HouseContractHome;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.ContractNumber;
 import com.dgsoft.house.sale.model.ContractTemplate;
+import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.faces.FacesMessages;
@@ -112,6 +113,16 @@ public class ContractCreate {
     }
 
     public String createContract(){
+
+        if (SaleStatus.PREPARE_CONTRACT.equals(getHouse().getStatus())){
+            houseContractHome.setId(houseContractHome.getEntityManager().createQuery("select HouseContract from HouseContract where HouseContract.houseCode=:houseCode", HouseContract.class).getSingleResult().getId());
+            houseContractHome.getInstance().setStatus(HouseContract.ContractStatus.PREPARE);
+            if ("updated".equals(houseContractHome.update())) {
+                return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
+            }else
+                return null;
+        }
+
         houseContractHome.clearInstance();
         houseContractHome.getInstance().setHouseCode(houseCode);
 

@@ -115,7 +115,7 @@ public class ContractCreate {
     public String createContract(){
 
         if (SaleStatus.PREPARE_CONTRACT.equals(getHouse().getStatus())){
-            houseContractHome.setId(houseContractHome.getEntityManager().createQuery("select HouseContract from HouseContract where HouseContract.houseCode=:houseCode", HouseContract.class).getSingleResult().getId());
+            houseContractHome.setId(houseContractHome.getEntityManager().createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode", HouseContract.class).setParameter("houseCode",getHouse().getHouseCode()).getSingleResult().getId());
             houseContractHome.getInstance().setStatus(HouseContract.ContractStatus.PREPARE);
             if ("updated".equals(houseContractHome.update())) {
                 return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();

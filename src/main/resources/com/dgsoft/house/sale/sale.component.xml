@@ -12,5 +12,12 @@
     <framework:entity-query name="saleNewContractTemplateList"
                             ejbql="select contract from ContractTemplate contract where contract.type = &apos;NOW_SELL&apos; and contract.projectCode = &apos;#{logonInfo.groupCode}&apos;"/>
 
+    <framework:entity-query name="topNews" max-results="4" order="fixTop,publishTime desc"
+                            ejbql="select article from Article article where article.category.type = &apos;News&apos;"/>
+
+    <framework:entity-query name="topEvents" max-results="4" order="publishTime desc"
+                            ejbql="select article from Article article where article.category.type = &apos;Events&apos;"/>
+
+
 
 </components>

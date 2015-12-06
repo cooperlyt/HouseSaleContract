@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-web.xhtml">
+
+
+    <main id="content" role="main" class="main_interior">
+        <div class="siteBody clearfix">
+            <div class="container">
+                <div class="grid_12">
+                    <div class="page_tools">
+                        <div class="tls_wrpr">
+
+                        </div>
+                        <div class="breadcrumbs">
+                            <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/news-list.xhtml">公告&amp;新闻</s:link><span class="default">/</span><span>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</span>
+                        </div>
+
+
+                    </div>
+                    <div class="grid_3 leftRail">
+
+                        <div class="railNavHeading clearfix">
+                            公告&amp;新闻
+                        </div>
+
+
+
+
+
+                        <div id="CT_LeftRail_0_cache_pnlLeftNav">
+
+
+                            <ul id="railNav" class="railNav">
+
+                                <a:repeat value="#{cmsCategoryGroupList.allCategorys}" var="_category">
+                                    <li>
+                                        <s:link view="/cms/news-list.xhtml" styleClass="#{(articleList.categoryId eq _category.id) ? 'on' : ''}">#{_category.name}<f:param name="categoryId" value="#{_category.id}"/></s:link>
+                                    </li>
+                                </a:repeat>
+
+
+
+                            </ul>
+
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="grid_9 rightRail">
+                        <div class="page_heading" id="page_heading">
+                            <h1>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</h1>
+                        </div>
+                        <div class="mainContent" style="font-size: 13px;">
+                            <div class="newsModuleWrpr">
+                                <div>
+                                    <div class="filter news-filter clearfix">
+
+                                        <div class="filterOptions">
+
+
+
+                                            <div class="newsFilterCatWrpr">
+                                                <s:label for="drpCategories">类别:</s:label>
+                                                <h:selectOneMenu id="drpCategories" value="#{articleList.categoryId}" styleClass="newsFilterCat">
+                                                    <s:selectItems value="#{cmsCategoryGroupList.allCategorys}" var="_category" itemValue="#{_category.id}"
+                                                            label="#{_category.name}" noSelectionLabel="全部"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="newsFilterCatWrpr">
+                                                <s:label for="filterKey">关键字:</s:label>
+                                                <h:inputText id="filterKey" value="#{articleList.searchKey}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="filterActions">
+				<span id="CT_Main_1_spanSearch" class="newsFilterSearchBtn">
+                    <h:commandButton value="查询" styleClass="btn"/>
+
+				</span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div>
+                                        <a:outputPanel layout="block" styleClass="paging" rendered="#{not empty articleList.resultList}">
+                                            <div class="sortStatus">
+                                                <b>共找到:</b> #{articleList.resultCount} 篇文章.
+                                            </div>
+                                            <div class="genericPager">
+                                                <ul>
+                                                    <li><a href="/news/?pg=1">&lt; previous</a></li>
+                                                    <li class="active"><span>1</span></li> <li><a href="/news/?pg=2">2</a></li><li><a href="/news/?pg=3">3</a></li><li><a href="/news/?pg=4">4</a></li>
+                                                    <li><a href="/news/?pg=2">next &gt;</a></li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </a:outputPanel>
+                                        <a:outputPanel layout="block" styleClass="paging" rendered="#{empty articleList.resultList}">
+                                            <div class="sortStatus">
+                                                没有此类文章
+                                            </div>
+                                            <div class="clear"></div>
+                                        </a:outputPanel>
+                                    </div>
+
+                                    <a:outputPanel layout="block" styleClass="mod newsOverview" rendered="#{not empty articleList.resultList}">
+                                        <div class="modContent">
+                                            <ul class="itemList">
+                                                <a:repeat value="#{articleList.resultList}" var="_article">
+                                                    <li class="item clearfix featured">
+                                                        <ui:remove>
+                                                        <figure class="aside" style="display:none;">
+                                                            <a id="CT_Main_1_rptNewsPage_ctl01_hlkImage" href="/assets/1/6/1000_PBV_voucher_press_release_051915.pdf" target="_blank"><img id="CT_Main_1_rptNewsPage_ctl01_imgPage" class="bdr"/></a>
+                                                            <figcaption class="caption">
+
+                                                            </figcaption>
+                                                        </figure>
+                                                        </ui:remove>
+                                                        <div class="content" style="margin-left:0px;">
+                                                            <h2 class="title">
+                                                                <a href="/assets/1/6/1000_PBV_voucher_press_release_051915.pdf" target="_blank">#{_article.mainTitle}</a>
+                                                            </h2>
+
+
+                                                            <p>SAN JOSE, Calif. ― May 19, 2015 ― In an effort to help increase the supply of affordable housing and serve more low-income families in Silicon Valley’s increasingly hot rental market, the Housing Authority of the County of Santa Clara (HACSC) today announced plans to begin the process of releasing up to 1,000 additional federal Section 8 project-based rental housing vouchers to selected housing developers and property owners through a competitive request for proposals process.</p>
+                                                            <a class="continue-link" href="/assets/1/6/1000_PBV_voucher_press_release_051915.pdf" target="_blank">阅读全部</a>
+                                                        </div>
+                                                    </li>
+
+                                                </a:repeat>
+
+
+                                            </ul>
+                                        </div>
+                                    </a:outputPanel>
+
+                                    <a:outputPanel layout="block" styleClass="moduleContents" rendered="#{not empty articleList.resultList}">
+                                    <a:outputPanel layout="block" styleClass="paging" >
+                                        <div class="sortStatus">
+                                            <b>共找到:</b> #{articleList.resultCount} 篇文章.
+                                        </div>
+                                        <div class="genericPager">
+                                            <ul>
+                                                <li><a href="/news/?pg=1">&lt; previous</a></li>
+                                                <li class="active"><span>1</span></li> <li><a href="/news/?pg=2">2</a></li><li><a href="/news/?pg=3">3</a></li><li><a href="/news/?pg=4">4</a></li>
+                                                <li><a href="/news/?pg=2">next &gt;</a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </a:outputPanel>
+                                    </a:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+</ui:composition>

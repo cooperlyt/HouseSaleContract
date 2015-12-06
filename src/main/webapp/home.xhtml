@@ -148,7 +148,7 @@
                     <li><a href="/about-hacsc/job-opportunities/">查找存量房</a></li>
                     <li><a href="https://hacsc.partnerinhousing.com/View/Security/Login.aspx">开发商登录</a></li>
                     <li><a href="http://hacsc.granicus.com/ViewPublisher.php?view_id=5">合同查询</a></li>
-                    <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/">数据统计</a></li>
+                    <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/">下载中心</a></li>
                 </ul>
             </div>
         </div>
@@ -179,63 +179,30 @@
 
                             <div class="modHead">
                                 <h3 class="modHeadNews">
-                                    <a href="/news/" id="CT_FeaturedBoxLeft_0_lnkAll">政策&amp;法规<span>更多</span></a>
+                                    <a href="/news/" id="CT_FeaturedBoxLeft_0_lnkAll">公告&amp;新闻<span>更多</span></a>
                                 </h3>
                             </div>
                             <div class="modBody">
 
                                 <ul class="modList">
 
-                                    <li class="modListItem clearfix">
-                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl01_figImage" class="modItemFig">
+                                    <a:repeat value="#{topNews.resultList}" var="_news">
 
-                                        </figure>
-                                        <div class="modItem">
-                                            <div class="modItemDate"></div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/Be_a_Hero_Flyer.pdf" target="_blank">Be a Hero: Help Bring Our Veterans All the Way Home </a>
-                                            <div class="modItemSummary">A new initiative is being launched in Santa Clara County to end veteran homelessness. Learn how you can join the movement on Wednesday, December 2.</div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_hypFullArticle" class="more" href="/assets/1/6/Be_a_Hero_Flyer.pdf">Read More</a>
-                                        </div>
-                                    </li>
 
-                                    <li class="modListItem clearfix">
-                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl02_figImage" class="modItemFig">
+                                        <li class="modListItem clearfix">
+                                            <figure class="modItemFig">
 
-                                        </figure>
-                                        <div class="modItem">
-                                            <div class="modItemDate"></div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl02_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/HACSC_PBV_RFP_News_Release.pdf" target="_blank">RFP Release Announcement for HACSC PBV and HUD-VASH Vouchers</a>
-                                            <div class="modItemSummary">The Housing Authority of the County of Santa Clara (HACSC) requests proposals from
-                                                qualified housing developers for the Project-Based Voucher (PBV)...</div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl02_hypFullArticle" class="more" href="/assets/1/6/HACSC_PBV_RFP_News_Release.pdf">Read More</a>
-                                        </div>
-                                    </li>
-
-                                    <li class="modListItem clearfix">
-                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl03_figImage" class="modItemFig">
-
-                                        </figure>
-                                        <div class="modItem">
-                                            <div class="modItemDate"></div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl03_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/bookmarked_Oct_Tenant_Bulletin_3_languages.pdf" target="_blank">October 2015 Tenant Bulletin </a>
-                                            <div class="modItemSummary">Tenants’ Rights and Duties. Housing Specialist Contact List. New Payment Standards. Family Self-Sufficiency.
-                                                (Available in English, Vietnamese and Spanish)
+                                            </figure>
+                                            <div class="modItem">
+                                                <div class="modItemDate"><h:outputText value="#{_news.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText> </div>
+                                                <a title="阅读完整文章" class="modItemTitle" href="/assets/1/6/Be_a_Hero_Flyer.pdf" target="_blank">#{_news.mainTitle} </a>
+                                                <div class="modItemSummary">A new initiative is being launched in Santa Clara County to end veteran homelessness. Learn how you can join the movement on Wednesday, December 2.</div>
+                                                <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_hypFullArticle" class="more" href="/assets/1/6/Be_a_Hero_Flyer.pdf">阅读</a>
                                             </div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl03_hypFullArticle" class="more" href="/assets/1/6/bookmarked_Oct_Tenant_Bulletin_3_languages.pdf">Read More</a>
-                                        </div>
-                                    </li>
+                                        </li>
 
-                                    <li class="modListItem clearfix">
-                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl04_figImage" class="modItemFig">
+                                    </a:repeat>
 
-                                        </figure>
-                                        <div class="modItem">
-                                            <div class="modItemDate"></div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl04_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/ExecDirWebNoticedraft1.pdf" target="_blank">HACSC Recruiting Underway for Executive Director Position</a>
-                                            <div class="modItemSummary">The Housing Authority of the County of Santa Clara (HACSC) is recruiting for an Executive Director. </div>
-                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl04_hypFullArticle" class="more" href="/assets/1/6/ExecDirWebNoticedraft1.pdf">Read More</a>
-                                        </div>
-                                    </li>
 
                                 </ul>
 
@@ -251,7 +218,7 @@
                         <section class="modWrpr">
                             <div class="modHead">
                                 <h3 class="modHeadEvents">
-                                    <a href="/events/month/?F_d=12%2F5%2F2015">通知&amp;公告<span>更多</span></a>
+                                    <a href="/events/month/?F_d=12%2F5%2F2015">事件&amp;通知<span>更多</span></a>
                                 </h3>
                             </div>
                             <div class="modBody">

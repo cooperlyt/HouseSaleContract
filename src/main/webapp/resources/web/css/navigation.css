@@ -1,0 +1,54 @@
+/* Navigation - Text Based - Non Breakable */
+
+nav {display:block; height:70px; -webkit-border-top-left-radius:6px; -webkit-border-top-right-radius:6px; -moz-border-radius-topleft:6px; -moz-border-radius-topright:6px; border-top-left-radius:6px; border-top-right-radius:6px;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#524c85', endColorstr='#3f3a66', GradientType=0);
+    background-image:-moz-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #524c85), color-stop(100%, #3f3a66));
+    background-image:-webkit-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image:-o-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image:-ms-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image:linear-gradient(to bottom, #524c85 0%, #3f3a66 100%);
+}
+
+.mainNavWrpr {position:relative; display:block; width:940px; margin:0 auto; z-index:401;}
+.mainNav {display:table; min-width:940px; width:940px; max-width:940px; border-collapse:collapse; border-spacing:0; table-layout:auto;}
+.mainNav > ul.navBar {display:table-row; width:1px;}
+.mainNav > ul.navBar > li {display:table-cell; vertical-align:top;}
+
+.mainNav > ul.navBar > li > a {position:relative; display:block; height:60px; font-family:oswald; text-transform:uppercase; font-weight:bold; font-size:14px; line-height:18px; text-decoration:none; border-bottom:10px solid #c7bd8a; transition:all 0.5s ease 0.1s;}
+
+.mainNav > ul.navBar > li.firstnavitemli > a {-webkit-border-top-left-radius:5px; -moz-border-radius-topleft:5px; border-top-left-radius:5px;}
+.mainNav > ul.navBar > li.lastnavitemli > a {-webkit-border-top-right-radius:5px; -moz-border-radius-topright:5px; border-top-right-radius:5px;}
+
+.mainNav > ul.navBar > li ~ li > a:before {content:""; position:absolute; left:0; top:0; bottom:0; width:1px; border-left:1px solid #8684a4;}
+.mainNav > ul.navBar > li ~ li > a:after {content:""; position:absolute; left:0; bottom:-10px; width:1px; height:10px; border-left:1px solid #c7bd8a;}
+
+.mainNav > ul.navBar > li > a,
+.mainNav > ul.navBar > li > a:link,
+.mainNav > ul.navBar > li > a:visited {color:#ffffff;}
+
+.mainNav > ul.navBar > li:hover > a,
+.mainNav > ul.navBar > li.active > a {color:#403b67; background-color:#f5cf47; border-bottom:10px solid #f5cf47; transition:all 0.3s ease 0s;}
+
+.mainNav > ul.navBar > li > a > span {display:table; height:60px; margin:0 auto; border-collapse:collapse; border-spacing:0; table-layout:fixed;}
+.mainNav > ul.navBar > li > a > span > span {display:table-cell; padding:0 20px; width:100%; height:60px; vertical-align:middle; text-align:center;}
+.mainNav > ul.navBar > li > a > span > span > span {display:inline-block; text-align:left;}
+
+.mainNav .sub {position:absolute; display:none; opacity:0.95; left:0; top:70px; width:940px; text-align:left; background-color:#ffffff; filter:progid:DXImageTransform.Microsoft.Shadow(color=#999999,strength:4,direction=135); -webkit-box-shadow:4px 8px 8px -8px #000000; -moz-box-shadow:4px 8px 8px -8px #000000; box-shadow:4px 8px 8px -8px #000000; border-collapse:separate;}
+
+.mainNav .sub .inner {padding:20px;}
+
+.mainNav .sub ul.menuCol a:hover {text-decoration:underline;}
+
+.mainNav .sub ul.menuCol {display:table; border-collapse:collapse; border-spacing:0; table-layout:auto; margin:0; padding:0; list-style-type:none;}
+
+.mainNav .sub ul.menuCol > li {display:table-row;}
+
+.mainNav .sub ul.menuCol > li > ul {display:table-cell; list-style-type:none; margin:0; padding:0; width:175px;}
+.mainNav .sub ul.menuCol > li > ul + ul {padding-left:40px;}
+.mainNav .sub ul.menuCol > li > ul > li {margin:0; padding:0;}
+.mainNav .sub ul.menuCol > li > ul > li > a {display:inline-block; padding:6px 0; font-size:12px; line-height:14px; font-weight:bold; color:#00338e; text-decoration:none;}
+
+.mainNav .sub ul.menuCol > li > ul ul {display:block; list-style-type:none; margin:0; padding:0;}
+.mainNav .sub ul.menuCol > li > ul ul > li {margin:0; padding:0 0 0 10px; font-size:12px; line-height:14px;}
+.mainNav .sub ul.menuCol > li > ul ul > li > a {display:inline-block; padding:6px 0; color:#00338e; text-decoration:none;}

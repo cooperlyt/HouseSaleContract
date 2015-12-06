@@ -1,0 +1,45 @@
+(function (carouselScrollable, $, undefined) {
+
+    carouselScrollable.init = function() {
+        // carousels
+        $('div.carousel div.scrollable').each(function () {
+            var size = parseFloat($(this).attr('class').match(/\d\b/g));
+
+            var $carousel = $(this).scrollable({
+                size: size,
+                items: ".items",
+                clickable: false
+            }).circular();
+
+            carouselScrollable.heightHelper($carousel, size);
+        });
+        // END carousels
+    };
+
+    carouselScrollable.heightHelper = function(container, size) {
+
+        var $items = container.children(':first').children().matchHeights();
+        if ($items.length > size) { container.parent().find(".nextPage").removeClass('disabled'); };
+
+        var itemHeight = $items.outerHeight();
+        container.css({ 'height': itemHeight }).nextAll().each(function () {
+            $(this).css({ 'top': (itemHeight - $(this).height()) / 2 });
+        });
+
+    };
+
+    carouselScrollable.reset = function(carousel) {
+        var resetSize = parseFloat(carousel.attr('class').match(/\d\b/g));
+        carouselScrollable.heightHelper(carousel, resetSize);
+    };
+
+
+}(window.carouselScrollable = window.carouselScrollable || {}, jQuery));
+
+
+jQuery(function ($) {
+    // Initialize carouselScrollable on dom ready
+    carouselScrollable.init();
+
+    BaseModule.addModuleRebindFunction("carouselScrollable", carouselScrollable.init);
+});

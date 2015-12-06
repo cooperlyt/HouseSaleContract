@@ -1,0 +1,872 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:s="http://jboss.org/schema/seam/taglib">
+<f:view
+        contentType="text/html">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <title>#{messages.mainTitle}</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+
+
+        <ui:insert name="head"/>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="web" name="/css/grid.css"/>
+        <h:outputStylesheet library="web" name="/css/style.css"/>
+        <h:outputStylesheet library="web" name="/css/jquery-ui.css"/>
+        <h:outputStylesheet library="web" name="/css/navigation.css"/>
+        <h:outputStylesheet library="web" name="/css/rail-navigation.css"/>
+        <h:outputStylesheet library="web" name="/css/formee.css"/>
+        <h:outputStylesheet library="web" name="/css/rateit.css"/>
+        <h:outputStylesheet library="web" name="/css/banners.css"/>
+        <h:outputStylesheet library="web" name="/css/events.css"/>
+        <h:outputStylesheet library="web" name="/css/news.css"/>
+        <h:outputStylesheet library="web" name="/css/quick-links.css"/>
+        <h:outputStylesheet library="web" name="/css/search.css"/>
+        <h:outputStylesheet library="web" name="/css/slideshow.css"/>
+
+
+
+
+
+        <h:outputScript library="web" name="/js/modernizr.js"/>
+        <h:outputScript library="web" name="/js/jquery-core.js"/>
+        <h:outputScript library="web" name="/js/jquery-plugins.js"/>
+        <h:outputScript library="web" name="/js/jquery.cycle2.js"/>
+        <h:outputScript library="web" name="/js/jquery.rateit.min.js"/>
+        <h:outputScript library="web" name="/js/navigation.js"/>
+        <h:outputScript library="web" name="/js/moc.js"/>
+        <h:outputScript library="web" name="/js/polyfill-loader.js"/>
+        <h:outputScript library="web" name="/js/limittextbox.js"/>
+        <h:outputScript library="web" name="/js/base.js"/>
+        <h:outputScript library="web" name="/js/shared-controls.js"/>
+        <h:outputScript library="web" name="/js/externallinks.js"/>
+        <h:outputScript library="web" name="/js/UltimateSpell.core.js"/>
+        <h:outputScript library="web" name="/js/url.js"/>
+        <h:outputScript library="web" name="/js/UltimateSpell.functions.js"/>
+        <h:outputScript library="web" name="/js/carousel-scrollable.js"/>
+        <h:outputScript library="web" name="/js/jquery-functions.js"/>
+        <h:outputScript library="web" name="/js/banners.js"/>
+        <h:outputScript library="web" name="/js/jquery.cycle.all.min.js"/>
+        <h:outputScript library="web" name="/js/font-sizer.js"/>
+
+
+        <h:outputStylesheet>
+            header .header_north {
+
+                background: url('#{facesContext.externalContext.requestContextPath}/img/web/header_bg_divider.png') no-repeat right center;
+        }
+
+        header .header_north a.sitelogo {
+
+            background: url("#{facesContext.externalContext.requestContextPath}/img/web/sitelogo.png") no-repeat center center;
+
+        }
+
+        header .tag_search .hdr_search .searchSiteWrpr input.textSearchSubmit{
+            background:transparent url("#{facesContext.externalContext.requestContextPath}/img/web/search_submit_bg.png") center center no-repeat;
+        }
+
+        </h:outputStylesheet>
+        <div class="bodyWrpr">
+
+           <header>
+
+               <div class="header_north">
+
+                   <div class="container">
+                       <div class="grid_4"><div><a class="sitelogo" href="/">凤城房产登记网</a></div>
+
+                       </div>
+                       <div class="grid_8">
+                           <div class="links_tools_wrpr">
+                               <div class="links_tools">
+                                   <div class="links"><div class="links">
+                                       <ul>
+                                           <li><a href="/contact/">联系我们</a></li>
+                                           <li><a href="/hacsc-alerts/">错误报告</a></li>
+                                       </ul>
+                                   </div>
+
+
+                                   </div>
+                                   <div class="text_size"><div class="label">文字尺寸</div>
+
+                                       <ul>
+                                           <li class="text_small" id="textDecrease"><a href="/">a</a></li>
+                                           <li class="text_large" id="textIncrease"><a href="/">A</a></li>
+                                       </ul>
+
+
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="tag_search_wrpr">
+                               <div class="tag_search">
+                                   <div class="tag"><div class="tag_cnt"><div style="font-size:22px; color:#4684b7;">辽宁省凤城市<i>房地产管理处</i>.</div>
+
+
+                                   </div></div>
+                                   <div class="hdr_search">
+
+                                       <script type="text/javascript">
+                                           /* <![CDATA[ */
+                                           $("document").ready(function () { $("#CT_HeaderSearch_0_txtSearch").bindEnterToButton("#CT_HeaderSearch_0_btnSearch"); });
+                                           /* ]]> */
+                                       </script>
+
+                                       <div class="hdr_search">
+                                           <div class="searchSiteWrpr">
+                                               <div>
+                                                   <input name="CT_HeaderSearch_0$txtSearch" maxlength="100" id="CT_HeaderSearch_0_txtSearch" onblur="if (this.value==''){this.value='查询';}" onfocus="if (this.value=='查询'){this.value=''}" size="18" type="text" value="查询"/>
+                                                   <input type="button" name="CT_HeaderSearch_0$btnSearch" value="" onclick="javascript:__doPostBack('CT_HeaderSearch_0$btnSearch','')" id="CT_HeaderSearch_0_btnSearch" class="textSearchSubmit" alternatetext="Search"/>
+                                               </div>
+                                           </div>
+                                       </div>
+
+
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="header_south">
+                   <div class="container">
+                       <div class="grid_12">
+
+
+
+                           <nav id="nav">
+                               <div class="mainNavWrpr">
+                                   <div class="mainNav">
+                                       <ul class="navBar">
+
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl00_liItem" class="firstnavitemli on">
+                                               <a href="/about-hacsc/" id="CT_Navigation_0_cache_rptNav_ctl00_lnkLink1" class="firstnavitema"><span><span><span>首页</span></span></span></a>
+
+
+                                               <div class="sub">
+                                                   <div class="inner clearfix">
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/mission-statement/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl01_lnk">办事指南</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/executive-office/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl02_lnk">政策法规</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/board-of-commissioners/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl03_lnk">行业新闻</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/events/month/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl04_lnk">置业常识</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/agency-financials/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl05_lnk">通知公告</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/hacsc-affiliate-boards/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl06_lnk">HACSC Affiliate Boards</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/business-opportunities/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl07_lnk">Business Opportunities</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/moving-to-work/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl08_lnk">Moving to Work</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/news/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl09_lnk">News</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/about-hacsc/job-opportunities/" id="CT_Navigation_0_cache_rptNav_ctl00_ccSubNav_rptSubNav_ctl10_lnk">Job Opportunities</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <div class="clear"></div>
+                                                       </ul></div>
+                                               </div>
+
+                                           </li>
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl01_liItem">
+                                               <a href="/section-8-housing-programs/" id="CT_Navigation_0_cache_rptNav_ctl01_lnkLink1"><span><span><span>商品房</span></span></span></a>
+
+
+                                               <div class="sub">
+                                                   <div class="inner clearfix">
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="http://www.hacsc.org/section-8-housing-programs/housing-choice-voucher-administrative-plan/" id="CT_Navigation_0_cache_rptNav_ctl01_ccSubNav_rptSubNav_ctl01_lnk">项目信息查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/waiting-lists-applicants/" id="CT_Navigation_0_cache_rptNav_ctl01_ccSubNav_rptSubNav_ctl02_lnk">可售房源查询</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/" id="CT_Navigation_0_cache_rptNav_ctl01_ccSubNav_rptSubNav_ctl03_lnk">备案合同查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/other-housing-programs-types/" id="CT_Navigation_0_cache_rptNav_ctl01_ccSubNav_rptSubNav_ctl04_lnk">开发商从业机构&amp;从业人员查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-resource-and-voucher-allocation-policy-public-process/" id="CT_Navigation_0_cache_rptNav_ctl01_ccSubNav_rptSubNav_ctl05_lnk">商品房销售统计</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <div class="clear"></div>
+                                                       </ul></div>
+                                               </div>
+
+                                           </li>
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl02_liItem">
+                                               <a href="/section-8-landlord-resources/" id="CT_Navigation_0_cache_rptNav_ctl02_lnkLink1"><span><span><span>存量房</span></span></span></a>
+
+
+                                               <div class="sub">
+                                                   <div class="inner clearfix">
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="https://hacsc.partnerinhousing.com/View/Security/Login.aspx" id="CT_Navigation_0_cache_rptNav_ctl02_ccSubNav_rptSubNav_ctl01_lnk">存量房房源查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="https://www.gosection8.com/LL/ll_Register.aspx" id="CT_Navigation_0_cache_rptNav_ctl02_ccSubNav_rptSubNav_ctl02_lnk" target="_blank">房屋出售信息发布</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="https://www.gosection8.com/LL/ll_Register.aspx"  target="_blank">求购信息发布</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/ownerlandlord-resources/owner-responsibilities/" id="CT_Navigation_0_cache_rptNav_ctl02_ccSubNav_rptSubNav_ctl03_lnk">中介从业机构&amp;从业人员查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/ownerlandlord-resources/owner-processes/" id="CT_Navigation_0_cache_rptNav_ctl02_ccSubNav_rptSubNav_ctl04_lnk">租赁房屋查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/ownerlandlord-resources/forms/" id="CT_Navigation_0_cache_rptNav_ctl02_ccSubNav_rptSubNav_ctl05_lnk">租赁信息发布</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/ownerlandlord-resources/forms/" >求租信息发布</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/ownerlandlord-resources/forms/" >合同备案查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+                                                           <div class="clear"></div>
+                                                       </ul></div>
+                                               </div>
+
+                                           </li>
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl03_liItem">
+                                               <a href="/section-8-housing-programs/housing-choice-voucher-current-participants/" id="CT_Navigation_0_cache_rptNav_ctl03_lnkLink1"><span><span><span>网上办公</span></span></span></a>
+
+
+                                               <div class="sub" style="display: none;">
+                                                   <div class="inner clearfix">
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/re-examination-process/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl01_lnk">商品房网上备案系统开发商登录</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/income-changes/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl02_lnk">存量房网上备案系统中介机构登录</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/family-composition-changes/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl03_lnk">产权业务办理进度查询</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/move-process/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl04_lnk">从业主体管理子系统</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/inspections-process/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl05_lnk">项目主体管理系统</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/portability-process/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl06_lnk">保障房申请审核系统</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/reasonable-accommodation-process-fair-housing/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl07_lnk">Reasonable Accommodation Process / Fair Housing</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl08_lnk">Program Integrity/Reporting Fraud</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/family-self-sufficiency-fss/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl09_lnk">Family Self Sufficiency</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/voucher-payment-standard-fmr-utility-allowance/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl10_lnk">Voucher Payment Standard, FMR &amp; Utility Allowance</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/subsidy-standards/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl11_lnk">Subsidy Standards</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-participants-rights-and-responsibilities/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl12_lnk">Rights and Responsibilities</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/forms/" id="CT_Navigation_0_cache_rptNav_ctl03_ccSubNav_rptSubNav_ctl13_lnk">Forms</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <div class="clear"></div>
+                                                       </ul></div>
+                                               </div>
+
+                                           </li>
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl04_liItem">
+                                               <a href="/overview-of-hacsc-real-estate/" id="CT_Navigation_0_cache_rptNav_ctl04_lnkLink1"><span><span><span>自助查询</span></span></span></a>
+
+
+                                               <div class="sub">
+                                                   <div class="inner clearfix">
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/overview-of-hacsc-real-estate/hacsc-properties/" id="CT_Navigation_0_cache_rptNav_ctl04_ccSubNav_rptSubNav_ctl01_lnk">HACSC Properties</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/overview-of-hacsc-real-estate/how-to-apply-for-a-hacsc-owned-apartment/" id="CT_Navigation_0_cache_rptNav_ctl04_ccSubNav_rptSubNav_ctl02_lnk">How to Apply for a HACSC Owned Apartment</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+
+
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/overview-of-hacsc-real-estate/residents-services-at-hacsc-owned-apartments/" id="CT_Navigation_0_cache_rptNav_ctl04_ccSubNav_rptSubNav_ctl03_lnk">Residents Services at HACSC Owned Apartments</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+                                                       </ul>
+
+
+
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/strive-scholarship-program/" id="CT_Navigation_0_cache_rptNav_ctl04_ccSubNav_rptSubNav_ctl04_lnk">Strive Scholarship Program</a>
+
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+
+                                                           <div class="clear"></div>
+                                                       </ul></div>
+                                               </div>
+
+                                           </li>
+
+                                           <li id="CT_Navigation_0_cache_rptNav_ctl05_liItem" class="lastnavitemli">
+                                               <a href="/business-opportunities/" id="CT_Navigation_0_cache_rptNav_ctl05_lnkLink1" class="lastnavitema"><span><span><span>数据统计</span></span></span></a>
+
+
+                                           </li>
+
+
+                                       </ul>
+                                       <div class="clear"></div>
+                                   </div>
+                               </div>
+                           </nav>
+                           <div class="clear"></div>
+
+                       </div>
+                   </div>
+               </div>
+           </header>
+
+
+            <ui:insert/>
+
+
+
+            <footer>
+                <div class="north">
+                    <div class="container clearfix">
+                        <div class="grid_2 clearfix"><h5><a href="/about-hacsc/">ABOUT HACSC</a></h5>
+
+                            <ul>
+                                <li><a href="/about-hacsc/mission-statement/">Mission Statement</a></li>
+                                <li><a href="/about-hacsc/executive-office/">Executive Office</a></li>
+                                <li><a href="/about-hacsc/board-of-commissioners/">Board of Commissioners</a></li>
+                                <li><a href="http://www.hacsc.org/events/month/">Agency Calendar</a></li>
+                                <li><a href="/about-hacsc/agency-financials/">Agency Financials</a></li>
+                                <li><a href="/about-hacsc/hacsc-affiliate-boards/">HACSC Affiliate Boards</a></li>
+                                <li><a href="/business-opportunities/">Business Opportunities</a></li>
+                                <li><a href="/about-hacsc/moving-to-work/">Moving to Work</a></li>
+                                <li><a href="/news/">News</a></li>
+                                <li><a href="/about-hacsc/job-opportunities/">Job Opportunities</a></li>
+                            </ul>
+
+
+                        </div>
+                        <div class="grid_2 clearfix"><h5><a href="/section-8-housing-programs/">SECTION 8 HOUSING PROGRAMS</a></h5>
+
+                            <ul>
+                                <li><a href="/section-8-housing-programs/housing-choice-voucher-administrative-plan/">Housing Choice Voucher Administrative Plan</a></li>
+                                <li><a href="/section-8-housing-programs/waiting-lists-applicants/">Waiting Lists Applicants</a></li>
+                                <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/">Housing Choice Voucher Current Participants</a></li>
+                                <li><a href="/section-8-housing-programs/other-housing-programs-types/">Other Housing Programs / Types</a></li>
+                                <li><a href="/section-8-housing-programs/housing-resource-and-voucher-allocation-policy-public-process/">Housing Resource and Voucher Allocation Policy</a></li>
+                            </ul>
+
+                            <h5><a href="/community-resources/">COMMUNITY RESOURCES</a></h5>
+
+                            <ul>
+                                <li><a href="/community-resources/find-a-home/">Find a Home</a></li>
+                                <li><a href="/community-resources/other-supportive-services/">Other Supportive Services</a></li>
+                            </ul>
+
+
+                        </div>
+                        <div class="grid_2 clearfix"><h5><a href="/section-8-landlord-resources/">SECTION 8 LANDLORD RESOURCES</a></h5>
+
+                            <ul>
+                                <li><a href="https://hacsc.partnerinhousing.com/View/Security/Login.aspx">Partner Portal</a></li>
+                                <li><a href="https://www.gosection8.com/LL/ll_Register.aspx" target="_blank">List Your Rental Unit</a></li>
+                                <li><a href="/ownerlandlord-resources/owner-processes/">Owner Processes</a></li>
+                                <li><a href="/ownerlandlord-resources/owner-responsibilities/">Owner Responsibilities</a></li>
+                                <li><a href="/ownerlandlord-resources/forms/">Forms</a></li>
+                            </ul>
+
+                            <h5><a href="/business-opportunities/">BUSINESS OPPORTUNITIES</a></h5>
+
+                        </div>
+                        <div class="grid_2 clearfix"><h5><a href="/overview-of-hacsc-real-estate/">HACSC REAL ESTATE</a></h5>
+
+                            <ul>
+                                <li><a href="/overview-of-hacsc-real-estate/hacsc-properties/">HACSC Properties</a></li>
+                                <li><a href="/overview-of-hacsc-real-estate/how-to-apply-for-a-hacsc-owned-apartment/">How to Apply for a HACSC Owned Apartment</a></li>
+                                <li><a href="/overview-of-hacsc-real-estate/residents-services-at-hacsc-owned-apartments/">Residents Services at HACSC Owned Apartments</a></li>
+                                <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/strive-scholarship-program/">Strive Scholarship Program</a></li>
+                            </ul>
+
+                            <h5><a href="/find-a-home/">FIND A HOME</a></h5>
+
+                            <h5><a href="/contact/">CONTACT US</a></h5>
+
+                            <ul>
+                                <li><a href="https://www.google.com/maps/place/505 W Julian St/@37.3360426,-121.9030704,17z/data=!3m1!4b1!4m2!3m1!1s0x808fcb6012fc68c1:0xfc6b1b108931dc6b" target="_blank">Address and Directions</a></li>
+                                <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/">Report Fraud</a></li>
+                            </ul>
+
+
+                        </div>
+                        <div class="grid_4 clearfix"><div style="margin: 10px 0px; padding-bottom: 10px; border-bottom-color: rgb(183, 183, 183); border-bottom-width: 1px; border-bottom-style: solid; display: block;">
+                            <div><h:graphicImage value="/img/web/housing_authority_footer_logo.png" style="margin-left: 5px; display: block;"/>  </div>
+                        </div>
+
+                            <table class="contact_table">
+                                <tbody>
+                                <tr style="vertical-align: top;">
+                                    <td>
+                                        <h6>地址:</h6>
+
+                                        <div>凤城市振兴街8号</div>
+
+                                        <div style="margin-top: 5px;">118100</div>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr style="vertical-align: bottom;">
+                                    <td>
+                                        <div style="font-family: oswald; font-size: 14px; font-weight: normal;">(0415) 8122071<br/>
+                                            E-mail: fc_fangchan@163.com</div>
+                                    </td>
+                                    <td>辽ICP备09008163
+                                        <div style="margin-bottom: 5px;"><img alt="EHO_blue" src="/assets/1/6/EHO_blue.png"/>&nbsp;&nbsp;<img alt="Disability_Logo" src="/assets/1/6/Disability_Logo1.png"/></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <p>&nbsp;</p>
+
+                            <p style="color: rgb(141, 141, 158); font-family: oswald; font-size: 10px; font-weight: normal;">请使用IE9以上或其它非IE内核浏览器以获得最佳显示效果<a href="/non-discrimination-and-reasonable-accomodation-policy/"></a></p>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="south">
+                    <div class="container">
+                        <div class="grid_6 clearfix"><div class="south_footer_copy"><div>© 2014 凤城市房地产管理处. 版权所有.</div>
+
+                        </div></div>
+                        <div class="grid_6 clearfix"><div class="south_footer_links"><ul>
+                            <li><a href="/site-map/">网站地图</a></li>
+                        </ul>
+
+
+                        </div></div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </h:body>
+
+
+    </f:view>
+
+
+</html>

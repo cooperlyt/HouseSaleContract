@@ -1,0 +1,16 @@
+/* Quick Links */
+.quicklinks .hdr {font-weight:bold;color:#fff;background:#3866a3;padding:8px 5px;border-radius:5px;}
+.quicklinks ul {margin:0px;padding:0px;}
+
+.quicklinks ul { margin:0 10px 20px 0; padding:0; list-style:none; font-size:1.091em; }
+.quicklinks ul a { padding:6px 0; display:block; background:url(/cms/images/core/bg_subnav_bdr.gif) no-repeat 0 0;}
+.quicklinks ul a, .quicklinks ul a:link, .quicklinks ul a:visited { color:#666666; font-weight:bold; text-decoration:none; }
+.quicklinks ul a:hover { color:#003366; }
+.quicklinks ul li:first-child a {background-image:none;}
+.quicklinks ul a.active { color:#003366;}
+.quicklinks ul ul { list-style:none; margin:0; padding:0 0 0 15px; }
+.quicklinks ul li li a, .quicklinks ul li li a:link, .quicklinks ul li li a:visited { padding:2px 0; color:#7aafdf; background-image:none;}
+.quicklinks ul li li a:hover { color:#cc0000; }
+.quicklinks ul li li a.active { border:0; color:#cc0000; text-decoration:underline; }
+
+

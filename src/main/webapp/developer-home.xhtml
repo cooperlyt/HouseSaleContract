@@ -1,0 +1,317 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+    <ui:define name="body">
+
+
+        <a:outputPanel layout="block" style="padding: 10px" rendered="#{not identity.loggedIn}">
+
+            <h:outputScript library="long-mai" name="mToken_K1.js"/>
+            <h:outputScript library="long-mai" name="K1mTokenPlugin.js"/>
+            <h:outputScript library="long-mai" name="base64.js"/>
+
+            <h:outputScript>
+
+                //点击登录按钮时调用此函数方法
+                function OnKeyLogon() {
+
+                //获取页面文本框的密码
+                var userpin = document.getElementById("userpin").value;
+
+                if (userpin == "") {
+                alert("用户密码不能为空!");
+                return false;
+                }
+
+                //获取本Key的唯一硬件ID
+                K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                var keyUID = #{r:element('uid')}.value;
+
+                //打开加密锁
+                var nRet = K1mToken.K1_mTokenOpen(keyUID, userpin);
+                if(nRet != 0)
+                {
+                alert("验证用户密码权限失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                return false;
+                }
+
+                //获取本Key的唯一硬件ID
+                K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                //进行客户端摘要的计算
+                var randomMessageFromServer = "#{authenticationManager.encodeRndData}";
+                var randomStr = randomMessageFromServer;
+                //var keyUID = document.getElementById("uid").value;
+                var sha1Str = K1mToken.K1_mTokenSHA1WithSeed(keyUID, randomStr);
+                if(sha1Str == null || sha1Str == "")
+                {
+                alert("SHA1摘要生成失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                return false;
+                }
+
+                #{r:element('ClientDigest')}.value = sha1Str;
+
+                return true;
+                }
+
+
+            </h:outputScript>
+
+            <h:outputStylesheet>
+                .auth-form {
+                    width: 400px;
+                    margin: 60px auto;
+                }
+
+                .auth-form-header {
+                    position: relative;
+                    padding: 10px 20px;
+                    margin: 0;
+                    color: #fff;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+                    background-color: #829aa8;
+                    border: 1px solid #768995;
+                    border-radius: 3px 3px 0 0;
+                }
+
+                .auth-form-body {
+                    padding: 20px;
+                    font-size: 14px;
+                    background-color: #fff;
+                    border: 1px solid #d8dee2;
+                    border-top: 0;
+                    border-radius: 0 0 3px 3px;
+                }
+
+                .auth-form-header h1 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 16px;
+                }
+
+                .auth-form-body .input-block {
+                    margin-top: 5px;
+                    margin-bottom: 15px;
+                }
+            </h:outputStylesheet>
+
+            <div class="flash-messages container">
+                <r:messages globalOnly="false"/>
+            </div>
+
+            <div role="main">
+                <div class="auth-form">
+                    <object id="mTokenPlugin" type="application/x-mtokenplugin" width="0" height="0">
+                        <param value="pluginLoaded"/>
+                    </object>
+                    <h:form>
+                        <r:focus/>
+
+                        <h:inputHidden id="uid" value="#{credentials.username}"/>
+                        <h:inputHidden id="ClientDigest" value="#{credentials.password}"/>
+
+                        <div class="auth-form-header">
+                            <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
+                        </div>
+                        <div class="auth-form-body">
+
+
+                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    #{messages.login_password}
+                                </ui:define>
+                                <input type="password" class="form-control" id="userpin"/>
+                            </s:decorate>
+
+
+                            <h:commandButton id="loginButton" styleClass="btn btn-default"
+                                             data-loading-text="#{messages.SigningIn}"
+                                             value="#{messages.login}" action="#{identity.login}"
+                                             onclick="if (OnKeyLogon()) {$(this).button('loading');} else {return false;}"/>
+
+
+                        </div>
+                    </h:form>
+                    <h:outputScript>
+
+                        initEditInput();
+
+
+                    </h:outputScript>
+                </div>
+            </div>
+
+
+        </a:outputPanel>
+
+
+        <a:outputPanel rendered="#{identity.loggedIn}">
+            <ui:include src="/layout/brand.xhtml"/>
+
+
+            <h:outputStylesheet>
+                .wellcome-user {
+                    margin-bottom: 20px;
+                    font-size: 20px;
+                    color: #444;
+                    cursor: pointer;
+                    text-decoration: none;
+                    outline: 0;
+                }
+            </h:outputStylesheet>
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-8" role="main">
+
+                        <div class="wellcome-user">
+                        <span class="mega-octicon octicon-organization">
+
+                        </span>
+                            欢迎回来: #{logonInfo.employeeName}
+                        </div>
+
+                        <div class="background-panel">
+                            <r:chart title="30天销售图" styleClass="graf">
+
+                                <r:chartSeries label="" type="line">
+                                    <a:repeat value="#{daySaleTotalChart.totalDatas}" var="_count">
+                                        <r:chartPoint x="#{_count.title}" y="#{_count.count}"/>
+                                    </a:repeat>
+                                </r:chartSeries>
+
+                                <r:chartXAxis label=""/>
+                                <r:chartYAxis label=""/>
+                            </r:chart>
+                        </div>
+
+
+                        <a:outputPanel id="contractList">
+
+                            <a:repeat value="#{contractList.resultList}" var="_contract">
+                                <div class="sub-list-item">
+                                    <div class="body">
+                                        <span class="mega-octicon octicon-git-commit"></span>
+
+                                        <div class="time">
+                                            <h:outputText value="#{_contract.createTime}">
+                                                <s:convertDateTime pattern="#{messages.displayDateTimePattern}"/>
+                                            </h:outputText>
+                                        </div>
+                                        <div class="title">
+                                            <s:link rendered="#{_contract.status eq 'PREPARE'}"
+                                                    action="#{houseContractHome.editContract}" value="#{_contract.id}">
+                                                <f:param name="contractId" value="#{_contract.id}"/>
+                                            </s:link>
+                                            <h:outputText value="#{_contract.id}" style="font-weight: bold"
+                                                          rendered="#{not (_contract.status eq 'PREPARE')}"/>
+                                            <strong> #{_contract.houseDescription} </strong>
+                                        </div>
+                                        <div class="details">
+
+                                            <div class="commits pusher-is-only-committer">
+                                                <ul>
+                                                    <a:repeat value="#{_contract.contractNumberList}"
+                                                              var="_numberContract">
+                                                        <li>
+                                                            <span title="#{_numberContract.contractNumber}" class="type-icon octicon octicon-git-commit">
+
+                                                            </span>
+
+                                                            <s:link style="font-size: 12px;font-weight: bold" target="_blank"
+                                                                    action="#{houseContractHome.viewSingleContract}"
+                                                                    value="#{_numberContract.contractNumber}">
+                                                                <f:param value="#{_numberContract.contractNumber}" name="contractNumber"/>
+                                                                <f:param value="#{_contract.id}" name="contractId"/>
+                                                            </s:link>
+
+                                                            <div class="message">
+                                                                <blockquote>
+                                                                    #{_numberContract.ownerName}
+                                                                </blockquote>
+                                                            </div>
+                                                        </li>
+
+                                                    </a:repeat>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </a:repeat>
+                        </a:outputPanel>
+
+                        <a:status id="moreResultWaiting" name="moreResultWaiting"
+                                  onstart="$('.pagination').addClass('loading')"
+                                  onstop="$('.pagination').removeClass('loading');"/>
+                        <h:form id="moreAction">
+
+
+                            <a:outputPanel layout="block" class="pagination ajax_paginate">
+                                <a:commandLink class="js-events-pagination" execute="@this" immediate="true"
+                                               render="moreAction,contractList" status="moreResultWaiting"
+                                               rendered="#{contractList.nextExists}">
+                                    更多...
+                                    <a:attachQueue requestDelay="0"/>
+                                    <a:param value="#{contractList.maxResults + 30}" assignTo="#{contractList.maxResults}"/>
+                                </a:commandLink>
+                            </a:outputPanel>
+                        </h:form>
+
+                    </div>
+
+                    <div class="col-md-4" role="complementary">
+                        <div class="boxed-group flush ">
+                            <h3>
+                                #{logonInfo.groupName}
+                                <span class="counter"></span>
+                            </h3>
+                            <ul class="boxed-group-inner mini-repo-list">
+
+                                <a:repeat value="#{logonInfo.saleBuildList}" var="_build">
+
+                                    <li>
+                                        <s:link class="mini-repo-list-item css-truncate"
+                                                view="/developer/BuildGridMap.xhtml">
+                                            <f:param name="build" value="#{_build.buildCode}"/>
+                                            <span class="repo-icon octicon octicon-repo"></span>
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target" title="richfaces">#{_build.buildName}</span>
+      </span>
+      <span class="stars">
+        36
+        <span class="octicon octicon-star"></span>
+      </span>
+                                        </s:link>
+                                    </li>
+                                </a:repeat>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </a:outputPanel>
+
+
+    </ui:define>
+
+
+</ui:composition>

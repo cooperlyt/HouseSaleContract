@@ -1,4 +1,4 @@
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:s="http://jboss.org/schema/seam/taglib"
@@ -9,309 +9,347 @@
                 xmlns:a="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                template="/layout/template-base.xhtml">
+                template="/layout/template-web.xhtml">
 
-    <ui:define name="body">
+    <h:outputStylesheet>
+        .access_links ul li a{
+            background: url('#{facesContext.externalContext.requestContextPath}/img/web/access_links.png') no-repeat left center;
+        }
+    </h:outputStylesheet>
 
+    <h:form>
+    <div class="container"><div class="grid_12">
 
-        <a:outputPanel layout="block" style="padding: 10px" rendered="#{not identity.loggedIn}">
+        <h:outputScript>
+            /* <![CDATA[ */
 
-            <h:outputScript library="long-mai" name="mToken_K1.js"/>
-            <h:outputScript library="long-mai" name="K1mTokenPlugin.js"/>
-            <h:outputScript library="long-mai" name="base64.js"/>
-
-            <h:outputScript>
-
-                //点击登录按钮时调用此函数方法
-                function OnKeyLogon() {
-
-                //获取页面文本框的密码
-                var userpin = document.getElementById("userpin").value;
-
-                if (userpin == "") {
-                alert("用户密码不能为空!");
-                return false;
-                }
-
-                //获取本Key的唯一硬件ID
-                K1mTokenFindDevice("#{r:clientId('uid')}");
-
-                var keyUID = #{r:element('uid')}.value;
-
-                //打开加密锁
-                var nRet = K1mToken.K1_mTokenOpen(keyUID, userpin);
-                if(nRet != 0)
-                {
-                alert("验证用户密码权限失败,错误码:" + K1mToken.K1_mTokenGetLastError());
-                return false;
-                }
-
-                //获取本Key的唯一硬件ID
-                K1mTokenFindDevice("#{r:clientId('uid')}");
-
-                //进行客户端摘要的计算
-                var randomMessageFromServer = "#{authenticationManager.encodeRndData}";
-                var randomStr = randomMessageFromServer;
-                //var keyUID = document.getElementById("uid").value;
-                var sha1Str = K1mToken.K1_mTokenSHA1WithSeed(keyUID, randomStr);
-                if(sha1Str == null || sha1Str == "")
-                {
-                alert("SHA1摘要生成失败,错误码:" + K1mToken.K1_mTokenGetLastError());
-                return false;
-                }
-
-                #{r:element('ClientDigest')}.value = sha1Str;
-
-                return true;
-                }
+            $(window).load(function(){
 
 
-            </h:outputScript>
+                var val=$('#CT_FlexTop_0_hdnTime').val();
+                val=(isNaN(val))?8000:val*1000;
+                slideTxt=new String();
+                $(".SlideshowHome").cycle({
+                    fx:'fade',
+                    timeout:val,
+                    delay:3000,
+                    speed:1000,
+                    cleartype:!$.support.opacity,
+                    pause:true,
+                    prev:'#prevSlide',
+                    next:'#nextSlide',
+                    pauseOnPagerHover:true,
+                    activePagerClass:'activeSlide',
+                    pager:'#slideHomeNav',
+                    pagerAnchorBuilder:function(i) {
+                        return ('<li><a><span>Slide Number '+(i+1)+'</span></a></li>');
+                    },
+                    before:function() {
+                        slideTxt=$('.SlideShowText',this).html();
+                        if($('.SlideItemTitle',this).text().length<1){
+                            $("#SlideShowTextProxy").fadeOut(400);
+                        } else {
+                            $("#SlideShowTextProxy").fadeOut(400,function(){
+                                $('>div>div',this).html(slideTxt).parent().parent().fadeIn(500);
+                            });
+                        }
+                    }
+                });
+                $("#SlideshowProxy").mouseover(function(){
+                    $('.SlideshowHome',this).cycle('pause');
 
-            <h:outputStylesheet>
-                .auth-form {
-                    width: 400px;
-                    margin: 60px auto;
-                }
+                }).mouseout(function(){
+                    $('.SlideshowHome',this).cycle('resume');
+                })
+            });
+            /* ]]> */
+        </h:outputScript>
 
-                .auth-form-header {
-                    position: relative;
-                    padding: 10px 20px;
-                    margin: 0;
-                    color: #fff;
-                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-                    background-color: #829aa8;
-                    border: 1px solid #768995;
-                    border-radius: 3px 3px 0 0;
-                }
-
-                .auth-form-body {
-                    padding: 20px;
-                    font-size: 14px;
-                    background-color: #fff;
-                    border: 1px solid #d8dee2;
-                    border-top: 0;
-                    border-radius: 0 0 3px 3px;
-                }
-
-                .auth-form-header h1 {
-                    margin-top: 0;
-                    margin-bottom: 0;
-                    font-size: 16px;
-                }
-
-                .auth-form-body .input-block {
-                    margin-top: 5px;
-                    margin-bottom: 15px;
-                }
-            </h:outputStylesheet>
-
-            <div class="flash-messages container">
-                <r:messages globalOnly="false"/>
-            </div>
-
-            <div role="main">
-                <div class="auth-form">
-                    <object id="mTokenPlugin" type="application/x-mtokenplugin" width="0" height="0">
-                        <param value="pluginLoaded"/>
-                    </object>
-                    <h:form>
-                        <r:focus/>
-
-                        <h:inputHidden id="uid" value="#{credentials.username}"/>
-                        <h:inputHidden id="ClientDigest" value="#{credentials.password}"/>
-
-                        <div class="auth-form-header">
-                            <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
+        <section id="SlideshowStageHome">
+            <div id="SlideshowProxy">
+                <div class="SlideshowWrpr">
+                    <div style="text-align:center; font-weight:bold; font-size:18px;"></div>
+                    <div style="text-align:center;"></div>
+                    <div class="SlideshowInfoWindow">
+                        <div class="slideHomeNavWrpr">
+                            <a id="prevSlide" class="prevSlide" href="#">‹</a>
+                            <ul id="slideHomeNav"></ul>
+                            <a id="nextSlide" class="nextSlide" href="#">›</a>
                         </div>
-                        <div class="auth-form-body">
+                        <div id="SlideShowTextProxy" style="display: block;"><div><div>
+                            <div class="SlideItemTitle"> Healthy,  Affordable  Housing - For All</div>
+                            <div class="SlideItemDesc"></div>
+                        </div></div></div>
+                    </div>
+                    <div class="SlideshowWidget">
+                        <div class="SlideshowHome">
 
+                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: block; z-index: 5; opacity: 1; width: 470px; height: 280px;">
 
-                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
-                                <ui:define name="label">
-                                    #{messages.login_password}
-                                </ui:define>
-                                <input type="password" class="form-control" id="userpin"/>
-                            </s:decorate>
-
-
-                            <h:commandButton id="loginButton" styleClass="btn btn-default"
-                                             data-loading-text="#{messages.SigningIn}"
-                                             value="#{messages.login}" action="#{identity.login}"
-                                             onclick="if (OnKeyLogon()) {$(this).button('loading');} else {return false;}"/>
-
-
-                        </div>
-                    </h:form>
-                    <h:outputScript>
-
-                        initEditInput();
-
-
-                    </h:outputScript>
-                </div>
-            </div>
-
-
-        </a:outputPanel>
-
-
-        <a:outputPanel rendered="#{identity.loggedIn}">
-            <ui:include src="/layout/brand.xhtml"/>
-
-
-            <h:outputStylesheet>
-                .wellcome-user {
-                    margin-bottom: 20px;
-                    font-size: 20px;
-                    color: #444;
-                    cursor: pointer;
-                    text-decoration: none;
-                    outline: 0;
-                }
-            </h:outputStylesheet>
-
-            <div class="container">
-
-                <div class="row">
-
-                    <div class="col-md-8" role="main">
-
-                        <div class="wellcome-user">
-                        <span class="mega-octicon octicon-organization">
-
-                        </span>
-                            欢迎回来: #{logonInfo.employeeName}
-                        </div>
-
-                        <div class="background-panel">
-                            <r:chart title="30天销售图" styleClass="graf">
-
-                                <r:chartSeries label="" type="line">
-                                    <a:repeat value="#{daySaleTotalChart.totalDatas}" var="_count">
-                                        <r:chartPoint x="#{_count.title}" y="#{_count.count}"/>
-                                    </a:repeat>
-                                </r:chartSeries>
-
-                                <r:chartXAxis label=""/>
-                                <r:chartYAxis label=""/>
-                            </r:chart>
-                        </div>
-
-
-                        <a:outputPanel id="contractList">
-
-                            <a:repeat value="#{contractList.resultList}" var="_contract">
-                                <div class="sub-list-item">
-                                    <div class="body">
-                                        <span class="mega-octicon octicon-git-commit"></span>
-
-                                        <div class="time">
-                                            <h:outputText value="#{_contract.createTime}">
-                                                <s:convertDateTime pattern="#{messages.displayDateTimePattern}"/>
-                                            </h:outputText>
-                                        </div>
-                                        <div class="title">
-                                            <s:link rendered="#{_contract.status eq 'PREPARE'}"
-                                                    action="#{houseContractHome.editContract}" value="#{_contract.id}">
-                                                <f:param name="contractId" value="#{_contract.id}"/>
-                                            </s:link>
-                                            <h:outputText value="#{_contract.id}" style="font-weight: bold"
-                                                          rendered="#{not (_contract.status eq 'PREPARE')}"/>
-                                            <strong> #{_contract.houseDescription} </strong>
-                                        </div>
-                                        <div class="details">
-
-                                            <div class="commits pusher-is-only-committer">
-                                                <ul>
-                                                    <a:repeat value="#{_contract.contractNumberList}"
-                                                              var="_numberContract">
-                                                        <li>
-                                                            <span title="#{_numberContract.contractNumber}" class="type-icon octicon octicon-git-commit">
-
-                                                            </span>
-
-                                                            <s:link style="font-size: 12px;font-weight: bold" target="_blank"
-                                                                    action="#{houseContractHome.viewSingleContract}"
-                                                                    value="#{_numberContract.contractNumber}">
-                                                                <f:param value="#{_numberContract.contractNumber}" name="contractNumber"/>
-                                                                <f:param value="#{_contract.id}" name="contractId"/>
-                                                            </s:link>
-
-                                                            <div class="message">
-                                                                <blockquote>
-                                                                    #{_numberContract.ownerName}
-                                                                </blockquote>
-                                                            </div>
-                                                        </li>
-
-                                                    </a:repeat>
-
-
-                                                </ul>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
+                                <div class="SlideShowImg">
+                                    <a id="CT_FlexTop_0_rptSlideshow_ctl00_hlkSlide" href="/overview-of-hacsc-real-estate/"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/295fe60cfc264805a7da5f437e6d2f591.jpg" id="CT_FlexTop_0_rptSlideshow_ctl00_imgSlide" alt="Home Slide 01" style="width:470px;height:280px;"/></a>
                                 </div>
-                            </a:repeat>
-                        </a:outputPanel>
+                                <div class="SlideShowText">
+                                    <div class="SlideItemTitle"> Healthy,  Affordable  Housing - For All</div>
+                                    <div class="SlideItemDesc"></div>
+                                </div>
+                            </div>
 
-                        <a:status id="moreResultWaiting" name="moreResultWaiting"
-                                  onstart="$('.pagination').addClass('loading')"
-                                  onstop="$('.pagination').removeClass('loading');"/>
-                        <h:form id="moreAction">
+                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
 
+                                <div class="SlideShowImg">
+                                    <a id="CT_FlexTop_0_rptSlideshow_ctl01_hlkSlide" href="/overview-of-hacsc-real-estate/hacsc-properties/"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/68a1555962d741c6a0bf6bda9b7d7c0f1.jpg" id="CT_FlexTop_0_rptSlideshow_ctl01_imgSlide" alt="Home Slide 02" style="width:470px;height:280px;"/></a>
+                                </div>
+                                <div class="SlideShowText">
+                                    <div class="SlideItemTitle">Housing on the Horizon</div>
+                                    <div class="SlideItemDesc">at Park and Laurel Grove Lane in San Jose</div>
+                                </div>
+                            </div>
 
-                            <a:outputPanel layout="block" class="pagination ajax_paginate">
-                                <a:commandLink class="js-events-pagination" execute="@this" immediate="true"
-                                               render="moreAction,contractList" status="moreResultWaiting"
-                                               rendered="#{contractList.nextExists}">
-                                    更多...
-                                    <a:attachQueue requestDelay="0"/>
-                                    <a:param value="#{contractList.maxResults + 30}" assignTo="#{contractList.maxResults}"/>
-                                </a:commandLink>
-                            </a:outputPanel>
-                        </h:form>
+                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
 
-                    </div>
+                                <div class="SlideShowImg">
+                                    <a id="CT_FlexTop_0_rptSlideshow_ctl02_hlkSlide" href="/about-hacsc/"><img src="http://www.hacsc.org/assets/1/6/SlideShowDimensionMain/a4a78bc67b3d4db69a0b197a141093061.png" id="CT_FlexTop_0_rptSlideshow_ctl02_imgSlide" alt="Home Slide 03" style="width:470px;height:280px;"/></a>
+                                </div>
+                                <div class="SlideShowText">
+                                    <div class="SlideItemTitle">Assisting over 17,000 families</div>
+                                    <div class="SlideItemDesc"></div>
+                                </div>
+                            </div>
 
-                    <div class="col-md-4" role="complementary">
-                        <div class="boxed-group flush ">
-                            <h3>
-                                #{logonInfo.groupName}
-                                <span class="counter"></span>
-                            </h3>
-                            <ul class="boxed-group-inner mini-repo-list">
+                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
 
-                                <a:repeat value="#{logonInfo.saleBuildList}" var="_build">
+                                <div class="SlideShowImg">
+                                    <a id="CT_FlexTop_0_rptSlideshow_ctl03_hlkSlide" href="http://www.hacsc.org/assets/1/6/HACSC_PBV_RFP_News_Release.pdf"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/shutterstock_77502547.jpg" id="CT_FlexTop_0_rptSlideshow_ctl03_imgSlide" alt="Home Slide 04" style="width:470px;height:280px;"/></a>
+                                </div>
+                                <div class="SlideShowText">
+                                    <div class="SlideItemTitle">Interested in Affordable Housing? We can help!</div>
+                                    <div class="SlideItemDesc">Click on the picture for information</div>
+                                </div>
+                            </div>
 
-                                    <li>
-                                        <s:link class="mini-repo-list-item css-truncate"
-                                                view="/developer/BuildGridMap.xhtml">
-                                            <f:param name="build" value="#{_build.buildCode}"/>
-                                            <span class="repo-icon octicon octicon-repo"></span>
-      <span class="repo-and-owner css-truncate-target">
-        <span class="owner css-truncate-target" title="richfaces">#{_build.buildName}</span>
-      </span>
-      <span class="stars">
-        36
-        <span class="octicon octicon-star"></span>
-      </span>
-                                        </s:link>
-                                    </li>
-                                </a:repeat>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="clear"></div>
+        </section>
 
-        </a:outputPanel>
+        <input name="CT_FlexTop_0$hdnTime" type="hidden" id="CT_FlexTop_0_hdnTime" value="10"/>
 
 
-    </ui:define>
+    </div></div>
+
+
+        <div class="container"><div class="grid_12"><div class="block"><div class="access_links_wrpr">
+            <div class="access_links">
+                <ul>
+                    <li><a href="/community-resources/find-a-home/">查找商品房</a></li>
+                    <li><a href="/about-hacsc/job-opportunities/">查找存量房</a></li>
+                    <li><a href="https://hacsc.partnerinhousing.com/View/Security/Login.aspx">开发商登录</a></li>
+                    <li><a href="http://hacsc.granicus.com/ViewPublisher.php?view_id=5">合同查询</a></li>
+                    <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/">数据统计</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        </div></div>
+
+
+
+        <main id="content" role="main" class="main_home">
+            <div class="siteBody clearfix">
+                <div class="container">
+                    <div class="grid_4">
+                        <div class="mainContent" id="mainContent" style="font-size: 13px;">
+                            <a name="maincontent"></a>
+
+                            <div class="block"><h1>Welcome to HACSC</h1>
+
+                                <p>Our agency assists about 17,000 households through the federal rental housing assistance (Housing Choice Voucher, also known as Section 8) program. We also develop, control and manage affordable rental housing properties. The majority of our program funding comes from the U.S. Department of Housing and Urban Development (HUD). Our programs and properties are targeted to assist low, very low, and extremely low-income households. The vast majority-more than 80%-of our client households are extremely low-income families, seniors, veterans, persons with disabilities, and formally homeless. Working together with landlords, housing developers, charities and local governments, we strive to provide housing and support services to as many eligible families as possible.</p>
+
+                                <p><a href="/about-hacsc/" style="font-size:11px;">READ MORE</a></p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="grid_4">
+                        <div id="CT_FeaturedBoxLeft_0_pnlModule" class="modWrpr">
+
+                            <div class="modHead">
+                                <h3 class="modHeadNews">
+                                    <a href="/news/" id="CT_FeaturedBoxLeft_0_lnkAll">政策&amp;法规<span>更多</span></a>
+                                </h3>
+                            </div>
+                            <div class="modBody">
+
+                                <ul class="modList">
+
+                                    <li class="modListItem clearfix">
+                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl01_figImage" class="modItemFig">
+
+                                        </figure>
+                                        <div class="modItem">
+                                            <div class="modItemDate"></div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/Be_a_Hero_Flyer.pdf" target="_blank">Be a Hero: Help Bring Our Veterans All the Way Home </a>
+                                            <div class="modItemSummary">A new initiative is being launched in Santa Clara County to end veteran homelessness. Learn how you can join the movement on Wednesday, December 2.</div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_hypFullArticle" class="more" href="/assets/1/6/Be_a_Hero_Flyer.pdf">Read More</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl02_figImage" class="modItemFig">
+
+                                        </figure>
+                                        <div class="modItem">
+                                            <div class="modItemDate"></div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl02_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/HACSC_PBV_RFP_News_Release.pdf" target="_blank">RFP Release Announcement for HACSC PBV and HUD-VASH Vouchers</a>
+                                            <div class="modItemSummary">The Housing Authority of the County of Santa Clara (HACSC) requests proposals from
+                                                qualified housing developers for the Project-Based Voucher (PBV)...</div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl02_hypFullArticle" class="more" href="/assets/1/6/HACSC_PBV_RFP_News_Release.pdf">Read More</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl03_figImage" class="modItemFig">
+
+                                        </figure>
+                                        <div class="modItem">
+                                            <div class="modItemDate"></div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl03_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/bookmarked_Oct_Tenant_Bulletin_3_languages.pdf" target="_blank">October 2015 Tenant Bulletin </a>
+                                            <div class="modItemSummary">Tenants’ Rights and Duties. Housing Specialist Contact List. New Payment Standards. Family Self-Sufficiency.
+                                                (Available in English, Vietnamese and Spanish)
+                                            </div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl03_hypFullArticle" class="more" href="/assets/1/6/bookmarked_Oct_Tenant_Bulletin_3_languages.pdf">Read More</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure id="CT_FeaturedBoxLeft_0_rptNews_ctl04_figImage" class="modItemFig">
+
+                                        </figure>
+                                        <div class="modItem">
+                                            <div class="modItemDate"></div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl04_lnkHeadline" title="Read the complete article" class="modItemTitle" href="/assets/1/6/ExecDirWebNoticedraft1.pdf" target="_blank">HACSC Recruiting Underway for Executive Director Position</a>
+                                            <div class="modItemSummary">The Housing Authority of the County of Santa Clara (HACSC) is recruiting for an Executive Director. </div>
+                                            <a id="CT_FeaturedBoxLeft_0_rptNews_ctl04_hypFullArticle" class="more" href="/assets/1/6/ExecDirWebNoticedraft1.pdf">Read More</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="grid_4">
+
+
+                        <section class="modWrpr">
+                            <div class="modHead">
+                                <h3 class="modHeadEvents">
+                                    <a href="/events/month/?F_d=12%2F5%2F2015">通知&amp;公告<span>更多</span></a>
+                                </h3>
+                            </div>
+                            <div class="modBody">
+
+                                <ul class="modList">
+
+                                    <li class="modListItem clearfix">
+                                        <figure class="modItemFig">
+                                            <div class="dateBlock">
+                                                <div class="mon">Dec </div>
+                                                <div class="day">04</div>
+                                            </div>
+                                        </figure>
+                                        <div class="modItem">
+                                            <a href="/events/office-closure/?F_d=12-04-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl01_ltlLink" class="modItemTitle" name="EventAnchor_83_12/4/2015 12:00:00 AM">Office Closure - 12/4/2015</a>
+                                            <div class="modItemDate">(All Day Event)</div>
+                                            <div></div>
+                                        </div>
+
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure class="modItemFig">
+                                            <div class="dateBlock">
+                                                <div class="mon">Dec </div>
+                                                <div class="day">08</div>
+                                            </div>
+                                        </figure>
+                                        <div class="modItem">
+                                            <a href="/events/hacsc-board-of-commissioners-meeting-december-2015/" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl02_ltlLink" class="modItemTitle" name="EventAnchor_180_12/8/2015 12:00:00 AM">HACSC Board of Commissioners Meeting December 2015 - 12/8/2015</a>
+                                            <div class="modItemDate">Tuesday, DEC 08, 2015 (09:30 AM - 12:00 PM)</div>
+                                            <div></div>
+                                        </div>
+
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure class="modItemFig">
+                                            <div class="dateBlock">
+                                                <div class="mon">Dec </div>
+                                                <div class="day">16</div>
+                                            </div>
+                                        </figure>
+                                        <div class="modItem">
+                                            <a href="/events/hacsc-tenants-housing-search-workshop1---english/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl03_ltlLink" class="modItemTitle" name="EventAnchor_198_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - English - 12/16/2015</a>
+                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (09:00 AM - 10:00 AM)</div>
+                                            <div></div>
+                                        </div>
+
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure class="modItemFig">
+                                            <div class="dateBlock">
+                                                <div class="mon">Dec </div>
+                                                <div class="day">16</div>
+                                            </div>
+                                        </figure>
+                                        <div class="modItem">
+                                            <a href="/events/hacsc-tenants-housing-search-workshop---vietnamese1/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl04_ltlLink" class="modItemTitle" name="EventAnchor_200_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - Vietnamese - 12/16/2015</a>
+                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (11:00 AM - 12:00 PM)</div>
+                                            <div></div>
+                                        </div>
+
+                                    </li>
+
+                                    <li class="modListItem clearfix">
+                                        <figure class="modItemFig">
+                                            <div class="dateBlock">
+                                                <div class="mon">Dec </div>
+                                                <div class="day">16</div>
+                                            </div>
+                                        </figure>
+                                        <div class="modItem">
+                                            <a href="/events/hacsc-tenants-housing-search-workshop---spanish1/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl05_ltlLink" class="modItemTitle" name="EventAnchor_202_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - Spanish - 12/16/2015</a>
+                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (03:00 PM - 04:00 PM)</div>
+                                            <div></div>
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </section>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+    </h:form>
+
 
 
 </ui:composition>

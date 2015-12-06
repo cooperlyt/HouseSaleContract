@@ -1,0 +1,27 @@
+.railNavHeading {display:block; margin:6px 0 0.75em 0; color:#403b67; font-family:oswald; text-transform:uppercase; font-weight:bold;}
+.railNavHeading span.trigger {display:none;}
+.railNavHeading a,
+.railNavHeading a:link,
+.railNavHeading a:visited {text-decoration:none;}
+.railNavHeading a:hover,
+.railNavHeading a:active {text-decoration:underline;}
+.railNav {list-style-type:none; margin:0; padding:0;}
+
+ul.railNav {display:block; font-family:arial; margin-bottom:1em; background-color:#ffffff; border-top:3px solid #f5cf47; padding:5px;}
+ul.railNav li {padding:0;}
+ul.railNav a {color:#00338e; display:block;}
+ul.railNav a,
+ul.railNav a:link,
+ul.railNav a:visited,
+ul.railNav a:hover,
+ul.railNav a:active {text-decoration:none;}
+ul.railNav a:hover,
+ul.railNav a:active,
+ul.railNav a.on,
+ul.railNav a.on:link,
+ul.railNav a.on:visited {color:#2587DB;}
+ul.railNav > li > a {font-size:0.75em; font-weight:bold; padding:10px;}
+ul.railNav ul {list-style-type:none; margin:0; padding:0;}
+ul.railNav > li > ul > li > a {font-size:0.75em; padding:4px 20px; font-weight:normal;}
+ul.railNav > li > ul > li > a.on {text-decoration:underline;}
+ul.railNav > li > ul > li:first-child > a {padding-top:0;}

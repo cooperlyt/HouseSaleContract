@@ -1,6 +1,7 @@
 package com.dgsoft;
 
 import com.K1.biz.uitl.Base64;
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.sale.model.ProjectNumber;
@@ -23,6 +24,10 @@ import java.security.SecureRandom;
 @Name("authenticationManager")
 public class AuthenticationManager {
 
+    private enum LogonType{
+        DEVELOPER,CMS_MANAGER
+    }
+
 
     @In(required = false,scope = ScopeType.SESSION)
     @Out(required = false,scope = ScopeType.SESSION)
@@ -41,9 +46,26 @@ public class AuthenticationManager {
     @In
     private EntityManager entityManager;
 
+    private LogonType logonType;
+
+    public String getLogonTypeName(){
+        if (logonType == null){
+            return null;
+        }
+        return logonType.name();
+    }
+
+    public void setLogonTypeName(String typeName){
+        if (typeName == null || typeName.trim().equals("")){
+            logonType = null;
+        }else{
+            logonType = LogonType.valueOf(typeName);
+        }
+    }
 
     public boolean authenticate() {
 
+        if (LogonType.DEVELOPER.equals(logonType)) {
             try {
                 logonInfo = DeveloperSaleServiceImpl.instance().logon(identity.getCredentials().getUsername(), identity.getCredentials().getPassword(), rndData);
                 if (logonInfo == null) {
@@ -73,11 +95,11 @@ public class AuthenticationManager {
                         case LOGON:
                             identity.addRole("developer");
                             ProjectNumber projectNumber = entityManager.find(ProjectNumber.class, logonInfo.getGroupCode());
-                            if (projectNumber == null){
+                            if (projectNumber == null) {
 
                                 Long max = entityManager.createQuery("select max(p.number) from ProjectNumber p", Long.class).getSingleResult();
 
-                                if (max == null){
+                                if (max == null) {
                                     max = new Long(0);
                                 }
                                 entityManager.persist(new ProjectNumber(logonInfo.getGroupCode(), max + 1));
@@ -87,11 +109,20 @@ public class AuthenticationManager {
                     }
 
                 return false;
-            }catch (Exception e){
-                Logging.getLog(getClass()).error(e.getMessage(),e);
+            } catch (Exception e) {
+                Logging.getLog(getClass()).error(e.getMessage(), e);
                 facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
                 return false;
             }
+        }else if (LogonType.CMS_MANAGER.equals(logonType)){
+            boolean result = RunParam.instance().getParamValue("cms_mgr_password").equals(identity.getCredentials().getPassword());
+            if (result){
+                identity.addRole("cmsManager");
+            }
+            return result;
+        }else{
+            return false;
+        }
     }
 
 

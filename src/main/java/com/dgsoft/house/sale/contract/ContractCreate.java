@@ -7,7 +7,7 @@ import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.PoolType;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
-import com.dgsoft.house.sale.RunParam;
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.house.sale.action.HouseContractHome;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.ContractNumber;
@@ -19,7 +19,6 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

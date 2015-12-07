@@ -1,14 +1,12 @@
-package com.dgsoft.house.sale;
+package com.dgsoft.common.system;
 
 import com.dgsoft.house.sale.model.SystemParam;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.contexts.Contexts;
-import org.jboss.seam.framework.EntityQuery;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,0 +1,167 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+    <ui:define name="head-title">
+        <title>网站后台</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <a:outputPanel layout="block" style="padding: 10px" rendered="#{(not identity.loggedIn) or (not s:hasRole('cmsManager'))}">
+
+
+            <div class="flash-messages container">
+                <r:messages globalOnly="false"/>
+            </div>
+
+            <h:outputStylesheet>
+                .auth-form {
+                    width: 400px;
+                    margin: 60px auto;
+                }
+
+                .auth-form-header {
+                    position: relative;
+                    padding: 10px 20px;
+                    margin: 0;
+                    color: #fff;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+                    background-color: #829aa8;
+                    border: 1px solid #768995;
+                    border-radius: 3px 3px 0 0;
+                }
+
+                .auth-form-body {
+                    padding: 20px;
+                    font-size: 14px;
+                    background-color: #fff;
+                    border: 1px solid #d8dee2;
+                    border-top: 0;
+                    border-radius: 0 0 3px 3px;
+                }
+
+                .auth-form-header h1 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 16px;
+                }
+
+                .auth-form-body .input-block {
+                    margin-top: 5px;
+                    margin-bottom: 15px;
+                }
+            </h:outputStylesheet>
+
+            <div role="main">
+                <div class="auth-form">
+                    <h:form>
+                        <r:focus/>
+
+                        <div class="auth-form-header">
+                            <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
+                        </div>
+                        <div class="auth-form-body">
+
+
+                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    #{messages.login_password}
+                                </ui:define>
+                                <h:inputSecret styleClass="form-control" value="#{credentials.password}"/>
+
+                            </s:decorate>
+
+
+                            <h:commandButton styleClass="btn btn-default"
+                                             data-loading-text="#{messages.SigningIn}"
+                                             value="#{messages.login}" action="#{identity.login}"
+                                             onclick="$(this).button('loading');">
+                                <f:param name="logonType" value="CMS_MANAGER"/>
+                            </h:commandButton>
+
+
+                        </div>
+                    </h:form>
+                    <h:outputScript>
+                        initEditInput();
+                    </h:outputScript>
+                </div>
+            </div>
+
+        </a:outputPanel>
+
+
+        <a:outputPanel rendered="#{identity.loggedIn and s:hasRole('cmsManager')}">
+            <nav class="navbar navbar-static-top nav-header">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="#" class="navbar-brand">
+                        <h:graphicImage width="24" height="24" value="/img/logo-icon.png"/>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">内容管理 <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="#">事件管理 <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="#">便民电话 <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="#">常见问题 <span class="sr-only">(current)</span></a></li>
+
+                        </ul>
+
+
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="header-nav-item">
+                                <a
+                                        class="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                         data-ga-click="Header, sign out, icon:logout"
+                                        aria-label="#{messages.logout}"
+                                        propagation="none">
+                                    <span class="octicon octicon-gear"></span>
+                                </a>
+                            </li>
+                            <li class="header-nav-item">
+                                <s:link id="menuLogoutId"
+                                        styleClass="header-nav-link sign-out-button tooltipped tooltipped-s"
+                                        view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
+                                        p:aria-label="#{messages.logout}"
+                                        propagation="none">
+
+                                    <span class="octicon octicon-sign-out"></span>
+                                </s:link>
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </nav>
+
+
+        </a:outputPanel>
+
+
+    </ui:define>
+</ui:composition>

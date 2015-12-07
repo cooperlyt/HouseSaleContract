@@ -15,17 +15,7 @@ import java.util.Date;
 public class Article implements java.io.Serializable{
 
     public enum ArticleViewType{
-        OUT_APP_OPEN(true),HTML(false),TEXT(false);
-
-        private boolean newWindowOpen;
-
-        public boolean isNewWindowOpen() {
-            return newWindowOpen;
-        }
-
-        ArticleViewType(boolean newWindowOpen) {
-            this.newWindowOpen = newWindowOpen;
-        }
+        OUT_APP_OPEN,HTML,TEXT
     }
 
     private String id;
@@ -37,6 +27,7 @@ public class Article implements java.io.Serializable{
     private ArticleCategory category;
     private String author;
     private ArticleViewType viewType;
+    private String resourceUrl;
 
 
     @Id
@@ -64,8 +55,8 @@ public class Article implements java.io.Serializable{
         this.mainTitle = mainTitle;
     }
 
-    @Column(name = "SUB_TITLE", nullable = true, length = 512)
-    @Size(max = 512)
+    @Column(name = "SUB_TITLE", nullable = true, length = 1024)
+    @Size(max = 1024)
     public String getSubTitle() {
         return subTitle;
     }
@@ -136,5 +127,15 @@ public class Article implements java.io.Serializable{
 
     public void setViewType(ArticleViewType viewType) {
         this.viewType = viewType;
+    }
+
+    @Column(name = "RESOURCE_URL", length = 512)
+    @Size(max = 512)
+    public String getResourceUrl() {
+        return resourceUrl;
+    }
+
+    public void setResourceUrl(String resourceUrl) {
+        this.resourceUrl = resourceUrl;
     }
 }

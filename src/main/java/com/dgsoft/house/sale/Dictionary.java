@@ -1,9 +1,9 @@
 package com.dgsoft.house.sale;
 
 import com.dgsoft.common.system.DictionaryService;
+import com.dgsoft.common.system.RunParam;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Unwrap;
-import org.jboss.seam.log.Logging;
 
 
 /**

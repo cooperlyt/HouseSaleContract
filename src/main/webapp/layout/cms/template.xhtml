@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=9"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-        <title>#{messages.mainTitle}</title>
+        <title>#{runParam.getParamValue("web_name")}</title>
 
         <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
 
@@ -72,7 +72,7 @@
 
         header .header_north a.sitelogo {
 
-            background: url("#{facesContext.externalContext.requestContextPath}/img/cms/sitelogo.png") no-repeat center center;
+            background: url('#{runParam.getParamValue("head_logo_url")}') no-repeat center center;
 
         }
 
@@ -116,7 +116,7 @@
                            </div>
                            <div class="tag_search_wrpr">
                                <div class="tag_search">
-                                   <div class="tag"><div class="tag_cnt"><div style="font-size:22px; color:#4684b7;">辽宁省凤城市<i>房地产管理处</i>.</div>
+                                   <div class="tag"><div class="tag_cnt"><div style="font-size:22px; color:#4684b7;">欢迎来到<i>#{runParam.getParamValue('web_name')}</i>.</div>
 
 
                                    </div></div>
@@ -665,7 +665,7 @@
 
                         </div>
                         <div class="grid_4 clearfix"><div style="margin: 10px 0px; padding-bottom: 10px; border-bottom-color: rgb(183, 183, 183); border-bottom-width: 1px; border-bottom-style: solid; display: block;">
-                            <div><h:graphicImage value="/img/cms/housing_authority_footer_logo.png" style="margin-left: 5px; display: block;"/>  </div>
+                            <div><img src="#{runParam.getParamValue('foot_logo_url')}" alt="#{runParam.getParamValue('web_name')}" style="margin-left: 5px; display: block;"/>  </div>
                         </div>
 
                             <table class="contact_table">
@@ -674,9 +674,9 @@
                                     <td>
                                         <h6>地址:</h6>
 
-                                        <div>凤城市振兴街8号</div>
+                                        <div>#{runParam.getParamValue('address')}</div>
 
-                                        <div style="margin-top: 5px;">118100</div>
+                                        <div style="margin-top: 5px;">#{runParam.getParamValue('post_code')}</div>
                                     </td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -685,8 +685,8 @@
                                 </tr>
                                 <tr style="vertical-align: bottom;">
                                     <td>
-                                        <div style="font-family: oswald; font-size: 14px; font-weight: normal;">(0415) 8122071<br/>
-                                            E-mail: fc_fangchan@163.com</div>
+                                        <div style="font-family: oswald; font-size: 14px; font-weight: normal;">#{runParam.getParamValue('tel')}<br/>
+                                            E-mail: #{runParam.getParamValue('e_mail')}</div>
                                     </td>
                                     <td>辽ICP备09008163
                                         <div style="margin-bottom: 5px;"><img alt="EHO_blue" src="/assets/1/6/EHO_blue.png"/>&nbsp;&nbsp;<img alt="Disability_Logo" src="/assets/1/6/Disability_Logo1.png"/></div>

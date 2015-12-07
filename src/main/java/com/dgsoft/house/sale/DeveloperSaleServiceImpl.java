@@ -1,11 +1,7 @@
 package com.dgsoft.house.sale;
 
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.developersale.*;
-import com.dgsoft.developersale.wsinterface.DESUtil;
-import org.jboss.seam.log.Logging;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
 
 /**
  * Created by cooper on 9/8/15.

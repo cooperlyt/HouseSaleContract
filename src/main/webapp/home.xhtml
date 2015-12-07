@@ -13,7 +13,7 @@
 
     <h:outputStylesheet>
         .access_links ul li a{
-            background: url('#{facesContext.externalContext.requestContextPath}/img/web/access_links.png') no-repeat left center;
+            background: url('#{facesContext.externalContext.requestContextPath}/img/cms/access_links.png') no-repeat left center;
         }
     </h:outputStylesheet>
 
@@ -145,7 +145,7 @@
             <div class="access_links">
                 <ul>
                     <li><a href="/community-resources/find-a-home/">查找商品房</a></li>
-                    <li><a href="/about-hacsc/job-opportunities/">查找存量房</a></li>
+                    <li><a href="/about-hacsc/job-opportunities/">查找二手房</a></li>
                     <li><a href="https://hacsc.partnerinhousing.com/View/Security/Login.aspx">开发商登录</a></li>
                     <li><a href="http://hacsc.granicus.com/ViewPublisher.php?view_id=5">合同查询</a></li>
                     <li><a href="/section-8-housing-programs/housing-choice-voucher-current-participants/program-integrity-reporting-fraud/">下载中心</a></li>
@@ -179,7 +179,7 @@
 
                             <div class="modHead">
                                 <h3 class="modHeadNews">
-                                    <s:link view="/cms/news-list.xhtml">公告&amp;新闻><span>更多</span><f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
+                                    <s:link view="/cms/news-list.xhtml">公告&amp;新闻<span>更多</span><f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
 
                                 </h3>
                             </div>
@@ -196,9 +196,13 @@
                                             </figure>
                                             <div class="modItem">
                                                 <div class="modItemDate"><h:outputText value="#{_news.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText> </div>
-                                                <a title="阅读完整文章" class="modItemTitle" href="/assets/1/6/Be_a_Hero_Flyer.pdf" target="_blank">#{_news.mainTitle} </a>
-                                                <div class="modItemSummary">A new initiative is being launched in Santa Clara County to end veteran homelessness. Learn how you can join the movement on Wednesday, December 2.</div>
-                                                <a id="CT_FeaturedBoxLeft_0_rptNews_ctl01_hypFullArticle" class="more" href="/assets/1/6/Be_a_Hero_Flyer.pdf">阅读</a>
+                                                <h:outputLink rendered="#{_news.viewType eq 'OUT_APP_OPEN'}" value="#{_news.resourceUrl}" target="_blank" title="阅读完整文章" styleClass="modItemTitle">#{_news.mainTitle}</h:outputLink>
+                                                <s:link rendered="#{not (_news.viewType eq 'OUT_APP_OPEN')}" view="/cms/news-article.xhtml" styleClass="modItemTitle" title="阅读完整文章">#{_news.mainTitle}<f:param name="articleId" value="#{_news.id}"/></s:link>
+
+                                                <div class="modItemSummary">#{_news.subTitle}</div>
+                                                <h:outputLink rendered="#{_news.viewType eq 'OUT_APP_OPEN'}" value="#{_news.resourceUrl}" target="_blank" styleClass="more">阅读</h:outputLink>
+                                                <s:link rendered="#{not (_news.viewType eq 'OUT_APP_OPEN')}" view="/cms/news-article.xhtml" styleClass="more">阅读<f:param name="articleId" value="#{_news.id}"/></s:link>
+
                                             </div>
                                         </li>
 

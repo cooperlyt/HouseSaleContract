@@ -13,7 +13,7 @@
 
 
     <ui:define name="path-nav">
-        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/news-list.xhtml">公告&amp;新闻</s:link><span class="default">/</span><span>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</span>
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/news-list.xhtml">公告&amp;新闻<f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link><span class="default">/</span><span>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</span>
     </ui:define>
 
 
@@ -26,8 +26,8 @@
                                 <div>
                                     <div class="filter news-filter clearfix">
 
-                                        <h:form>
-                                        <div class="filterOptions">
+                                        <h:form >
+                                        <div class=" filterOptions">
 
 
 
@@ -91,15 +91,17 @@
                                                         </ui:remove>
                                                         <div class="content" style="margin-left:0px;">
                                                             <h2 class="title">
-                                                                <s:link view="/cms/news-article.xhtml" target="#{articleHome.instance.viewType.newWindowOpen ? '_blank' : ''}">
+                                                                <h:outputLink rendered="#{articleHome.instance.viewType eq 'OUT_APP_OPEN'}" value="#{_article.resourceUrl}" target="_blank">#{_article.mainTitle}</h:outputLink>
+                                                                <s:link view="/cms/news-article.xhtml" rendered="#{not (articleHome.instance.viewType eq 'OUT_APP_OPEN')}">
                                                                     #{_article.mainTitle}
                                                                     <f:param name="articleId" value="#{_article.id}"/>
                                                                 </s:link>
                                                             </h2>
 
 
-                                                            <p>SAN JOSE, Calif. ― May 19, 2015 ― In an effort to help increase the supply of affordable housing and serve more low-income families in Silicon Valley’s increasingly hot rental market, the Housing Authority of the County of Santa Clara (HACSC) today announced plans to begin the process of releasing up to 1,000 additional federal Section 8 project-based rental housing vouchers to selected housing developers and property owners through a competitive request for proposals process.</p>
-                                                            <s:link view="/cms/news-article.xhtml" target="#{articleHome.instance.viewType.newWindowOpen ? '_blank' : ''}">
+                                                            <p>#{_article.subTitle}</p>
+                                                            <h:outputLink rendered="#{articleHome.instance.viewType eq 'OUT_APP_OPEN'}" value="#{_article.resourceUrl}" target="_blank"/>
+                                                            <s:link view="/cms/news-article.xhtml" rendered="#{not (articleHome.instance.viewType eq 'OUT_APP_OPEN')}">
                                                                 阅读全部
                                                                 <f:param name="articleId" value="#{_article.id}"/>
                                                             </s:link>

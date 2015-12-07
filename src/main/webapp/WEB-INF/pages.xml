@@ -43,6 +43,10 @@
         </navigation>
     </page>
 
+    <page view-id="/developer/*" login-required="true">
+        <restrict>#{s:hasRole('developer')}</restrict>
+    </page>
+
     <page view-id="/*">
         <navigation>
             <rule if-outcome="edit-contract-MAP_SELL-v1">

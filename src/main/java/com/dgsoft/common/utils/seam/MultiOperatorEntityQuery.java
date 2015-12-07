@@ -156,6 +156,7 @@ public class MultiOperatorEntityQuery<E> extends MultiOperatorQuery<EntityManage
         resultCount = null;
         resultList = null;
         singleResult = null;
+        showPageNavNumbers = null;
     }
 
     public EntityManager getEntityManager()
@@ -240,30 +241,66 @@ public class MultiOperatorEntityQuery<E> extends MultiOperatorQuery<EntityManage
         }
     }
 
-    public List<Long> getShowPageNumbers(Long maxPageCount) {
-        long halfCount = (maxPageCount.longValue() - 1) / 2;
-        long beginPage = getPage().longValue() - halfCount;
-        if (beginPage <= 0) {
-            beginPage = 1;
-        }
-        if ((getPageCount().longValue() - beginPage + 1) < maxPageCount) {
-            beginPage = getPageCount().longValue() - (maxPageCount - 1);
-        }
-        if (beginPage <= 0) {
-            beginPage = 1;
-        }
+    private Long maxPageNavCount = Long.valueOf(10);
 
+    public Long getMaxPageNavCount() {
+        return maxPageNavCount;
+    }
 
-        List<Long> result = new ArrayList<Long>(maxPageCount.intValue());
-        for (int i = 0; i < maxPageCount; i++) {
-            if (beginPage > getPageCount()) {
-                break;
+    public void setMaxPageNavCount(Long maxPageNavCount) {
+        this.maxPageNavCount = maxPageNavCount;
+    }
+
+    private List<Long> showPageNavNumbers;
+
+    public List<Long> getShowPageNavNumbers() {
+        initShowPageNavNumbers();
+        return showPageNavNumbers;
+    }
+
+    private void initShowPageNavNumbers() {
+        if (showPageNavNumbers == null) {
+            long halfCount = (getMaxPageNavCount().longValue() - 1) / 2;
+            long beginPage = getPage().longValue() - halfCount;
+            if (beginPage <= 0) {
+                beginPage = 1;
             }
-            result.add(Long.valueOf(beginPage));
+            if ((getPageCount().longValue() - beginPage + 1) < getMaxPageNavCount()) {
+                beginPage = getPageCount().longValue() - (getMaxPageNavCount() - 1);
+            }
+            if (beginPage <= 0) {
+                beginPage = 1;
+            }
 
-            beginPage++;
+
+            showPageNavNumbers = new ArrayList<Long>(getMaxPageNavCount().intValue());
+            for (int i = 0; i < getMaxPageNavCount(); i++) {
+                if (beginPage > getPageCount()) {
+                    break;
+                }
+                showPageNavNumbers.add(Long.valueOf(beginPage));
+
+                beginPage++;
+            }
+
+            if (showPageNavNumbers.size() > 0 && (showPageNavNumbers.get(0).longValue() > 1)){
+                if (showPageNavNumbers.get(0).longValue() != 2){
+                    showPageNavNumbers.set(0,Long.valueOf(showPageNavNumbers.get(0).longValue() * -1));
+                }
+                showPageNavNumbers.add(0,Long.valueOf(1));
+            }
+
+            if (showPageNavNumbers.size() > 1 &&
+                    (showPageNavNumbers.get(showPageNavNumbers.size() - 1).longValue() != getPageCount() )){
+                if (showPageNavNumbers.get(showPageNavNumbers.size() - 1).longValue() != (getPageCount().longValue() - 1)){
+                    showPageNavNumbers.set(showPageNavNumbers.size() - 1, Long.valueOf(showPageNavNumbers.get(showPageNavNumbers.size() - 1).longValue() * -1));
+                }
+                showPageNavNumbers.add(Long.valueOf(getPageCount()));
+            }
         }
-        return result;
+
+
+
     }
 
     private String orderExpress;

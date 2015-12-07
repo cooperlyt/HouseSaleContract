@@ -43,7 +43,7 @@
 
                                 <a:repeat value="#{cmsCategoryGroupList.allCategorys}" var="_category">
                                     <li>
-                                        <s:link view="/cms/news-list.xhtml" styleClass="#{(articleList.categoryId eq _category.id) ? 'on' : ''}">#{_category.name}<f:param name="categoryId" value="#{_category.id}"/></s:link>
+                                        <s:link view="/cms/news-list.xhtml" styleClass="#{(articleList.categoryId eq _category.id) ? 'on' : ''}">#{_category.name}<f:param name="categoryId" value="#{_category.id}"/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
                                     </li>
                                 </a:repeat>
 
@@ -67,6 +67,7 @@
                                 <div>
                                     <div class="filter news-filter clearfix">
 
+                                        <h:form>
                                         <div class="filterOptions">
 
 
@@ -85,12 +86,14 @@
                                         </div>
 
                                         <div class="filterActions">
-				<span id="CT_Main_1_spanSearch" class="newsFilterSearchBtn">
-                    <h:commandButton value="查询" styleClass="btn"/>
+				                            <span id="CT_Main_1_spanSearch" class="newsFilterSearchBtn">
+                                                <h:commandButton value="查询" styleClass="btn" action="#{articleList.first}"/>
 
-				</span>
+				                            </span>
+
+
                                         </div>
-
+                                        </h:form>
                                     </div>
 
 
@@ -99,14 +102,11 @@
                                             <div class="sortStatus">
                                                 <b>共找到:</b> #{articleList.resultCount} 篇文章.
                                             </div>
-                                            <div class="genericPager">
-                                                <ul>
-                                                    <li><a href="/news/?pg=1">&lt; previous</a></li>
-                                                    <li class="active"><span>1</span></li> <li><a href="/news/?pg=2">2</a></li><li><a href="/news/?pg=3">3</a></li><li><a href="/news/?pg=4">4</a></li>
-                                                    <li><a href="/news/?pg=2">next &gt;</a></li>
 
-                                                </ul>
-                                            </div>
+                                                <ui:include src="/layout/samll-page-nav.xhtml">
+                                                    <ui:param name="entityList" value="#{articleList}"/>
+                                                </ui:include>
+
                                             <div class="clear"></div>
                                         </a:outputPanel>
                                         <a:outputPanel layout="block" styleClass="paging" rendered="#{empty articleList.resultList}">
@@ -153,14 +153,11 @@
                                         <div class="sortStatus">
                                             <b>共找到:</b> #{articleList.resultCount} 篇文章.
                                         </div>
-                                        <div class="genericPager">
-                                            <ul>
-                                                <li><a href="/news/?pg=1">&lt; previous</a></li>
-                                                <li class="active"><span>1</span></li> <li><a href="/news/?pg=2">2</a></li><li><a href="/news/?pg=3">3</a></li><li><a href="/news/?pg=4">4</a></li>
-                                                <li><a href="/news/?pg=2">next &gt;</a></li>
 
-                                            </ul>
-                                        </div>
+                                            <ui:include src="/layout/samll-page-nav.xhtml">
+                                                <ui:param name="entityList" value="#{articleList}"/>
+                                            </ui:include>
+
                                         <div class="clear"></div>
                                     </a:outputPanel>
                                     </a:outputPanel>

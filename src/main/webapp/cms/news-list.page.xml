@@ -5,4 +5,7 @@
 
     <param name="categoryId" value="#{articleList.categoryId}"/>
 
+    <param name="firstResult" value="#{articleList.firstResult}"/>
+    <param name="searchKey" value="#{articleList.searchKey}"/>
+
 </page>

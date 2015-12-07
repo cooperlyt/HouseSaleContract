@@ -1,0 +1,41 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/cms/template.xhtml">
+
+
+    <ui:define name="template-body">
+    <main id="content" role="main" class="main_interior">
+        <div class="siteBody clearfix">
+            <div class="container">
+                <div class="grid_12">
+                    <div class="page_tools">
+                        <div class="tls_wrpr">
+
+                        </div>
+                        <div class="breadcrumbs">
+                            <ui:insert name="path-nav"/>
+                      </div>
+
+                    </div>
+                    <ui:insert name="template-blank-body">
+                        <ui:insert/>
+                    </ui:insert>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    </ui:define>
+
+</ui:composition>

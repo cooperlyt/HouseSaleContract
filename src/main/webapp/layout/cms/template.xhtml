@@ -24,60 +24,60 @@
         <ui:insert name="head"/>
     </h:head>
     <h:body>
-        <h:outputStylesheet library="web" name="/css/grid.css"/>
-        <h:outputStylesheet library="web" name="/css/style.css"/>
-        <h:outputStylesheet library="web" name="/css/jquery-ui.css"/>
-        <h:outputStylesheet library="web" name="/css/navigation.css"/>
-        <h:outputStylesheet library="web" name="/css/rail-navigation.css"/>
-        <h:outputStylesheet library="web" name="/css/formee.css"/>
-        <h:outputStylesheet library="web" name="/css/rateit.css"/>
-        <h:outputStylesheet library="web" name="/css/banners.css"/>
-        <h:outputStylesheet library="web" name="/css/events.css"/>
-        <h:outputStylesheet library="web" name="/css/news.css"/>
-        <h:outputStylesheet library="web" name="/css/quick-links.css"/>
-        <h:outputStylesheet library="web" name="/css/search.css"/>
-        <h:outputStylesheet library="web" name="/css/slideshow.css"/>
+        <h:outputStylesheet library="cms" name="/css/grid.css"/>
+        <h:outputStylesheet library="cms" name="/css/style.css"/>
+        <h:outputStylesheet library="cms" name="/css/jquery-ui.css"/>
+        <h:outputStylesheet library="cms" name="/css/navigation.css"/>
+        <h:outputStylesheet library="cms" name="/css/rail-navigation.css"/>
+        <h:outputStylesheet library="cms" name="/css/formee.css"/>
+        <h:outputStylesheet library="cms" name="/css/rateit.css"/>
+        <h:outputStylesheet library="cms" name="/css/banners.css"/>
+        <h:outputStylesheet library="cms" name="/css/events.css"/>
+        <h:outputStylesheet library="cms" name="/css/news.css"/>
+        <h:outputStylesheet library="cms" name="/css/quick-links.css"/>
+        <h:outputStylesheet library="cms" name="/css/search.css"/>
+        <h:outputStylesheet library="cms" name="/css/slideshow.css"/>
 
 
 
 
 
-        <h:outputScript library="web" name="/js/modernizr.js"/>
-        <h:outputScript library="web" name="/js/jquery-core.js"/>
-        <h:outputScript library="web" name="/js/jquery-plugins.js"/>
-        <h:outputScript library="web" name="/js/jquery.cycle2.js"/>
-        <h:outputScript library="web" name="/js/jquery.rateit.min.js"/>
-        <h:outputScript library="web" name="/js/navigation.js"/>
-        <h:outputScript library="web" name="/js/moc.js"/>
-        <h:outputScript library="web" name="/js/polyfill-loader.js"/>
-        <h:outputScript library="web" name="/js/limittextbox.js"/>
-        <h:outputScript library="web" name="/js/base.js"/>
-        <h:outputScript library="web" name="/js/shared-controls.js"/>
-        <h:outputScript library="web" name="/js/externallinks.js"/>
-        <h:outputScript library="web" name="/js/UltimateSpell.core.js"/>
-        <h:outputScript library="web" name="/js/url.js"/>
-        <h:outputScript library="web" name="/js/UltimateSpell.functions.js"/>
-        <h:outputScript library="web" name="/js/carousel-scrollable.js"/>
-        <h:outputScript library="web" name="/js/jquery-functions.js"/>
-        <h:outputScript library="web" name="/js/banners.js"/>
-        <h:outputScript library="web" name="/js/jquery.cycle.all.min.js"/>
-        <h:outputScript library="web" name="/js/font-sizer.js"/>
+        <h:outputScript library="cms" name="/js/modernizr.js"/>
+        <h:outputScript library="cms" name="/js/jquery-core.js"/>
+        <h:outputScript library="cms" name="/js/jquery-plugins.js"/>
+        <h:outputScript library="cms" name="/js/jquery.cycle2.js"/>
+        <h:outputScript library="cms" name="/js/jquery.rateit.min.js"/>
+        <h:outputScript library="cms" name="/js/navigation.js"/>
+        <h:outputScript library="cms" name="/js/moc.js"/>
+        <h:outputScript library="cms" name="/js/polyfill-loader.js"/>
+        <h:outputScript library="cms" name="/js/limittextbox.js"/>
+        <h:outputScript library="cms" name="/js/base.js"/>
+        <h:outputScript library="cms" name="/js/shared-controls.js"/>
+        <h:outputScript library="cms" name="/js/externallinks.js"/>
+        <h:outputScript library="cms" name="/js/UltimateSpell.core.js"/>
+        <h:outputScript library="cms" name="/js/url.js"/>
+        <h:outputScript library="cms" name="/js/UltimateSpell.functions.js"/>
+        <h:outputScript library="cms" name="/js/carousel-scrollable.js"/>
+        <h:outputScript library="cms" name="/js/jquery-functions.js"/>
+        <h:outputScript library="cms" name="/js/banners.js"/>
+        <h:outputScript library="cms" name="/js/jquery.cycle.all.min.js"/>
+        <h:outputScript library="cms" name="/js/font-sizer.js"/>
 
 
         <h:outputStylesheet>
             header .header_north {
 
-                background: url('#{facesContext.externalContext.requestContextPath}/img/web/header_bg_divider.png') no-repeat right center;
+                background: url('#{facesContext.externalContext.requestContextPath}/img/cms/header_bg_divider.png') no-repeat right center;
         }
 
         header .header_north a.sitelogo {
 
-            background: url("#{facesContext.externalContext.requestContextPath}/img/web/sitelogo.png") no-repeat center center;
+            background: url("#{facesContext.externalContext.requestContextPath}/img/cms/sitelogo.png") no-repeat center center;
 
         }
 
         header .tag_search .hdr_search .searchSiteWrpr input.textSearchSubmit{
-            background:transparent url("#{facesContext.externalContext.requestContextPath}/img/web/search_submit_bg.png") center center no-repeat;
+            background:transparent url("#{facesContext.externalContext.requestContextPath}/img/cms/search_submit_bg.png") center center no-repeat;
         }
 
         </h:outputStylesheet>
@@ -593,9 +593,9 @@
            </header>
 
 
-            <ui:insert/>
-
-
+            <ui:insert name="template-body">
+                <ui:insert/>
+            </ui:insert>
 
             <footer>
                 <div class="north">
@@ -665,7 +665,7 @@
 
                         </div>
                         <div class="grid_4 clearfix"><div style="margin: 10px 0px; padding-bottom: 10px; border-bottom-color: rgb(183, 183, 183); border-bottom-width: 1px; border-bottom-style: solid; display: block;">
-                            <div><h:graphicImage value="/img/web/housing_authority_footer_logo.png" style="margin-left: 5px; display: block;"/>  </div>
+                            <div><h:graphicImage value="/img/cms/housing_authority_footer_logo.png" style="margin-left: 5px; display: block;"/>  </div>
                         </div>
 
                             <table class="contact_table">

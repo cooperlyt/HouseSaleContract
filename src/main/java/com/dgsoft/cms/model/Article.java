@@ -14,6 +14,20 @@ import java.util.Date;
 @Table(name = "ARTICLE", catalog = "CONTRACT")
 public class Article implements java.io.Serializable{
 
+    public enum ArticleViewType{
+        OUT_APP_OPEN(true),HTML(false),TEXT(false);
+
+        private boolean newWindowOpen;
+
+        public boolean isNewWindowOpen() {
+            return newWindowOpen;
+        }
+
+        ArticleViewType(boolean newWindowOpen) {
+            this.newWindowOpen = newWindowOpen;
+        }
+    }
+
     private String id;
     private String mainTitle;
     private String subTitle;
@@ -22,6 +36,7 @@ public class Article implements java.io.Serializable{
     private boolean fixTop;
     private ArticleCategory category;
     private String author;
+    private ArticleViewType viewType;
 
 
     @Id
@@ -110,5 +125,16 @@ public class Article implements java.io.Serializable{
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "VIEW_TYPE",length = 16, nullable = false)
+    @NotNull
+    public ArticleViewType getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(ArticleViewType viewType) {
+        this.viewType = viewType;
     }
 }

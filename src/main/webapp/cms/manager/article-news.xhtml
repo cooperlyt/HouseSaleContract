@@ -105,7 +105,7 @@
                     </h3>
                     <h:form id="categoryListForm">
 
-                        <a:commandLink styleClass="menu-item css-truncate">
+                        <a:commandLink styleClass="menu-item css-truncate" render="categoryListForm,articleListForm">
                             <span class="repo-icon octicon octicon-file-text"></span>
 
       <span class="repo-and-owner css-truncate-target">
@@ -117,7 +117,7 @@
 
 
                                 <a:commandLink styleClass="menu-item css-truncate #{_category.id eq articleCategoryHome.instance.id ? 'selected' : ''}"
-                                               render="articleListForm,categoryListForm">
+                                               render="articleListForm,categoryListForm,searchKeyInput">
                                     <span class="repo-icon octicon octicon-repo"></span>
 
       <span class="repo-and-owner css-truncate-target">
@@ -127,7 +127,6 @@
                                     <f:param name="searchCategoryId" value="#{_category.id}"/>
                                     <f:param name="firstResult" value="0"/>
                                     <f:param name="searchKey" value=""/>
-                                    <f:param name="editorModel" value="false"/>
                                     <a:attachQueue requestDelay="0"/>
 
                                 </a:commandLink>
@@ -142,20 +141,8 @@
 
             </div>
             <div class="col-md-8" role="main">
-                <h:form id="articleListForm">
-
-                    <a:outputPanel rendered="#{editorModel}">
-
-                    </a:outputPanel>
-
-
-
-                    <a:outputPanel rendered="#{not editorModel}">
-
-
-
-                    <a:region>
-                    <div class="input-group" style="margin-bottom: 20px">
+                <h:form id="searchForm">
+                    <s:div styleClass="input-group" style="margin-bottom: 20px">
 
                         <div class="input-group-btn">
                             <h:selectOneMenu styleClass="selectpicker select-menu-btn input-group-first"
@@ -167,11 +154,11 @@
 
                         </div>
 
-                        <h:inputText styleClass="form-control" value="#{articleList.searchKey}"/>
+                        <h:inputText id="searchKeyInput" styleClass="form-control" value="#{articleList.searchKey}"/>
                           <span class="input-group-btn">
-                            <a:commandLink execute="@region" styleClass="btn btn-default"
-                                             action="#{articleList.first}"
-                                             render="articleListForm,categoryListForm">
+                            <a:commandLink execute="@form" styleClass="btn btn-default"
+                                           action="#{articleList.first}"
+                                           render="articleListForm,categoryListForm">
                                 <a:attachQueue requestDelay="0"/>
                                 <f:param name="categoryId" value=""/>
                                 查询
@@ -179,8 +166,13 @@
 
                         </span>
 
-                    </div>
-                    </a:region>
+                    </s:div>
+                </h:form>
+
+
+                <h:form id="articleListForm">
+
+
                     <s:div id="categoryInfoPanel" rendered="#{articleCategoryHome.idDefined}" styleClass="new-user-avatar-cta">
                     <p>
 
@@ -210,11 +202,12 @@
 
                         <div class="sort-bar">
                             <div class="right">
-                                <a:commandLink styleClass="btn btn-sm btn-success">
+                                <s:link styleClass="btn btn-sm btn-success">
                                     <span class="octicon octicon-plus"></span>
-                                    <a:attachQueue requestDelay="0"/>
+                                    <f:param name="articleId" value=""/>
                                     新建文章
-                                </a:commandLink>
+                                </s:link>
+
 
                             </div>
                             <h3>
@@ -270,7 +263,7 @@
                         </s:div>
                     </a:outputPanel>
 
-                    </a:outputPanel>
+
 
                 </h:form>
 

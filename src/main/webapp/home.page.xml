@@ -3,17 +3,13 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
-    <param name="categoryId" value="#{articleList.categoryId}"/>
-
-    <param name="firstResult" value="#{articleList.firstResult}"/>
-    <param name="searchKey" value="#{articleList.searchKey}"/>
 
     <param name="articleId" value="#{articleHome.id}"/>
 
     <navigation from-action="#{articleHome.viewArticle}">
-        <rule if-outcome="webViewArticle">
-            <redirect view-id="/cms/news-article.xhtml"/>
-        </rule>
+    <rule if-outcome="webViewArticle">
+        <redirect view-id="/cms/news-article.xhtml"/>
+    </rule>
 
     </navigation>
 

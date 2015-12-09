@@ -91,8 +91,7 @@
                                                         </ui:remove>
                                                         <div class="content" style="margin-left:0px;">
                                                             <h2 class="title">
-                                                                <h:outputLink rendered="#{articleHome.instance.viewType eq 'OUT_APP_OPEN'}" value="#{_article.resourceUrl}" target="_blank">#{_article.mainTitle}</h:outputLink>
-                                                                <s:link view="/cms/news-article.xhtml" rendered="#{not (articleHome.instance.viewType eq 'OUT_APP_OPEN')}">
+                                                                <s:link action="#{articleHome.viewArticle}" target="#{_article.viewType.outView ? '_blank' : '_self'}">
                                                                     #{_article.mainTitle}
                                                                     <f:param name="articleId" value="#{_article.id}"/>
                                                                 </s:link>
@@ -100,8 +99,7 @@
 
 
                                                             <p>#{_article.subTitle}</p>
-                                                            <h:outputLink rendered="#{articleHome.instance.viewType eq 'OUT_APP_OPEN'}" value="#{_article.resourceUrl}" target="_blank"/>
-                                                            <s:link view="/cms/news-article.xhtml" rendered="#{not (articleHome.instance.viewType eq 'OUT_APP_OPEN')}">
+                                                            <s:link action="#{articleHome.viewArticle}" target="#{_article.viewType.outView ? '_blank' : '_self'}">
                                                                 阅读全部
                                                                 <f:param name="articleId" value="#{_article.id}"/>
                                                             </s:link>

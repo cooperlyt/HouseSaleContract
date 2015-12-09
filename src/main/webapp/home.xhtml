@@ -196,12 +196,12 @@
                                             </figure>
                                             <div class="modItem">
                                                 <div class="modItemDate"><h:outputText value="#{_news.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText> </div>
-                                                <h:outputLink rendered="#{_news.viewType eq 'OUT_APP_OPEN'}" value="#{_news.resourceUrl}" target="_blank" title="阅读完整文章" styleClass="modItemTitle">#{_news.mainTitle}</h:outputLink>
-                                                <s:link rendered="#{not (_news.viewType eq 'OUT_APP_OPEN')}" view="/cms/news-article.xhtml" styleClass="modItemTitle" title="阅读完整文章">#{_news.mainTitle}<f:param name="articleId" value="#{_news.id}"/></s:link>
+
+                                                <s:link action="#{articleHome.viewArticle}" target="#{_news.viewType.outView ? '_blank' : '_self'}" styleClass="modItemTitle" title="阅读完整文章">#{_news.mainTitle}<f:param name="articleId" value="#{_news.id}"/></s:link>
 
                                                 <div class="modItemSummary">#{_news.subTitle}</div>
-                                                <h:outputLink rendered="#{_news.viewType eq 'OUT_APP_OPEN'}" value="#{_news.resourceUrl}" target="_blank" styleClass="more">阅读</h:outputLink>
-                                                <s:link rendered="#{not (_news.viewType eq 'OUT_APP_OPEN')}" view="/cms/news-article.xhtml" styleClass="more">阅读<f:param name="articleId" value="#{_news.id}"/></s:link>
+
+                                                <s:link  action="#{articleHome.viewArticle}" target="#{_news.viewType.outView ? '_blank' : '_self'}" styleClass="more">阅读<f:param name="articleId" value="#{_news.id}"/></s:link>
 
                                             </div>
                                         </li>

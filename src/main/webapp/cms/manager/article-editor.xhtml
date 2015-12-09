@@ -8,7 +8,16 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:a="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+    <ui:define name="head-title">
+        <title>网站后台</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+    </ui:define>
+
+    <ui:define name="body">
 
 
     <s:decorate template="/layout/edit.xhtml">
@@ -176,4 +185,6 @@
 
         /* ]]> */
     </h:outputScript>
+
+    </ui:define>
 </ui:composition>

@@ -15,6 +15,5 @@
     <param name="firstResult" value="#{articleList.firstResult}"/>
     <param name="articleId" value="#{articleHome.id}"/>
 
-    <param name="editorModel"/>
 
 </page>

@@ -15,7 +15,19 @@ import java.util.Date;
 public class Article implements java.io.Serializable{
 
     public enum ArticleViewType{
-        OUT_APP_OPEN,HTML,TEXT
+        PDF(true),WORD(true),APPLICATION(true),HTML(false),TEXT(false);
+
+        //private String mineType;
+
+        private boolean outView;
+
+        public boolean isOutView() {
+            return outView;
+        }
+
+        ArticleViewType(boolean outView) {
+            this.outView = outView;
+        }
     }
 
     private String id;
@@ -25,9 +37,8 @@ public class Article implements java.io.Serializable{
     private String context;
     private boolean fixTop;
     private ArticleCategory category;
-    private String author;
     private ArticleViewType viewType;
-    private String resourceUrl;
+    private byte[] resource;
 
 
     @Id
@@ -107,17 +118,6 @@ public class Article implements java.io.Serializable{
         this.category = category;
     }
 
-    @Column(name = "AUTHOR",nullable = false,length = 256)
-    @NotNull
-    @Size(max = 256)
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "VIEW_TYPE",length = 16, nullable = false)
     @NotNull
@@ -129,13 +129,15 @@ public class Article implements java.io.Serializable{
         this.viewType = viewType;
     }
 
-    @Column(name = "RESOURCE_URL", length = 512)
-    @Size(max = 512)
-    public String getResourceUrl() {
-        return resourceUrl;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "RESOURCE",columnDefinition="blob")
+    public byte[] getResource() {
+        return resource;
     }
 
-    public void setResourceUrl(String resourceUrl) {
-        this.resourceUrl = resourceUrl;
+    public void setResource(byte[] resource) {
+        this.resource = resource;
     }
 }

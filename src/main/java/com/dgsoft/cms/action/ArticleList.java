@@ -36,8 +36,8 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
         mainRestriction.getChildren().add(new RestrictionGroup("or",Arrays.asList(RESTRICTIONS2)));
         setRestrictionGroup(mainRestriction);
         setRestrictionLogicOperator("and");
-        setOrderColumn("a.publishTime");
-        setOrderDirection("desc");
+        //setOrderColumn("a.publishTime");
+        setOrder("a.publishTime, a.id desc");
         setMaxResults(10);
     }
 

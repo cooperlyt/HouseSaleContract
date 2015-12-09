@@ -6,43 +6,44 @@
                 xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <s:div styleClass="genericPager" rendered="#{entityList.pageCount gt 1}">
+
+    <nav>
+        <ul class="pagination">
 
 
-    <ul>
-
-        <li><s:link rendered="#{entityList.previousExists}">
+            <li class="#{entityList.previousExists ? '' : 'disabled'}">
+            <s:link rendered="#{entityList.previousExists}">
                 #{messages.left}#{messages.left}
                 <f:param name="firstResult" value="#{(entityList.page - 2) * entityList.maxResults }"/>
             </s:link>
-        </li>
-        <a:repeat value="#{entityList.showPageNavNumbers}" var="_page">
 
-            <li class="#{_page eq entityList.page ? 'active' : ''}">
-
+            <s:span rendered="#{not entityList.previousExists}">
+                #{messages.left}#{messages.left}
+            </s:span>
+            </li>
+            <a:repeat value="#{entityList.showPageNavNumbers}" var="_page">
+                <li class="#{_page eq entityList.page ? 'active' : ''}">
                 <s:span rendered="#{_page eq entityList.page}">#{_page}</s:span>
                 <s:link rendered="#{not (_page eq entityList.page)}">
-
-
                     #{_page lt 0 ? '...' : _page.toString()}
                     <f:param name="firstResult" value="#{((_page lt 0 ? _page * -1 : _page) - 1) * entityList.maxResults}"/>
                 </s:link>
-            </li>
-        </a:repeat>
+                </li>
+            </a:repeat>
 
-        <li>
+            <li class="#{entityList.nextExists ? '' : 'disabled'}">
+
             <s:link rendered="#{entityList.nextExists}">
                 #{messages.right}#{messages.right}
                 <f:param name="firstResult" value="#{(entityList.page) * entityList.maxResults }"/>
 
             </s:link>
 
-        </li>
+            <s:span rendered="#{not entityList.nextExists}">#{messages.right}#{messages.right}</s:span>
+            </li>
 
 
-
-    </ul>
-
-    </s:div>
+        </ul>
+    </nav>
 
 </ui:composition>

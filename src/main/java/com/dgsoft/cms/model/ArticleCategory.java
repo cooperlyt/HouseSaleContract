@@ -1,6 +1,8 @@
 package com.dgsoft.cms.model;
 
+import com.dgsoft.common.EntityHomeAdapter;
 import org.hibernate.annotations.GenericGenerator;
+import org.jboss.seam.international.StatusMessage;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ARTICLE_CATEGORY", catalog = "CONTRACT")
+@EntityHomeAdapter.UniqueVerify(name = "name", severity = StatusMessage.Severity.ERROR, field = {"name"})
 public class ArticleCategory implements java.io.Serializable{
 
     public enum CategoryType{
@@ -44,7 +47,7 @@ public class ArticleCategory implements java.io.Serializable{
         this.id = id;
     }
 
-    @Column(name = "NAME", nullable = false,length = 32)
+    @Column(name = "NAME", nullable = false,length = 32,unique = true)
     @NotNull
     @Size(max = 32)
     public String getName() {

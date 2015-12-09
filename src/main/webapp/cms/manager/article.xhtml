@@ -1,0 +1,47 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+
+    <div class="pagehead" style="margin-top: -20px">
+        <div class="container">
+            <nav class="pagehead-nav" role="navigation">
+                <s:link styleClass="pagehead-nav-item selected">
+                    <span class="octicon octicon-megaphone"/>
+                    文章
+                </s:link>
+                <s:link styleClass="pagehead-nav-item ">
+                    <span class="octicon octicon-star"/>
+                    下载
+                </s:link>
+                <s:link styleClass="pagehead-nav-item ">
+                    <span class="octicon octicon-star"/>
+                    便民电话
+                </s:link>
+                <s:link styleClass="pagehead-nav-item ">
+                    <span class="octicon octicon-star"/>
+                    常见问题
+                </s:link>
+
+            </nav>
+            <h1>内容管理</h1>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <ui:insert name="article-body"/>
+    </div>
+
+
+
+
+</ui:composition>

@@ -103,7 +103,7 @@
 
 
         <a:outputPanel rendered="#{identity.loggedIn and s:hasRole('cmsManager')}">
-            <nav class="navbar navbar-static-top nav-header">
+            <nav class="navbar navbar-static-top nav-header ">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -119,10 +119,8 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">内容管理 <span class="sr-only">(current)</span></a></li>
-                            <li class="active"><a href="#">事件管理 <span class="sr-only">(current)</span></a></li>
-                            <li class="active"><a href="#">便民电话 <span class="sr-only">(current)</span></a></li>
-                            <li class="active"><a href="#">常见问题 <span class="sr-only">(current)</span></a></li>
+                            <li class="#{((empty content) or (content eq 'article')) ? 'active' : ''}"><s:link>内容管理<f:param name="content" value="article"/> </s:link></li>
+                            <li class="#{content eq 'events' ? 'active' : ''}"><s:link>事件管理<f:param name="content" value="events"/> </s:link></li>
 
                         </ul>
 
@@ -158,6 +156,8 @@
 
                 </div>
             </nav>
+
+                <ui:include src="/cms/manager/#{empty content ? 'article' : content}#{(empty content or (content eq 'article')) ? '-' : '' }#{(empty content or (content eq 'article')) ? (empty tab ? 'news' : tab) : '' }.xhtml"/>
 
 
         </a:outputPanel>

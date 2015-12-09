@@ -5,5 +5,16 @@
 
     <param name="logonType" value="#{authenticationManager.logonTypeName}"/>
 
+    <param name="content"/>
+
+    <param name="tab"/>
+
+    <param name="categoryId" value="#{articleCategoryHome.id}"/>
+    <param name="searchCategoryId" value="#{articleList.categoryId}"/>
+    <param name="searchKey" value="#{articleList.searchKey}"/>
+    <param name="firstResult" value="#{articleList.firstResult}"/>
+    <param name="articleId" value="#{articleHome.id}"/>
+
+    <param name="editorModel"/>
 
 </page>

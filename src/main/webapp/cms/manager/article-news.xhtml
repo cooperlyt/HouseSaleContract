@@ -1,0 +1,282 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="article.xhtml">
+
+
+
+    <ui:define name="article-body">
+
+        <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+            <ui:param name="panelId" value="deleteCategoryConfirmPanel"/>
+            <ui:param name="entityTitle" value="#{articleCategoryHome.instance.name}"/>
+            <ui:define name="deleteNote">
+                删除分类后此分类下的所有文章将会同时被删除！
+            </ui:define>
+
+            <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                           immediate="true" execute="@this" render="categoryListForm,articleListForm"
+                           action="#{articleCategoryHome.removeAndClear}" oncomplete="$('#deleteCategoryConfirmPanel').modal('hide');"
+                           value="我确认要删除此分类">
+                <a:attachQueue requestDelay="0"/>
+            </a:commandLink>
+
+        </ui:decorate>
+
+        <ui:decorate template="/layout/edit-modalpanel.xhtml">
+            <ui:param name="panelId" value="categoryEditPanel"/>
+            <ui:param name="panelTitle" value="#{articleCategoryHome.managed ? '编辑' : '新建'}文章分类"/>
+
+            <s:decorate id="categoryNameField" template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    名称
+                </ui:define>
+                <ui:param name="for" value="categoryNameInput"/>
+                <ui:param name="status" value="categoryNameStatus"/>
+
+                <h:inputText id="categoryNameInput" label="分类名称"
+                             valueChangeListener="#{articleCategoryHome.verifyUniqueAvailable}"
+                             unique="name" styleClass="form-control" value="#{articleCategoryHome.instance.name}"
+                             required="true" maxlength="32">
+                    <f:validateRequired/>
+                    <a:ajax event="change" render="categoryNameField" status="categoryNameStatus"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate template="/layout/edit.xhtml">
+                <ui:define name="label">
+                    描述
+                </ui:define>
+                <ui:param name="for" value="categoryDescriptionInput"/>
+                <h:inputTextarea id="categoryDescriptionInput" styleClass="form-control" value="#{articleCategoryHome.instance.description}" rows="3"/>
+            </s:decorate>
+
+
+        <ui:define name="actionButtons">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-floppy-remove"/>
+                取消</button>
+
+
+                <a:commandLink styleClass="btn btn-success" render="categoryEditPanel_inputs,categoryListForm,categoryInfoPanel"
+                               execute="@form"
+                               oncomplete="if (#{facesContext.maximumSeverity==null} || #{facesContext.maximumSeverity.ordinal lt 2}){$('#categoryEditPanel').modal('hide')}"
+                               action="#{articleCategoryHome.saveOrUpdate}">
+                    <span class="glyphicon glyphicon-floppy-disk"/>
+                    <a:attachQueue requestDelay="0"/>
+                    保存
+                </a:commandLink>
+
+
+        </ui:define>
+
+
+        </ui:decorate>
+
+
+
+        <div class="row">
+            <div class="col-md-4" role="complementary">
+
+                <nav class="menu">
+                    <div class="boxed-group-action">
+                        <h:form>
+
+                            <a:commandLink styleClass="btn btn-sm btn-success new-repo"
+                                           render="categoryEditPanel_form,categoryEditPanel_title"
+                                           oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                                <span class="octicon octicon-plus"></span>
+                                <a:attachQueue requestDelay="0"/>
+                                <a:param value="" assignTo="#{articleCategoryHome.id}"/>
+                                新建分类
+                            </a:commandLink>
+                        </h:form>
+                    </div>
+                    <h3 class="menu-heading">
+                        文章分类 <span class="badge">#{articleCategoryList.resultCount + 1}</span>
+                    </h3>
+                    <h:form id="categoryListForm">
+
+                        <a:commandLink styleClass="menu-item css-truncate">
+                            <span class="repo-icon octicon octicon-file-text"></span>
+
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target">首页文章</span>
+      </span>
+
+                        </a:commandLink>
+                        <a:repeat value="#{articleCategoryList.resultList}" var="_category">
+
+
+                                <a:commandLink styleClass="menu-item css-truncate #{_category.id eq articleCategoryHome.instance.id ? 'selected' : ''}"
+                                               render="articleListForm,categoryListForm">
+                                    <span class="repo-icon octicon octicon-repo"></span>
+
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target" title="#{_category.description}">#{_category.name}</span>
+      </span>
+                                    <f:param name="categoryId" value="#{_category.id}"/>
+                                    <f:param name="searchCategoryId" value="#{_category.id}"/>
+                                    <f:param name="firstResult" value="0"/>
+                                    <f:param name="searchKey" value=""/>
+                                    <f:param name="editorModel" value="false"/>
+                                    <a:attachQueue requestDelay="0"/>
+
+                                </a:commandLink>
+
+
+                        </a:repeat>
+
+                    </h:form>
+
+                </nav>
+
+
+            </div>
+            <div class="col-md-8" role="main">
+                <h:form id="articleListForm">
+
+                    <a:outputPanel rendered="#{editorModel}">
+
+                    </a:outputPanel>
+
+
+
+                    <a:outputPanel rendered="#{not editorModel}">
+
+
+
+                    <a:region>
+                    <div class="input-group" style="margin-bottom: 20px">
+
+                        <div class="input-group-btn">
+                            <h:selectOneMenu styleClass="selectpicker select-menu-btn input-group-first"
+                                             value="#{articleList.categoryId}">
+                                <s:selectItems value="#{articleCategoryList.resultList}" var="_category"
+                                               label="#{_category.name}" itemValue="#{_category.id}" noSelectionLabel="全部种类"/>
+                            </h:selectOneMenu>
+
+
+                        </div>
+
+                        <h:inputText styleClass="form-control" value="#{articleList.searchKey}"/>
+                          <span class="input-group-btn">
+                            <a:commandLink execute="@region" styleClass="btn btn-default"
+                                             action="#{articleList.first}"
+                                             render="articleListForm,categoryListForm">
+                                <a:attachQueue requestDelay="0"/>
+                                <f:param name="categoryId" value=""/>
+                                查询
+                            </a:commandLink>
+
+                        </span>
+
+                    </div>
+                    </a:region>
+                    <s:div id="categoryInfoPanel" rendered="#{articleCategoryHome.idDefined}" styleClass="new-user-avatar-cta">
+                    <p>
+
+                        <span class="btn-group btn-group-sm" role="group">
+                        <a:commandLink styleClass="btn btn-danger btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="删除分类"
+                                       render="deleteCategoryConfirmPanel_form" oncomplete="$('#deleteCategoryConfirmPanel').modal('show');">
+                            <span class="octicon octicon-trashcan"/>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+
+                        <a:commandLink styleClass="btn btn-success btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="编辑分类"
+                                       render="categoryEditPanel_form,categoryEditPanel_title" oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                            <span class="octicon octicon-pencil"></span>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+                        </span>
+                    </p>
+                    <p><strong>#{articleCategoryHome.instance.name}</strong> #{articleCategoryHome.instance.description}</p>
+                    </s:div>
+
+
+                    <a:outputPanel id="articleResultList">
+
+                        <a:outputPanel rendered="#{not empty articleList.resultList}">
+
+                        <div class="sort-bar">
+                            <div class="right">
+                                <a:commandLink styleClass="btn btn-sm btn-success">
+                                    <span class="octicon octicon-plus"></span>
+                                    <a:attachQueue requestDelay="0"/>
+                                    新建文章
+                                </a:commandLink>
+
+                            </div>
+                            <h3>
+                               共找到 #{articleList.resultCount} 篇文章
+                            </h3>
+
+                        </div>
+
+
+                            <ul class="repo-list">
+                                <a:repeat value="#{articleList.resultList}" var="_article">
+
+                                    <li class="repo-list-item">
+                                        <div class="repo-list-stats">
+                                            <a:commandLink styleClass="repo-list-stat-item tooltipped tooltipped-s"
+                                                           p:aria-label="删除文章" execute="@this" immediate="true">
+                                                <span class="octicon octicon-trashcan"></span>
+                                                <a:attachQueue requestDelay="0"/>
+                                                删除
+                                            </a:commandLink>
+                                        </div>
+                                        <h3 class="repo-list-name">
+                                            <a:commandLink>#{_article.mainTitle}</a:commandLink>
+
+                                        </h3>
+                                        <p class="repo-list-description">
+                                            #{_article.subTitle}
+                                        </p>
+                                        <p class="repo-list-meta">
+                                            <h:outputText value="#{_article.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText>
+                                        </p>
+                                    </li>
+
+                                </a:repeat>
+
+
+                            </ul>
+
+                            <div class="paginate-container">
+                                <ui:include src="/layout/pages-nav.xhtml">
+                                    <ui:param name="entityList" value="#{articleList}"/>
+                                </ui:include>
+                            </div>
+
+                        </a:outputPanel>
+
+
+                        <s:div styleClass="blankslate spacious large-format" rendered="#{empty articleList.resultList}">
+                            <span class="mega-octicon octicon-search"></span>
+
+                            <h3>没有文章</h3>
+                            <p>没找到任何符合条件的文章.您可以<a:commandLink> <span class="octicon octicon-plus"></span>新建文章</a:commandLink></p>
+                        </s:div>
+                    </a:outputPanel>
+
+                    </a:outputPanel>
+
+                </h:form>
+
+            </div>
+
+        </div>
+
+    </ui:define>
+</ui:composition>

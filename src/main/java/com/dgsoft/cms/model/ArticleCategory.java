@@ -19,7 +19,20 @@ import java.util.Set;
 public class ArticleCategory implements java.io.Serializable{
 
     public enum CategoryType{
-        News,Events,Welcome,Download
+        News(new Article.ArticleViewType[]{Article.ArticleViewType.HTML ,Article.ArticleViewType.PDF,Article.ArticleViewType.WORD,Article.ArticleViewType.TEXT,Article.ArticleViewType.URL_LINK}),
+        Events(new Article.ArticleViewType[]{Article.ArticleViewType.HTML ,Article.ArticleViewType.TEXT}),
+        Welcome(new Article.ArticleViewType[]{Article.ArticleViewType.HTML ,Article.ArticleViewType.TEXT}),
+        Download(new Article.ArticleViewType[]{Article.ArticleViewType.APPLICATION,Article.ArticleViewType.URL_LINK});
+
+        private Article.ArticleViewType[] allowArticleType;
+
+        public Article.ArticleViewType[] getAllowArticleType() {
+            return allowArticleType;
+        }
+
+        CategoryType(Article.ArticleViewType[] allowArticleType) {
+            this.allowArticleType = allowArticleType;
+        }
     }
 
     private String id;

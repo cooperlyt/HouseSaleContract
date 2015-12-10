@@ -9,25 +9,13 @@
                 xmlns:a="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                template="/layout/template-base.xhtml">
+                template="template.xhtml">
 
     <ui:define name="head-title">
         <title>网站后台</title>
 
         <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
     </ui:define>
-
-    <ui:define name="body">
-
-
-    <s:decorate template="/layout/edit.xhtml">
-        <ui:define name="label">
-            标题
-        </ui:define>
-        <ui:param name="for" value="mainTitleInput"/>
-        <h:inputText id="mainTitleInput" styleClass="form-control" value="#{aboutArticleHome.instance.mainTitle}"
-                     required="true" maxlength="256"/>
-    </s:decorate>
 
 
     <h:outputStylesheet>
@@ -59,7 +47,61 @@
 
         }
     </h:outputStylesheet>
+    <div class="container">
+<h:form>
 
+
+        <s:decorate rendered="#{articleHome.instance.category.type eq 'News'}" template="/layout/edit.xhtml">
+            <ui:define name="label">
+                文章分类
+            </ui:define>
+            <ui:param name="for" value="articleCategoryInput"/>
+
+            <h:selectOneMenu id="articleCategoryInput" value="#{articleHome.instance.category}" rendered="true"
+                             styleClass="selectpicker edit-select form-control">
+                <s:selectItems value="#{articleCategoryList.resultList}" var="_category"
+                               itemValue="#{_category}" label="#{_category.name}"
+                        noSelectionLabel="请选择文章分类"/>
+                <s:convertEntity/>
+            </h:selectOneMenu>
+
+
+
+        </s:decorate>
+
+    <s:decorate template="/layout/edit.xhtml">
+        <ui:define name="label">
+            标题
+        </ui:define>
+        <ui:param name="for" value="mainTitleInput"/>
+        <div class="input-group">
+                                   <a:outputPanel styleClass="input-group-addon" p:data-toggle="tooltip" p:data-placement="top"  title="置顶">
+                                       <a:outputPanel rendered="#{ (articleHome.instance.category.type eq 'Welcome')}" class="octicon octicon-megaphone"/>
+                                       <h:selectBooleanCheckbox rendered="#{not (articleHome.instance.category.type eq 'Welcome')}" value="#{articleHome.instance.fixTop}"/>
+             </a:outputPanel>
+        <h:inputText id="mainTitleInput" label="文章标题" styleClass="form-control" value="#{articleHome.instance.mainTitle}"
+                     required="true" maxlength="256"/>
+                              <a:outputPanel id="articleTypeField" rendered="#{not articleHome.managed}" styleClass="input-group-btn">
+                   <h:selectOneMenu value="#{articleHome.instance.viewType}" p:data-width="150px" required="true" styleClass="selectpicker">
+                       <s:selectItems value="#{allowEditorTypes}"
+                                      var="_type" label="#{messages[_type.name()]}" itemValue="#{_type}"/>
+                       <a:ajax  event="valueChange" render="editorPanel" execute="@this">
+                           <a:attachQueue requestDelay="0"/>
+                       </a:ajax>
+                       <s:convertEnum/>
+                   </h:selectOneMenu>
+            </a:outputPanel>
+        </div>
+    </s:decorate>
+
+
+
+
+    <a:outputPanel id="editorPanel">
+
+        <h:inputTextarea style="margin-bottom: 10px" rows="15" styleClass="form-control" rendered="#{articleHome.instance.viewType eq 'TEXT'}" value="#{articleHome.instance.context}"/>
+
+        <a:outputPanel rendered="#{empty articleHome.instance.viewType or (articleHome.instance.viewType eq 'HTML')}">
 
     <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
         <div class="btn-group">
@@ -121,24 +163,13 @@
     </div>
 
     <div id="editor" contenteditable="true">
-        Go ahead…
+        <h:outputText escape="false" value="#{articleHome.instance.context}"/>
     </div>
 
 
-    <s:decorate template="/layout/edit.xhtml">
-        <ui:define name="label">
-            摘要
-        </ui:define>
-        <ui:param name="for" value="summaryInput"/>
-        <h:inputTextarea styleClass="form-control" id="summaryInput" rows="7"/>
-    </s:decorate>
+            <h:outputScript>
 
-    <h:outputScript library="jquery-hotkeys" name="jquery-hotkeys.js"/>
-    <h:outputScript library="bootstrap-wysiwyg" name="/js/bootstrap-wysiwyg.js"/>
-
-    <h:outputScript>
-
-        /* <![CDATA[ */
+                /* <![CDATA[ */
         $(function () {
             function initToolbarBootstrapBindings() {
                 var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
@@ -184,7 +215,51 @@
                 });
 
         /* ]]> */
-    </h:outputScript>
+            </h:outputScript>
+        </a:outputPanel>
 
-    </ui:define>
+
+
+    </a:outputPanel>
+
+    <a:outputPanel rendered="#{not (articleHome.instance.category.type eq 'Welcome')}">
+    <s:decorate template="/layout/edit.xhtml">
+        <ui:define name="label">
+            摘要
+        </ui:define>
+        <ui:param name="for" value="summaryInput"/>
+        <h:inputTextarea value="#{articleHome.instance.subTitle}" styleClass="form-control" id="summaryInput" rows="7"/>
+    </s:decorate>
+
+
+    </a:outputPanel>
+    <h:inputHidden id="htmlContent" value="#{articleHome.htmlContent}"/>
+
+    <hr/>
+
+    <h:commandButton value="保存" styleClass="btn btn-success first-in-line" action="#{articleHome.saveOrUpdate}" onclick="#{r:jQuery('htmlContent')}.val($('#editor').html())">
+
+    </h:commandButton>
+
+
+
+
+
+</h:form>
+    <h:outputScript library="jquery-hotkeys" name="jquery-hotkeys.js"/>
+    <h:outputScript library="bootstrap-wysiwyg" name="/js/bootstrap-wysiwyg.js"/>
+
+        <h:outputScript>
+
+            $(document).ready(
+            function () {
+            initEditInput();
+            });
+
+
+        </h:outputScript>
+
+
+    </div>
+
 </ui:composition>

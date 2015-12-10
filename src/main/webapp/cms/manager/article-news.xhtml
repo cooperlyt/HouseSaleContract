@@ -12,7 +12,21 @@
                 template="article.xhtml">
 
 
+    <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+        <ui:param name="panelId" value="deleteArticleConfirmPanel"/>
+        <ui:param name="entityTitle" value="#{articleHome.instance.mainTitle}"/>
+        <ui:define name="deleteNote">
+            文章将被删除
+        </ui:define>
 
+        <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                       immediate="true" execute="@this" render="articleListForm"
+                       action="#{articleHome.removeAndClear}" oncomplete="$('#deleteArticleConfirmPanel').modal('hide');"
+                       value="我确认要删除此文章">
+            <a:attachQueue requestDelay="0"/>
+        </a:commandLink>
+
+    </ui:decorate>
 
 
         <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
@@ -105,14 +119,23 @@
                     </h3>
                     <h:form id="categoryListForm">
 
+                        <s:link styleClass="menu-item css-truncate" action="#{articleHome.editArticle}">
+                            <span class="repo-icon octicon octicon-file-text"></span>
+                            <f:param name="articleId" value="welcome"/>
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target">封面文章</span>
+      </span>
+
+                        </s:link>
                         <a:commandLink styleClass="menu-item css-truncate" render="categoryListForm,articleListForm">
                             <span class="repo-icon octicon octicon-file-text"></span>
 
       <span class="repo-and-owner css-truncate-target">
-        <span class="owner css-truncate-target">首页文章</span>
+        <span class="owner css-truncate-target">图片轮播</span>
       </span>
 
                         </a:commandLink>
+
                         <a:repeat value="#{articleCategoryList.resultList}" var="_category">
 
 
@@ -202,9 +225,9 @@
 
                         <div class="sort-bar">
                             <div class="right">
-                                <s:link styleClass="btn btn-sm btn-success" view="/cms/manager/article-editor.xhtml">
+                                <s:link styleClass="btn btn-sm btn-success" action="#{articleHome.editArticle}">
                                     <span class="octicon octicon-plus"></span>
-                                    <f:param name="articleId" value="welcome"/>
+                                    <f:param name="articleId" value=""/>
                                     新建文章
                                 </s:link>
 
@@ -223,14 +246,20 @@
                                     <li class="repo-list-item">
                                         <div class="repo-list-stats">
                                             <a:commandLink styleClass="repo-list-stat-item tooltipped tooltipped-s"
+                                                           render="deleteArticleConfirmPanel_title,deleteArticleConfirmPanel_form"
+                                                           oncomplete="$('#deleteArticleConfirmPanel').modal('show');"
                                                            p:aria-label="删除文章" execute="@this" immediate="true">
                                                 <span class="octicon octicon-trashcan"></span>
                                                 <a:attachQueue requestDelay="0"/>
+                                                <f:param name="articleId" value="#{_article.id}"/>
                                                 删除
                                             </a:commandLink>
                                         </div>
                                         <h3 class="repo-list-name">
-                                            <a:commandLink>#{_article.mainTitle}</a:commandLink>
+                                            <s:link action="#{articleHome.editArticle}">
+                                                <f:param name="articleId" value="#{_article.id}"/>
+                                                #{_article.mainTitle}
+                                            </s:link>
 
                                         </h3>
                                         <p class="repo-list-description">
@@ -259,7 +288,7 @@
                             <span class="mega-octicon octicon-search"></span>
 
                             <h3>没有文章</h3>
-                            <p>没找到任何符合条件的文章.您可以<a:commandLink> <span class="octicon octicon-plus"></span>新建文章</a:commandLink></p>
+                            <p>没找到任何符合条件的文章.您可以<s:link action="#{articleHome.editArticle}"> <span class="octicon octicon-plus"></span><f:param name="articleId" value=""/>新建文章</s:link></p>
                         </s:div>
                     </a:outputPanel>
 

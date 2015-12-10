@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class ArticleList extends MultiOperatorEntityQuery<Article> {
 
 
-    private static final String EJBQL = "select a from Article a ";
+    private static final String EJBQL = "select a from Article a where a.category.type = 'News'";
 
     private static final String[] RESTRICTIONS = {
             "a.category.id = #{articleList.categoryId}"
@@ -37,7 +37,7 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
         setRestrictionGroup(mainRestriction);
         setRestrictionLogicOperator("and");
         //setOrderColumn("a.publishTime");
-        setOrder("a.publishTime, a.id desc");
+        setOrder("a.fixTop desc, a.publishTime desc, a.id ");
         setMaxResults(10);
     }
 
@@ -72,4 +72,6 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
         }
         return category.getName();
     }
+
+
 }

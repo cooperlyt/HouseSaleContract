@@ -15,7 +15,7 @@ import java.util.Date;
 public class Article implements java.io.Serializable{
 
     public enum ArticleViewType{
-        PDF(true),WORD(true),APPLICATION(true),HTML(false),TEXT(false);
+        PDF(true),WORD(true),APPLICATION(true),HTML(false),TEXT(false),URL_LINK(true);
 
         //private String mineType;
 
@@ -39,6 +39,7 @@ public class Article implements java.io.Serializable{
     private ArticleCategory category;
     private ArticleViewType viewType;
     private byte[] resource;
+    private String coverImg;
 
 
     @Id
@@ -96,6 +97,17 @@ public class Article implements java.io.Serializable{
 
     public void setContext(String context) {
         this.context = context;
+    }
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "COVER_IMG",columnDefinition = "LONGTEXT")
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
     }
 
     @Column(name = "FIX_TOP",nullable = false)

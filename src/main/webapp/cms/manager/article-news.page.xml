@@ -10,5 +10,46 @@
     <param name="firstResult" value="#{articleList.firstResult}"/>
     <param name="articleId" value="#{articleHome.id}"/>
 
+    <navigation from-action="#{articleHome.editArticle}">
+        <rule if-outcome="create-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml">
+                <param name="from" value="/cms/manager/article-news.xhtml"/>
+            </redirect>
+        </rule>
+
+        <rule if-outcome="create-News-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml">
+                <param name="from" value="/cms/manager/article-news.xhtml"/>
+            </redirect>
+        </rule>
+        <rule if-outcome="create-Events-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml"></redirect>
+        </rule>
+        <rule if-outcome="create-Welcome-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml">
+                <param name="from" value="/cms/manager/article-news.xhtml"/>
+            </redirect>
+        </rule>
+        <rule if-outcome="create-Download-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml"></redirect>
+        </rule>
+
+        <rule if-outcome="edit-News-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml">
+                <param name="from" value="/cms/manager/article-news.xhtml"/>
+            </redirect>
+        </rule>
+        <rule if-outcome="edit-Events-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml"></redirect>
+        </rule>
+        <rule if-outcome="edit-Welcome-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml">
+                <param name="from" value="/cms/manager/article-news.xhtml"/>
+            </redirect>
+        </rule>
+        <rule if-outcome="edit-Download-article">
+            <redirect view-id="/cms/manager/article-editor.xhtml"></redirect>
+        </rule>
+    </navigation>
 
 </page>

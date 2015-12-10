@@ -1,5 +1,6 @@
 package com.dgsoft.cms.action;
 
+import com.dgsoft.cms.model.Article;
 import com.dgsoft.cms.model.ArticleCategory;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -18,6 +19,8 @@ import java.util.List;
 public class CmsCategoryGroupList {
 
     private final static int COLUMN_COUNT = 5;
+
+    private Article wellcomeArticle;
 
     private List<List<ArticleCategory>> result;
 
@@ -52,4 +55,12 @@ public class CmsCategoryGroupList {
         initResult();
         return result;
     }
+
+    public Article getWellcomeArticle() {
+        if (wellcomeArticle == null){
+            wellcomeArticle = ((EntityManager)Component.getInstance("entityManager",true)).find(Article.class,"welcome");
+        }
+        return wellcomeArticle;
+    }
+
 }

@@ -8,5 +8,26 @@
     <restrict>#{s:hasRole('cmsManager')}</restrict>
 
     <param name="articleId" value="#{articleHome.id}"/>
+    <param name="from"/>
+
+    <navigation from-action="#{articleHome.saveOrUpdate}">
+
+        <rule if-outcome="save-News">
+            <redirect view-id="#{from}">
+                <param name="categoryId"  value="#{articleHome.instance.category.id}"/>
+                <param name="searchCategoryId" value="#{articleHome.instance.category.id}"/>
+            </redirect>
+
+        </rule>
+
+        <rule if-outcome="save-Welcome">
+            <redirect view-id="#{from}">
+                <param name="categoryId"  value=""/>
+                <param name="searchCategoryId" value=""/>
+            </redirect>
+
+        </rule>
+
+    </navigation>
 
 </page>

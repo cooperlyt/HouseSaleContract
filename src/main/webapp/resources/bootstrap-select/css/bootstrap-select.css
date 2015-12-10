@@ -375,22 +375,24 @@
 }
 
 .edit-select button:focus{
-    background-color: inherit;
+    background-color: #fff !important;
+    background-image: none !important;
     outline: none !important;
     border-color: #51a7e8 !important;;
     text-decoration: none;
 }
 
 .edit-select button:hover{
-    background-color: inherit;
+    background-color: #fff ;
+    background-image: none;
 }
 
 .edit-select button:active{
-    background-color: inherit;
+    background-color: #fff ;
 }
 
 .edit-select>.dropdown-toggle.btn-default{
-    background-color: inherit;
+    background-color: #fff ;
 }
 
 .edit-select.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {

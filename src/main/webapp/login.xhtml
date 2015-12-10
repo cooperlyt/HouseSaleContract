@@ -3,51 +3,226 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
                 template="layout/template-base.xhtml">
 
+    <ui:define name="head-title">
+        <title>登录</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+    </ui:define>
 
     <ui:define name="body">
+
+        <a:outputPanel rendered="#{authenticationManager.logonType.useKey}">
+
+
+            <h:outputScript library="long-mai" name="mToken_K1.js"/>
+            <h:outputScript library="long-mai" name="K1mTokenPlugin.js"/>
+            <h:outputScript library="long-mai" name="base64.js"/>
+
+            <h:outputScript>
+
+                //点击登录按钮时调用此函数方法
+                function OnKeyLogon() {
+
+                //获取页面文本框的密码
+                var userpin = document.getElementById("userpin").value;
+
+                if (userpin == "") {
+                alert("用户密码不能为空!");
+                return false;
+                }
+
+                //获取本Key的唯一硬件ID
+                K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                var keyUID = #{r:element('uid')}.value;
+
+                //打开加密锁
+                var nRet = K1mToken.K1_mTokenOpen(keyUID, userpin);
+                if(nRet != 0)
+                {
+                alert("验证用户密码权限失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                return false;
+                }
+
+                //获取本Key的唯一硬件ID
+                K1mTokenFindDevice("#{r:clientId('uid')}");
+
+                //进行客户端摘要的计算
+                var randomMessageFromServer = "#{authenticationManager.encodeRndData}";
+                var randomStr = randomMessageFromServer;
+                //var keyUID = document.getElementById("uid").value;
+                var sha1Str = K1mToken.K1_mTokenSHA1WithSeed(keyUID, randomStr);
+                if(sha1Str == null || sha1Str == "")
+                {
+                alert("SHA1摘要生成失败,错误码:" + K1mToken.K1_mTokenGetLastError());
+                return false;
+                }
+
+                #{r:element('ClientDigest')}.value = sha1Str;
+
+                return true;
+                }
+
+
+            </h:outputScript>
+
+            <object id="mTokenPlugin" type="application/x-mtokenplugin" width="0" height="0">
+                <param value="pluginLoaded"/>
+            </object>
+        </a:outputPanel>
+
+
+        <h:outputStylesheet>
+            .auth-form {
+                width: 400px;
+                margin: 60px auto;
+            }
+
+            .auth-form-header {
+                position: relative;
+                padding: 10px 20px;
+                margin: 0;
+                color: #fff;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+                background-color: #829aa8;
+                border: 1px solid #768995;
+                border-radius: 3px 3px 0 0;
+            }
+
+            .auth-form-body {
+                padding: 20px;
+                font-size: 14px;
+                background-color: #fff;
+                border: 1px solid #d8dee2;
+                border-top: 0;
+                border-radius: 0 0 3px 3px;
+            }
+
+            .auth-form-header h1 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 16px;
+            }
+
+            .auth-form-body .input-block {
+                margin-top: 5px;
+                margin-bottom: 15px;
+            }
+
+            label{
+                margin-bottom: 0;
+            }
+
+            .edit-select button{
+                text-align: left;
+            }
+
+            .edit-select .select-menu-button:after{
+                float: right;
+                margin-top: 7px;
+            }
+        </h:outputStylesheet>
 
 
         <div class="flash-messages container">
             <r:messages/>
         </div>
+        <div role="main">
+            <div class="auth-form" id="login">
+                <h:form>
+                    <r:focus/>
 
-        <div class="auth-form" id="login">
-            <h:form>
-                <r:focus/>
+                    <div class="auth-form-header">
+                        <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
+                    </div>
+                    <div class="auth-form-body">
+                        <div>
+                    <div class="btn-group edit-select" style="margin-bottom: 15px; width: 100%">
+                        <ui:decorate template="/layout/dropdown-actions.xhtml">
+                            <ui:param name="btnClass" value="form-control "/>
+                            <ui:param name="menuClass" value="dropdown-menu-left"/>
+                            <ui:param name="caption" value="#{messages[authenticationManager.logonType.name()]}"/>
+                            <ui:param name="menuTitle" value="登录为"/>
 
-                <div class="auth-form-header">
-                    <h1>#{messages.Welcome} ! #{messages.PleaseLoginHere}</h1>
-                </div>
-                <div class="auth-form-body">
-                    <label for="login_field">
-                        #{messages.login_userName}
-                    </label>
+                            <a:repeat value="#{allowLogonTypes}" var="_logonType">
+                                <s:link styleClass="select-menu-item #{(authenticationManager.logonType eq _logonType) ? 'selected': ''}">
+                                    <f:param name="logonType" value="#{_logonType.name()}"/>
+                                    <span class="select-menu-item-icon octicon octicon-check"></span>
+                                    <span class="select-menu-item-text">#{messages[_logonType.name()]}</span>
+                                </s:link>
+                            </a:repeat>
+                        </ui:decorate>
+                        </div>
+                        </div>
 
-
-                    <h:inputText id="login_field" styleClass="input-block" required="true"
-                                 label="#{messages.login_userName}"
-                                 value="#{credentials.username}"/>
-                    <label for="password">
-                        #{messages.login_password}
-                    </label>
-
-                    <h:inputSecret id="password" styleClass="input-block" required="true"
-                                   label="#{messages.login_password}"
-                                   value="#{credentials.password}"/>
-
-                    <h:commandButton id="loginButton" styleClass="button" data-loading-text="#{messages.SigningIn}"
-                                     value="登录" action="#{identity.login}"
-                                     onclick="$(this).button('正在登录...');"/>
+                        <a:outputPanel rendered="#{not authenticationManager.logonType.useKey}">
 
 
-                </div>
-            </h:form>
 
+                            <a:outputPanel rendered="#{not (authenticationManager.logonType eq 'CMS_MANAGER')}">
+
+                                <label for="login_field">
+                                    #{messages.login_userName}
+                                </label>
+
+                                <h:inputText id="login_field" styleClass="input-block form-control" required="true"
+                                             label="#{messages.login_userName}"
+                                             value="#{credentials.username}"/>
+
+                            </a:outputPanel>
+                            <label for="password">
+                                #{messages.login_password}
+                            </label>
+
+                            <h:inputSecret id="password" styleClass="input-block form-control" required="true"
+                                           label="#{messages.login_password}"
+                                           value="#{credentials.password}"/>
+
+                            <h:commandButton styleClass="btn btn-default" p:data-loading-text="#{messages.SigningIn}"
+                                             value="登录" action="#{identity.login}"
+                                             onclick="$(this).button('loading');"/>
+
+                        </a:outputPanel>
+                        <a:outputPanel rendered="#{authenticationManager.logonType.useKey}">
+
+                            <h:inputHidden id="uid" value="#{credentials.username}"/>
+                            <h:inputHidden id="ClientDigest" value="#{credentials.password}"/>
+
+                            <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    #{messages.login_password}
+                                </ui:define>
+                                <input type="password" class="form-control" id="userpin"/>
+                            </s:decorate>
+
+
+                            <h:commandButton id="loginButton" styleClass="btn btn-default"
+                                             data-loading-text="#{messages.SigningIn}"
+                                             value="#{messages.login}" action="#{identity.login}"
+                                             onclick="if (OnKeyLogon()) {$(this).button('loading');} else {return false;}"/>
+
+                        </a:outputPanel>
+
+                    </div>
+                </h:form>
+
+            </div>
         </div>
+
+
+        <h:outputScript>
+
+            initEditInput();
+
+
+        </h:outputScript>
+
     </ui:define>
 
 </ui:composition>

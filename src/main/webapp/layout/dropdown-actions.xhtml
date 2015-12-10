@@ -8,12 +8,12 @@
     <button type="button" class="btn btn-default select-menu-button dropdown-toggle #{btnClass}" data-toggle="dropdown">
         <ui:insert name="caption">
             #{caption}
-            <span class="caret"></span>
+
         </ui:insert>
     </button>
     </ui:insert>
 
-    <div class="dropdown-menu dropdown-menu-right select-menu-modal-holder"
+    <div class="dropdown-menu select-menu-modal-holder #{empty menuClass ? 'dropdown-menu-right' : menuClass}"
          aria-hidden="false">
         <div class="select-menu-modal">
             <div class="select-menu-header">

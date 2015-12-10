@@ -4,9 +4,16 @@
       xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
 
    <navigation from-action="#{identity.login}">
-      <rule if="#{identity.loggedIn}">
-         <redirect view-id="/home.xhtml"/>
+      <rule if="#{identity.loggedIn and s:hasRole('cmsManager')}">
+         <redirect view-id="/cms/manager/article-news.xhtml"/>
       </rule>
    </navigation>
+
+    <param name="logonType" value="#{authenticationManager.logonTypeName}"/>
+
+
+    <action execute="#{authenticationManager.genLogonRnd}"
+            if="#{not identity.loggedIn and authenticationManager.logonType.useKey}" on-postback="false"/>
+
 
 </page>

@@ -6,6 +6,7 @@ import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.sale.model.ProjectNumber;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
@@ -24,8 +25,18 @@ import java.security.SecureRandom;
 @Name("authenticationManager")
 public class AuthenticationManager {
 
-    private enum LogonType{
-        DEVELOPER,CMS_MANAGER
+    public enum LogonType{
+        DEVELOPER(true),CMS_MANAGER(false),USER(false);
+
+        private boolean useKey;
+
+        public boolean isUseKey() {
+            return useKey;
+        }
+
+        LogonType(boolean useKey) {
+            this.useKey = useKey;
+        }
     }
 
 
@@ -46,7 +57,20 @@ public class AuthenticationManager {
     @In
     private EntityManager entityManager;
 
-    private LogonType logonType;
+    private LogonType logonType = LogonType.USER;
+
+    @Factory(value = "allowLogonTypes", scope = ScopeType.APPLICATION)
+    public LogonType[] getAllowLogonTypes(){
+        return LogonType.values();
+    }
+
+    public LogonType getLogonType() {
+        return logonType;
+    }
+
+    public void setLogonType(LogonType logonType) {
+        this.logonType = logonType;
+    }
 
     public String getLogonTypeName(){
         if (logonType == null){

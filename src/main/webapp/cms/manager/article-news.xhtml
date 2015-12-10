@@ -13,7 +13,7 @@
 
 
 
-    <ui:define name="article-body">
+
 
         <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
             <ui:param name="panelId" value="deleteCategoryConfirmPanel"/>
@@ -202,9 +202,9 @@
 
                         <div class="sort-bar">
                             <div class="right">
-                                <s:link styleClass="btn btn-sm btn-success">
+                                <s:link styleClass="btn btn-sm btn-success" view="/cms/manager/article-editor.xhtml">
                                     <span class="octicon octicon-plus"></span>
-                                    <f:param name="articleId" value=""/>
+                                    <f:param name="articleId" value="welcome"/>
                                     新建文章
                                 </s:link>
 
@@ -271,5 +271,5 @@
 
         </div>
 
-    </ui:define>
+
 </ui:composition>

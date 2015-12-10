@@ -114,7 +114,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="#" class="navbar-brand">
-                        <h:graphicImage width="24" height="24" value="/img/logo-icon.png"/>
+                            <h:graphicImage width="24" height="24" value="/img/logo-icon.png"/>
                         </a>
                     </div>
                     <div class="collapse navbar-collapse">
@@ -131,7 +131,7 @@
                             <li class="header-nav-item">
                                 <a
                                         class="header-nav-link sign-out-button tooltipped tooltipped-s"
-                                         data-ga-click="Header, sign out, icon:logout"
+                                        data-ga-click="Header, sign out, icon:logout"
                                         aria-label="#{messages.logout}"
                                         propagation="none">
                                     <span class="octicon octicon-gear"></span>
@@ -157,7 +157,9 @@
                 </div>
             </nav>
 
-                <ui:include src="/cms/manager/#{empty content ? 'article' : content}#{(empty content or (content eq 'article')) ? '-' : '' }#{(empty content or (content eq 'article')) ? (empty tab ? 'news' : tab) : '' }.xhtml"/>
+            <ui:insert name="base-body">
+                <ui:insert/>
+            </ui:insert>
 
 
         </a:outputPanel>

@@ -15,6 +15,8 @@
     <framework:entity-query name="topNews" max-results="4" order="fixTop desc,publishTime desc, id"
                             ejbql="select article from Article article where article.category.type = &apos;News&apos;"/>
 
+    <framework:entity-query name="topImageNews" order="fixTop desc,publishTime desc, id" ejbql="select article from Article article where article.onFlow = true"/>
+
     <framework:entity-query name="topEvents" max-results="4" order="publishTime desc"
                             ejbql="select article from Article article where article.category.type = &apos;Events&apos;"/>
 

@@ -26,7 +26,7 @@
         <div class="block">
             <p>
                 <h:outputText escape="false" rendered="#{articleHome.instance.viewType eq 'HTML'}" value="#{articleHome.instance.context}"/>
-
+                <h:outputText rendered="#{articleHome.instance.viewType eq 'TEXT'}"  value="#{articleHome.instance.context}"/>
             </p>
         </div>
 

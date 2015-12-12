@@ -5,7 +5,6 @@
 
 
     <param name="categoryId" value="#{articleCategoryHome.id}"/>
-    <param name="searchCategoryId" value="#{articleList.categoryId}"/>
     <param name="searchKey" value="#{articleList.searchKey}"/>
     <param name="firstResult" value="#{articleList.firstResult}"/>
     <param name="articleId" value="#{articleHome.id}"/>

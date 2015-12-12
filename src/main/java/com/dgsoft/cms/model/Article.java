@@ -40,6 +40,8 @@ public class Article implements java.io.Serializable{
     private ArticleViewType viewType;
     private byte[] resource;
     private String coverImg;
+    private String summary;
+    private boolean onFlow;
 
 
     @Id
@@ -67,14 +69,24 @@ public class Article implements java.io.Serializable{
         this.mainTitle = mainTitle;
     }
 
-    @Column(name = "SUB_TITLE", nullable = true, length = 1024)
-    @Size(max = 1024)
+    @Column(name = "SUB_TITLE", nullable = true, length = 512)
+    @Size(max = 512)
     public String getSubTitle() {
         return subTitle;
     }
 
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
+    }
+
+    @Column(name="SUMMARY",nullable = true, length = 1024)
+    @Size(max = 1024)
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -151,5 +163,14 @@ public class Article implements java.io.Serializable{
 
     public void setResource(byte[] resource) {
         this.resource = resource;
+    }
+
+    @Column(name="ON_FLOW",nullable = false)
+    public boolean isOnFlow() {
+        return onFlow;
+    }
+
+    public void setOnFlow(boolean onFlow) {
+        this.onFlow = onFlow;
     }
 }

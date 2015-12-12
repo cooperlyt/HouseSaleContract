@@ -1,12 +1,225 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template.xhtml">
 
-</body>
-</html>
+    <ui:param name="content" value="events"/>
+
+
+
+    <h:outputStylesheet library="cms" name="/css/events.css"/>
+
+    <h:outputStylesheet>
+        table.calendarMonth td{
+            padding: 4px;
+        }
+
+        table.calendarMonth th{
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+
+        }
+
+        table.calendarMonth th:first-child{
+            border-left: 1px solid #ddd;
+        }
+
+        table.calendarMonth th:last-child{
+            border-right: 1px solid #ddd;
+        }
+
+        table.calendarMonth a.create-event{
+            text-decoration: none;
+            color: #999;
+            font-size: 12px;
+            padding: 5px;
+        }
+
+
+        table.calendarMonth a, table.calendarMonth a:visited {
+            color: #e67b10;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        table.calendarMonth a:focus,table.calendarMonth a:hover {
+            text-decoration: underline;
+        }
+
+        table.calendarMonth .calendarDayEvent .calendarDayNumber{
+            color: #7aafdf;
+        }
+
+    </h:outputStylesheet>
+
+
+
+
+
+    <div class="container">
+
+
+        <ui:decorate template="/layout/edit-modalpanel.xhtml">
+            <ui:param name="panelId" value="eventEditPanel"/>
+            <ui:define name="panelTitle">
+                <h:outputText value="#{articleHome.instance.publishTime}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </h:outputText>
+                #{articleHome.managed ? '编辑' : '新建'}事件
+            </ui:define>
+
+
+            <s:decorate template="/layout/edit.xhtml">
+                <ui:define name="label">标题</ui:define>
+                <ui:param name="for" value="eventTitleInput"/>
+                <h:inputText id="eventTitleInput" value="#{articleHome.instance.mainTitle}" required="true"
+                             label="标题"
+                             styleClass="form-control" maxlength="256"/>
+
+            </s:decorate>
+
+            <s:decorate template="/layout/edit.xhtml">
+                <ui:define name="label">内容</ui:define>
+                <ui:param name="for" value="eventSummaryInput"/>
+                <h:inputTextarea id="eventSummaryInput" rows="4" label="内容"
+                                 styleClass="form-control"
+                                 value="#{articleHome.instance.summary}"/>
+            </s:decorate>
+
+            <h:inputHidden value="#{articleHome.instance.publishTime}"/>
+
+            <ui:define name="actionButtons">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-floppy-remove"/>
+                    取消</button>
+
+                <a:commandLink styleClass="btn btn-danger" rendered="#{articleHome.managed}"
+                               immediate="true" execute="@this" render="calderForm"
+                               action="#{articleHome.removeAndClear}"
+                               oncomplete="$('#eventEditPanel').modal('hide');"
+                               value="删除">
+                    <a:attachQueue requestDelay="0"/>
+                    <span class="octicon octicon-trashcan"/>
+                </a:commandLink>
+
+
+                <a:commandLink styleClass="btn btn-success" render="eventEditPanel_inputs,calderForm"
+                               execute="@form"
+                               oncomplete="if (#{facesContext.maximumSeverity==null} || #{facesContext.maximumSeverity.ordinal lt 2}){$('#eventEditPanel').modal('hide')}"
+                               action="#{articleHome.saveOrUpdate}">
+                    <span class="glyphicon glyphicon-floppy-disk"/>
+                    <a:attachQueue requestDelay="0"/>
+                    <f:param name="categoryId" value="events"/>
+                    保存
+                </a:commandLink>
+
+            </ui:define>
+
+        </ui:decorate>
+
+        <h:form>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="right">
+                    <div class="btn-group" role="group" aria-label="...">
+                    <h:selectOneMenu p:data-width="100px" styleClass="selectpicker group-first" value="#{eventsGroup.year}">
+                        <s:selectItems value="#{eventsGroup.selectYear}" var="_year"
+                                       itemValue="#{_year}" label="#{_year}年"/>
+                        <a:ajax execute="@form" event="valueChange" render="calderForm">
+                            <a:attachQueue requestDelay="0"/>
+                        </a:ajax>
+                    </h:selectOneMenu>
+                    <h:selectOneMenu p:data-width="80px" styleClass="selectpicker" value="#{eventsGroup.month}">
+                        <c:forEach begin="1" end="12" var="_month">
+                            <f:selectItem itemValue="#{_month}" itemLabel="#{_month}月"/>
+                        </c:forEach>
+                        <a:ajax execute="@form" event="valueChange" render="calderForm">
+                            <a:attachQueue requestDelay="0"/>
+                        </a:ajax>
+                    </h:selectOneMenu>
+                        </div>
+                </div>
+                <h3 style="margin-top: 5px;margin-bottom: 0">事件</h3>
+
+
+
+            </div>
+        </div>
+        </h:form>
+        <h:form id="calderForm">
+
+
+
+
+    <table cellspacing="0" cellpadding="4" class="calendarMonth">
+        <thead>
+        <tr>
+
+            <th scope="col">周一</th>
+            <th scope="col">周二</th>
+            <th scope="col">周三</th>
+            <th scope="col">周四</th>
+            <th scope="col">周五</th>
+            <th scope="col">周六</th>
+            <th scope="col">周日</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <a:repeat value="#{eventsGroup.resultList}" var="_weekEvent">
+            <tr valign="top">
+                <a:repeat value="#{_weekEvent}" var="_dayEvent">
+                    <td class="#{_dayEvent.emptyEvent ? 'calendarDayEmpty' : 'calendarDayEvent'}">
+                        <div class="calendarNumeral">
+                            <h:outputText styleClass="calendarDayNumber" value="#{_dayEvent.date}">
+                                <f:convertNumber pattern="00"/>
+                            </h:outputText>
+
+                        </div>
+                        <a:repeat value="#{_dayEvent.events}" var="_event">
+                            <a:commandLink value="#{_event.mainTitle}" execute="@this"
+                                           oncomplete="$('#eventEditPanel').modal({backdrop: 'static'})"
+                                           immediate="true" render="eventEditPanel_title,eventEditPanel_form"
+                                           styleClass="eventNumbLink">
+                                <f:param name="articleId" value="#{_event.id}"/>
+                                <a:attachQueue requestDelay="0"/>
+                            </a:commandLink>
+
+                        </a:repeat>
+
+
+                        <a:commandLink oncomplete="$('#eventEditPanel').modal({backdrop: 'static'})"
+                                       execute="@this" immediate="true" render="eventEditPanel_title,eventEditPanel_form"
+                                       styleClass="eventNumbLink create-event">
+                            <span class="glyphicon glyphicon-plus"/>
+                            <f:param name="articleId" value=""/>
+                            <a:param value="#{_dayEvent.time}" assignTo="#{articleHome.instance.publishTime}"/>
+                            <a:attachQueue requestDelay="0"/>
+                            建立事件
+                        </a:commandLink>
+
+                    </td>
+                </a:repeat>
+            </tr>
+        </a:repeat>
+
+        </tbody>
+
+
+
+    </table>
+        </h:form>
+    </div>
+
+</ui:composition>

@@ -77,56 +77,33 @@
                             <a id="nextSlide" class="nextSlide" href="#">›</a>
                         </div>
                         <div id="SlideShowTextProxy" style="display: block;"><div><div>
-                            <div class="SlideItemTitle"> Healthy,  Affordable  Housing - For All</div>
+                            <div class="SlideItemTitle"></div>
                             <div class="SlideItemDesc"></div>
                         </div></div></div>
                     </div>
                     <div class="SlideshowWidget">
                         <div class="SlideshowHome">
 
-                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: block; z-index: 5; opacity: 1; width: 470px; height: 280px;">
+                            <a:repeat value="#{topImageNews.resultList}" var="_imageArticle">
 
-                                <div class="SlideShowImg">
-                                    <a id="CT_FlexTop_0_rptSlideshow_ctl00_hlkSlide" href="/overview-of-hacsc-real-estate/"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/295fe60cfc264805a7da5f437e6d2f591.jpg" id="CT_FlexTop_0_rptSlideshow_ctl00_imgSlide" alt="Home Slide 01" style="width:470px;height:280px;"/></a>
-                                </div>
-                                <div class="SlideShowText">
-                                    <div class="SlideItemTitle"> Healthy,  Affordable  Housing - For All</div>
-                                    <div class="SlideItemDesc"></div>
-                                </div>
-                            </div>
+                                <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: block; z-index: 5; opacity: 1; width: 470px; height: 280px;">
 
-                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
+                                    <div class="SlideShowImg">
+                                        <s:link action="#{articleHome.viewArticle}" target="#{_news.viewType.outView ? '_blank' : '_self'}">
+                                            <f:param name="articleId" value="#{_imageArticle.id}"/>
+                                            <img src="#{_imageArticle.coverImg}" alt="#{_imageArticle.mainTitle}" style="width:470px;height:280px;"/>
+                                        </s:link>
+                                    </div>
+                                    <div class="SlideShowText">
+                                        <div class="SlideItemTitle">#{_imageArticle.mainTitle}</div>
+                                        <div class="SlideItemDesc">#{_imageArticle.subTitle}</div>
+                                    </div>
+                                </div>
 
-                                <div class="SlideShowImg">
-                                    <a id="CT_FlexTop_0_rptSlideshow_ctl01_hlkSlide" href="/overview-of-hacsc-real-estate/hacsc-properties/"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/68a1555962d741c6a0bf6bda9b7d7c0f1.jpg" id="CT_FlexTop_0_rptSlideshow_ctl01_imgSlide" alt="Home Slide 02" style="width:470px;height:280px;"/></a>
-                                </div>
-                                <div class="SlideShowText">
-                                    <div class="SlideItemTitle">Housing on the Horizon</div>
-                                    <div class="SlideItemDesc">at Park and Laurel Grove Lane in San Jose</div>
-                                </div>
-                            </div>
 
-                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
+                            </a:repeat>
 
-                                <div class="SlideShowImg">
-                                    <a id="CT_FlexTop_0_rptSlideshow_ctl02_hlkSlide" href="/about-hacsc/"><img src="http://www.hacsc.org/assets/1/6/SlideShowDimensionMain/a4a78bc67b3d4db69a0b197a141093061.png" id="CT_FlexTop_0_rptSlideshow_ctl02_imgSlide" alt="Home Slide 03" style="width:470px;height:280px;"/></a>
-                                </div>
-                                <div class="SlideShowText">
-                                    <div class="SlideItemTitle">Assisting over 17,000 families</div>
-                                    <div class="SlideItemDesc"></div>
-                                </div>
-                            </div>
 
-                            <div class="slideItem" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 470px; height: 280px;">
-
-                                <div class="SlideShowImg">
-                                    <a id="CT_FlexTop_0_rptSlideshow_ctl03_hlkSlide" href="http://www.hacsc.org/assets/1/6/HACSC_PBV_RFP_News_Release.pdf"><img src="http://www.hacsc.org/assets/1/17/SlideShowDimensionMain/shutterstock_77502547.jpg" id="CT_FlexTop_0_rptSlideshow_ctl03_imgSlide" alt="Home Slide 04" style="width:470px;height:280px;"/></a>
-                                </div>
-                                <div class="SlideShowText">
-                                    <div class="SlideItemTitle">Interested in Affordable Housing? We can help!</div>
-                                    <div class="SlideItemDesc">Click on the picture for information</div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -199,7 +176,7 @@
 
                                                 <s:link action="#{articleHome.viewArticle}" target="#{_news.viewType.outView ? '_blank' : '_self'}" styleClass="modItemTitle" title="阅读完整文章">#{_news.mainTitle}<f:param name="articleId" value="#{_news.id}"/></s:link>
 
-                                                <div class="modItemSummary">#{_news.subTitle}</div>
+                                                <div class="modItemSummary">#{_news.summary}</div>
 
                                                 <s:link  action="#{articleHome.viewArticle}" target="#{_news.viewType.outView ? '_blank' : '_self'}" styleClass="more">阅读<f:param name="articleId" value="#{_news.id}"/></s:link>
 

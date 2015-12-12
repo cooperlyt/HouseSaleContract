@@ -1,6 +1,7 @@
 package com.dgsoft.cms.action;
 
 import com.dgsoft.cms.model.Article;
+import com.dgsoft.cms.model.ArticleCategory;
 import com.dgsoft.common.EntityHomeAdapter;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
@@ -31,6 +32,7 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
 //        //郎酒15年陈红花郎酒53°500ML，楼兰蛇龙珠戈壁干红（铁盒）750ML，组合价699元。
 //    }
 
+
     private String htmlContent;
 
     public String getHtmlContent() {
@@ -53,14 +55,21 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
     }
 
     private void saveContent(){
+        getInstance().setCategory(articleCategoryHome.getInstance());
+
         if (Article.ArticleViewType.HTML.equals(getInstance().getViewType())){
             getInstance().setContext(htmlContent);
         }
-        getInstance().setPublishTime(new Date());
+        if (!ArticleCategory.CategoryType.Events.equals(getInstance().getCategory().getType())){
+            getInstance().setPublishTime(new Date());
+        }else{
+            getInstance().setViewType(Article.ArticleViewType.TEXT);
+        }
+
 
     }
 
-    @In(required = false)
+    @In(create = true)
     private ArticleCategoryHome articleCategoryHome;
 
     public String editArticle(){

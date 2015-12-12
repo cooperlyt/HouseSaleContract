@@ -13,13 +13,13 @@
 
 
     <ui:define name="path-nav">
-        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/news-list.xhtml">公告&amp;新闻<f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link><span class="default">/</span><span>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</span>
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/news-list.xhtml">公告&amp;新闻<f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link><span class="default">/</span><span>#{articleCategoryHome.idDefined ? articleCategoryHome.instance.name : '所有文章'}</span>
     </ui:define>
 
 
 
                         <div class="page_heading" id="page_heading">
-                            <h1>#{empty articleList.categoryId ? '所有文章' : articleList.categoryName}</h1>
+                            <h1>#{articleCategoryHome.idDefined ? articleCategoryHome.instance.name : '所有文章'}</h1>
                         </div>
                         <div class="mainContent" style="font-size: 13px;">
                             <div class="newsModuleWrpr">
@@ -33,7 +33,7 @@
 
                                             <div class="newsFilterCatWrpr">
                                                 <s:label for="drpCategories">类别:</s:label>
-                                                <h:selectOneMenu id="drpCategories" value="#{articleList.categoryId}" styleClass="newsFilterCat">
+                                                <h:selectOneMenu id="drpCategories" value="#{articleCategoryHome.id}" styleClass="newsFilterCat">
                                                     <s:selectItems value="#{cmsCategoryGroupList.allCategorys}" var="_category" itemValue="#{_category.id}"
                                                             label="#{_category.name}" noSelectionLabel="全部"/>
                                                 </h:selectOneMenu>
@@ -98,7 +98,7 @@
                                                             </h2>
 
 
-                                                            <p>#{_article.subTitle}</p>
+                                                            <p>#{_article.summary}</p>
                                                             <s:link action="#{articleHome.viewArticle}" target="#{_article.viewType.outView ? '_blank' : '_self'}">
                                                                 阅读全部
                                                                 <f:param name="articleId" value="#{_article.id}"/>

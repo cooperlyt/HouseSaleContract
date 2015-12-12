@@ -19,13 +19,13 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
     private static final String EJBQL = "select a from Article a where a.category.type = 'News'";
 
     private static final String[] RESTRICTIONS = {
-            "a.category.id = #{articleList.categoryId}"
+            "a.category.id = #{articleCategoryHome.instance.id}"
     };
 
     private static final String[] RESTRICTIONS2 = {
-            "lower(a.mainTitle) like lower(concat('%',#{articleList.searchKey},'%'))) ",
-            "lower(a.subTitle) like lower(concat('%',#{articleList.searchKey},'%'))) ",
-            "lower(a.author) like lower(concat('%',#{articleList.searchKey},'%'))) ",
+            "lower(a.mainTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
+            "lower(a.subTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
+            "lower(a.summary) like lower(concat('%',#{articleList.searchKey},'%'))"
     };
 
 
@@ -44,16 +44,6 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
 
     private String searchKey;
 
-    private String categoryId;
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getSearchKey() {
         return searchKey;
     }
@@ -62,16 +52,7 @@ public class ArticleList extends MultiOperatorEntityQuery<Article> {
         this.searchKey = searchKey;
     }
 
-    public String getCategoryName(){
-        if (categoryId == null || categoryId.trim().equals("")){
-            return null;
-        }
-        ArticleCategory category = getEntityManager().find(ArticleCategory.class,categoryId);
-        if (category == null){
-            return null;
-        }
-        return category.getName();
-    }
+
 
 
 }

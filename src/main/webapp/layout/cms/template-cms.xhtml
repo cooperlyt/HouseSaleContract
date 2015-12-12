@@ -28,7 +28,7 @@
 
                     <a:repeat value="#{cmsCategoryGroupList.allCategorys}" var="_category">
                         <li>
-                            <s:link view="/cms/news-list.xhtml" styleClass="#{(articleList.categoryId eq _category.id) ? 'on' : ''}">#{_category.name}<f:param name="categoryId" value="#{_category.id}"/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
+                            <s:link view="/cms/news-list.xhtml" styleClass="#{(articleCategoryHome.instance.id eq _category.id) ? 'on' : ''}">#{_category.name}<f:param name="categoryId" value="#{_category.id}"/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
                         </li>
                     </a:repeat>
 

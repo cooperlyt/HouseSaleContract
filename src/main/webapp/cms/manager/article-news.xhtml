@@ -12,6 +12,7 @@
                 template="article.xhtml">
 
 
+
     <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
         <ui:param name="panelId" value="deleteArticleConfirmPanel"/>
         <ui:param name="entityTitle" value="#{articleHome.instance.mainTitle}"/>
@@ -122,19 +123,12 @@
                         <s:link styleClass="menu-item css-truncate" action="#{articleHome.editArticle}">
                             <span class="repo-icon octicon octicon-file-text"></span>
                             <f:param name="articleId" value="welcome"/>
+                            <f:param name="categoryId" value="welcome"/>
       <span class="repo-and-owner css-truncate-target">
         <span class="owner css-truncate-target">封面文章</span>
       </span>
 
                         </s:link>
-                        <a:commandLink styleClass="menu-item css-truncate" render="categoryListForm,articleListForm">
-                            <span class="repo-icon octicon octicon-file-text"></span>
-
-      <span class="repo-and-owner css-truncate-target">
-        <span class="owner css-truncate-target">图片轮播</span>
-      </span>
-
-                        </a:commandLink>
 
                         <a:repeat value="#{articleCategoryList.resultList}" var="_category">
 
@@ -147,7 +141,6 @@
         <span class="owner css-truncate-target" title="#{_category.description}">#{_category.name}</span>
       </span>
                                     <f:param name="categoryId" value="#{_category.id}"/>
-                                    <f:param name="searchCategoryId" value="#{_category.id}"/>
                                     <f:param name="firstResult" value="0"/>
                                     <f:param name="searchKey" value=""/>
                                     <a:attachQueue requestDelay="0"/>
@@ -169,7 +162,7 @@
 
                         <div class="input-group-btn">
                             <h:selectOneMenu styleClass="selectpicker select-menu-btn input-group-first"
-                                             value="#{articleList.categoryId}">
+                                             value="#{articleCategoryHome.id}">
                                 <s:selectItems value="#{articleCategoryList.resultList}" var="_category"
                                                label="#{_category.name}" itemValue="#{_category.id}" noSelectionLabel="全部种类"/>
                             </h:selectOneMenu>
@@ -263,7 +256,7 @@
 
                                         </h3>
                                         <p class="repo-list-description">
-                                            #{_article.subTitle}
+                                            #{_article.summary}
                                         </p>
                                         <p class="repo-list-meta">
                                             <h:outputText value="#{_article.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText>

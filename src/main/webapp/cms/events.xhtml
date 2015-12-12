@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/cms/template-blank.xhtml">
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><span>事件&amp;通知</span>
+    </ui:define>
+
+    <div class="page_heading">
+        <h1>事件&amp;通知</h1>
+    </div>
+
+    <div class="mainContent">
+
+        <div class="mod eventsTheme">
+
+        </div>
+
+        <div class="mod eventsTheme">
+            <div class="hdngbar primaryc">
+                <h3>December 2015 Events</h3>
+                <div class="clear">&nbsp;</div>
+            </div>
+
+            <table cellspacing="0" cellpadding="4" class="calendarMonth">
+                <thead>
+                <tr>
+
+                    <th scope="col">周一</th>
+                    <th scope="col">周二</th>
+                    <th scope="col">周三</th>
+                    <th scope="col">周四</th>
+                    <th scope="col">周五</th>
+                    <th scope="col">周六</th>
+                    <th scope="col">周日</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <a:repeat value="#{eventsGroup.resultList}" var="_weekEvent">
+                    <tr valign="top">
+                        <a:repeat value="#{_weekEvent}" var="_dayEvent">
+                            <td class="#{_dayEvent.emptyEvent ? 'calendarDayEmpty' : 'calendarDayEvent'}">
+                                <div class="calendarNumeral">
+                                    <h:outputText rendered="#{_dayEvent.emptyEvent}" value="#{_dayEvent.date}">
+                                        <f:convertNumber pattern="00"/>
+                                    </h:outputText>
+                                    <s:link rendered="#{not _dayEvent.emptyEvent}">
+                                        <h:outputText value="#{_dayEvent.date}">
+                                            <f:convertNumber pattern="00"/>
+                                        </h:outputText>
+                                    </s:link>
+                                </div>
+                                <a:repeat value="#{_dayEvent.events}" var="_event">
+                                    <s:link styleClass="eventNumbLink">
+                                        #{_event.mainTitle}
+                                    </s:link>
+                                </a:repeat>
+
+                            </td>
+                        </a:repeat>
+                    </tr>
+                </a:repeat>
+
+                </tbody>
+
+
+
+            </table>
+        </div>
+
+    </div>
+
+
+</ui:composition>

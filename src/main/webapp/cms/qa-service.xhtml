@@ -1,12 +1,128 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-service.xhtml">
 
-</body>
-</html>
+    <ui:param name="currFunc" value="qa"/>
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/tel-service.xhtml">便民服务</s:link><span class="default">/</span><span>常见问题</span>
+    </ui:define>
+
+
+    <div class="page_heading" id="page_heading">
+        <h1>常见问题 - #{ articleCategoryHome.idDefined ? articleCategoryHome.instance.name : '所有问题'}</h1>
+    </div>
+    <div class="mainContent" style="font-size: 13px;">
+        <div class="newsModuleWrpr">
+            <div>
+                <div class="filter news-filter clearfix">
+
+                    <h:form >
+                        <div class=" filterOptions">
+
+
+
+                            <div class="newsFilterCatWrpr">
+                                <s:label for="drpCategories">类别:</s:label>
+                                <h:selectOneMenu id="drpCategories" value="#{articleCategoryHome.id}" styleClass="newsFilterCat">
+                                    <s:selectItems value="#{allQACategories.resultList}" var="_category" itemValue="#{_category.id}"
+                                                   label="#{_category.name}" noSelectionLabel="全部"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="newsFilterCatWrpr">
+                                <s:label for="filterKey">关键字:</s:label>
+                                <h:inputText id="filterKey" value="#{QAList.searchKey}"/>
+                            </div>
+                        </div>
+
+                        <div class="filterActions">
+				                            <span class="newsFilterSearchBtn">
+                                                <h:commandButton value="查询" styleClass="btn" action="#{QAList.first}"/>
+
+				                            </span>
+
+
+                        </div>
+                    </h:form>
+                </div>
+
+
+                <div>
+                    <a:outputPanel layout="block" styleClass="paging" rendered="#{not empty QAList.resultList}">
+                        <div class="sortStatus">
+                            <b>共找到:</b> #{QAList.resultCount} 个问题.
+                        </div>
+
+                        <ui:include src="/cms/samll-page-nav.xhtml">
+                            <ui:param name="entityList" value="#{QAList}"/>
+                        </ui:include>
+
+                        <div class="clear"></div>
+                    </a:outputPanel>
+                    <a:outputPanel layout="block" styleClass="paging" rendered="#{empty QAList.resultList}">
+                        <div class="sortStatus">
+                            没有此类问题
+                        </div>
+                        <div class="clear"></div>
+                    </a:outputPanel>
+                </div>
+
+                <a:outputPanel layout="block" styleClass="mod newsOverview" rendered="#{not empty QAList.resultList}">
+                    <div class="modContent">
+                        <ul class="itemList">
+                            <a:repeat value="#{QAList.resultList}" var="_article">
+                                <li class="item clearfix featured">
+                                    <ui:remove>
+                                        <figure class="aside" style="display:none;">
+                                            <a id="CT_Main_1_rptNewsPage_ctl01_hlkImage" href="/assets/1/6/1000_PBV_voucher_press_release_051915.pdf" target="_blank"><img id="CT_Main_1_rptNewsPage_ctl01_imgPage" class="bdr"/></a>
+                                            <figcaption class="caption">
+
+                                            </figcaption>
+                                        </figure>
+                                    </ui:remove>
+                                    <div class="content" style="margin-left:0px;">
+                                        <h2 class="title" style="font-weight: bold">
+
+                                                #{_article.mainTitle}
+
+                                        </h2>
+
+
+                                        <p style="padding-left: 25px;">#{_article.context}</p>
+                                    </div>
+                                </li>
+
+                            </a:repeat>
+
+
+                        </ul>
+                    </div>
+                </a:outputPanel>
+
+                <a:outputPanel layout="block" styleClass="moduleContents" rendered="#{not empty QAList.resultList}">
+                    <a:outputPanel layout="block" styleClass="paging" >
+                        <div class="sortStatus">
+                            <b>共找到:</b> #{QAList.resultCount} 个问题.
+                        </div>
+
+                        <ui:include src="/cms/samll-page-nav.xhtml">
+                            <ui:param name="entityList" value="#{QAList}"/>
+                        </ui:include>
+
+                        <div class="clear"></div>
+                    </a:outputPanel>
+                </a:outputPanel>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

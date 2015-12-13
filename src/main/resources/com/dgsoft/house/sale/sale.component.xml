@@ -24,4 +24,7 @@
     <framework:entity-query name="downloadCategories" order="ac.pri"
                             ejbql="select ac from ArticleCategory ac where ac.type = &apos;Download&apos;"/>
 
+    <framework:entity-query name="allQACategories" order="ac.pri"
+                            ejbql="select ac from ArticleCategory ac where ac.type = &apos;QA&apos;"/>
+
 </components>

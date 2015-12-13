@@ -69,6 +69,8 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
         }else{
             if(ArticleCategory.CategoryType.Download.equals(getInstance().getCategory().getType())){
                 getInstance().setViewType(Article.ArticleViewType.APPLICATION);
+            }else if (ArticleCategory.CategoryType.QA.equals(getInstance().getCategory().getType())){
+                getInstance().setViewType(Article.ArticleViewType.TEXT);
             }
 
             getInstance().setPublishTime(new Date());

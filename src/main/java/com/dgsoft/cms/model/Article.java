@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -172,5 +173,35 @@ public class Article implements java.io.Serializable{
 
     public void setOnFlow(boolean onFlow) {
         this.onFlow = onFlow;
+    }
+
+
+    @Transient
+    public int getYear(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getPublishTime());
+        return calendar.get(Calendar.YEAR);
+    }
+
+    @Transient
+    public int getMonth(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getPublishTime());
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    @Transient
+    public String getMonthName(){
+        String[] month = {"一","二","三","四","五","六","七","八","九","十","十一","十二"};
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getPublishTime());
+        return month[calendar.get(Calendar.MONTH)];
+    }
+
+    @Transient
+    public int getDay(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getPublishTime());
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 }

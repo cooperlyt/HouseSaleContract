@@ -1299,3 +1299,7 @@ label {
     border-top-left-radius: 3px !important;
 }
 
+
+.octicon.nav-icon{
+    font-size: 17px;
+}

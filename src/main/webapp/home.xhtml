@@ -200,87 +200,35 @@
                         <section class="modWrpr">
                             <div class="modHead">
                                 <h3 class="modHeadEvents">
-                                    <a href="/events/month/?F_d=12%2F5%2F2015">事件&amp;通知<span>更多</span></a>
+                                    <s:link view="/cms/events.xhtml"><f:param name="model" value="month"/>事件&amp;通知<span>更多</span></s:link>
                                 </h3>
                             </div>
                             <div class="modBody">
 
                                 <ul class="modList">
 
-                                    <li class="modListItem clearfix">
-                                        <figure class="modItemFig">
-                                            <div class="dateBlock">
-                                                <div class="mon">Dec </div>
-                                                <div class="day">04</div>
+                                    <a:repeat value="#{topEvents.resultList}" var="_event">
+                                        <li class="modListItem clearfix">
+                                            <figure class="modItemFig">
+                                                <div class="dateBlock">
+                                                    <div class="mon">#{_event.monthName}</div>
+                                                    <div class="day"><h:outputText value="#{_event.day}"><f:convertNumber pattern="00"/></h:outputText></div>
+                                                </div>
+                                            </figure>
+                                            <div class="modItem">
+                                                <s:link styleClass="modItemTitle" view="/cms/events.xhtml">
+                                                    <f:param name="year" value="#{_event.year}"/>
+                                                    <f:param name="month" value="#{_event.month}"/>
+                                                    <f:param name="day" value="#{_event.day}"/>
+                                                    <f:param name="model" value="day"/>#{_event.mainTitle} - <h:outputText value="#{_event.publishTime}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></h:outputText></s:link>
+
+                                                <div class="modItemDate">#{_event.summary}</div>
+                                                <div></div>
                                             </div>
-                                        </figure>
-                                        <div class="modItem">
-                                            <a href="/events/office-closure/?F_d=12-04-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl01_ltlLink" class="modItemTitle" name="EventAnchor_83_12/4/2015 12:00:00 AM">Office Closure - 12/4/2015</a>
-                                            <div class="modItemDate">(All Day Event)</div>
-                                            <div></div>
-                                        </div>
 
-                                    </li>
+                                        </li>
 
-                                    <li class="modListItem clearfix">
-                                        <figure class="modItemFig">
-                                            <div class="dateBlock">
-                                                <div class="mon">Dec </div>
-                                                <div class="day">08</div>
-                                            </div>
-                                        </figure>
-                                        <div class="modItem">
-                                            <a href="/events/hacsc-board-of-commissioners-meeting-december-2015/" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl02_ltlLink" class="modItemTitle" name="EventAnchor_180_12/8/2015 12:00:00 AM">HACSC Board of Commissioners Meeting December 2015 - 12/8/2015</a>
-                                            <div class="modItemDate">Tuesday, DEC 08, 2015 (09:30 AM - 12:00 PM)</div>
-                                            <div></div>
-                                        </div>
-
-                                    </li>
-
-                                    <li class="modListItem clearfix">
-                                        <figure class="modItemFig">
-                                            <div class="dateBlock">
-                                                <div class="mon">Dec </div>
-                                                <div class="day">16</div>
-                                            </div>
-                                        </figure>
-                                        <div class="modItem">
-                                            <a href="/events/hacsc-tenants-housing-search-workshop1---english/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl03_ltlLink" class="modItemTitle" name="EventAnchor_198_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - English - 12/16/2015</a>
-                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (09:00 AM - 10:00 AM)</div>
-                                            <div></div>
-                                        </div>
-
-                                    </li>
-
-                                    <li class="modListItem clearfix">
-                                        <figure class="modItemFig">
-                                            <div class="dateBlock">
-                                                <div class="mon">Dec </div>
-                                                <div class="day">16</div>
-                                            </div>
-                                        </figure>
-                                        <div class="modItem">
-                                            <a href="/events/hacsc-tenants-housing-search-workshop---vietnamese1/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl04_ltlLink" class="modItemTitle" name="EventAnchor_200_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - Vietnamese - 12/16/2015</a>
-                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (11:00 AM - 12:00 PM)</div>
-                                            <div></div>
-                                        </div>
-
-                                    </li>
-
-                                    <li class="modListItem clearfix">
-                                        <figure class="modItemFig">
-                                            <div class="dateBlock">
-                                                <div class="mon">Dec </div>
-                                                <div class="day">16</div>
-                                            </div>
-                                        </figure>
-                                        <div class="modItem">
-                                            <a href="/events/hacsc-tenants-housing-search-workshop---spanish1/?F_d=12-16-2015" id="CT_FeaturedBoxRight_0_rptEventsRail_ctl05_ltlLink" class="modItemTitle" name="EventAnchor_202_12/16/2015 12:00:00 AM">HACSC Tenants' Housing Search Workshop - Spanish - 12/16/2015</a>
-                                            <div class="modItemDate">Wednesday, DEC 16, 2015 (03:00 PM - 04:00 PM)</div>
-                                            <div></div>
-                                        </div>
-
-                                    </li>
+                                    </a:repeat>
 
                                 </ul>
 

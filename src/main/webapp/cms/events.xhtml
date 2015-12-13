@@ -14,6 +14,13 @@
         <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><span>事件&amp;通知</span>
     </ui:define>
 
+    <h:outputStylesheet library="octicons" name="octicons.css"/>
+    <h:outputStylesheet>
+        .octicon.nav-icon{
+            color: #535353;
+            padding: 0 2px;
+        }
+    </h:outputStylesheet>
     <div class="page_heading">
         <h1>事件&amp;通知</h1>
     </div>
@@ -21,61 +28,260 @@
     <div class="mainContent">
 
         <div class="mod eventsTheme">
+            <div class="filter">
+                <div class="filterIns">
+                    <div class="filterViewWrpr">
+                        <div class="viewType">
+                            <span class="viewHead">查看:</span>
+                            <ui:remove>
+                            <span class="summary"><a href="/events/">摘要</a></span> |
+                            </ui:remove>
+                            <span class="month #{(model eq 'month') ? 'selected themec' : ''}"> <s:link rendered="#{not (model eq 'month')}" ><f:param name="model" value="month"/>月</s:link><h:outputText value="月" rendered="#{(model eq 'month')}"/></span> |
+                            <span class="week #{(model eq 'week') ? 'selected themec' : ''}"><s:link rendered="#{not (model eq 'week')}" ><f:param name="model" value="week"/>周</s:link><h:outputText value="周" rendered="#{(model eq 'week')}"/></span><h:outputText value=" | " rendered="#{(model eq 'day')}"/>
+                            <a:outputPanel rendered="#{(model eq 'day')}" styleClass="day selected themec">天</a:outputPanel>
 
+                        </div>
+                        <div class="displayMode">
+
+                            <div class="calendarBtnWrpr">
+                                <s:link styleClass="btnWrapper">
+                                    <f:param name="model" value="month"/>
+                                    <span class="btn">事件 日历</span>
+                                </s:link>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filterSortFieldsWrpr">
+                        <h:form id="filterForm">
+
+                            <a:outputPanel rendered="#{model eq 'week'}" layout="block" styleClass="monthYear">
+                                <div class="monthYearDropdowns">
+                                         <span>
+                                    <a:commandLink action="#{eventsGroup.previousWeek}" immediate="true" execute="@this" render="calendar,filterForm">
+                                        <a:attachQueue requestDelay="0"/>
+                                        <span class="octicon octicon-triangle-left nav-icon"/>
+                                    </a:commandLink>
+                                </span>
+                                    <span class="bold">
+                                        <h:outputText value="#{eventsGroup.beginDateOfWeek}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></h:outputText> - <h:outputText value="#{eventsGroup.endDateOfWeek}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></h:outputText>
+                                    </span>
+                                                       <span>
+                                                  <a:commandLink action="#{eventsGroup.nextWeek}" immediate="true" execute="@this" render="calendar,filterForm">
+                                                      <a:attachQueue requestDelay="0"/>
+                                                      <span class="octicon octicon-triangle-right nav-icon"/>
+                                                  </a:commandLink>
+                                </span>
+                                </div>
+                            </a:outputPanel>
+
+
+                            <a:outputPanel rendered="#{model eq 'day'}" layout="block" styleClass="monthYear">
+                                <div class="monthYearDropdowns">
+                                         <span>
+                                    <a:commandLink action="#{eventsGroup.previousDay}" immediate="true" execute="@this" render="calendar,filterForm">
+                                        <a:attachQueue requestDelay="0"/>
+                                        <span class="octicon octicon-triangle-left nav-icon"/>
+                                    </a:commandLink>
+                                </span>
+                                    <span class="bold">
+                                        #{eventsGroup.year}年#{eventsGroup.month}月#{eventsGroup.dayOfMonth}日
+                                    </span>
+                                                       <span>
+                                                  <a:commandLink action="#{eventsGroup.nextDay}" immediate="true" execute="@this" render="calendar,filterForm">
+                                                      <a:attachQueue requestDelay="0"/>
+                                                      <span class="octicon octicon-triangle-right nav-icon"/>
+                                                  </a:commandLink>
+                                </span>
+                                </div>
+                            </a:outputPanel>
+
+                        <a:outputPanel rendered="#{model eq 'month'}" layout="block" styleClass="monthYear">
+                            <div class="monthYearLabels">
+                                <span><s:label for="calendarYearSelectInput">年</s:label> / <s:label for="calendarMonthSelectInput">月</s:label></span>
+                            </div>
+
+                            <div class="monthYearDropdowns">
+                                <span>
+                                    <a:commandLink action="#{eventsGroup.previousMonth}" immediate="true" execute="@this" render="calendar,filterForm">
+                                        <a:attachQueue requestDelay="0"/>
+                                        <span class="octicon octicon-triangle-left nav-icon"/>
+                                    </a:commandLink>
+                                </span>
+                                <span>
+                                    <h:selectOneMenu id="calendarYearSelectInput" value="#{eventsGroup.year}">
+                                        <s:selectItems value="#{eventsGroup.selectYear}" var="_year"
+                                                       itemValue="#{_year}" label="#{_year}"/>
+                                        <a:ajax execute="@form" event="valueChange" render="calendar">
+                                            <a:attachQueue requestDelay="0"/>
+                                        </a:ajax>
+                                    </h:selectOneMenu>
+                                </span>
+                                <span>
+                                         <h:selectOneMenu id="calendarMonthSelectInput" value="#{eventsGroup.month}">
+                                             <c:forEach begin="1" end="12" var="_month">
+                                                 <f:selectItem itemValue="#{_month}" itemLabel="#{_month}月"/>
+                                             </c:forEach>
+                                             <a:ajax execute="@form" event="valueChange" render="calendar">
+                                                 <a:attachQueue requestDelay="0"/>
+                                             </a:ajax>
+                                         </h:selectOneMenu>
+                                </span>
+                                 <span>
+                                                  <a:commandLink action="#{eventsGroup.nextMonth}" immediate="true" execute="@this" render="calendar,filterForm">
+                                                      <a:attachQueue requestDelay="0"/>
+                                                      <span class="octicon octicon-triangle-right nav-icon"/>
+                                                  </a:commandLink>
+                                </span>
+                            </div>
+
+                            <div class="clear">&nbsp;</div>
+                        </a:outputPanel>
+                        </h:form>
+                    </div>
+                    <div class="clear">&nbsp;</div>
+                </div>
+            </div>
         </div>
 
-        <div class="mod eventsTheme">
-            <div class="hdngbar primaryc">
-                <h3>December 2015 Events</h3>
-                <div class="clear">&nbsp;</div>
-            </div>
+        <a:outputPanel id="calendar" styleClass="mod eventsTheme">
 
-            <table cellspacing="0" cellpadding="4" class="calendarMonth">
-                <thead>
-                <tr>
+            <a:outputPanel rendered="#{model eq 'day'}">
+                <div class="multiItem clearfix">
+                    <h2>#{eventsGroup.year}年#{eventsGroup.month}月#{eventsGroup.dayOfMonth}日</h2>
 
-                    <th scope="col">周一</th>
-                    <th scope="col">周二</th>
-                    <th scope="col">周三</th>
-                    <th scope="col">周四</th>
-                    <th scope="col">周五</th>
-                    <th scope="col">周六</th>
-                    <th scope="col">周日</th>
-                </tr>
-                </thead>
-                <tbody>
 
-                <a:repeat value="#{eventsGroup.resultList}" var="_weekEvent">
-                    <tr valign="top">
-                        <a:repeat value="#{_weekEvent}" var="_dayEvent">
-                            <td class="#{_dayEvent.emptyEvent ? 'calendarDayEmpty' : 'calendarDayEvent'}">
-                                <div class="calendarNumeral">
-                                    <h:outputText rendered="#{_dayEvent.emptyEvent}" value="#{_dayEvent.date}">
-                                        <f:convertNumber pattern="00"/>
-                                    </h:outputText>
-                                    <s:link rendered="#{not _dayEvent.emptyEvent}">
-                                        <h:outputText value="#{_dayEvent.date}">
+                    <ul class="itemList">
+                        <c:if test="#{empty eventsGroup.dayResultList}">
+                            <li><b>
+                            未发布任何事件和通知.</b>
+                            </li>
+                        </c:if>
+                        <a:repeat value="#{eventsGroup.dayResultList}" var="_event">
+                            <li class="item clearfix">
+                                <div class="content">
+                                    <span style="font-weight: bold">#{_event.mainTitle}</span>
+                                    <div class="dateTime">
+                                        <h:outputText value="#{_event.publishTime}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></h:outputText>
+                                    </div>
+                                    <div class="description">
+                                        #{_event.summary}
+                                    </div>
+                                </div>
+
+                                <div class="itemImage">
+                                  <!-- img -->
+                                </div>
+                            </li>
+                        </a:repeat>
+                    </ul>
+
+                </div>
+            </a:outputPanel>
+            <a:outputPanel  rendered="#{(model eq 'month') or (model eq 'week')}">
+                <div class="hdngbar primaryc">
+                    <h3>#{eventsGroup.year}年 #{eventsGroup.month}月 事件</h3>
+                    <div class="clear">&nbsp;</div>
+                </div>
+
+                <table cellspacing="0" cellpadding="4" class="calendarMonth">
+                    <thead>
+                    <tr>
+
+                        <th scope="col">周一</th>
+                        <th scope="col">周二</th>
+                        <th scope="col">周三</th>
+                        <th scope="col">周四</th>
+                        <th scope="col">周五</th>
+                        <th scope="col">周六</th>
+                        <th scope="col">周日</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <c:if test="#{model eq 'week'}">
+                        <tr valign="top">
+                            <a:repeat value="#{eventsGroup.weekResult}" var="_dayEvent">
+
+
+                                    <td class="#{_dayEvent.emptyEvent ? 'calendarDayEmpty' : 'calendarDayEvent'}">
+                                        <div class="calendarNumeral">
+                                            <h:outputText rendered="#{_dayEvent.emptyEvent}" value="#{_dayEvent.date}">
+                                                <f:convertNumber pattern="00"/>
+                                            </h:outputText>
+                                            <s:link rendered="#{not _dayEvent.emptyEvent}">
+                                                <f:param name="day" value="#{_dayEvent.date}"/>
+                                                <f:param name="model" value="day"/>
+                                                <h:outputText value="#{_dayEvent.date}">
+                                                    <f:convertNumber pattern="00"/>
+                                                </h:outputText>
+                                            </s:link>
+                                        </div>
+                                        <a:repeat value="#{_dayEvent.events}" var="_event">
+                                            <s:link styleClass="eventLink">
+                                                <f:param name="day" value="#{_dayEvent.date}"/>
+                                                <f:param name="model" value="day"/>
+                                                #{_event.mainTitle}
+                                            </s:link>
+                                            <div class="eventToolTipWrpr">
+                                                <div class="eventToolTipShadow">
+                                                    <h5>详情:</h5>
+                                                    <div class="eventToolTipDates"><h:outputText value="#{_event.publishTime}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/></h:outputText> </div>
+                                                    <div class="eventToolTipDescription">#{_event.summary}</div>
+                                                </div>
+                                                <div class="eventToolTopShadowBottom">&nbsp;</div>
+                                            </div>
+
+
+                                        </a:repeat>
+
+                                    </td>
+
+
+                            </a:repeat>
+                        </tr>
+                    </c:if>
+
+
+
+                    <a:repeat rendered="#{(model eq 'month')}" value="#{eventsGroup.resultList}" var="_weekEvent">
+                        <tr valign="top">
+                            <a:repeat value="#{_weekEvent}" var="_dayEvent">
+                                <td class="#{_dayEvent.emptyEvent ? 'calendarDayEmpty' : 'calendarDayEvent'}">
+                                    <div class="calendarNumeral">
+                                        <h:outputText rendered="#{_dayEvent.emptyEvent}" value="#{_dayEvent.date}">
                                             <f:convertNumber pattern="00"/>
                                         </h:outputText>
-                                    </s:link>
-                                </div>
-                                <a:repeat value="#{_dayEvent.events}" var="_event">
-                                    <s:link styleClass="eventNumbLink">
-                                        #{_event.mainTitle}
-                                    </s:link>
-                                </a:repeat>
+                                        <s:link rendered="#{not _dayEvent.emptyEvent}">
+                                            <f:param name="day" value="#{_dayEvent.date}"/>
+                                            <f:param name="model" value="day"/>
+                                            <h:outputText value="#{_dayEvent.date}">
+                                                <f:convertNumber pattern="00"/>
+                                            </h:outputText>
+                                        </s:link>
+                                    </div>
+                                    <a:repeat value="#{_dayEvent.events}" var="_event">
+                                        <s:link styleClass="eventNumbLink">
+                                            <f:param name="day" value="#{_dayEvent.date}"/>
+                                            <f:param name="model" value="day"/>
+                                            #{_event.mainTitle}
+                                        </s:link>
+                                    </a:repeat>
 
-                            </td>
-                        </a:repeat>
-                    </tr>
-                </a:repeat>
+                                </td>
+                            </a:repeat>
+                        </tr>
+                    </a:repeat>
 
-                </tbody>
+                    </tbody>
 
 
 
-            </table>
-        </div>
+                </table>
+            </a:outputPanel>
+        </a:outputPanel>
+
+
 
     </div>
 

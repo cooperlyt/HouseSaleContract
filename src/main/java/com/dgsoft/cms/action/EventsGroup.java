@@ -17,7 +17,6 @@ import java.util.List;
 @Name("eventsGroup")
 public class EventsGroup {
 
-
     public class Event{
 
         private int year;
@@ -76,6 +75,93 @@ public class EventsGroup {
 
     private int year;
 
+    private int dayOfMonth;
+
+    private Calendar getBeginDayOfWeek(){
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(year,month-1,dayOfMonth,0,0,0);
+        int dayOfWeek =beginTime.get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek == 1){
+            beginTime.add(Calendar.DAY_OF_MONTH,-6);
+        }else if (dayOfWeek != 2){
+            beginTime.add(Calendar.DAY_OF_MONTH, ((dayOfWeek -1 - 1)) * -1);
+        }
+        return beginTime;
+    }
+
+    private Calendar getEndDayOfWeek(){
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(getBeginDayOfWeek().getTime());
+        endTime.add(Calendar.DAY_OF_MONTH,6);
+
+        endTime.set(Calendar.HOUR,13);
+        endTime.set(Calendar.MINUTE,59);
+        endTime.set(Calendar.SECOND,59);
+        endTime.set(Calendar.MILLISECOND,999);
+        return endTime;
+    }
+
+    public Date getBeginDateOfWeek(){
+        return getBeginDayOfWeek().getTime();
+    }
+
+    public Date getEndDateOfWeek(){
+        return getEndDayOfWeek().getTime();
+    }
+
+    public void nextMonth(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month-1,1);
+        calendar.add(Calendar.MONTH,1);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    public void previousMonth(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month-1,1);
+        calendar.add(Calendar.MONTH,-1);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    public void nextWeek(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month - 1, dayOfMonth);
+        calendar.add(Calendar.DAY_OF_MONTH,7);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+        setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void previousWeek(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month - 1, dayOfMonth);
+        calendar.add(Calendar.DAY_OF_MONTH,-7);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+        setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void nextDay(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month - 1, dayOfMonth);
+        calendar.add(Calendar.DAY_OF_MONTH,1);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+        setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void previousDay(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month - 1, dayOfMonth);
+        calendar.add(Calendar.DAY_OF_MONTH,-1);
+        setYear(calendar.get(Calendar.YEAR));
+        setMonth(calendar.get(Calendar.MONTH) + 1);
+        setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+
     public List<Integer> getSelectYear(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -95,6 +181,7 @@ public class EventsGroup {
         cd.setTime(new Date());
         year = cd.get(Calendar.YEAR);
         month = cd.get(Calendar.MONTH) + 1 ;
+        dayOfMonth = cd.get(Calendar.DAY_OF_MONTH);
     }
 
     public int getMonth() {
@@ -104,6 +191,8 @@ public class EventsGroup {
     public void setMonth(int month) {
         if (month != this.month){
             resultList = null;
+            weekResultList = null;
+            dayResultList = null;
         }
         this.month = month;
     }
@@ -115,12 +204,80 @@ public class EventsGroup {
     public void setYear(int year) {
         if (year != this.year){
             resultList = null;
+            weekResultList = null;
+            dayResultList = null;
         }
         this.year = year;
     }
 
+    public int getDayOfMonth() {
+        return dayOfMonth;
+    }
+
+    public void setDayOfMonth(int dayOfMonth) {
+        if (dayOfMonth != this.dayOfMonth){
+            resultList = null;
+            weekResultList = null;
+            dayResultList = null;
+        }
+        this.dayOfMonth = dayOfMonth;
+    }
+
+    private List<Event> weekResultList;
+
+    public List<Event> getWeekResult(){
+        if(weekResultList == null){
+            Calendar beginTime = getBeginDayOfWeek();
+
+            Calendar endTime = getEndDayOfWeek();
+
+
+
+            List<Article> eventList = entityManager.createQuery("select a from Article a where a.category.type = 'Events' and a.publishTime >= :beginTime and a.publishTime <= :toTime order by publishTime,id", Article.class)
+                    .setParameter("beginTime",beginTime.getTime())
+                    .setParameter("toTime", endTime.getTime()).getResultList();
+
+            weekResultList = new ArrayList<Event>(7);
+
+            while (beginTime.before(endTime)){
+                Event dayEvent = new Event(beginTime.get(Calendar.YEAR),beginTime.get(Calendar.MONTH) + 1,beginTime.get(Calendar.DAY_OF_MONTH),
+                        (beginTime.get(Calendar.YEAR) == year && (beginTime.get(Calendar.MONTH) + 1) == month));
+
+                for(Article article: eventList){
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(article.getPublishTime());
+                    if (c.get(Calendar.YEAR) == beginTime.get(Calendar.YEAR) &&
+                            c.get(Calendar.MONTH) == beginTime.get(Calendar.MONTH) &&
+                            c.get(Calendar.DAY_OF_MONTH) == beginTime.get(Calendar.DAY_OF_MONTH)){
+                        dayEvent.addEvent(article);
+                    }else{
+                        eventList.removeAll(dayEvent.getEvents());
+                        break;
+                    }
+                }
+                weekResultList.add(dayEvent);
+                beginTime.add(Calendar.DAY_OF_MONTH,1);
+            }
+
+        }
+        return weekResultList;
+    }
+
+    private List<Article> dayResultList;
+
+    public List<Article> getDayResultList() {
+        if (dayResultList == null){
+            dayResultList = entityManager.createQuery("select a from Article a where a.category.type = 'Events' and year(a.publishTime) = :year and month(a.publishTime) = :month and day(a.publishTime) = :day order by publishTime,id", Article.class)
+                    .setParameter("year",year)
+                    .setParameter("month", month)
+                    .setParameter("day",dayOfMonth).getResultList();
+        }
+        return dayResultList;
+    }
+
     private List<List<Event>> resultList;
 
+    //month
     public List<List<Event>> getResultList() {
         if (resultList == null){
 

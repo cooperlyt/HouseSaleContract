@@ -21,5 +21,7 @@
                             ejbql="select article from Article article where article.category.type = &apos;Events&apos;"/>
 
 
+    <framework:entity-query name="downloadCategories" order="ac.pri"
+                            ejbql="select ac from ArticleCategory ac where ac.type = &apos;Download&apos;"/>
 
 </components>

@@ -18,19 +18,23 @@
     <div class="pagehead" style="margin-top: -20px">
         <div class="container">
             <nav class="pagehead-nav" role="navigation">
-                <s:link styleClass="pagehead-nav-item selected">
+                <s:link styleClass="pagehead-nav-item #{curFunc eq 'article' ? 'selected' : '' }"
+                        view="/cms/manager/article-news.xhtml">
                     <span class="octicon octicon-megaphone"/>
                     文章
                 </s:link>
-                <s:link styleClass="pagehead-nav-item ">
-                    <span class="octicon octicon-star"/>
+                <s:link styleClass="pagehead-nav-item #{curFunc eq 'download' ? 'selected' : '' }"
+                        view="/cms/manager/article-downloads.xhtml">
+                    <span class="octicon octicon-package"/>
                     下载
                 </s:link>
-                <s:link styleClass="pagehead-nav-item ">
-                    <span class="octicon octicon-star"/>
+                <s:link styleClass="pagehead-nav-item #{curFunc eq 'tel' ? 'selected' : '' }"
+                        view="/cms/manager/article-tel.xhtml">
+                    <span class="glyphicon glyphicon-earphone"/>
                     便民电话
                 </s:link>
-                <s:link styleClass="pagehead-nav-item ">
+                <s:link styleClass="pagehead-nav-item #{curFunc eq 'qa' ? 'selected' : '' }"
+                        view="/cms/manager/qa.xhtml">
                     <span class="octicon octicon-star"/>
                     常见问题
                 </s:link>

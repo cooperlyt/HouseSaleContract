@@ -7,7 +7,13 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.international.StatusMessage;
+import org.jboss.seam.log.Logging;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,14 +63,21 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
     private void saveContent(){
         getInstance().setCategory(articleCategoryHome.getInstance());
 
+        if (ArticleCategory.CategoryType.Events.equals(getInstance().getCategory().getType())){
+            getInstance().setViewType(Article.ArticleViewType.TEXT);
+
+        }else{
+            if(ArticleCategory.CategoryType.Download.equals(getInstance().getCategory().getType())){
+                getInstance().setViewType(Article.ArticleViewType.APPLICATION);
+            }
+
+            getInstance().setPublishTime(new Date());
+        }
+
         if (Article.ArticleViewType.HTML.equals(getInstance().getViewType())){
             getInstance().setContext(htmlContent);
         }
-        if (!ArticleCategory.CategoryType.Events.equals(getInstance().getCategory().getType())){
-            getInstance().setPublishTime(new Date());
-        }else{
-            getInstance().setViewType(Article.ArticleViewType.TEXT);
-        }
+
 
 
     }
@@ -117,6 +130,34 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
     public String saveOrUpdate(){
         super.saveOrUpdate();
         return "save-" + getInstance().getCategory().getType().name();
+    }
+
+
+    @In(create = true)
+    private FacesContext facesContext;
+
+    public void downloadFile() {
+
+
+        ExternalContext externalContext = facesContext.getExternalContext();
+        externalContext.responseReset();
+        externalContext.setResponseContentType(getInstance().getResourceContentType());
+        externalContext.setResponseHeader("Content-Disposition", "attachment;filename=" + getInstance().getSubTitle());
+
+        Logging.getLog(getClass()).debug(getInstance().getResource() == null ? "null" : "" + getInstance().getResource().length );
+        externalContext.setResponseContentLength(getInstance().getResource().length);
+
+        try {
+            OutputStream out = externalContext.getResponseOutputStream();
+            out.write(getInstance().getResource());
+            out.flush();
+            facesContext.responseComplete();
+        } catch (IOException e) {
+            //facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ExportIOError");
+            Logging.getLog(getClass()).error("export error", e);
+        }
+
+
     }
 
 }

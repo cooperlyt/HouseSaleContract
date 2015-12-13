@@ -9,7 +9,7 @@
                 xmlns:a="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                template="/layout/cms/template-cms.xhtml">
+                template="/cms/template-cms.xhtml">
 
 
     <ui:define name="path-nav">
@@ -62,7 +62,7 @@
                                                 <b>共找到:</b> #{articleList.resultCount} 篇文章.
                                             </div>
 
-                                                <ui:include src="/layout/cms/samll-page-nav.xhtml">
+                                                <ui:include src="/cms/samll-page-nav.xhtml">
                                                     <ui:param name="entityList" value="#{articleList}"/>
                                                 </ui:include>
 
@@ -119,7 +119,7 @@
                                             <b>共找到:</b> #{articleList.resultCount} 篇文章.
                                         </div>
 
-                                            <ui:include src="/layout/cms/samll-page-nav.xhtml">
+                                            <ui:include src="/cms/samll-page-nav.xhtml">
                                                 <ui:param name="entityList" value="#{articleList}"/>
                                             </ui:include>
 

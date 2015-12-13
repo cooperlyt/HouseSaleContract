@@ -12,6 +12,7 @@
                 template="article.xhtml">
 
 
+    <ui:param name="curFunc" value="article"/>
 
     <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
         <ui:param name="panelId" value="deleteArticleConfirmPanel"/>
@@ -87,6 +88,7 @@
                                action="#{articleCategoryHome.saveOrUpdate}">
                     <span class="glyphicon glyphicon-floppy-disk"/>
                     <a:attachQueue requestDelay="0"/>
+                    <a:param value="News" assignTo="#{articleCategoryHome.typeName}"/>
                     保存
                 </a:commandLink>
 

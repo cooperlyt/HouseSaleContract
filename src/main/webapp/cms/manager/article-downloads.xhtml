@@ -1,12 +1,379 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="article.xhtml">
 
-</body>
-</html>
+    <ui:param name="curFunc" value="download"/>
+
+
+    <div class="modal fade data-dialog " id="resourceEditPanel" tabindex="-1" role="dialog"
+         aria-labelledby="resourceEditPanel_ModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <a:outputPanel id="resourceEditPanel_controls">
+                        <ui:insert name="panelControls">
+                            <button type="button" class="close" aria-label="#{messages.close}"
+                                    data-dismiss="modal">
+                                <span class="octicon octicon-remove-close" aria-hidden="true"></span>
+                                <span class="sr-only">#{messages.close}</span></button>
+                        </ui:insert>
+                    </a:outputPanel>
+                    <a:outputPanel id="resourceEditPanel_title">
+                        <h4 class="facebox-header">#{articleHome.managed ? '编辑' : '新建'}下载资源</h4>
+                    </a:outputPanel>
+                </div>
+                <h:form id="resourceEditPanel_form" role="form" enctype="multipart/form-data">
+                    <s:div styleClass="modal-body">
+
+
+                        <a:outputPanel id="resourceEditPanel_inputs">
+
+                            <s:decorate template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    资源分类
+                                </ui:define>
+                                <ui:param name="for" value="articleCategoryInput"/>
+
+                                <h:selectOneMenu label="资源分类" id="articleCategoryInput" value="#{articleCategoryHome.id}" rendered="true"
+                                                 styleClass="selectpicker edit-select form-control">
+                                    <s:selectItems value="#{downloadCategories.resultList}" var="_category"
+                                                   itemValue="#{_category.id}" label="#{_category.name}"
+                                                   noSelectionLabel="请选择资源分类"/>
+                                </h:selectOneMenu>
+
+
+                            </s:decorate>
+
+
+                            <s:decorate id="resourceTitleField" template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    名称
+                                </ui:define>
+                                <ui:param name="for" value="resourceTitleInput"/>
+
+                                <h:inputText id="resourceTitleInput" label="标题"
+                                             styleClass="form-control" value="#{articleHome.instance.mainTitle}"
+                                             required="true" maxlength="256">
+                                </h:inputText>
+                            </s:decorate>
+
+
+                            <s:decorate template="/layout/edit.xhtml">
+                                <ui:define name="label">
+                                    摘要
+                                </ui:define>
+                                <ui:param name="for" value="summaryInput"/>
+                                <h:inputTextarea value="#{articleHome.instance.summary}" label="摘要"
+                                                 styleClass="form-control" id="summaryInput"
+                                                 rows="5"/>
+                            </s:decorate>
+
+                            <s:fileUpload data="#{articleHome.instance.resource}" contentType="#{articleHome.instance.resourceContentType}" fileName="#{articleHome.instance.subTitle}" accept="*/*" />
+
+                        </a:outputPanel>
+                    </s:div>
+                    <a:outputPanel layout="block" styleClass="modal-footer" id="resourceEditPanel_buttons">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-floppy-remove"/>
+                            取消</button>
+
+
+                        <h:commandLink styleClass="btn btn-success"  action="#{articleHome.saveOrUpdate}">
+                            <span class="glyphicon glyphicon-floppy-disk"/>
+                            保存
+                        </h:commandLink>
+
+
+
+                    </a:outputPanel>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+
+    <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+        <ui:param name="panelId" value="deleteArticleConfirmPanel"/>
+        <ui:param name="entityTitle" value="#{articleHome.instance.mainTitle}"/>
+        <ui:define name="deleteNote">
+            资源将被删除
+        </ui:define>
+
+        <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                       immediate="true" execute="@this" render="articleListForm"
+                       action="#{articleHome.removeAndClear}" oncomplete="$('#deleteArticleConfirmPanel').modal('hide');"
+                       value="我确认要删除此资源">
+            <a:attachQueue requestDelay="0"/>
+        </a:commandLink>
+
+    </ui:decorate>
+
+
+    <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+        <ui:param name="panelId" value="deleteCategoryConfirmPanel"/>
+        <ui:param name="entityTitle" value="#{articleCategoryHome.instance.name}"/>
+        <ui:define name="deleteNote">
+            删除分类后此分类下的所有下载资源将会同时被删除！
+        </ui:define>
+
+        <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                       immediate="true" execute="@this" render="categoryListForm,articleListForm"
+                       action="#{articleCategoryHome.removeAndClear}" oncomplete="$('#deleteCategoryConfirmPanel').modal('hide');"
+                       value="我确认要删除此分类">
+            <a:attachQueue requestDelay="0"/>
+        </a:commandLink>
+
+    </ui:decorate>
+
+    <ui:decorate template="/layout/edit-modalpanel.xhtml">
+        <ui:param name="panelId" value="categoryEditPanel"/>
+        <ui:param name="panelTitle" value="#{articleCategoryHome.managed ? '编辑' : '新建'}下载资源分类"/>
+
+        <s:decorate id="categoryNameField" template="/layout/edit.xhtml">
+            <ui:define name="label">
+                名称
+            </ui:define>
+            <ui:param name="for" value="categoryNameInput"/>
+            <ui:param name="status" value="categoryNameStatus"/>
+
+            <h:inputText id="categoryNameInput" label="分类名称"
+                         valueChangeListener="#{articleCategoryHome.verifyUniqueAvailable}"
+                         unique="name" styleClass="form-control" value="#{articleCategoryHome.instance.name}"
+                         required="true" maxlength="32">
+                <f:validateRequired/>
+                <a:ajax event="change" render="categoryNameField" status="categoryNameStatus"/>
+            </h:inputText>
+        </s:decorate>
+
+        <s:decorate template="/layout/edit.xhtml">
+            <ui:define name="label">
+                描述
+            </ui:define>
+            <ui:param name="for" value="categoryDescriptionInput"/>
+            <h:inputTextarea id="categoryDescriptionInput" styleClass="form-control" value="#{articleCategoryHome.instance.description}" rows="3"/>
+        </s:decorate>
+
+
+        <ui:define name="actionButtons">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-floppy-remove"/>
+                取消</button>
+
+
+            <a:commandLink styleClass="btn btn-success" render="categoryEditPanel_inputs,categoryListForm,categoryInfoPanel"
+                           execute="@form"
+                           oncomplete="if (#{facesContext.maximumSeverity==null} || #{facesContext.maximumSeverity.ordinal lt 2}){$('#categoryEditPanel').modal('hide')}"
+                           action="#{articleCategoryHome.saveOrUpdate}">
+                <span class="glyphicon glyphicon-floppy-disk"/>
+                <a:attachQueue requestDelay="0"/>
+                <a:param value="Download" assignTo="#{articleCategoryHome.typeName}"/>
+                保存
+            </a:commandLink>
+
+
+        </ui:define>
+
+
+    </ui:decorate>
+
+
+
+    <div class="row">
+        <div class="col-md-4" role="complementary">
+
+            <nav class="menu">
+                <div class="boxed-group-action">
+                    <h:form>
+
+                        <a:commandLink styleClass="btn btn-sm btn-success new-repo"
+                                       render="categoryEditPanel_form,categoryEditPanel_title"
+                                       oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                            <span class="octicon octicon-plus"></span>
+                            <a:attachQueue requestDelay="0"/>
+                            <a:param value="" assignTo="#{articleCategoryHome.id}"/>
+                            新建分类
+                        </a:commandLink>
+                    </h:form>
+                </div>
+                <h3 class="menu-heading">
+                    下载分类 <span class="badge">#{downloadCategories.resultCount + 1}</span>
+                </h3>
+                <h:form id="categoryListForm">
+
+
+                    <a:repeat value="#{downloadCategories.resultList}" var="_category">
+
+
+                        <a:commandLink styleClass="menu-item css-truncate #{_category.id eq articleCategoryHome.instance.id ? 'selected' : ''}"
+                                       render="articleListForm,categoryListForm,searchKeyInput">
+                            <span class="repo-icon octicon octicon-repo"></span>
+
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target" title="#{_category.description}">#{_category.name}</span>
+      </span>
+                            <f:param name="categoryId" value="#{_category.id}"/>
+                            <f:param name="firstResult" value="0"/>
+                            <f:param name="searchKey" value=""/>
+                            <a:attachQueue requestDelay="0"/>
+
+                        </a:commandLink>
+
+
+                    </a:repeat>
+
+                </h:form>
+
+            </nav>
+
+
+        </div>
+        <div class="col-md-8" role="main">
+            <h:form id="searchForm">
+                <s:div styleClass="input-group" style="margin-bottom: 20px">
+
+                    <div class="input-group-btn">
+                        <h:selectOneMenu styleClass="selectpicker select-menu-btn input-group-first"
+                                         value="#{articleCategoryHome.id}">
+                            <s:selectItems value="#{downloadCategories.resultList}" var="_category"
+                                           label="#{_category.name}" itemValue="#{_category.id}" noSelectionLabel="全部种类"/>
+                        </h:selectOneMenu>
+
+
+                    </div>
+
+                    <h:inputText id="searchKeyInput" styleClass="form-control" value="#{downloadList.searchKey}"/>
+                          <span class="input-group-btn">
+                            <a:commandLink execute="@form" styleClass="btn btn-default"
+                                           action="#{downloadList.first}"
+                                           render="articleListForm,categoryListForm">
+                                <a:attachQueue requestDelay="0"/>
+                                <f:param name="categoryId" value=""/>
+                                查询
+                            </a:commandLink>
+
+                        </span>
+
+                </s:div>
+            </h:form>
+
+
+            <h:form id="articleListForm">
+
+
+                <s:div id="categoryInfoPanel" rendered="#{articleCategoryHome.idDefined}" styleClass="new-user-avatar-cta">
+                    <p>
+
+                        <span class="btn-group btn-group-sm" role="group">
+                        <a:commandLink styleClass="btn btn-danger btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="删除分类"
+                                       render="deleteCategoryConfirmPanel_form" oncomplete="$('#deleteCategoryConfirmPanel').modal('show');">
+                            <span class="octicon octicon-trashcan"/>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+
+                        <a:commandLink styleClass="btn btn-success btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="编辑分类"
+                                       render="categoryEditPanel_form,categoryEditPanel_title" oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                            <span class="octicon octicon-pencil"></span>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+                        </span>
+                    </p>
+                    <p><strong>#{articleCategoryHome.instance.name}</strong> #{articleCategoryHome.instance.description}</p>
+                </s:div>
+
+
+                <a:outputPanel id="articleResultList">
+
+                    <a:outputPanel rendered="#{not empty downloadList.resultList}">
+
+                        <div class="sort-bar">
+                            <div class="right">
+                                <a:commandLink styleClass="btn btn-sm btn-success" execute="@this" immediate="true" render="resourceEditPanel_title,resourceEditPanel_form" oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})">
+                                    <a:attachQueue requestDelay="0"/> <span class="octicon octicon-plus"></span>
+                                    <f:param name="articleId" value=""/>新建下载资源</a:commandLink>
+
+
+                            </div>
+                            <h3>
+                                共找到 #{downloadList.resultCount} 个下载资源
+                            </h3>
+
+                        </div>
+
+
+                        <ul class="repo-list">
+                            <a:repeat value="#{downloadList.resultList}" var="_article">
+
+                                <li class="repo-list-item">
+                                    <div class="repo-list-stats">
+                                        <a:commandLink styleClass="repo-list-stat-item tooltipped tooltipped-s"
+                                                       render="deleteArticleConfirmPanel_title,deleteArticleConfirmPanel_form"
+                                                       oncomplete="$('#deleteArticleConfirmPanel').modal('show');"
+                                                       p:aria-label="删除下载资源" execute="@this" immediate="true">
+                                            <span class="octicon octicon-trashcan"></span>
+                                            <a:attachQueue requestDelay="0"/>
+                                            <f:param name="articleId" value="#{_article.id}"/>
+                                            删除
+                                        </a:commandLink>
+                                    </div>
+                                    <h3 class="repo-list-name">
+                                        <a:commandLink execute="@this" immediate="true" render="resourceEditPanel_title,resourceEditPanel_form"
+                                                       oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})">
+                                            <a:attachQueue requestDelay="0"/><f:param name="articleId" value="#{_article.id}"/>
+                                            <f:param name="categoryId" value="#{_article.category.id}"/>
+                                            #{_article.mainTitle}</a:commandLink>
+
+
+                                    </h3>
+                                    <p class="repo-list-description">
+                                        #{_article.summary}
+                                    </p>
+                                    <p class="repo-list-meta">
+                                        <h:outputText value="#{_article.publishTime}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText>
+                                    </p>
+                                </li>
+
+                            </a:repeat>
+
+
+                        </ul>
+
+                        <div class="paginate-container">
+                            <ui:include src="/layout/pages-nav.xhtml">
+                                <ui:param name="entityList" value="#{downloadList}"/>
+                            </ui:include>
+                        </div>
+
+                    </a:outputPanel>
+
+
+                    <s:div styleClass="blankslate spacious large-format" rendered="#{empty downloadList.resultList}">
+                        <span class="mega-octicon octicon-search"></span>
+
+                        <h3>没有文章</h3>
+                        <p>没找到任何符合条件的下载资源.您可以<a:commandLink execute="@this" immediate="true" render="resourceEditPanel_title,resourceEditPanel_form" oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})"><a:attachQueue requestDelay="0"/> <span class="octicon octicon-plus"></span><f:param name="articleId" value=""/>新建下载资源</a:commandLink></p>
+                    </s:div>
+                </a:outputPanel>
+
+
+
+            </h:form>
+
+        </div>
+
+    </div>
+
+
+</ui:composition>

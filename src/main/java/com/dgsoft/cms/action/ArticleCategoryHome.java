@@ -14,7 +14,22 @@ public class ArticleCategoryHome extends EntityHomeAdapter<ArticleCategory> {
     protected boolean verifyPersistAvailable() {
         getInstance().setPri(getEntityManager().createQuery("select max(ac.pri) from ArticleCategory ac" , Integer.class).getSingleResult());
 
-        getInstance().setType(ArticleCategory.CategoryType.News);
+        //getInstance().setType(ArticleCategory.CategoryType.News);
         return true;
+    }
+
+
+    public String getTypeName(){
+        if (getInstance().getType() == null){
+            return null;
+        }
+        return getInstance().getType().name();
+    }
+
+    public void setTypeName(String name){
+        if (name == null || name.trim().equals("")){
+            getInstance().setType(null);
+        }
+        getInstance().setType(ArticleCategory.CategoryType.valueOf(name));
     }
 }

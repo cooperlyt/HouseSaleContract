@@ -43,7 +43,7 @@ public class Article implements java.io.Serializable{
     private String coverImg;
     private String summary;
     private boolean onFlow;
-
+    private String resourceContentType;
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, length = 32)
@@ -157,7 +157,7 @@ public class Article implements java.io.Serializable{
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Column(name = "RESOURCE",columnDefinition="blob")
+    @Column(name = "RESOURCE",columnDefinition="longblob")
     public byte[] getResource() {
         return resource;
     }
@@ -175,6 +175,15 @@ public class Article implements java.io.Serializable{
         this.onFlow = onFlow;
     }
 
+    @Column(name = "RESOURCE_CONTENT_TYPE",nullable = true, length = 32)
+    @Size(max = 32)
+    public String getResourceContentType() {
+        return resourceContentType;
+    }
+
+    public void setResourceContentType(String resourceContentType) {
+        this.resourceContentType = resourceContentType;
+    }
 
     @Transient
     public int getYear(){

@@ -1,12 +1,124 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template.xhtml">
 
-</body>
-</html>
+    <ui:param name="content" value=""/>
+
+    <h:outputStylesheet>
+
+        .boxed-group hr:last-child{
+            display: none;
+        }
+    </h:outputStylesheet>
+
+    <div class="container">
+        <h:form id="paramListForm">
+    <div class="boxed-group">
+        <h3>系统参数</h3>
+        <div class="boxed-group-inner">
+
+                <a:repeat value="#{systemParamList.resultList}" var="_param">
+                    <a:region rendered="#{_param.type eq 'IMG'}">
+                        <dl class="form">
+
+
+                            <dt>
+                                <a:commandLink render="imgUploadForm" execute="@this"
+                                               onclick="$('#flowImageInput').trigger('click');">
+                                    <a:attachQueue requestDelay="0"/>
+                                    <a:param value="#{_param.id}" assignTo="#{systemParamList.selectId}"/>
+                                    #{_param.description} - <strong>#{_param.id}</strong></a:commandLink></dt>
+                            <dd>
+                                <div style="padding: 10px">
+
+                                 <img src="#{_param.value}" alt="图片"/>
+
+                                </div>
+
+                            </dd>
+                        </dl>
+                    </a:region>
+
+                    <a:region rendered="#{_param.type eq 'STRING'}">
+                    <dl class="form">
+
+
+                        <dt><s:label>#{_param.description} - <strong>#{_param.id}</strong></s:label></dt>
+                        <dd>
+                            <div class="input-group">
+
+                               <h:inputText styleClass="form-control" value="#{_param.value}"/>
+                          <span class="input-group-btn">
+                              <a:commandButton value="保存" execute="@region" render="@none" action="#{systemParamList.save}" styleClass="btn btn-default">
+                                  <a:attachQueue requestDelay="0"/>
+
+                              </a:commandButton>
+
+      </span>
+                            </div>
+
+                        </dd>
+                    </dl>
+                    </a:region>
+                    <hr class="bleed-flush"></hr>
+                </a:repeat>
+
+        </div>
+    </div>
+        </h:form>
+    </div>
+
+    <input id="flowImageInput" type="file" data-role="magic-overlay"/>
+    <h:form id="imgUploadForm">
+
+        <h:inputHidden value="#{systemParamList.selectId}"/>
+        <h:inputHidden id="imageContent" value="#{systemParamList.imgUrl}"/>
+
+        <a:jsFunction name="saveImg" action="#{systemParamList.saveImg}" render="paramListForm" execute="@form">
+
+        </a:jsFunction>
+
+
+        <h:outputScript>
+
+            $(document).ready(
+            function () {
+            initEditInput();
+
+
+            $('#flowImageInput').change(function (){
+
+            var file = this.files[0];
+
+            if(!/image\/\w+/.test(file.type)){
+            alert("文件必须为图片！");
+            return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+            $('#articleImg').html('<img id="selectImg" src="'+this.result+'" alt=""/>');
+            #{r:jQuery('imageContent')}.val(this.result);
+            saveImg();
+            }
+            });
+
+            });
+
+
+
+        </h:outputScript>
+    </h:form>
+
+
+
+</ui:composition>

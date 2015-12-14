@@ -19,8 +19,15 @@ public class ArticleList extends ArticleQuery {
     private static final String EJBQL = "select a from Article a where a.category.type = 'News'";
 
 
+    protected static final String[] RESTRICTIONS2 = {
+            "lower(a.mainTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
+            "lower(a.subTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
+            "lower(a.summary) like lower(concat('%',#{articleList.searchKey},'%'))"
+    };
+
     public ArticleList() {
         super();
+        getRestrictionGroup().getChildren().add(new RestrictionGroup("or", Arrays.asList(RESTRICTIONS2)));
         setEjbql(EJBQL);
     }
 

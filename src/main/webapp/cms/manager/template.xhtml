@@ -131,13 +131,12 @@
                         <ul class="nav navbar-nav navbar-right">
 
                             <li class="header-nav-item">
-                                <a
-                                        class="header-nav-link sign-out-button tooltipped tooltipped-s"
-                                        data-ga-click="Header, sign out, icon:logout"
-                                        aria-label="#{messages.logout}"
+                                <s:link view="/cms/manager/param.xhtml"
+                                        styleClass="header-nav-link tooltipped tooltipped-s"
+                                        p:aria-label="网站参数设置"
                                         propagation="none">
                                     <span class="octicon octicon-gear"></span>
-                                </a>
+                                </s:link>
                             </li>
                             <li class="header-nav-item">
                                 <s:link id="menuLogoutId"

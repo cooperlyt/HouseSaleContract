@@ -1,12 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-service.xhtml">
 
-</body>
-</html>
+    <ui:param name="currFunc" value="tel"/>
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/tel-service.xhtml">便民服务</s:link><span class="default">/</span><span>便民热线</span>
+    </ui:define>
+
+
+    <div class="page_heading" id="page_heading">
+        <h1>便民热线</h1>
+    </div>
+    <div class="mainContent" style="font-size: 13px;">
+        <div class="newsModuleWrpr">
+            <div>
+
+                <div class="multiItem clearfix">
+                    <ul class="itemList">
+                        <a:repeat value="#{allTelCategories.resultList}" var="_telCagegory">
+                            <li class="item clearfix">
+                                <div class="content">
+
+                                    <h3 class="blod">#{_telCagegory.name}</h3>
+
+                                    <ul>
+                                        <a:repeat var="_tel" value="#{_telCagegory.articles}">
+                                            <li>
+                                                <h4><strong>#{_tel.mainTitle}</strong> #{_tel.subTitle}</h4>
+                                                <p>
+                                                <span style="font-size: 11px; color: #a6a6a6;"> #{_tel.summary} </span></p>
+                                            </li>
+                                        </a:repeat>
+                                    </ul>
+
+                                </div>
+                            </li>
+                        </a:repeat>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

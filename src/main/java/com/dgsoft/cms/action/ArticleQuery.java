@@ -14,7 +14,7 @@ public abstract class ArticleQuery extends MultiOperatorEntityQuery<Article> {
 
     public ArticleQuery() {
         RestrictionGroup mainRestriction = new RestrictionGroup("and", Arrays.asList(RESTRICTIONS));
-        mainRestriction.getChildren().add(new RestrictionGroup("or",Arrays.asList(RESTRICTIONS2)));
+        //mainRestriction.getChildren().add();
         setRestrictionGroup(mainRestriction);
         setRestrictionLogicOperator("and");
         //setOrderColumn("a.publishTime");
@@ -25,11 +25,8 @@ public abstract class ArticleQuery extends MultiOperatorEntityQuery<Article> {
     protected static final String[] RESTRICTIONS = {
             "a.category.id = #{articleCategoryHome.instance.id}"
     };
-    protected static final String[] RESTRICTIONS2 = {
-            "lower(a.mainTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
-            "lower(a.subTitle) like lower(concat('%',#{articleList.searchKey},'%')) ",
-            "lower(a.summary) like lower(concat('%',#{articleList.searchKey},'%'))"
-    };
+
+
 
 
 

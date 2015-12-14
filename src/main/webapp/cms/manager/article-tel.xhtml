@@ -1,12 +1,331 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="article.xhtml">
 
-</body>
-</html>
+    <ui:param name="curFunc" value="tel"/>
+    <ui:decorate template="/layout/edit-modalpanel.xhtml">
+        <ui:param name="panelId" value="resourceEditPanel"/>
+        <ui:param name="panelTitle" value="#{articleHome.managed ? '编辑' : '新建'}联系电话"/>
+        <s:decorate id="resourceTitleField" template="/layout/edit.xhtml">
+            <ui:define name="label">
+                名称
+            </ui:define>
+            <ui:param name="for" value="resourceTitleInput"/>
+
+            <h:inputText id="resourceTitleInput" label="名称"
+                         styleClass="form-control" value="#{articleHome.instance.mainTitle}"
+                         required="true" maxlength="256">
+            </h:inputText>
+        </s:decorate>
+
+        <s:decorate template="/layout/edit.xhtml">
+            <ui:define name="label">
+                电话
+            </ui:define>
+            <ui:param name="for" value="telInput"/>
+
+            <h:inputText id="telInput" label="电话"
+                         styleClass="form-control" value="#{articleHome.instance.subTitle}"
+                         required="true" maxlength="32">
+                <f:validateRegex
+                        pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                <r:validator event="blur"/>
+            </h:inputText>
+        </s:decorate>
+
+        <s:decorate template="/layout/edit.xhtml">
+            <ui:define name="label">
+                描述
+            </ui:define>
+            <ui:param name="for" value="summaryInput"/>
+            <h:inputTextarea value="#{articleHome.instance.summary}" label="描述"
+                             styleClass="form-control" id="summaryInput"
+                             rows="5"/>
+        </s:decorate>
+
+        <ui:define name="actionButtons">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-floppy-remove"/>
+                取消</button>
+
+
+            <a:commandLink styleClass="btn btn-success" execute="@form"
+                           oncomplete="if (#{facesContext.maximumSeverity==null} || #{facesContext.maximumSeverity.ordinal lt 2}){$('#resourceEditPanel').modal('hide')}"
+                           render="resourceEditPanel_inputs,articleListForm"
+                           action="#{articleHome.saveOrUpdate}">
+                <span class="glyphicon glyphicon-floppy-disk"/>
+                <a:attachQueue requestDelay="0"/>
+                保存
+            </a:commandLink>
+
+        </ui:define>
+    </ui:decorate>
+
+
+
+    <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+        <ui:param name="panelId" value="deleteArticleConfirmPanel"/>
+        <ui:param name="entityTitle" value="#{articleHome.instance.mainTitle}"/>
+        <ui:define name="deleteNote">
+            联系电话将被删除
+        </ui:define>
+
+        <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                       immediate="true" execute="@this" render="articleListForm"
+                       action="#{articleHome.removeAndClear}" oncomplete="$('#deleteArticleConfirmPanel').modal('hide');"
+                       value="我确认要删除此联系电话">
+            <a:attachQueue requestDelay="0"/>
+        </a:commandLink>
+
+    </ui:decorate>
+
+
+    <ui:decorate template="/layout/delete_confirm_dialog.xhtml">
+        <ui:param name="panelId" value="deleteCategoryConfirmPanel"/>
+        <ui:param name="entityTitle" value="#{articleCategoryHome.instance.name}"/>
+        <ui:define name="deleteNote">
+            删除部门后此部门下的所有电话将会同时被删除！
+        </ui:define>
+
+        <a:commandLink styleClass="btn btn-danger btn-block btn-reversal"
+                       immediate="true" execute="@this" render="categoryListForm,articleListForm"
+                       action="#{articleCategoryHome.removeAndClear}" oncomplete="$('#deleteCategoryConfirmPanel').modal('hide');"
+                       value="我确认要删除此部门">
+            <a:attachQueue requestDelay="0"/>
+        </a:commandLink>
+
+    </ui:decorate>
+
+    <ui:decorate template="/layout/edit-modalpanel.xhtml">
+        <ui:param name="panelId" value="categoryEditPanel"/>
+        <ui:param name="panelTitle" value="#{articleCategoryHome.managed ? '编辑' : '新建'}部门"/>
+
+        <s:decorate id="categoryNameField" template="/layout/edit.xhtml">
+            <ui:define name="label">
+                名称
+            </ui:define>
+            <ui:param name="for" value="categoryNameInput"/>
+            <ui:param name="status" value="categoryNameStatus"/>
+
+            <h:inputText id="categoryNameInput" label="部门名称"
+                         valueChangeListener="#{articleCategoryHome.verifyUniqueAvailable}"
+                         unique="name" styleClass="form-control" value="#{articleCategoryHome.instance.name}"
+                         required="true" maxlength="32">
+                <f:validateRequired/>
+                <a:ajax event="change" render="categoryNameField" status="categoryNameStatus"/>
+            </h:inputText>
+        </s:decorate>
+
+        <s:decorate template="/layout/edit.xhtml">
+            <ui:define name="label">
+                描述
+            </ui:define>
+            <ui:param name="for" value="categoryDescriptionInput"/>
+            <h:inputTextarea id="categoryDescriptionInput" styleClass="form-control" value="#{articleCategoryHome.instance.description}" rows="3"/>
+        </s:decorate>
+
+
+        <ui:define name="actionButtons">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-floppy-remove"/>
+                取消</button>
+
+
+            <a:commandLink styleClass="btn btn-success" render="categoryEditPanel_inputs,categoryListForm,categoryInfoPanel"
+                           execute="@form"
+                           oncomplete="if (#{facesContext.maximumSeverity==null} || #{facesContext.maximumSeverity.ordinal lt 2}){$('#categoryEditPanel').modal('hide')}"
+                           action="#{articleCategoryHome.saveOrUpdate}">
+                <span class="glyphicon glyphicon-floppy-disk"/>
+                <a:attachQueue requestDelay="0"/>
+                <a:param value="TEL" assignTo="#{articleCategoryHome.typeName}"/>
+                保存
+            </a:commandLink>
+
+
+        </ui:define>
+
+
+    </ui:decorate>
+
+
+
+    <div class="row">
+        <div class="col-md-4" role="complementary">
+
+            <nav class="menu">
+                <div class="boxed-group-action">
+                    <h:form>
+
+                        <a:commandLink styleClass="btn btn-sm btn-success new-repo"
+                                       render="categoryEditPanel_form,categoryEditPanel_title"
+                                       oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                            <span class="octicon octicon-plus"></span>
+                            <a:attachQueue requestDelay="0"/>
+                            <a:param value="" assignTo="#{articleCategoryHome.id}"/>
+                            新建部门
+                        </a:commandLink>
+                    </h:form>
+                </div>
+                <h3 class="menu-heading">
+                    部门列表 <span class="badge">#{allTelCategories.resultCount + 1}</span>
+                </h3>
+                <h:form id="categoryListForm">
+
+
+                    <a:repeat value="#{allTelCategories.resultList}" var="_category">
+
+
+                        <a:commandLink styleClass="menu-item css-truncate #{_category.id eq articleCategoryHome.instance.id ? 'selected' : ''}"
+                                       render="articleListForm,categoryListForm,searchKeyInput">
+                            <span class="repo-icon octicon octicon-repo"></span>
+
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target" title="#{_category.description}">#{_category.name}</span>
+      </span>
+                            <f:param name="categoryId" value="#{_category.id}"/>
+                            <f:param name="firstResult" value="0"/>
+                            <f:param name="searchKey" value=""/>
+                            <a:attachQueue requestDelay="0"/>
+
+                        </a:commandLink>
+
+
+                    </a:repeat>
+
+                </h:form>
+
+            </nav>
+
+
+        </div>
+        <h:outputStylesheet>
+            .action-col{
+                width: 120px;
+            }
+        </h:outputStylesheet>
+        <div class="col-md-8" role="main">
+
+
+            <h:form id="articleListForm">
+
+
+                <a:outputPanel rendered="#{articleCategoryHome.idDefined}">
+
+                    <s:div id="categoryInfoPanel" rendered="#{articleCategoryHome.idDefined}" styleClass="new-user-avatar-cta">
+                        <p>
+
+                        <span class="btn-group btn-group-sm" role="group">
+                        <a:commandLink styleClass="btn btn-danger btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="删除部门"
+                                       render="deleteCategoryConfirmPanel_form" oncomplete="$('#deleteCategoryConfirmPanel').modal('show');">
+                            <span class="octicon octicon-trashcan"/>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+
+                        <a:commandLink styleClass="btn btn-success btn-reversal tooltipped tooltipped-s" immediate="true" execute="@this"
+                                       p:aria-label="编辑部门"
+                                       render="categoryEditPanel_form,categoryEditPanel_title" oncomplete="$('#categoryEditPanel').modal({backdrop: 'static'})">
+                            <span class="octicon octicon-pencil"></span>
+                            <a:attachQueue requestDelay="0"/>
+                        </a:commandLink>
+
+                            <a:commandLink execute="@this" immediate="true"
+                                           render="resourceEditPanel_title,resourceEditPanel_form"
+                                           styleClass="btn btn-success  tooltipped tooltipped-s"
+                                           p:aria-label="添加联系电话"
+                                           oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})">
+                                <a:attachQueue requestDelay="0"/>
+                                <span class="octicon octicon-plus"></span>
+                                <f:param name="articleId" value=""/></a:commandLink>
+
+                        </span>
+                        </p>
+                        <p><strong>#{articleCategoryHome.instance.name}</strong> #{articleCategoryHome.instance.description}</p>
+                    </s:div>
+
+                    <s:div styleClass="blankslate spacious large-format" rendered="#{empty telList.resultList}">
+                        <span class="mega-octicon octicon-search"></span>
+
+                        <h3>此部门下还没有设置联系电话</h3>
+                        <p>此部门下还没有设置联系电话，你可以<a:commandLink execute="@this" immediate="true" render="resourceEditPanel_title,resourceEditPanel_form" oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})"><a:attachQueue requestDelay="0"/> <span class="octicon octicon-plus"></span><f:param name="articleId" value=""/>添加联系电话</a:commandLink></p>
+                    </s:div>
+
+
+                    <h:dataTable styleClass="table table-striped table-hover"
+                                 columnClasses=",,,action-col"
+                                 rendered="#{not empty telList.resultList}" value="#{telList.resultList}" var="_tel">
+                    <h:column>
+                        <f:facet name="header">
+                            名称
+                        </f:facet>
+                        #{_tel.mainTitle}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            电话
+                        </f:facet>
+                        #{_tel.subTitle}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            描述
+                        </f:facet>
+                        #{_tel.summary}
+                    </h:column>
+                    <h:column>
+
+                        <div class="table-actions">
+                        <a:commandLink styleClass="tooltipped tooltipped-s table-action"
+                                       render="deleteArticleConfirmPanel_title,deleteArticleConfirmPanel_form"
+                                       oncomplete="$('#deleteArticleConfirmPanel').modal('show');"
+                                       p:aria-label="删除电话" execute="@this" immediate="true">
+                            <span class="octicon octicon-trashcan"></span>
+                            <a:attachQueue requestDelay="0"/>
+                            <f:param name="articleId" value="#{_tel.id}"/>
+                        </a:commandLink>
+
+                        <a:commandLink execute="@this" immediate="true" styleClass="tooltipped tooltipped-s table-action"
+                                       render="resourceEditPanel_title,resourceEditPanel_form"
+                                       p:aria-label="编辑电话"
+                                       oncomplete="$('#resourceEditPanel').modal({backdrop: 'static'})">
+                            <a:attachQueue requestDelay="0"/>
+                            <span class="octicon octicon-pencil"></span>
+                            <f:param name="articleId" value="#{_tel.id}"/>
+                            <f:param name="categoryId" value="#{_tel.category.id}"/>
+                        </a:commandLink>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+                </a:outputPanel>
+                <s:div styleClass="blankslate spacious large-format" rendered="#{not articleCategoryHome.idDefined}">
+                    <span class="mega-octicon octicon-search"></span>
+
+                    <h3>请选择部门</h3>
+                    <p>选择要操作的部门</p>
+                </s:div>
+
+
+
+
+
+
+
+
+
+            </h:form>
+
+        </div>
+
+    </div>
+
+
+</ui:composition>

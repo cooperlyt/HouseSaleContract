@@ -1,9 +1,6 @@
 package com.dgsoft.house.sale.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,11 +11,18 @@ import javax.validation.constraints.Size;
 @Table(name = "SYSTEM_PARAM", catalog = "CONTRACT")
 public class SystemParam {
 
+    public enum ParamType{
+        STRING,IMG
+    }
+
     private String id;
 
     private String value;
 
     private String description;
+
+    private ParamType type;
+
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, length = 32)
@@ -32,7 +36,9 @@ public class SystemParam {
         this.id = id;
     }
 
-    @Column(name="VALUE", length = 50 , nullable = false)
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "VALUE", columnDefinition = "LONGTEXT")
     public String getValue() {
         return value;
     }
@@ -48,5 +54,15 @@ public class SystemParam {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", length = 16,nullable = false)
+    public ParamType getType() {
+        return type;
+    }
+
+    public void setType(ParamType type) {
+        this.type = type;
     }
 }

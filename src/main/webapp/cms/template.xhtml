@@ -39,7 +39,17 @@
         <h:outputStylesheet library="cms" name="/css/slideshow.css"/>
 
 
+        <h:outputStylesheet>
+            footer .contact_table{
+                font-size: inherit;
+                font-style: inherit;
+                font-weight: inherit;
 
+                color: #3f6caf;
+
+            }
+
+        </h:outputStylesheet>
 
 
         <h:outputScript library="cms" name="/js/modernizr.js"/>
@@ -96,8 +106,8 @@
                                <div class="links_tools">
                                    <div class="links"><div class="links">
                                        <ul>
-                                           <li><a onclick="return false;">联系我们</a></li>
-                                           <li><a onclick="return false;">错误报告</a></li>
+                                           <li><s:link view="/login.xhtml"><f:param name="logonType" value="USER"/>登录</s:link></li>
+                                           <li><a onclick="return false;">注册</a></li>
                                        </ul>
                                    </div>
 
@@ -610,7 +620,12 @@
                                 </a:repeat>
                             </ul>
 
-
+                            <h5><s:link view="/cms/tel-service.xhtml" >便民服务</s:link></h5>
+                            <ul>
+                                <li><s:link view="/cms/tel-service.xhtml" >便民热线</s:link></li>
+                                <li><s:link view="/cms/qa-service.xhtml" >常见问题<f:param name="categoryId" value=""/></s:link></li>
+                                <li><s:link view="/cms/downloads-service.xhtml" >下载中心<f:param name="categoryId" value=""/> </s:link></li>
+                            </ul>
                         </div>
                         <div class="grid_2 clearfix"><h5><a onclick="return false;">商品房</a></h5>
 

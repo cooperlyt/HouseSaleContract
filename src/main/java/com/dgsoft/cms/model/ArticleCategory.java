@@ -23,7 +23,8 @@ public class ArticleCategory implements java.io.Serializable{
         Events(new Article.ArticleViewType[]{Article.ArticleViewType.HTML ,Article.ArticleViewType.TEXT}),
         Welcome(new Article.ArticleViewType[]{Article.ArticleViewType.HTML ,Article.ArticleViewType.TEXT}),
         Download(new Article.ArticleViewType[]{Article.ArticleViewType.APPLICATION,Article.ArticleViewType.URL_LINK}),
-        QA(new Article.ArticleViewType[]{Article.ArticleViewType.TEXT});
+        QA(new Article.ArticleViewType[]{Article.ArticleViewType.TEXT}),
+        TEL(new Article.ArticleViewType[]{Article.ArticleViewType.TEXT});
 
         private Article.ArticleViewType[] allowArticleType;
 

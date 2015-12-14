@@ -1303,3 +1303,48 @@ label {
 .octicon.nav-icon{
     font-size: 17px;
 }
+
+
+.table-actions{
+    margin-left: 20px
+}
+
+.table-action {
+
+    position: relative;
+    font-size: 12px;
+    vertical-align: top;
+
+    float: left;
+    display: block;
+    color: #999;
+    padding: 3px 10px 0 10px;
+}
+
+.table-action .octicon {
+    margin-right: 2px
+}
+
+.table-action .octicon-pencil {
+    font-size: 14px
+}
+
+.table-action:hover {
+    color: #4183c4;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.table-action:active {
+    text-decoration: none;
+}
+.table-action:focus{
+    text-decoration: none;
+}
+
+
+.boxed-group .bleed-flush {
+    width: 100%;
+    padding: 0 10px;
+    margin-left: -10px;
+}

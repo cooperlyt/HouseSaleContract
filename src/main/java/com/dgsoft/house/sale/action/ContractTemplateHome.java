@@ -12,6 +12,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessage;
+import org.jboss.seam.log.Logging;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
     @Override
     public ContractTemplate createInstance(){
         LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
+        Logging.getLog(getClass()).debug(logonInfo);
         return new ContractTemplate(logonInfo.getGroupCode());
     }
 

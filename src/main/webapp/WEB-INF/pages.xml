@@ -60,12 +60,12 @@
             </rule>
 
             <rule if-outcome="view-contract-MAP_SELL-v1">
-                <redirect view-id="/contract/context/pre-sale-view-v1.xhtml"/>
+                <redirect view-id="/contract/pre-sale-view-v1.xhtml"/>
             </rule>
 
 
             <rule if-outcome="view-contract-NOW_SELL-v1">
-                <redirect view-id="/contract/context/new-sale-view-v1.xhtml"/>
+                <redirect view-id="/contract/new-sale-view-v1.xhtml"/>
             </rule>
 
             <rule if-outcome="template-contract-MAP_SELL-v1">
@@ -119,7 +119,7 @@
     </exception>
 
     <exception class="org.jboss.seam.security.NotLoggedInException">
-        <redirect view-id="/home.xhtml">
+        <redirect view-id="/login.xhtml">
             <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
         </redirect>
     </exception>

@@ -7,6 +7,9 @@
       <rule if="#{identity.loggedIn and s:hasRole('cmsManager')}">
          <redirect view-id="/cms/manager/article-news.xhtml"/>
       </rule>
+       <rule if="#{identity.loggedIn and s:hasRole('developer')}">
+           <redirect view-id="/developer/home.xhtml"/>
+       </rule>
    </navigation>
 
     <param name="logonType" value="#{authenticationManager.logonTypeName}"/>

@@ -76,10 +76,6 @@
                 <redirect view-id="/contract/template/new-sale-template-v1.xhtml"/>
             </rule>
 
-
-
-
-
         </navigation>
     </page>
 

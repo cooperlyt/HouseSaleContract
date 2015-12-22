@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-new-house-record.xhtml">
+
+    <ui:param name="currFunc" value="total"/>
+
+    <h:outputStylesheet>
+        .chart-container{
+            margin-top: 30px;
+        }
+
+        .chart-container .chart-title{
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </h:outputStylesheet>
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
+            view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房</s:link><span
+            class="default">/</span><span>商品房网上备案数据统计</span>
+    </ui:define>
+
+    <div class="page_heading" id="page_heading">
+        <h1>商品房网上备案数据统计</h1>
+    </div>
+    <div class="mainContent" style="font-size: 13px">
+        <div class="block">
+            <p>
+                根据已颁发的"预(销)售许可证"和"商品房备案业务"情况,截止到当前时间:
+            </p>
+            <ul>
+                <li>以纳入网上备案项目数 <strong>#{newHouseTotal.totalData.projectCount}</strong> 个</li>
+                <li>以纳入网上备案楼幢数 <strong>#{newHouseTotal.totalData.buildCount}</strong> 栋</li>
+                <li>以纳入网上备案套数 <strong>#{newHouseTotal.totalData.totalCount}</strong> 套, 其中已售 <strong>#{newHouseTotal.totalData.saleCount}</strong> 套, 剩余 <strong>#{newHouseTotal.totalData.unsaleCount}</strong> 套</li>
+                <li>以纳入网上备案面积 <strong>#{newHouseTotal.totalData.totalArea}</strong> m<sup>2</sup>, 其中已售 <strong>#{newHouseTotal.totalData.saleArea}</strong> m<sup>2</sup>, 剩余 <strong>#{newHouseTotal.totalData.unsaleArea}</strong> m<sup>2</sup></li>
+                <li>总签约金额为：<strong><h:outputText value="#{newHouseTotal.totalData.saleMoney}"><f:convertNumber type="currency"/> </h:outputText></strong> 元</li>
+            </ul>
+        </div>
+
+    <r:chart title="套数统计">
+        <r:chartLegend sorting="ascending" />
+        <r:chartSeries  type="pie" >
+            <r:chartPoint x="已售住宅 #{newHouseTotal.totalData.saleHomeCount}(套)" y="#{newHouseTotal.totalData.saleHomeCount}" />
+            <r:chartPoint x="已售非住宅 #{newHouseTotal.totalData.saleOtherCount}(套)" y="#{newHouseTotal.totalData.saleOtherCount}" />
+            <r:chartPoint x="可售住宅 #{newHouseTotal.totalData.unsaleHomeCount}(套)" y="#{newHouseTotal.totalData.unsaleHomeCount}" />
+            <r:chartPoint x="可售非住宅 #{newHouseTotal.totalData.unsaleOtherCount}(套)" y="#{newHouseTotal.totalData.unsaleOtherCount}" />
+        </r:chartSeries>
+    </r:chart>
+
+    <r:chart  title="面积统计">
+        <r:chartLegend sorting="ascending" />
+        <r:chartSeries type="pie" >
+            <r:chartPoint x="已售住宅 #{newHouseTotal.totalData.saleHomeArea}(m&lt;sup&gt;2&lt;/sup&gt;)" y="#{newHouseTotal.totalData.saleHomeArea}" />
+            <r:chartPoint x="已售非住宅 #{newHouseTotal.totalData.saleOtherArea}(m&lt;sup&gt;2&lt;/sup&gt;)" y="#{newHouseTotal.totalData.saleOtherArea}" />
+            <r:chartPoint x="可售住宅 #{newHouseTotal.totalData.unsaleHomeArea}(m&lt;sup&gt;2&lt;/sup&gt;)" y="#{newHouseTotal.totalData.unsaleHomeArea}" />
+            <r:chartPoint x="可售非住宅 #{newHouseTotal.totalData.unsaleOtherArea}(m&lt;sup&gt;2&lt;/sup&gt;)" y="#{newHouseTotal.totalData.unsaleOtherArea}" />
+
+        </r:chartSeries>
+    </r:chart>
+
+    <r:chart  title="金额统计">
+        <r:chartLegend sorting="ascending" />
+        <r:chartSeries  type="pie" >
+            <r:chartPoint x="住宅 #{newHouseTotal.totalData.saleHomeMoney}(元)" y="#{newHouseTotal.totalData.saleHomeMoney}" />
+            <r:chartPoint x="非住宅 #{newHouseTotal.totalData.saleOtherMoney}(元)" y="#{newHouseTotal.totalData.saleOtherMoney}" />
+        </r:chartSeries>
+    </r:chart>
+
+    </div>
+
+</ui:composition>

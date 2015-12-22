@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-new-house-record.xhtml">
+
+    <ui:param name="currFunc" value="top10"/>
+
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
+            view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房</s:link><span
+            class="default">/</span><span>项目销售TOP10</span>
+    </ui:define>
+
+    <a:outputPanel layout="block" styleClass="page_heading" id="page_heading">
+        <h1>项目销售TOP10 - #{messages[projectTopTen.type.msgKey]}</h1>
+    </a:outputPanel>
+
+    <div class="mainContent" style="font-size: 13px">
+    <div class="block">
+        <h:form>
+        <p>
+            截止到当前时间,根据办理商品房备案业务情况,
+
+            <h:selectOneMenu value="#{projectTopTen.type}">
+                <s:selectItems value="#{projectTopTen.timeTypes}" var="_type"
+                               label="#{messages[_type.msgKey]}" itemValue="#{_type}"/>
+                <s:convertEnum/>
+                <a:ajax event="valueChange" listener="#{projectTopTen.refresh}" render="resutDatas,page_heading" execute="@this"/>
+            </h:selectOneMenu>
+             销售排行前10:
+
+        </p>
+        </h:form>
+    </div>
+        <a:outputPanel id="resutDatas">
+
+
+            <r:chart title="套数">
+                <r:chartLegend sorting="ascending" />
+                <a:repeat rowKeyVar="_order" value="#{projectTopTen.countTotalData}" var="_count">
+                    <r:chartSeries label="#{(_order + 1) lt 10 ? '0' : ''}#{_order + 1}.&lt;a&gt;#{_count.name}&lt;/a&gt;"  type="bar">
+                        <r:chartPoint x="套数" y="#{_count.longValue}" />
+                    </r:chartSeries>
+                </a:repeat>
+            </r:chart>
+
+            <r:chart title="面积">
+                <r:chartLegend sorting="ascending" />
+                <a:repeat rowKeyVar="_order" value="#{projectTopTen.areaTotalData}" var="_area">
+                    <r:chartSeries label="#{(_order + 1) lt 10 ? '0' : ''}#{_order + 1}.&lt;a&gt;#{_area.name}&lt;/a&gt;" type="bar">
+                        <r:chartPoint x="面积" y="#{_area.decimalValue}" />
+                    </r:chartSeries>
+                </a:repeat>
+            </r:chart>
+
+
+            <r:chart title="金额">
+                <r:chartLegend sorting="ascending" />
+                <a:repeat  rowKeyVar="_order" value="#{projectTopTen.moneyTotalData}" var="_money">
+                    <r:chartSeries label="#{(_order + 1) lt 10 ? '0' : ''}#{_order + 1}.&lt;a&gt; #{_money.name}&lt;/a&gt;" type="bar">
+                        <r:chartPoint x="金额" y="#{_money.decimalValue}" />
+                    </r:chartSeries>
+                </a:repeat>
+            </r:chart>
+
+
+
+
+        </a:outputPanel>
+
+
+
+    </div>
+
+
+</ui:composition>

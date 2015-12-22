@@ -1,6 +1,8 @@
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('server_address','STRING','http://localhost:8080/HMPLAT/','产权服务器地址');
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('allow_project_pledge_sale','STRING','no','在建工程房屋是否可签约 yes   no');
 
+INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('saleInfoDataProviderURL','STRING','http://localhost:8080/HMPLAT/HouseSaleRecordDataProvider.seam','房屋销售数据提供URL');
+
 
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('web_url','STRING','www.fcfcdjw.com','网站域名');
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('web_name','STRING','辽宁省凤城房产登记网','网站名称');

@@ -35,6 +35,9 @@ INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('e_mail','STRI
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('head_logo_url','IMG','http://localhost:8080/HouseSaleContract_SNAPSHOT/img/cms/sitelogo.png','网站主图标地址');
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('foot_logo_url','IMG','http://localhost:8080/HouseSaleContract_SNAPSHOT/img/cms/housing_authority_footer_logo.png','网站脚图标地址');
 
+
+INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('saleInfoDataProviderURL','STRING','http://localhost:8080/HMPLAT/HouseSaleRecordDataProvider.seam','房屋销售数据提供URL');
+
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('cms_mgr_password','STRING','FcCMS001','网站管理密码');
 
 INSERT CONTRACT.ARTICLE_CATEGORY(ID,NAME,PRI,TYPE,DESCRIPTION) VALUES ('events','事件&通知',0,'Events','事件&通知');

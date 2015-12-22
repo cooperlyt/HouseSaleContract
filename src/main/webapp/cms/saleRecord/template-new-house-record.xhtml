@@ -1,0 +1,67 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/cms/template-blank.xhtml">
+
+    <ui:define name="template-blank-body">
+    <div class="grid_3 leftRail">
+
+        <div class="railNavHeading clearfix">
+            商品房
+        </div>
+
+        <div>
+
+
+            <ul id="railNav" class="railNav">
+
+
+                <li>
+                    <s:link view="/cms/saleRecord/newHouseSaleTotal.xhtml" styleClass="#{(currFunc eq 'total') ? 'on' : ''}">商品房网上备案数据统计</s:link>
+                </li>
+                <li>
+                    <s:link view="/cms/saleRecord/projectSaleTopTen.xhtml" styleClass="#{(currFunc eq 'top10') ? 'on' : ''}">项目销售TOP10</s:link>
+                </li>
+
+                <li>
+                    <s:link view="/cms/qa-service.xhtml" styleClass="#{(currFunc eq 'qa') ? 'on' : ''}">商品房销售分布</s:link>
+                </li>
+
+                <li>
+                    <s:link view="/cms/qa-service.xhtml" styleClass="#{(currFunc eq 'qa') ? 'on' : ''}">可售商品房查询</s:link>
+                </li>
+
+                <li>
+                    <s:link view="/cms/qa-service.xhtml" styleClass="#{(currFunc eq 'qa') ? 'on' : ''}">商品房备案合同查询</s:link>
+                </li>
+
+                <li>
+                    <s:link view="/cms/qa-service.xhtml" styleClass="#{(currFunc eq 'qa') ? 'on' : ''}">开发商从业机构&amp;从业人员查询</s:link>
+                </li>
+
+            </ul>
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="grid_9 rightRail">
+
+        <ui:insert/>
+
+    </div>
+
+    </ui:define>
+
+</ui:composition>

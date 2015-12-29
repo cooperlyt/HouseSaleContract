@@ -298,9 +298,6 @@ public class MultiOperatorEntityQuery<E> extends MultiOperatorQuery<EntityManage
                 showPageNavNumbers.add(Long.valueOf(getPageCount()));
             }
         }
-
-
-
     }
 
     private String orderExpress;

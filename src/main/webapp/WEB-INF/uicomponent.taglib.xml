@@ -5,6 +5,47 @@
                 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
                 version="2.0">
     <namespace>http://www.dgsoft.com/jsf/html</namespace>
+
+    <tag>
+        <tag-name>convertTime</tag-name>
+        <converter>
+            <description>
+                Perform date or time conversions in the Seam timezone.
+            </description>
+            <converter-id>timeConverter</converter-id>
+        </converter>
+        <attribute>
+            <description>Predefined formatting style which determines how the time component of a date string is to be formatted and parsed. Applied only if type is "time" or "both". Valid values are "default", "short", "medium", "long", and "full". Default value is "default".</description>
+            <name>timeStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Predefined formatting style which determines how the date component of a date string is to be formatted and parsed. Applied only if type is "date" or "both". Valid values are "default", "short", "medium", "long", and "full". Default value is "default".</description>
+            <name>dateStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Custom formatting pattern which determines how the date/time string should be formatted and parsed.</description>
+            <name>pattern</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Locale whose predefined styles for dates and times are used during formatting or parsing. If not specified, the Locale returned by FacesContext.getViewRoot().getLocale() will be used. Value must be either a VB expression that evaluates to a java.util.Locale instance, or a String that is valid to pass as the first argument to the constructor java.util.Locale(String language, String country). The empty string is passed as the second argument.</description>
+            <name>locale</name>
+            <type>java.util.Locale</type>
+        </attribute>
+        <attribute>
+            <description>Time zone in which to interpret any time information in the date String. Value must be either a VB expression that evaluates to a java.util.TimeZone instance, or a String that is a timezone ID as described in the javadocs for java.util.TimeZone.getTimeZone().</description>
+            <name>timeZone</name>
+            <type>java.util.TimeZone</type>
+        </attribute>
+        <attribute>
+            <description>Specifies what contents the string value will be formatted to include, or parsed expecting. Valid values are "date", "time", and "both". Default value is "date".</description>
+            <name>type</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
     <tag>
         <description>
             outPut a table

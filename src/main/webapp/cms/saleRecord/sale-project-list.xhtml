@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:ci="http://www.dgsoft.com/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-new-house-record.xhtml">
+
+    <ui:param name="currFunc" value="projectList"/>
+
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
+            view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房</s:link><span
+            class="default">/</span><span>楼盘一览</span>
+    </ui:define>
+
+    <h:outputStylesheet library="octicons" name="octicons.css"/>
+
+    <a:outputPanel layout="block" styleClass="page_heading" id="page_heading">
+        <h1>楼盘一览</h1>
+    </a:outputPanel>
+
+    <div class="mainContent" style="font-size: 13px">
+        <div class="block">
+            <h:form>
+                <p>
+                    项目数据来自《商品房(预)销售许可证》和项目开发商对项目的描述信息，请注意甄别.
+                </p>
+            </h:form>
+        </div><a name="top"></a>
+
+
+        <a:outputPanel layout="block" styleClass="paging" rendered="#{not empty projectList.resultMap}">
+            <div class="sortStatus">
+                <b>共找到:</b> #{projectList.resultCount} 个项目.
+            </div>
+
+            <ui:include src="/cms/samll-page-nav.xhtml">
+                <ui:param name="entityList" value="#{projectList}"/>
+            </ui:include>
+
+            <div class="clear"></div>
+        </a:outputPanel>
+
+
+        <a:repeat value="#{projectList.resultMap}" var="_project">
+
+            <div class="block">
+                <table class="houseTbl">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h2>#{_project.name}</h2>
+                                <p>
+                                    <span class="houseLbl">地址:</span> #{_project.address}
+                                </p>
+                                <p>
+                                    <span class="houseLbl">栋数:</span> #{_project.buildCount}
+                                </p>
+                                <p>
+                                    <span class="houseLbl">房屋套数 / 面积:</span> #{_project.houseCount} 套 / #{_project.houseArea} m<sup>2</sup>
+                                </p>
+
+                                <p>
+                                    <span class="houseLbl">(预)销售许可日期:</span>
+
+                                    <h:outputText value="#{_project.regDate}">
+                                        <ci:convertTime pattern="#{messages.displayDatePattern}"></ci:convertTime>
+                                    </h:outputText>
+                                </p>
+                                <p>
+                                    <span class="houseLbl">开发商:</span> #{_project.developerName}
+                                </p>
+
+                            </td>
+                            <td class="houseImg">
+                                <h:graphicImage value="/img/project-default.jpg"/>
+
+                            </td>
+                        </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p>
+                                <span class="houseLbl">项目简介:</span>
+                            </p>
+
+                            <p>
+
+                            </p>
+                            <div class="topOfPage"><a href="#top">返回顶部<span class="octicon octicon-triangle-up"></span></a></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </a:repeat>
+
+
+        <a:outputPanel layout="block" styleClass="moduleContents" rendered="#{not empty projectList.resultMap}">
+
+            <a:outputPanel layout="block" styleClass="paging" >
+                <div class="sortStatus">
+                    <b>共找到:</b> #{projectList.resultCount} 个项目.
+                </div>
+
+                <ui:include src="/cms/samll-page-nav.xhtml">
+                    <ui:param name="entityList" value="#{projectList}"/>
+                </ui:include>
+
+                <div class="clear"></div>
+            </a:outputPanel>
+        </a:outputPanel>
+
+    </div>
+
+
+</ui:composition>

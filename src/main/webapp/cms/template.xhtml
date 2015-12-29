@@ -213,7 +213,7 @@
                                            </li>
 
                                            <li id="CT_Navigation_0_cache_rptNav_ctl01_liItem">
-                                               <a href="/section-8-housing-programs/" id="CT_Navigation_0_cache_rptNav_ctl01_lnkLink1"><span><span><span>商品房</span></span></span></a>
+                                               <s:link view="/cms/saleRecord/newHouseSaleTotal.xhtml"><span><span><span>商品房</span></span></span></s:link>
 
 
                                                <div class="sub">
@@ -243,7 +243,7 @@
 
                                                            <li>
                                                                <ul>
-                                                                   <li><a href="/overview-of-hacsc-real-estate/how-to-apply-for-a-hacsc-owned-apartment/">商品房销售分布</a>
+                                                                   <li><a onclick="return false;">商品房销售分布</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
 
                                                                    </li>
                                                                </ul>
@@ -255,7 +255,7 @@
 
                                                        <li>
                                                            <ul>
-                                                               <li><a href="http://www.hacsc.org/section-8-housing-programs/housing-choice-voucher-administrative-plan/">项目信息查询</a>
+                                                               <li><s:link view="/cms/saleRecord/sale-project-list.xhml"><f:param name="firstResult" value="0"/>楼盘一览</s:link>
 
                                                                </li>
                                                            </ul>
@@ -627,13 +627,13 @@
                                 <li><s:link view="/cms/downloads-service.xhtml" >下载中心<f:param name="categoryId" value=""/> </s:link></li>
                             </ul>
                         </div>
-                        <div class="grid_2 clearfix"><h5><a onclick="return false;">商品房</a></h5>
+                        <div class="grid_2 clearfix"><h5><s:link view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房</s:link></h5>
 
                             <ul>
                                 <li><s:link view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房网上备案数据统计</s:link></li>
                                 <li><s:link view="/cms/saleRecord/projectSaleTopTen.xhtml">项目销售TOP10</s:link></li>
                                 <li><a onclick="return false;">商品房销售分布</a></li>
-                                <li><a onclick="return false;">项目信息查询</a></li>
+                                <li><s:link view="/cms/saleRecord/sale-project-list.xhml"><f:param name="firstResult" value="0"/>楼盘一览</s:link></li>
                                 <li><a onclick="return false;">可售商品房查询</a></li>
                                 <li><a onclick="return false;">商品房备案合同查询</a></li>
                                 <li><a onclick="return false;">开发商从业机构&amp;从业人员查询</a></li>

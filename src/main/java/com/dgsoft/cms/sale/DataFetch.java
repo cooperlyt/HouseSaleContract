@@ -2,6 +2,7 @@ package com.dgsoft.cms.sale;
 
 import com.dgsoft.cms.sale.exceptions.OwnerServerException;
 import com.dgsoft.common.system.RunParam;
+import org.jboss.seam.log.Logging;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +37,7 @@ public abstract class DataFetch {
             }
 
             URLEncoder.encode(address,"UTF-8");
+            Logging.getLog(getClass()).debug("get data:" + address);
 
             URL url = new URL(address);
 

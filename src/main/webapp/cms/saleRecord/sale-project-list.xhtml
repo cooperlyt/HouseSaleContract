@@ -57,7 +57,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <h2>#{_project.name}</h2>
+                                <h2><s:link view="/cms/saleRecord/project-home.xhtml"><f:param name="projectId" value="#{_project.id}"/> #{_project.name}</s:link></h2>
                                 <p>
                                     <span class="houseLbl">地址:</span> #{_project.address}
                                 </p>
@@ -92,7 +92,7 @@
                             </p>
 
                             <p>
-
+                                该项目未填写描述信息
                             </p>
                             <div class="topOfPage"><a href="#top">返回顶部<span class="octicon octicon-triangle-up"></span></a></div>
                         </td>

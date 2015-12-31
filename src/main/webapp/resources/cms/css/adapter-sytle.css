@@ -1,0 +1,32 @@
+* {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: border-box;
+    box-sizing: content-box;
+}
+
+html {
+    font-family: inherit;
+    font-size: inherit;
+
+}
+
+body{
+    font-family: "microsoft yahei", Helvetica, Arial, "宋体", sans-serif;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    background: #d2dee8;
+}
+
+.label{
+    padding: inherit;
+}
+
+.container{
+    width: inherit;
+}
+
+.carousel-inner .item{
+    padding: 0;
+    border: 0;
+}

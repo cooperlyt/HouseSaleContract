@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ci="http://www.dgsoft.com/jsf/html"
+                template="/cms/template.xhtml">
+
+    <ui:define name="head">
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.css"/>
+
+        <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false"/>
+
+        <h:outputScript library="bootstrap" name="/js/html5shiv.min.js"/>
+        <h:outputScript library="bootstrap" name="/js/respond.min.js"/>
+
+        <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    </ui:define>
+
+    <main id="content" role="main" class="main_home">
+        <div class="siteBody clearfix">
+            <div class="container">
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+</ui:composition>

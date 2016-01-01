@@ -5,8 +5,9 @@
 
 
     <param name="projectId" value="#{buildHome.projectId}"/>
-    <param name="buildId" value="#{buildHome.cardId}"/>
-    <param name="cardId" value="#{buildHome.buildId}"/>
+    <param name="buildId" value="#{buildHome.buildId}"/>
+    <param name="cardId" value="#{buildHome.cardId}"/>
+    <param name="pageIndex" value="#{buildHome.pageIndex}"/>
 
 
 </page>

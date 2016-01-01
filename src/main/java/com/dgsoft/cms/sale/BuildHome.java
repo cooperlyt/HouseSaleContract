@@ -6,10 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cooper on 12/31/15.
@@ -66,20 +63,73 @@ public class BuildHome extends DataFetch {
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> result = new HashMap<String, String>(3);
-        result.put("buildId", buildId);
-        result.put("projectId", projectId);
-        result.put("cardId", cardId);
+        result.put("buildId", buildId == null ? "" : buildId);
+        result.put("projectId", projectId == null ? "" : projectId);
+        result.put("cardId", cardId == null ? "" : cardId);
         return result;
+    }
+
+
+    private List<Map.Entry<String,String>> buildList;
+
+    public List<Map.Entry<String, String>> getBuildList() {
+        if (buildList == null){
+            initData();
+        }
+        return buildList;
+    }
+
+    public String getBuildName(){
+        if (buildName == null){
+            initData();
+        }
+
+        return buildName;
     }
 
 
     private List<GridMapData> mapDatas;
 
+    private String projectName;
+
+    private String buildName;
+
+    public String getProjectName() {
+        if (projectName == null){
+            initData();
+        }
+        return projectName;
+    }
+
     protected void initData() {
+        buildList = new ArrayList<Map.Entry<String, String>>();
+
+
+
+
         mapDatas = new ArrayList<GridMapData>();
         JSONObject jsonObject = getJsonData();
 
+
+
         try {
+
+            projectName = jsonObject.getString("projectName");
+            buildName = jsonObject.getString("buildName");
+            JSONArray builds = jsonObject.getJSONArray("builds");
+            Map<String,String> gridMap = new HashMap<String, String>(builds.length());
+            for(int i=0; i< builds.length(); i++){
+                JSONObject buildObj =  builds.getJSONObject(i);
+                gridMap.put(buildObj.getString("id"),buildObj.getString("buildName"));
+            }
+            buildList.addAll(gridMap.entrySet());
+            Collections.sort(buildList, new Comparator<Map.Entry<String, String>>() {
+                @Override
+                public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                    return o1.getKey().compareTo(o2.getKey());
+                }
+            });
+
             JSONArray pageArray = jsonObject.getJSONArray("gridMaps");
             for (int i = 0; i < pageArray.length(); i++) {
                 mapDatas.add(new GridMapData(pageArray.getJSONObject(i)));
@@ -88,6 +138,19 @@ public class BuildHome extends DataFetch {
             throw new OwnerServerException(e);
         }
 
+    }
+
+    public GridMapData getResultGridMap(){
+        for(GridMapData gridMapData: getMapDatas()){
+            if (gridMapData.getIndex().equals(pageIndex)){
+                return gridMapData;
+            }
+        }
+        if (!getMapDatas().isEmpty()){
+            pageIndex = getMapDatas().get(0).getIndex();
+            return getMapDatas().get(0);
+        }
+        return null;
     }
 
     public List<GridMapData> getMapDatas(){
@@ -119,6 +182,10 @@ public class BuildHome extends DataFetch {
 
     public class GridMapData{
 
+        private String title;
+
+        private Integer index;
+
         private int colCount;
 
         private List<Map<String,Object>> heads;
@@ -126,7 +193,9 @@ public class BuildHome extends DataFetch {
         private List<GridMapRow> rows;
 
         public GridMapData(JSONObject gridMapData) throws JSONException {
-            heads = jsonObjectArrayToList(gridMapData.getJSONArray("title"),new SimapleJSONObjectConverter());
+            title = gridMapData.getString("title");
+            index = gridMapData.getInt("index");
+            heads = jsonObjectArrayToList(gridMapData.getJSONArray("head"),new SimapleJSONObjectConverter());
             colCount = gridMapData.getInt("colCount");
 
             JSONArray rowArray = gridMapData.getJSONArray("rows");
@@ -137,6 +206,15 @@ public class BuildHome extends DataFetch {
 
 
         }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Integer getIndex() {
+            return index;
+        }
+
 
         public int getColCount() {
             return colCount;

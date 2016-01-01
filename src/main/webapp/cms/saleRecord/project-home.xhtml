@@ -130,8 +130,8 @@
 
                         <div class="modHead">
                             <h3 class="modHeadNews">
-                                <s:link view="/cms/news-list.xhtml">商品房(预)销售许可证<span>更多</span><f:param name="categoryId" value=""/><f:param name="firstResult" value="0"/><f:param name="searchKey" value=""/></s:link>
 
+                                <s:link view="/cms/saleRecord/build.xhtml" >商品房(预)销售许可证<span>更多</span><f:param name="buildId" value=""/><f:param name="projectId" value="#{projectHome.id}"/><f:param name="cardId" value=""/><f:param name="pageIndex" value="0"/> </s:link>
                             </h3>
                         </div>
                         <div class="modBody">
@@ -147,12 +147,13 @@
                                         <div class="modItem">
                                             <div class="modItemDate"><h:outputText value="#{_pcard.regTime}">  <ci:convertTime pattern="#{messages.displayDatePattern}"/></h:outputText> </div>
 
-                                            <s:link styleClass="modItemTitle" title="#{_pcard.cardNumber}">该项目已由<strong>#{_pcard.orgName}</strong>批准预售,项目核准名称为<strong>#{_pcard.name}</strong>，预售许可证号为<strong>#{_pcard.cardNumber}</strong></s:link>
+                                            <s:link styleClass="modItemTitle" view="/cms/saleRecord/build.xhtml" title="#{_pcard.cardNumber}">该项目已由<strong>#{_pcard.orgName}</strong>批准预售,项目核准名称为<strong>#{_pcard.name}</strong>，预售许可证号为<strong>#{_pcard.cardNumber}</strong><f:param name="buildId" value=""/><f:param name="projectId" value="#{projectHome.id}"/><f:param name="cardId" value="#{_pcard.cardId}"/><f:param name="pageIndex" value="0"/> </s:link>
+
 
                                             <div class="modItemSummary">经批准，<strong>#{_pcard.developerName}</strong>以<strong>#{_pcard.landGetMode}</strong>方式取得坐落于<strong>#{_pcard.landAddress}</strong>地块的建设用地使用权。该地块<strong>#{_pcard.landCardType}</strong>为<strong>#{_pcard.landCardNumber}</strong>，土地使用面积为<strong>#{_pcard.landArea}</strong>平方米。所占用的土地用途为<strong>#{_pcard.landUseType}</strong>，土地使用权终止日期为<strong><h:outputText value="#{_pcard.landEndTime}"><ci:convertTime pattern="#{messages.displayDatePattern}"/></h:outputText></strong>。建设工程规划许可证号为<strong>#{_pcard.createPrepareCardCode}</strong>，建筑工程施工许可证号为<strong>#{_pcard.createCardCode}</strong>。</div>
                                             <ul>
                                                 <a:repeat value="#{_pcard.builds}" var="_build">
-                                                    <li><s:link styleClass="more">#{_build.name}<f:param name="buildId" value="#{_build.id}"/></s:link></li>
+                                                    <li><s:link view="/cms/saleRecord/build.xhtml" styleClass="more">#{_build.name}<f:param name="buildId" value="#{_build.id}"/><f:param name="projectId" value="#{projectHome.id}"/><f:param name="cardId" value="#{_pcard.cardId}"/><f:param name="pageIndex" value="0"/> </s:link></li>
                                                 </a:repeat>
 
                                             </ul>

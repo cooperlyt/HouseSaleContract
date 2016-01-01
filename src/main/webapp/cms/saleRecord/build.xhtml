@@ -10,11 +10,12 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:ci="http://www.dgsoft.com/jsf/html"
-                template="/cms/template.xhtml">
+                template="/cms/template-blank.xhtml">
 
     <ui:define name="head">
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
         <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.css"/>
+
 
         <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false"/>
 
@@ -22,19 +23,312 @@
         <h:outputScript library="bootstrap" name="/js/respond.min.js"/>
 
         <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+
+
+        <h:outputStylesheet>
+            .page_tools .breadcrumbs .dropdown a:link{
+                color: #e67b10;;
+            }
+
+            .page_tools .breadcrumbs .dropdown .dropdown-menu a:link{
+                color: black;
+            }
+
+            .page_tools .breadcrumbs .dropdown .dropdown-menu a:hover , .page_tools .breadcrumbs .dropdown .dropdown-menu a:focus{
+                color: black;
+                text-decoration: none;
+            }
+
+        </h:outputStylesheet>
     </ui:define>
 
-    <main id="content" role="main" class="main_home">
-        <div class="siteBody clearfix">
-            <div class="container">
 
 
-            </div>
+    <ui:define name="path-nav">
+
+            <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link view="/cms/saleRecord/sale-project-list.xhtml">楼盘一览</s:link><span class="default">/</span><s:link view="/cms/saleRecord/project-home.xhtml"><f:param name="projectId" value="#{buildHome.projectId}"/> #{buildHome.projectName}</s:link>
+
+            <span class="default">/</span>
+                <span class="dropdown">
+                    <a  data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        #{buildHome.buildName}
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <a:repeat value="#{buildHome.buildList}" var="_build">
+                        <li><s:link>#{_build.value}
+                            <f:param name="projectId" value="#{buildHome.projectId}"/>
+                            <f:param name="buildId" value="#{_build.key}"/>
+                            <f:param name="cardId" value=""/>
+                            <f:param name="pageIndex" value="0"/>
+                        </s:link> </li>
+                        </a:repeat>
+                    </ul>
+                </span>
+
+            <span class="default">/</span>
+
+            <span class="dropdown">
+       <a  data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+           #{buildHome.resultGridMap.title}
+           <span class="caret"></span>
+       </a>
+                 <ul class="dropdown-menu" aria-labelledby="dLabel">
+                     <a:repeat value="#{buildHome.mapDatas}" var="_page">
+                         <li><s:link>#{_page.title}
+                             <f:param name="projectId" value="#{buildHome.projectId}"/>
+                             <f:param name="buildId" value="#{buildHome.buildId}"/>
+                             <f:param name="cardId" value="#{buildHome.cardId}"/>
+                             <f:param name="pageIndex" value="#{_page.index}"/>
+                         </s:link> </li>
+                     </a:repeat>
+                 </ul>
+            </span>
+
+    </ui:define>
+
+
+    <h:outputStylesheet library="cms" name="/css/adapter-sytle.css"/>
+
+    <h:outputStylesheet>
+        .popover{
+            color: black;
+        }
+
+
+        .gridMapContent{
+            width: 100%;
+        }
+        .gridMap.big .gridMapContent{
+
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .gridMap.big table td{
+            min-width: 95px;
+        }
+
+
+        .gridMap.smail table{
+            width: 100%;
+        }
+
+        .gridMap table th{
+            text-align: center;
+            color: #222;
+            padding: 6px;
+            background-color: #e8e8e8;
+            border: 1px solid #cecece;
+            padding: 4px;
+        }
+
+        .gridMap table td{
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid #cecece;
+            padding: 4px;
+        }
+
+        .gridMap table{
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .gridMap table thead th{
+            height: 30px;
+        }
+
+        .gridMap table tbody th{
+            min-width: 40px;
+        }
+
+        .gridMap table th{
+            border: 1px solid #cecece;
+        }
+
+        .gridMap table td.empty-house{
+            border-width: 0;
+            background-color: #ccc;
+        }
+
+        .gridMap table td.empty-house:focus,.gridMap table td.empty-house:hover{
+            background-color: #ccc;
+        }
+
+        .gridMap table td > a:focus,.gridMap table td > a:hover{
+            text-decoration: none;
+
+        }
+
+        .gridMap table td:focus,.gridMap table td:hover{
+            background: #ffe;
+        }
+        .house-content{
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .NO_SALE .house-title{
+            color: #999;
+        }
+
+        .NO_SALE .label{
+            background-color: #777;
+        }
+
+        .NOW_SALE .house-title{
+            color: #337ab7;
+        }
+
+        .NOW_SALE .label{
+            background-color: #337ab7;
+        }
+
+        .HAVE_SALE .label ,.CONTRACT_SUBMIT .label , .CONTRACTS_RECORD .label{
+            background-color: #5cb85c;
+        }
+
+        .HAVE_SALE .house-title ,.CONTRACT_SUBMIT .house-title , .CONTRACTS_RECORD .house-title{
+            color: #3c763d;
+        }
+
+        .COURT_CLOSE .label{
+            background-color: #d9534f;
+        }
+
+        .COURT_CLOSE .house-title{
+            color: #a94442;
+        }
+
+        .PROJECT_PLEDGE .label{
+            background-color: #f0ad4e;
+        }
+
+        .PROJECT_PLEDGE .house-title{
+            color: #8a6d3b;
+        }
+
+        .CAN_SALE .house-title{
+            color:#7aafdf;
+        }
+
+        .CAN_SALE .label{
+            background-color: #5bc0de;
+        }
+        .label{
+            padding: .2em .6em .3em;
+        }
+
+
+
+
+    </h:outputStylesheet>
+
+    <h:outputScript>
+        $(document).ready(
+                function(){
+                    $('[data-toggle="popover"]').popover()
+                });
+    </h:outputScript>
+
+    <h:outputScript rendered="#{buildHome.resultGridMap.colCount lt 11}">
+        $(document).ready(
+                function(){
+                    var $table = $('#gridMapTable');
+                    $table.floatThead({zIndex:1071});
+                });
+    </h:outputScript>
+
+    <h:outputScript rendered="#{not (buildHome.resultGridMap.colCount lt 11)}">
+        $(document).ready(
+                function(){
+                    var $table = $('#gridMapTable');
+                    $table.floatThead({
+                        zIndex:1071,
+                        position: 'fixed'
+                    });
+                    $('#gridMapContent').scroll(function(){
+                        $('[data-toggle="popover"]').popover('hide')
+                    });
+
+
+                });
+    </h:outputScript>
+
+
+    <a:outputPanel id="mapContext" layout="block" class="mainContent">
+
+    <div class="mod eventsTheme">
+
+        <div class="gridMap #{buildHome.resultGridMap.colCount lt 11 ? 'smail' : 'big'}">
+
+                <div id="gridMapContent" class="gridMapContent">
+
+                <table id="gridMapTable" cellspacing="0" cellpadding="4">
+
+                    <c:forEach begin="0" end="#{buildHome.resultGridMap.colCount - 1}">
+
+                        <col/>
+
+                    </c:forEach>
+
+                    <thead>
+                    <tr>
+                        <a:repeat value="#{buildHome.resultGridMap.heads}" var="_head">
+                            <th colspan="#{_head.colsapn}">
+                                #{_head.title}
+                            </th>
+                        </a:repeat>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <a:repeat value="#{buildHome.resultGridMap.rows}" var="_row">
+                            <tr>
+                                <th>#{_row.title}</th>
+                                <a:repeat value="#{_row.blocks}" var="_block">
+
+                                    <td class="#{empty _block.title ? 'empty-house' : _block.status}" colspan="#{_block.colspan}" rowspan="#{_block.rowSapn}">
+
+                                        <a style="width: 100% ; height: 100%; display: block" tabindex="0" role="button" data-placement="bottom"
+                                           data-html="true" data-container="table"
+                                           data-toggle="popover" data-trigger="focus" title="&lt;strong&gt;#{_block.title}&lt;/strong&gt; &lt;span class='text-danger'&gt;#{_block.houseProperty}&lt;/span&gt;"
+                                           data-content="该房屋设计用途为&lt;strong&gt;#{_block.useType}&lt;/strong&gt; 建筑面积为&lt;strong&gt;#{_block.area} m&lt;sup&gt;2&lt;/sup&gt; &lt;/strong&gt; 套内面积为&lt;strong&gt;#{_block.useArea} m&lt;sup&gt;2&lt;/sup&gt; &lt;/strong&gt;">
+                                        <a:outputPanel rendered="#{not (empty _block.title)}" styleClass="label" style="float: right;">#{messages[_block.status]}</a:outputPanel>
+
+                                        <span style="display: block;" class="house-title">
+                                            #{_block.title}
+                                        </span>
+                                        <a:outputPanel styleClass="house-content" rendered="#{not (empty _block.title)}">
+                                            #{_block.area} m<sup>2</sup>
+                                        </a:outputPanel>
+                                        </a>
+
+                                    </td>
+                                </a:repeat>
+
+                            </tr>
+
+                        </a:repeat>
+
+                    </tbody>
+
+                </table>
+
+                </div>
 
         </div>
+    </div>
+    </a:outputPanel>
 
-    </main>
+    <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
+    <h:outputScript library="floatThead" name="/jquery.floatThead.min.js"/>
+
+
 
 
 </ui:composition>

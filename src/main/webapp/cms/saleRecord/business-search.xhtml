@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:ci="http://www.dgsoft.com/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template-search.xhtml">
+
+    <ui:param name="currFunc" value="business"/>
+
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
+            view="/cms/saleRecord/business-search.xhtml">自助查询</s:link><span
+            class="default">/</span><span>产权业务办理进度查询</span>
+    </ui:define>
+
+
+    <div class="page_heading" id="page_heading">
+        <h1>产权业务办理进度查询</h1>
+    </div>
+    <div class="mainContent" style="font-size: 13px;">
+        <div class="newsModuleWrpr">
+            <div>
+                <div class="filter news-filter clearfix">
+
+                    <h:form>
+                        <div class=" filterOptions">
+
+                            <div class="form-group newsFilterCatWrpr" style="margin-bottom: 0">
+                                <h:inputText id="filterKey" size="50" p:placeholder="请输入要查询的业务编号"
+                                             styleClass="form-control sm-input"
+                                             value="#{ownerBusinessSearch.businessId}"/>
+                            </div>
+                        </div>
+
+                        <div class="filterActions">
+				                            <span class="newsFilterSearchBtn">
+                                                <h:commandButton value="查询" styleClass="btn"/>
+
+				                            </span>
+
+
+                        </div>
+                    </h:form>
+                </div>
+
+
+                <div style="margin-top: 20px">
+
+                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format"
+                                   rendered="#{empty ownerBusinessSearch.businessId}">
+                        <span class="mega-octicon octicon-bell "></span>
+
+                        <h3>请输入业务编号</h3>
+
+                        <p> 业务编号可以在你的业务受理单中找到.</p>
+                    </a:outputPanel>
+
+
+                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format"
+                                   rendered="#{(not empty ownerBusinessSearch.businessId) and ownerBusinessSearch.noResult}">
+                        <span class="mega-octicon octicon-search"></span>
+
+                        <h3>没找到业务</h3>
+
+                        <p>请检查你的业务编号是否正确.</p>
+                    </a:outputPanel>
+
+
+                    <a:outputPanel rendered="#{(not empty ownerBusinessSearch.businessId) and not ownerBusinessSearch.noResult}">
+
+
+
+
+                        <h:outputStylesheet>
+                            .business-flow{
+
+                                border: 1px solid #dedede;
+                                padding: 20px 80px;
+                                margin-top: 10px;
+                                margin-bottom: 30px;
+                                position: relative;
+
+                                list-style: none;
+                            }
+
+                            .business-flow li{
+                                color: #666;
+                                margin: 0;
+                                padding: 0;
+                                border: 0;
+                                font: inherit;
+                                vertical-align: baseline;
+                            }
+
+                            .business-flow .icon{
+                                width: 70px;
+                                margin-top: 11px;
+                                float: left;
+                                padding: 5px 0;
+                            }
+
+                            .size5{
+                                margin-right: 20px;
+                                float: left;
+                            }
+
+
+
+
+                            .borden {
+                                border-right: 2px solid #ff5c55;
+                                height: 27px;
+                                width: 0;
+                                margin: 0 auto;
+                            }
+
+                            .yuan{
+                                width: 10px;
+                                height: 10px;
+                                background-color: #ff5c55;
+                                border-radius: 5px;
+                                margin: 4px 0;
+                            }
+
+                            .font{
+
+                                font-size: 12px;
+                                margin-left: 10px;
+                                padding-top: 24px;
+                                float: left;
+
+                            }
+
+                            .font2 {
+                                color: #999;
+                                padding-top: 5px;
+                            }
+
+                            .business-flow .clear{
+                                clear: inherit;
+                                height: inherit;
+                            }
+
+                            .business-flow .clear:after{
+                                clear: both;
+                                content: '';
+                                display: block;
+                            }
+
+                            .business-flow .icon .mega-octicon{
+                                color:  #ff5c55;
+                                font-size: 40px;
+                            }
+
+
+                            .task-oper.NEXT:before, .task-oper.CREATE:before {
+                                content: '\f011';
+                            }
+
+                            .task-oper.TERMINATION:before {
+                                content: '\f053';
+                            }
+
+                            .task-oper.SUSPEND:before {
+                                content: '\f0bb';
+                            }
+
+                            .task-oper.CONTINUE:before {
+                                content: '\f0bf';
+                            }
+
+                            .task-oper.ASSIGN:before{
+                                content: '\f018';
+                            }
+
+
+                            .task-oper.BACK:before{
+                                content: '\f0ac';
+                            }
+
+                            .task-oper.CHECK_ACCEPT:before{
+                                content: '\f03a';
+                            }
+
+                            .task-oper.CHECK_BACK:before{
+                                content: '\f081';
+                            }
+
+                            .label{
+
+                            }
+
+                            .label-biz-status.RUNNING{
+                                background-color:#337ab7;
+                            }
+                            .label-biz-status.COMPLETE{
+                                background-color: #5cb85c;
+                            }
+                            .label-biz-status.ABORT{
+                                background-color: #777;
+                            }
+                            .label-biz-status.SUSPEND{
+                                background-color: #f0ad4e;
+                            }
+                            .label-biz-status.CANCEL, .label-biz-status.COMPLETE_CANCEL {
+                                background-color: #d9534f;
+                            }
+
+                            .label-biz-status.MODIFY{
+                                background-color: #d9534f;
+                            }
+
+                            .label-biz-status.MODIFYING{
+                                background-color: #d9534f;
+                            }
+
+
+                        </h:outputStylesheet>
+
+
+                        <h3><strong>#{ownerBusinessSearch.resultData.businessName}</strong> <span class="label label-biz-status #{ownerBusinessSearch.resultData.statusKey}">#{ownerBusinessSearch.resultData.status}</span></h3>
+
+                    <ul class="business-flow">
+
+                        <a:repeat rowKeyVar="_row" value="#{ownerBusinessSearch.resultData.oper}" var="_task">
+                            <li class="clear">
+
+                                <div class="icon">
+                                    <span class="mega-octicon task-oper #{_task.operTypeKey}"/>
+                                </div>
+
+                                <div class="size5 clear">
+                                    <div class="borden" style="#{_row eq 0 ? 'border-color : transparent' : ''}"/>
+                                    <div class="yuan"/>
+                                    <div class="borden" style="#{_row eq (ownerBusinessSearch.resultData.oper.size - 1) ? 'border-color : transparent' : ''}"/>
+                                </div>
+                                <div class="font">
+                                    <b>#{_task.task}</b>
+                                    <div class="font2"><h:outputText value="#{_task.time}">
+                                        <ci:convertTime pattern="#{messages.displayDateTimePattern}"/>
+                                    </h:outputText></div>
+                                </div>
+
+
+
+                            </li>
+                        </a:repeat>
+                    </ul>
+
+                    </a:outputPanel>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</ui:composition>

@@ -1348,3 +1348,10 @@ label {
     padding: 0 10px;
     margin-left: -10px;
 }
+
+.sm-input{
+    min-height: 26px;
+    padding: 3px 10px;
+    font-size: 11px;
+    height: auto;
+}

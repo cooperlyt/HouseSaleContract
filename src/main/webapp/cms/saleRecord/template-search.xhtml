@@ -1,0 +1,82 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/cms/template-blank.xhtml">
+
+    <ui:define name="head">
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.css"/>
+
+        <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false" />
+
+        <h:outputScript library="bootstrap" name="/js/html5shiv.min.js"/>
+        <h:outputScript library="bootstrap" name="/js/respond.min.js"/>
+
+        <h:outputText value="&lt;![endif]--&gt;" escape="false" />
+        <h:outputStylesheet name="theme.css"/>
+        <h:outputStylesheet library="octicons" name="octicons.css"/>
+        <h:outputStylesheet>
+            .form-control, input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], select, textarea {
+                border-radius: 4px;
+            }
+        </h:outputStylesheet>
+    </ui:define>
+
+
+
+    <ui:define name="template-blank-body">
+        <h:outputStylesheet library="cms" name="/css/adapter-sytle.css"/>
+
+
+        <div class="grid_3 leftRail">
+
+            <div class="railNavHeading clearfix">
+                自助查询
+            </div>
+
+            <div>
+
+
+                <ul id="railNav" class="railNav">
+
+
+                    <li>
+                        <s:link view="/cms/saleRecord/business-search.xhtml" styleClass="#{(currFunc eq 'business') ? 'on' : ''}">产权业务办理进度查询</s:link>
+                    </li>
+                    <li>
+                        <s:link view="/cms/saleRecord/house-status-search.xhtml" styleClass="#{(currFunc eq 'status') ? 'on' : ''}">房屋状态查询</s:link>
+                    </li>
+
+
+                    <li>
+                        <s:link view="/cms/saleRecord/contract-search.xhtml" styleClass="#{(currFunc eq 'contract') ? 'on' : ''}"><f:param name="firstResult" value="0"/> 合同备案查询</s:link>
+
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="grid_9 rightRail">
+
+            <ui:insert/>
+
+        </div>
+        <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
+    </ui:define>
+
+</ui:composition>

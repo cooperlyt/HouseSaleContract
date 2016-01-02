@@ -1,8 +1,10 @@
-* {
+.mainNav  *{
     -webkit-box-sizing: content-box;
     -moz-box-sizing: border-box;
     box-sizing: content-box;
 }
+
+
 
 html {
     font-family: inherit;
@@ -18,10 +20,6 @@ body{
     background: #d2dee8;
 }
 
-.label{
-    padding: inherit;
-}
-
 .container{
     width: inherit;
 }
@@ -29,4 +27,26 @@ body{
 .carousel-inner .item{
     padding: 0;
     border: 0;
+}
+
+.blankslate h3{
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.blankslate p{
+    margin: 16px 0;
+}
+
+.newsFilterSearchBtn input:hover{
+    color: #ffffff;
+}
+
+.newsFilterSearchBtn input:active{
+    box-shadow: 0px 4px 6px -4px #000000;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #524c85), color-stop(100%, #3f3a66));
+    background-image: -webkit-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image: -o-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image: -ms-linear-gradient(top, #524c85 0%, #3f3a66 100%);
+    background-image: linear-gradient(to bottom, #524c85 0%, #3f3a66 100%);
 }

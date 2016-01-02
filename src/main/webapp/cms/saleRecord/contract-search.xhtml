@@ -14,6 +14,11 @@
 
     <ui:param name="currFunc" value="contract"/>
 
+    <h:outputStylesheet>
+        .newsFilterCatWrpr label{
+            font-size: 12px;
+        }
+    </h:outputStylesheet>
 
     <ui:define name="path-nav">
         <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
@@ -23,7 +28,7 @@
 
 
     <div class="page_heading" id="page_heading">
-        <h1>产权业务办理进度查询</h1>
+        <h1>合同备案查询</h1>
     </div>
     <div class="mainContent" style="font-size: 13px;">
         <div class="newsModuleWrpr">
@@ -34,24 +39,20 @@
                         <div class=" filterOptions">
 
                             <div class="newsFilterCatWrpr">
-                                <s:label for="drpCategories">类别:</s:label>
-                                <h:selectOneMenu id="drpCategories" value="#{articleCategoryHome.id}"
-                                                 styleClass="newsFilterCat">
-                                    <s:selectItems value="#{cmsCategoryGroupList.allCategorys}" var="_category"
-                                                   itemValue="#{_category.id}"
-                                                   label="#{_category.name}" noSelectionLabel="全部"/>
-                                </h:selectOneMenu>
+                                <s:label for="ownerCardNumberInput">合同编号:</s:label>
+                                <h:inputText id="ownerCardNumberInput" size="20"  p:placeHolder="合同编号"
+                                             required="true" styleClass="form-control sm-input" value="#{contractSearch.contractNumber}"/>
                             </div>
                             <div class="newsFilterCatWrpr">
-                                <s:label for="filterKey">关键字:</s:label>
-                                <h:inputText id="filterKey" value="#{articleList.searchKey}"/>
+                                <s:label for="personNumberInput">身份证号:</s:label>
+                                <h:inputText id="personNumberInput" p:placeHolder="身份证号" size="20"
+                                             styleClass="form-control sm-input" value="#{contractSearch.personNumber}" required="true"/>
                             </div>
                         </div>
 
                         <div class="filterActions">
 				                            <span class="newsFilterSearchBtn">
-                                                <h:commandButton value="查询" styleClass="btn"
-                                                                 action="#{articleList.first}"/>
+                                                <h:commandButton value="查询" styleClass="btn"/>
 
 				                            </span>
 
@@ -66,8 +67,137 @@
                     <a:outputPanel layout="block" styleClass=" blankslate spacious large-format" rendered="#{(empty contractSearch.contractNumber) or (empty contractSearch.personNumber )}">
                         <span class="mega-octicon octicon-bell "></span>
 
-                        <h3>请输入合同号或合同编号和主买受人身份证号</h3>
-                        <p> 合同号和合同编号可以在你的合同封面中找到.</p>
+                        <h3>请输入合同编号和主买受人身份证号</h3>
+                        <p> 合同编号可以在你的合同封面中找到.</p>
+                    </a:outputPanel>
+                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format"
+                                   rendered="#{((not empty contractSearch.personNumber) and (not empty contractSearch.contractNumber)) and contractSearch.noResult}">
+                        <span class="mega-octicon octicon-search"></span>
+
+                        <h3>没找到合同</h3>
+
+                        <p>请检查你的合同编号和身份证号是否正确.</p>
+                    </a:outputPanel>
+
+                    <a:outputPanel layout="block" styleClass="row details-info" style="margin: 0" rendered="#{((not empty contractSearch.contractNumber) and (not empty contractSearch.personNumber)) and not contractSearch.noResult}">
+
+
+
+                        <div class="col-md-4">
+                            <label for="type">合同类型</label>
+
+                        <span class="info-value-block" id="type">
+                            #{messages[contractSearch.resultData.type]}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="status">状态</label>
+
+                        <span class="info-value-block" id="status">
+                            <s:link view="/cms/saleRecord/business-search.xhtml">
+                                <f:param name="businessId" value="#{contractSearch.resultData.businessId}"/>
+                            #{messages[contractSearch.resultData.status]}
+                            </s:link>
+                        </span>
+                        </div>
+
+
+
+
+                        <div class="col-md-4">
+                            <label for="ownerName">买受人</label>
+
+                        <span class="info-value-block" id="ownerName">
+                            #{contractSearch.resultData.ownerName}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="houseCode">房屋编号</label>
+
+                        <span class="info-value-block" id="houseCode">
+                            #{contractSearch.resultData.houseCode}
+                        </span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="buildName">楼幢名称</label>
+
+                        <span class="info-value-block" id="buildName">
+                            #{contractSearch.resultData.buildName}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="houseOrder">房号</label>
+
+                        <span class="info-value-block" id="houseOrder">
+                            #{contractSearch.resultData.houseOrder}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="inFloor">所在层</label>
+
+                        <span class="info-value-block" id="inFloor">
+                            #{contractSearch.resultData.inFloor}
+                        </span>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label for="unitName">单元</label>
+
+                        <span class="info-value-block" id="unitName">
+                            #{contractSearch.resultData.inFloor}
+                        </span>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label for="area">建筑面积</label>
+
+                        <span class="info-value-block" id="area">
+                            #{contractSearch.resultData.area}
+                        </span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="doorNumber">门牌号</label>
+
+                        <span class="info-value-block" id="doorNumber">
+                            #{contractSearch.resultData.doorNumber}
+                        </span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="address">房屋坐落</label>
+
+                        <span class="info-value-block" id="address">
+                            #{contractSearch.resultData.address}
+                        </span>
+                        </div>
+
+                        <a:outputPanel rendered="#{not empty contractSearch.resultData.contract}" styleClass="col-md-12">
+                            <label for="status">合同</label>
+
+                        <span class="info-value-block" id="status">
+
+                            <a:repeat value="#{contractSearch.resultData.contract}" var="_contract">
+
+                                <s:link target="_blank"
+                                        action="#{houseContractHome.viewSingleContract}"
+                                        value="#{_contract.contractNumber}">
+                                    <f:param value="#{_contract.contractNumber}" name="contractNumber"/>
+                                    <f:param value="#{_contract.houseContract.id}" name="contractId"/>
+                                </s:link>
+
+                            </a:repeat>
+
+                        </span>
+                        </a:outputPanel>
+
                     </a:outputPanel>
 
 

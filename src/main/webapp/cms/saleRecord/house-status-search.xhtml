@@ -14,6 +14,31 @@
 
     <ui:param name="currFunc" value="status"/>
 
+    <h:outputStylesheet>
+        .OWNERED.label, .INIT_REG.label{
+            background-color: #5cb85c;
+        }
+        .CONTRACTS_RECORD.label,.SALE_REGISTER.label{
+            background-color: #5bc0de;
+        }
+        .DIVERT_REGISTER.label{
+            background-color: #337ab7;
+        }
+        .SALE_MORTGAGE_REGISTER.label,.DIVERT_MORTGAGE_REGISTER.label, .DECLARE_CANCEL.label{
+            background-color: #f0ad4e;
+        }
+        .PLEDGE.label,.PROJECT_PLEDGE.label,.DIFFICULTY.label,.COURT_CLOSE.label{
+            background-color: #d9534f;
+        }
+        .DESTROY.label{
+            background-color: #777;
+        }
+
+        .newsFilterCatWrpr label{
+            font-size: 12px;
+        }
+    </h:outputStylesheet>
+
 
     <ui:define name="path-nav">
         <s:link view="/home.xhtml">首页</s:link><span class="default">/</span><s:link
@@ -23,7 +48,7 @@
 
 
     <div class="page_heading" id="page_heading">
-        <h1>产权业务办理进度查询</h1>
+        <h1>房屋状态查询</h1>
     </div>
     <div class="mainContent" style="font-size: 13px;">
         <div class="newsModuleWrpr">
@@ -34,24 +59,20 @@
                         <div class=" filterOptions">
 
                             <div class="newsFilterCatWrpr">
-                                <s:label for="drpCategories">类别:</s:label>
-                                <h:selectOneMenu id="drpCategories" value="#{articleCategoryHome.id}"
-                                                 styleClass="newsFilterCat">
-                                    <s:selectItems value="#{cmsCategoryGroupList.allCategorys}" var="_category"
-                                                   itemValue="#{_category.id}"
-                                                   label="#{_category.name}" noSelectionLabel="全部"/>
-                                </h:selectOneMenu>
+                                <s:label for="ownerCardNumberInput">产权证编号:</s:label>
+                                <h:inputText id="ownerCardNumberInput" size="20"  p:placeHolder="产权证编号"
+                                             required="true" styleClass="form-control sm-input" value="#{houseStatusSearch.ownerCardNumber}"/>
                             </div>
                             <div class="newsFilterCatWrpr">
-                                <s:label for="filterKey">关键字:</s:label>
-                                <h:inputText id="filterKey" value="#{articleList.searchKey}"/>
+                                <s:label for="personNumberInput">产权人身份证号:</s:label>
+                                <h:inputText id="personNumberInput" p:placeHolder="产权人身份证号" size="20"
+                                             styleClass="form-control sm-input" value="#{houseStatusSearch.ownerPersonNumber}" required="true"/>
                             </div>
                         </div>
 
                         <div class="filterActions">
 				                            <span class="newsFilterSearchBtn">
-                                                <h:commandButton value="查询" styleClass="btn"
-                                                                 action="#{articleList.first}"/>
+                                                <h:commandButton value="查询" styleClass="btn"/>
 
 				                            </span>
 
@@ -62,11 +83,108 @@
 
                 <div style="margin-top: 20px">
 
-                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format" rendered="#{(empty houseStatusSearch.contractNumber) or (empty houseStatusSearch.personNumber )}">
+                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format" rendered="#{(empty houseStatusSearch.ownerCardNumber) or (empty houseStatusSearch.ownerPersonNumber )}">
                         <span class="mega-octicon octicon-bell "></span>
 
                         <h3>请输入产权证号和产权人身份证号</h3>
                         <p> 产权证号可以在产权证中找到.</p>
+                    </a:outputPanel>
+
+
+                    <a:outputPanel layout="block" styleClass=" blankslate spacious large-format"
+                                   rendered="#{((not empty houseStatusSearch.ownerCardNumber) and (not empty houseStatusSearch.ownerPersonNumber)) and houseStatusSearch.noResult}">
+                        <span class="mega-octicon octicon-search"></span>
+
+                        <h3>没找到房屋</h3>
+
+                        <p>请检查你的产权证号和身份证号是否正确.</p>
+                    </a:outputPanel>
+
+
+
+
+                    <a:outputPanel layout="block" styleClass="row details-info" style="margin: 0" rendered="#{((not empty houseStatusSearch.ownerCardNumber) and (not empty houseStatusSearch.ownerPersonNumber)) and not houseStatusSearch.noResult}">
+
+
+
+                    <div class="col-md-4">
+                        <label for="houseCode">房屋编号</label>
+
+                        <span class="info-value-block" id="houseCode">
+                            #{houseStatusSearch.resultData.houseCode}
+                        </span>
+                    </div>
+
+                        <div class="col-md-8">
+                            <label for="buildName">楼幢名称</label>
+
+                        <span class="info-value-block" id="buildName">
+                            #{houseStatusSearch.resultData.buildName}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="houseOrder">房号</label>
+
+                        <span class="info-value-block" id="houseOrder">
+                            #{houseStatusSearch.resultData.houseOrder}
+                        </span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="inFloor">所在层</label>
+
+                        <span class="info-value-block" id="inFloor">
+                            #{houseStatusSearch.resultData.inFloor}
+                        </span>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label for="unitName">单元</label>
+
+                        <span class="info-value-block" id="unitName">
+                            #{houseStatusSearch.resultData.inFloor}
+                        </span>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label for="area">建筑面积</label>
+
+                        <span class="info-value-block" id="area">
+                            #{houseStatusSearch.resultData.area}
+                        </span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="doorNumber">门牌号</label>
+
+                        <span class="info-value-block" id="doorNumber">
+                            #{houseStatusSearch.resultData.doorNumber}
+                        </span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="address">房屋坐落</label>
+
+                        <span class="info-value-block" id="address">
+                            #{houseStatusSearch.resultData.address}
+                        </span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="status">状态</label>
+
+                        <span class="info-value-block" id="status">
+                            <a:repeat value="#{houseStatusSearch.resultData.status}" var="_status">
+                                <span class="label #{_status}">#{messages[_status]}</span>
+                            </a:repeat>
+
+
+                        </span>
+                        </div>
+
                     </a:outputPanel>
 
 

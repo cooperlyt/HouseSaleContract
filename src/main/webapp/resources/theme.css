@@ -1355,3 +1355,7 @@ label {
     font-size: 11px;
     height: auto;
 }
+
+.input-group-btn .btn-group.bootstrap-select.open{
+    z-index: 900;
+}

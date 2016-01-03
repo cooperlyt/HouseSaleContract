@@ -9,15 +9,18 @@
                 xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich">
 
     <!-- param: personEntityHelper  , render-->
+    <a:push id="personCerPush" address="#{_person.uuid}" ondataavailable="dataPut(event.rf.data,'#{_person.uuid}');" >
+
+    </a:push>
 
 
-        <a:outputPanel id="personCardInput" layout="block" class="input-group">
+    <a:outputPanel id="personCardInput" layout="block" styleClass="input-group" p:data-person-uuid="#{_person.uuid}">
 
         <a:outputPanel id="credentialsType" layout="block" styleClass="input-group-btn">
 
-            <h:selectOneMenu  label="#{messages.Person_credentialsType}" id="personCredentialsTypeInput"
-                              styleClass="selectpicker select-menu-btn input-group-first"
-                              value="#{_person.credentialsType}" required="true">
+            <h:selectOneMenu label="#{messages.Person_credentialsType}" id="personCredentialsTypeInput"
+                             styleClass="selectpicker select-menu-btn input-group-first"
+                             value="#{_person.credentialsType}" required="true">
                 <s:selectItems var="_type" value="#{credentialsTypes}" label="#{messages[_type.name()]}"/>
                 <s:convertEnum/>
                 <a:ajax event="valueChange" listener="#{_person.typeChange}"
@@ -30,17 +33,16 @@
 
             </h:selectOneMenu>
 
-            <a:commandLink styleClass="btn btn-default #{((empty _person.credentialsType.name()) or (_person.credentialsType.name() eq 'MASTER_ID')) ? '' : 'disabled'}"
-                           id="readBtn" disabled="#{not (_person.credentialsType.name() eq 'MASTER_ID')} "
-                           execute="@this" immediate="true" style="height: 34px;"
-                           render="credentialsNumber,cerdentialsName">
-                <span class="octicon octicon-file-media" />
-            </a:commandLink>
+            <a data-uuid="#{_person.uuid}" href=""
+                    class="btn btn-default card-read-btn #{((empty _person.credentialsType.name()) or (_person.credentialsType.name() eq 'MASTER_ID')) ? '' : 'disabled'}"
+                    style="height: 34px;">
+                <span class="octicon octicon-file-media"/>
+            </a>
         </a:outputPanel>
 
         <h:inputText id="credentialsNumber" readonly="#{(_person.credentialsType.name() eq 'OTHER')}"
                      label="#{messages.Person_credentialsNumber}"
-                     styleClass="form-control"
+                     styleClass="form-control person-id"
                      required="true"
                      size="25"
                      maxlength="100"
@@ -54,19 +56,19 @@
         </h:inputText>
 
 
-
         <div class="input-group-addon">
-@
+            @
         </div>
         <h:inputText id="cerdentialsName" disabled="#{not empty _person.idCard}" value="#{_person.personName}"
                      p:placeholder="#{messages.Person_personName}"
-                     required="true"  styleClass="form-control" label="#{messages.Person_personName}">
+                     required="true" styleClass="form-control person-name" label="#{messages.Person_personName}">
 
         </h:inputText>
 
-            <ui:insert name="after"/>
+        <ui:insert name="after"/>
 
-  </a:outputPanel>
+    </a:outputPanel>
+
 
 
 </ui:composition>

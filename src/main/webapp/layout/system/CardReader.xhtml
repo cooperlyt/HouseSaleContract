@@ -1,0 +1,95 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich">
+
+    <iframe style="display:none;" class="ext_iframe" src=""/>
+
+    <h:outputScript>
+        function extCall(printUrl) {
+        $('.ext_iframe').attr('src', printUrl);
+        }
+    </h:outputScript>
+
+
+    <h:outputStylesheet>
+        .reading-bli.card-reading {
+            color: #8a6d3b;
+        }
+
+    </h:outputStylesheet>
+
+
+    <a:outputPanel ajaxRendered="true">
+
+        <h:outputScript>
+
+            $(document).ready(
+            function () {
+            $('.card-read-btn').unbind('click')
+            $('.card-read-btn').click(function () {
+
+            if ($(this).hasClass('card-reading')) {
+
+
+
+            $(this).removeClass('card-reading');
+
+            extCall('ExtendsCer://');
+            } else {
+
+
+            $('.card-reading').removeClass('card-reading');
+            $(this).addClass('card-reading');
+            if (!$(this).hasClass('reading-bli')) {
+            $(this).addClass('reading-bli');
+            }
+            extCall('ExtendsCer://' + $(this).attr('data-uuid'));
+
+
+            }
+            return false;
+            });
+
+            });
+        </h:outputScript>
+
+
+    </a:outputPanel>
+
+    <h:outputScript>
+
+        function dataPut(valStr,uuid){
+        $('.card-reading').removeClass('card-reading');
+
+        var card = eval("(" + valStr + ")");
+
+        $('[data-person-uuid="'+ uuid +'"]').children(".person-name").val(card.name);
+        $('[data-person-uuid="'+ uuid +'"]').children(".person-id").val(card.number);
+
+        }
+
+
+
+
+        function readingBil() {
+        $('.card-reading').each(function () {
+        if ($(this).hasClass('reading-bli')) {
+
+        $(this).removeClass('reading-bli');
+        } else {
+
+        $(this).addClass('reading-bli');
+        }
+        });
+        }
+
+        setInterval(readingBil, 500)
+    </h:outputScript>
+
+    </ui:composition>

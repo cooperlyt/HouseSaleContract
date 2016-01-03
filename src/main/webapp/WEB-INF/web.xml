@@ -217,5 +217,15 @@
     </security-constraint>
 
 
+    <servlet>
+        <servlet-name>ExtendsMessageService</servlet-name>
+        <servlet-class>com.dgsoft.common.ws.ExtendsMessageService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ExtendsMessageService</servlet-name>
+        <url-pattern>/ExtendsMessageService</url-pattern>
+    </servlet-mapping>
 
 </web-app>

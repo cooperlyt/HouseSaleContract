@@ -11,204 +11,206 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="/layout/template-form.xhtml">
 
-<h:form>
+    <ui:include src="/layout/system/CardReader.xhtml"/>
+    <h:form>
 
-    <ui:decorate template="/layout/edit.xhtml">
-        <ui:define name="label">
-            合同模版
-        </ui:define>
-        <h:selectOneMenu label="合同模版" id="contractTemplateInput"
-                         styleClass="selectpicker select-menu-btn input-group-first"
-                         value="#{contractCreate.contractTemplate}" p:data-width="200">
-            <s:selectItems value="#{houseContractHome.contractTemplateList}" var="_item"
-                           label="#{_item.name}" itemValue="#{_item}" noSelectionLabel="不使用模版"/>
+        <ui:decorate template="/layout/edit.xhtml">
+            <ui:define name="label">
+                合同模版
+            </ui:define>
+            <h:selectOneMenu label="合同模版" id="contractTemplateInput"
+                             styleClass="selectpicker select-menu-btn input-group-first"
+                             value="#{contractCreate.contractTemplate}" p:data-width="200">
+                <s:selectItems value="#{houseContractHome.contractTemplateList}" var="_item"
+                               label="#{_item.name}" itemValue="#{_item}" noSelectionLabel="不使用模版"/>
 
-            <s:convertEntity/>
-        </h:selectOneMenu>
+                <s:convertEntity/>
+            </h:selectOneMenu>
 
-    </ui:decorate>
+        </ui:decorate>
 
-    <f:subview id="saleProxyPerson">
+        <f:subview id="saleProxyPerson">
 
-        <ui:decorate template="/layout/system/PersonInput.xhtml">
+            <ui:decorate template="/layout/system/PersonInput.xhtml">
 
-            <ui:param name="label" value="出卖方代理人"/>
-            <ui:param name="personEntityHelper" value="#{houseContractHome.proxyPersonHelper}"/>
-            <ui:param name="personStatus" value="proxyPersonNumberStatus"/>
+                <ui:param name="label" value="出卖方代理人"/>
+                <ui:param name="personEntityHelper" value="#{houseContractHome.proxyPersonHelper}"/>
+                <ui:param name="personStatus" value="proxyPersonNumberStatus"/>
 
-            <ui:define name="after">
+                <ui:define name="after">
                 <span class="input-group-btn">
                 <a:commandLink styleClass="btn btn-default">
                     <span class="btn-icon octicon octicon-triangle-down"></span>
                 </a:commandLink>
                 </span>
-            </ui:define>
-
-            <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
-                <ui:define name="label">
-                    #{messages.Tel}
                 </ui:define>
-                <ui:param name="for" value="proxypersionPhoneInput"/>
-                <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
-                             styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
-                             value="#{houseContractHome.proxyPersonHelper.personEntity.tel}" required="true"
-                             id="proxypersionPhoneInput">
-                    <f:validateRegex
-                            pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
-                    <r:validator event="blur"/>
-                </h:inputText>
 
-            </s:decorate>
-
-
-
-        </ui:decorate>
-    </f:subview>
-
-    <ui:decorate template="/layout/edit-multi.xhtml">
-
-        <ui:define name="topValue">
-
-
-            <s:decorate template="/layout/edit.xhtml">
-
-                <ui:define name="label">计价方式与价款</ui:define>
-
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <h:selectOneMenu label="计价方式"
-                                         id="personCredentialsTypeInput"
-                                         styleClass="selectpicker select-menu-btn input-group-first"
-                                         value="#{contractCreate.calcType}" required="true">
-                            <f:selectItem itemValue="1" itemLabel="按套内面积"/>
-                            <f:selectItem itemValue="2" itemLabel="按建筑面积"/>
-                            <f:selectItem itemValue="3" itemLabel="按套计算"/>
-                            <f:selectItem itemValue="4" itemLabel="其它"/>
-                            <a:ajax execute="@this" event="valueChange" render="calcFields" oncomplete="initDynamicEditInputs('#{r:clientId('calcFields')}')">
-                                <a:attachQueue requestDelay="0"/>
-                            </a:ajax>
-                        </h:selectOneMenu>
-
-
-                    </div>
-
-
-                    <h:inputText disabled="true" value="#{contractCreate.moneyType}" styleClass="form-control"/>
-
-                    <h:selectOneMenu label="付款方式"
-                                     id="salePayTypeInput" p:data-width="150"
-                                     styleClass="selectpicker select-menu-btn"
-                                     value="#{houseContractHome.instance.salePayType}" required="true">
-                        <s:selectItems value="#{salePayType}" var="_type" label="#{messages[_type.name()]}"
-                                       itemValue="#{_type}"/>
-                        <s:convertEnum/>
-                    </h:selectOneMenu>
-
-                </div>
-
-            </s:decorate>
-        </ui:define>
-
-        <a:outputPanel id="calcFields">
-
-            <s:decorate template="/layout/edit.xhtml">
-                <ui:param name="for" value="priceInput"/>
-                <ui:param name="showLabel" value="false"/>
-                <div class="input-group">
-
-                    <a:outputPanel rendered="#{contractCreate.calcType eq 1}" class="input-group-addon">
-                        <h:outputText value="#{contractCreate.house.useArea}">
-                            <f:convertNumber pattern="#0.000"/>
-                        </h:outputText>
-
-                        <strong>m<sup>2</sup></strong>
-                    </a:outputPanel>
-
-                    <a:outputPanel rendered="#{contractCreate.calcType eq 2}" class="input-group-addon">
-                        <h:outputText value="#{contractCreate.house.houseArea}">
-                            <f:convertNumber pattern="#0.000"/>
-                        </h:outputText>
-                        <strong>m<sup>2</sup></strong>
-                    </a:outputPanel>
-
-                    <h:inputText styleClass="form-control" p:placeholder="计算方式" value="#{contractCreate.calcTypeName}" rendered="#{contractCreate.calcType eq 4}"/>
-
-                    <a:outputPanel rendered="#{contractCreate.calcType eq 4}" class="input-group-addon">
-                        ¥
-                    </a:outputPanel>
-
-
-
-
-                    <h:inputText label="价格" id="priceInput" required="true" p:placeholder="价格" value="#{contractCreate.unitPrice}" styleClass="form-control">
-                        <f:convertNumber type="currency" locale="#{contractCreate.locale}"
-                                         groupingUsed="false" currencySymbol="" />
-                        <a:ajax event="change" execute="@this" render="calcFields">
-                            <a:attachQueue requestDelay="0"/>
-                        </a:ajax>
-                        <a:ajax event="keyup" execute="@this" render="totalMoney"/>
+                <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
+                    <ui:define name="label">
+                        #{messages.Tel}
+                    </ui:define>
+                    <ui:param name="for" value="proxypersionPhoneInput"/>
+                    <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
+                                 styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
+                                 value="#{houseContractHome.proxyPersonHelper.personEntity.tel}" required="true"
+                                 id="proxypersionPhoneInput">
+                        <f:validateRegex
+                                pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                        <r:validator event="blur"/>
                     </h:inputText>
 
+                </s:decorate>
 
-                    <div class="input-group-addon">
-                        <h:outputText id="totalMoney" value="#{contractCreate.totalMoney}">
-                            <f:convertNumber type="currency" locale="#{contractCreate.locale}"
-                                             groupingUsed="true"/>
-                        </h:outputText>
+
+            </ui:decorate>
+        </f:subview>
+
+        <ui:decorate template="/layout/edit-multi.xhtml">
+
+            <ui:define name="topValue">
+
+
+                <s:decorate template="/layout/edit.xhtml">
+
+                    <ui:define name="label">计价方式与价款</ui:define>
+
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <h:selectOneMenu label="计价方式"
+                                             id="personCredentialsTypeInput"
+                                             styleClass="selectpicker select-menu-btn input-group-first"
+                                             value="#{contractCreate.calcType}" required="true">
+                                <f:selectItem itemValue="1" itemLabel="按套内面积"/>
+                                <f:selectItem itemValue="2" itemLabel="按建筑面积"/>
+                                <f:selectItem itemValue="3" itemLabel="按套计算"/>
+                                <f:selectItem itemValue="4" itemLabel="其它"/>
+                                <a:ajax execute="@this" event="valueChange" render="calcFields"
+                                        oncomplete="initDynamicEditInputs('#{r:clientId('calcFields')}')">
+                                    <a:attachQueue requestDelay="0"/>
+                                </a:ajax>
+                            </h:selectOneMenu>
+
+
+                        </div>
+
+
+                        <h:inputText disabled="true" value="#{contractCreate.moneyType}" styleClass="form-control"/>
+
+                        <h:selectOneMenu label="付款方式"
+                                         id="salePayTypeInput" p:data-width="150"
+                                         styleClass="selectpicker select-menu-btn"
+                                         value="#{houseContractHome.instance.salePayType}" required="true">
+                            <s:selectItems value="#{salePayType}" var="_type" label="#{messages[_type.name()]}"
+                                           itemValue="#{_type}"/>
+                            <s:convertEnum/>
+                        </h:selectOneMenu>
+
                     </div>
+
+                </s:decorate>
+            </ui:define>
+
+            <a:outputPanel id="calcFields">
+
+                <s:decorate template="/layout/edit.xhtml">
+                    <ui:param name="for" value="priceInput"/>
+                    <ui:param name="showLabel" value="false"/>
+
+                    <div class="input-group">
+
+                        <a:outputPanel rendered="#{contractCreate.calcType eq 1}" class="input-group-addon">
+                            <h:outputText value="#{contractCreate.house.useArea}">
+                                <f:convertNumber pattern="#0.000"/>
+                            </h:outputText>
+
+                            <strong>m<sup>2</sup></strong>
+                        </a:outputPanel>
+
+                        <a:outputPanel rendered="#{contractCreate.calcType eq 2}" class="input-group-addon">
+                            <h:outputText value="#{contractCreate.house.houseArea}">
+                                <f:convertNumber pattern="#0.000"/>
+                            </h:outputText>
+                            <strong>m<sup>2</sup></strong>
+                        </a:outputPanel>
+
+                        <h:inputText styleClass="form-control" p:placeholder="计算方式"
+                                     value="#{contractCreate.calcTypeName}" rendered="#{contractCreate.calcType eq 4}"/>
+
+                        <a:outputPanel rendered="#{contractCreate.calcType eq 4}" class="input-group-addon">
+                            ¥
+                        </a:outputPanel>
+
+
+                        <h:inputText label="价格" id="priceInput" required="true" p:placeholder="价格"
+                                     value="#{contractCreate.unitPrice}" styleClass="form-control">
+                            <f:convertNumber type="currency" locale="#{contractCreate.locale}"
+                                             groupingUsed="false" currencySymbol=""/>
+                            <a:ajax event="change" execute="@this" render="calcFields">
+                                <a:attachQueue requestDelay="0"/>
+                            </a:ajax>
+                            <a:ajax event="keyup" execute="@this" render="totalMoney"/>
+                        </h:inputText>
+
+
+                        <div class="input-group-addon">
+                            <h:outputText id="totalMoney" value="#{contractCreate.totalMoney}">
+                                <f:convertNumber type="currency" locale="#{contractCreate.locale}"
+                                                 groupingUsed="true"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                </s:decorate>
+
+
+            </a:outputPanel>
+
+        </ui:decorate>
+
+
+        <ui:include src="ContractOwnerEdit.xhtml">
+            <ui:param name="label" value="#{messages.ContractOwner_personName}"/>
+        </ui:include>
+
+
+        <s:decorate id="poolTypeField" template="/layout/edit.xhtml">
+            <ui:define name="label">
+                #{messages.HouseContract_poolType}
+            </ui:define>
+            <ui:param name="for" value="poolCountInput"/>
+
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <h:selectOneMenu label="#{messages.HouseContract_poolType}"
+                                     styleClass="selectpicker select-menu-btn input-group-first"
+                                     value="#{houseContractHome.poolType}" required="true">
+                        <s:selectItems value="#{poolTypes}" var="_poolType" label="#{messages[_poolType.name()]}"/>
+                        <s:convertEnum/>
+                        <a:ajax render="poolTypeField" event="valueChange" execute="@this">
+                            <a:attachQueue requestDelay="0"/>
+                        </a:ajax>
+                    </h:selectOneMenu>
+
+
                 </div>
-            </s:decorate>
 
+                <h:inputText label="共有权人数量" p:placeHolder="共有权人数量"
+                             styleClass="form-control" required="true"
+                             disabled="#{houseContractHome.poolType eq 'SINGLE_OWNER'}"
+                             id="poolCountInput" value="#{houseContractHome.poolOwnerCount}">
+                    <f:converter converterId="javax.faces.Integer"/>
+                    <f:validateLongRange minimum="1"/>
 
-        </a:outputPanel>
-
-    </ui:decorate>
-
-
-
-    <ui:include src="ContractOwnerEdit.xhtml">
-        <ui:param name="label" value="#{messages.ContractOwner_personName}"/>
-    </ui:include>
-
-
-    <s:decorate id="poolTypeField" template="/layout/edit.xhtml">
-        <ui:define name="label">
-            #{messages.HouseContract_poolType}
-        </ui:define>
-        <ui:param name="for" value="poolCountInput"/>
-        <div class="input-group">
-            <div class="input-group-btn">
-                <h:selectOneMenu label="#{messages.HouseContract_poolType}"
-                                 styleClass="selectpicker select-menu-btn input-group-first"
-                                 value="#{houseContractHome.poolType}" required="true">
-                    <s:selectItems value="#{poolTypes}" var="_poolType" label="#{messages[_poolType.name()]}"/>
-                    <s:convertEnum/>
-                    <a:ajax render="poolTypeField" event="valueChange" execute="@this">
-                        <a:attachQueue requestDelay="0"/>
-                    </a:ajax>
-                </h:selectOneMenu>
+                    <r:validator/>
+                </h:inputText>
 
 
             </div>
+        </s:decorate>
 
-            <h:inputText label="共有权人数量" p:placeHolder="共有权人数量"
-                         styleClass="form-control" required="true"
-                         disabled="#{houseContractHome.poolType eq 'SINGLE_OWNER'}"
-                    id="poolCountInput" value="#{houseContractHome.poolOwnerCount}">
-               <f:converter converterId="javax.faces.Integer"/>
-                <f:validateLongRange minimum="1"/>
+        <hr/>
 
-                <r:validator/>
-            </h:inputText>
+        <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.beginContract}"/>
 
-
-        </div>
-    </s:decorate>
-
-    <hr/>
-
-    <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.beginContract}"/>
-
-</h:form>
+    </h:form>
 
 </ui:composition>

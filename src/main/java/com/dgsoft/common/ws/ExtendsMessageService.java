@@ -36,7 +36,7 @@ public class ExtendsMessageService {
             return true;
 
         } catch (MessageException e) {
-           // topicsContext.removeTopic(topicKey);
+            topicsContext.removeTopic(topicKey);
             Logging.getLog(getClass()).debug(e.getMessage(),e);
             return false;
         }

@@ -132,6 +132,7 @@ public class ArticleHome extends EntityHomeAdapter<Article>{
 
     @Override
     public String saveOrUpdate(){
+        Logging.getLog("call save or Update");
         super.saveOrUpdate();
         return "save-" + getInstance().getCategory().getType().name();
     }

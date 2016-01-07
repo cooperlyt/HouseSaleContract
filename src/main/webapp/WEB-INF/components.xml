@@ -36,7 +36,7 @@
 
     <!--maxRequestSize attribute defines max size in bytes of the uploaded files (1000000 for this example).-->
     <!-- createTempFiles boolean attribute which defines whether the uploaded files are stored in temporary files or available in the listener directly as byte[] data (false for this example). -->
-    <web:multipart-filter create-temp-files="true" max-request-size="1000000" disabled="true" url-pattern="*.seam"/>
+    <web:multipart-filter create-temp-files="true" max-request-size="1000000" disabled="false" url-pattern="*.seam"/>
 
     <web:ajax4jsf-filter force-parser="true" enable-cache="false" url-pattern="*.seam"/>
 

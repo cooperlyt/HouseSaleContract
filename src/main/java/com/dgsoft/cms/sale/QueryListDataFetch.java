@@ -47,6 +47,9 @@ public abstract class QueryListDataFetch extends DataFetch {
     public List<Map<String, Object>> getResultMap() {
 
         JSONArray jsonArray = getResultData();
+        if (jsonArray == null){
+            return new ArrayList<Map<String, Object>>(0);
+        }
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(jsonArray.length());
 
         try {

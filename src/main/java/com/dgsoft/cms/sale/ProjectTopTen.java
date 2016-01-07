@@ -78,29 +78,38 @@ public class ProjectTopTen extends DataFetch{
     private void initData(){
       JSONObject data = getJsonData();
         try {
-            countTotalData = new ArrayList<ProjectSaleTotalData>(10);
+
             JSONArray jsonArray = data.getJSONArray("count");
+            countTotalData = new ArrayList<ProjectSaleTotalData>(10);
             for (int i = 0 ; i < jsonArray.length(); i++){
                 countTotalData.add(new ProjectSaleTotalData(jsonArray.getJSONObject(i).getString("id"),
                         jsonArray.getJSONObject(i).getString("name"),
                         jsonArray.getJSONObject(i).getLong("count")));
             }
+        } catch (JSONException e) {
+            countTotalData = new ArrayList<ProjectSaleTotalData>(0);
+        }
+        try{
             areaTotalData = new ArrayList<ProjectSaleTotalData>(10);
-            jsonArray = data.getJSONArray("area");
+            JSONArray jsonArray = data.getJSONArray("area");
             for (int i = 0 ; i < jsonArray.length(); i++){
                 areaTotalData.add(new ProjectSaleTotalData(jsonArray.getJSONObject(i).getString("id"),
                         jsonArray.getJSONObject(i).getString("name"),
                         new BigDecimal(jsonArray.getJSONObject(i).getString("area"))));
             }
+        } catch (JSONException e) {
+            areaTotalData = new ArrayList<ProjectSaleTotalData>(0);
+        }
+        try{
             moneyTotalData = new ArrayList<ProjectSaleTotalData>(10);
-            jsonArray = data.getJSONArray("money");
+            JSONArray jsonArray = data.getJSONArray("money");
             for (int i = 0 ; i < jsonArray.length(); i++){
                 moneyTotalData.add(new ProjectSaleTotalData(jsonArray.getJSONObject(i).getString("id"),
                         jsonArray.getJSONObject(i).getString("name"),
                         new BigDecimal(jsonArray.getJSONObject(i).getString("money"))));
             }
         } catch (JSONException e) {
-            throw new OwnerServerException(e);
+            moneyTotalData = new ArrayList<ProjectSaleTotalData>(0);
         }
     }
 

@@ -91,6 +91,7 @@ public class AuthenticationManager {
 
         if (LogonType.DEVELOPER.equals(logonType)) {
             try {
+                Logging.getLog(getClass()).debug(identity.getCredentials().getUsername() + "|" + identity.getCredentials().getPassword() + "|" + rndData);
                 logonInfo = DeveloperSaleServiceImpl.instance().logon(identity.getCredentials().getUsername(), identity.getCredentials().getPassword(), rndData);
                 if (logonInfo == null) {
                     facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
@@ -163,6 +164,9 @@ public class AuthenticationManager {
     }
 
     public String getEncodeRndData(){
+        if (rndData == null){
+            genLogonRnd();
+        }
         return new String(Base64.encode(rndData.getBytes()));
     }
 

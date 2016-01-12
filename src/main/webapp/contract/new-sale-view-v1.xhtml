@@ -200,7 +200,7 @@
         </p:paragraph>
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             第二条</p:font>  销售依据
-            该商品房已取得【《房屋所有权证》】,【《房屋所有权证》 证号】为 <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_2_2.stringValue}      </p:font>,【房屋登记机构】为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_2_1.stringValue}   </p:font>。
+            该商品房已取得【《房屋所有权证》】,【《房屋所有权证》 证号】为<p:text rendered="#{empty houseContractHome.contractContextMap.c_2_2.stringValue}" value="__________________"/> <p:font size="13" rendered="#{not empty houseContractHome.contractContextMap.c_2_2.stringValue}" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">  #{houseContractHome.contractContextMap.c_2_2.stringValue}      </p:font>,【房屋登记机构】为<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   #{houseContractHome.contractContextMap.c_2_1.stringValue}   </p:font>。
         </p:paragraph>
 
         <p:paragraph><p:font size="13" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">

@@ -323,7 +323,7 @@ public class ContractCreate {
 
         if (getHouse().getSaleType().equals(SaleType.MAP_SELL)) {
             houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
-        }else{
+        }else if (getHouse().getOwnerCardNumber() != null){
             houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(getHouse().getOwnerCardNumber()));
         }
 

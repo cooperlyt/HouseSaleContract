@@ -310,7 +310,9 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_1_4", new ContractContextMap.ContarctContextItem(sellCard.getLandCardNumber()));
         houseContractHome.getContractContextMap().put("c_1_5", new ContractContextMap.ContarctContextItem(sellCard.getLandArea()));
         houseContractHome.getContractContextMap().put("c_1_6", new ContractContextMap.ContarctContextItem(sellCard.getLandUseType()));
-        houseContractHome.getContractContextMap().put("c_1_7", new ContractContextMap.ContarctContextItem(sellCard.getLandEndUseTime()));
+        if (sellCard.getLandEndUseTime() != null && sellCard.getLandEndUseTime().getTime() != 0)
+            Logging.getLog(getClass()).debug("end time:" + sellCard.getLandEndUseTime().getTime());
+            houseContractHome.getContractContextMap().put("c_1_7", new ContractContextMap.ContarctContextItem(sellCard.getLandEndUseTime()));
 
         houseContractHome.getContractContextMap().put("c_1_8", new ContractContextMap.ContarctContextItem(getHouse().getProjectName()));
         houseContractHome.getContractContextMap().put("c_1_9", new ContractContextMap.ContarctContextItem(sellCard.getCreatePrepareCardNumber()));
@@ -328,9 +330,13 @@ public class ContractCreate {
         //house
         houseContractHome.getContractContextMap().put("c_3_1" , new ContractContextMap.ContarctContextItem(getHouse().getUseType()));
         houseContractHome.getContractContextMap().put("c_3_2", new ContractContextMap.ContarctContextItem(getHouse().getStructure()));
-        houseContractHome.getContractContextMap().put("c_3_3", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getFloorCount())));
-        houseContractHome.getContractContextMap().put("c_3_4" , new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getUpFloorCount())));
-        houseContractHome.getContractContextMap().put("c_3_5", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getDownFloorCount())));
+
+        if (!BigDecimal.ZERO.equals(BigDecimal.valueOf(getHouse().getFloorCount()))) {
+            houseContractHome.getContractContextMap().put("c_3_3", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getFloorCount())));
+            houseContractHome.getContractContextMap().put("c_3_4", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getUpFloorCount())));
+            houseContractHome.getContractContextMap().put("c_3_5", new ContractContextMap.ContarctContextItem(BigDecimal.valueOf(getHouse().getDownFloorCount())));
+        }
+
         houseContractHome.getContractContextMap().put("c_3_6", new ContractContextMap.ContarctContextItem(getHouse().getBuildNo()));
         houseContractHome.getContractContextMap().put("c_3_8", new ContractContextMap.ContarctContextItem(getHouse().getHouseUnitName()));
         houseContractHome.getContractContextMap().put("c_3_9", new ContractContextMap.ContarctContextItem(getHouse().getInFloorName()));

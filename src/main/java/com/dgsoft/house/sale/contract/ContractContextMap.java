@@ -102,6 +102,7 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
             return data == null;
         }
 
+        @Deprecated
         public boolean isEmpty(){
             if (data == null){
                 return true;
@@ -114,6 +115,21 @@ public class ContractContextMap extends HashMap<String, ContractContextMap.Conta
                 return false;
             }
 
+        }
+
+        public boolean isEmptyData(){
+            if (data == null){
+                return true;
+            }
+            if (isString()) {
+                return getStringValue().trim().equals("");
+            }else if(isArray()){
+                return getArrayValue().isEmpty();
+            }else if (isDate()){
+                return getDateValue().getTime() == 0;
+            }else{
+                return false;
+            }
         }
 
         public boolean isArray() {

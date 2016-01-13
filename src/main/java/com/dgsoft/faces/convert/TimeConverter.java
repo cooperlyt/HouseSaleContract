@@ -23,6 +23,9 @@ public class TimeConverter extends javax.faces.convert.DateTimeConverter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
                               String value) {
+        if (value == null || value.trim().equals("")){
+            return null;
+        }
         Date result = (Date) super.getAsObject(context,component,value);
         return result.getTime();
     }
@@ -30,7 +33,11 @@ public class TimeConverter extends javax.faces.convert.DateTimeConverter{
     @Override
     public String getAsString(FacesContext context, UIComponent component,
                               Object value) {
-        return super.getAsString(context,component,new Date((Long) value));
+        if (value instanceof Long) {
+            return super.getAsString(context, component, new Date((Long) value));
+        }else{
+            return null;
+        }
     }
 
         @Override

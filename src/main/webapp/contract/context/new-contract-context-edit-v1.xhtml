@@ -1772,7 +1772,13 @@
         <p>
             经检测不合格的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖 人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付 贷款部分),并自买受人付款之日起,按照 ￼
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_16_1.numberValue}"/>% (不低于中国人民银行公布的同期 贷款基准利率) 计算给付利息。给买受人造成损失的,由出卖人支付 【已付房价款一 倍】【买受人全部损失】 的赔偿金。因此而发生的检测费用由出卖人承担。
+                         value="#{contractContextMap.c_16_1.numberValue}"/>% (不低于中国人民银行公布的同期 贷款基准利率) 计算给付利息。给买受人造成损失的,由出卖人支付 【<r:inplaceSelect inputWidth="130px" style="width: 130px"
+                                                                                                                                               value="#{contractContextMap.c_16_20.stringValue}">
+
+            <f:selectItem itemLabel="已付房价款一倍" itemValue="已付房价款一倍"/>
+            <f:selectItem itemLabel="买受人全部损失" itemValue="买受人全部损失"/>
+
+        </r:inplaceSelect> 】 的赔偿金。因此而发生的检测费用由出卖人承担。
         </p>
 
         <p>

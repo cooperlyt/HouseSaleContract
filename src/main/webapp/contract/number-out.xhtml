@@ -3,4 +3,4 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://jboss.org/schema/seam/pdf"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:s="http://jboss.org/schema/seam/taglib"><p:text value="#{blank}" rendered="#{(empty value) ? true : ((value gt 0) or allowZero ? false : true) }"/><p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">   <p:text value="#{value}"><f:convertNumber pattern="#{mask}"/> </p:text></p:font></ui:composition>
+                xmlns:s="http://jboss.org/schema/seam/taglib"><p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value=" × " rendered="#{(empty value) ? true : ((value gt 0) or allowZero ? false : true) }"/>   <p:text value="#{value}"><f:convertNumber pattern="#{mask}"/> </p:text></p:font></ui:composition>

@@ -37,8 +37,13 @@ public class OwnerBusinessSearch extends DataFetch{
 
     private Map<String,Object> resultData;
 
+
     public boolean isNoResult(){
         return getResultData().isEmpty();
+    }
+
+    public void refresh(){
+        resultData = null;
     }
 
 

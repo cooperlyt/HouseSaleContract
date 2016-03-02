@@ -177,20 +177,50 @@ public class ContractCreate {
         return locale;
     }
 
+    public enum MoneyCalcType{
+        MONEY_FULL_MONEY,MONEY_ROUND_DOWN,MONEY_ROUND_HALF_UP
+    }
+
+    private MoneyCalcType moneyCalcType = MoneyCalcType.MONEY_FULL_MONEY;
+
+    public MoneyCalcType getMoneyCalcType() {
+        return moneyCalcType;
+    }
+
+    public void setMoneyCalcType(MoneyCalcType moneyCalcType) {
+        this.moneyCalcType = moneyCalcType;
+    }
+
+    public MoneyCalcType[] getMoneyCalcTypes(){
+        return MoneyCalcType.values();
+    }
+
     public BigDecimal getTotalMoney(){
 
         if (getUnitPrice() == null){
             return null;
         }
+
+        BigDecimal result;
         switch (calcType){
             case 1:
-
-                return getHouse().getUseArea().multiply(getUnitPrice()).setScale(2,BigDecimal.ROUND_HALF_UP);
+                result = getHouse().getUseArea().multiply(getUnitPrice());
+                break;
             case 2:
-
-                return getHouse().getHouseArea().multiply(getUnitPrice()).setScale(2,BigDecimal.ROUND_HALF_UP);
+                result = getHouse().getHouseArea().multiply(getUnitPrice());
+                break;
             default:
-                return  getUnitPrice().setScale(2,BigDecimal.ROUND_HALF_UP);
+                result = getUnitPrice();
+                break;
+        }
+
+        switch (moneyCalcType){
+            case MONEY_ROUND_DOWN:
+                return result.setScale(0,BigDecimal.ROUND_DOWN);
+            case MONEY_ROUND_HALF_UP:
+                return result.setScale(0,BigDecimal.ROUND_HALF_UP);
+            default:
+                return result.setScale(2,BigDecimal.ROUND_HALF_UP);
         }
 
     }

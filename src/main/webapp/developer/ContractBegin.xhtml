@@ -118,6 +118,18 @@
 
                     <div class="input-group">
 
+                        <a:outputPanel  class="input-group-btn">
+                            <h:selectOneMenu value="#{contractCreate.moneyCalcType}"
+                                             styleClass="input-group-first selectpicker select-menu-btn">
+                                <s:selectItems value="#{contractCreate.moneyCalcTypes}" var="_mctype"
+                                               label="#{messages[_mctype.name()]}" itemValue="#{_mctype}"/>
+                                <s:convertEnum/>
+                                <a:ajax event="valueChange" execute="@this" render="calcFields">
+                                    <a:attachQueue requestDelay="0"/>
+                                </a:ajax>
+                            </h:selectOneMenu>
+                        </a:outputPanel>
+
                         <a:outputPanel rendered="#{contractCreate.calcType eq 1}" class="input-group-addon">
                             <h:outputText value="#{contractCreate.house.useArea}">
                                 <f:convertNumber pattern="#0.000"/>

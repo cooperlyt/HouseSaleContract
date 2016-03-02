@@ -689,27 +689,28 @@
                             <table class="contact_table">
                                 <tbody>
                                 <tr style="vertical-align: top;">
-                                    <td>
+                                    <td style="width:170px">
                                         <h6>地址:</h6>
 
                                         <div>#{runParam.getParamValue('address')}</div>
 
                                         <div style="margin-top: 5px;">#{runParam.getParamValue('post_code')}</div>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">&nbsp;</td>
-                                </tr>
-                                <tr style="vertical-align: bottom;">
-                                    <td>
+                                        <br/>
+
+
                                         <div style="font-family: oswald; font-size: 14px; font-weight: normal;">#{runParam.getParamValue('tel')}<br/>
                                             E-mail: #{runParam.getParamValue('e_mail')}</div>
                                     </td>
-                                    <td>辽ICP备09008163
-                                        <div style="margin-bottom: 5px;"><img alt="EHO_blue" src="/assets/1/6/EHO_blue.png"/>&nbsp;&nbsp;<img alt="Disability_Logo" src="/assets/1/6/Disability_Logo1.png"/></div>
+                                    <td style="vertical-align: bottom;">
+                                        <div style="margin-bottom: 5px;">
+                                            <h:outputText escape="false" value="#{runParam.getParamValue('web_cer_logo')}">
+
+                                            </h:outputText>
+                                            </div>
+                                        <span style="font-size: 10px; font-weight: normal;">#{runParam.getParamValue('ICP_NUMBER')}</span>
                                     </td>
                                 </tr>
+
                                 </tbody>
                             </table>
 

@@ -601,6 +601,10 @@ label {
     border-bottom-left-radius: 3px !important;
 }
 
+.input-group-middle button{
+    border-radius: 0 !important;
+}
+
 .select-menu-btn:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
     width: 140px;
 }

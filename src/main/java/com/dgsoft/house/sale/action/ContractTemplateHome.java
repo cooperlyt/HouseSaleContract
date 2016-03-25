@@ -31,7 +31,12 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
     @Override
     public ContractTemplate createInstance(){
         LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
-        Logging.getLog(getClass()).debug(logonInfo);
+
+        if (logonInfo == null){
+            Logging.getLog(getClass()).warn("create null ContractTemplate beacuse not longin info");
+            return new ContractTemplate();
+        }
+        //Logging.getLog(getClass()).debug(logonInfo);
         return new ContractTemplate(logonInfo.getGroupCode());
     }
 

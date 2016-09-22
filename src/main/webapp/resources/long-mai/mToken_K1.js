@@ -1,12 +1,4 @@
-﻿/*******************************************************
- *
- * 使用此JS脚本之前请先仔细阅读mToKen K1帮助文档!
- * 
- * @version	4.0
- * @date	2015/9/22
- * @explanation	mToKen K1 V3.0 多浏览器支持
- *
-**********************************************************/
+﻿
 function isIe()
 {
 	return ("ActiveXObject" in window);
@@ -21,22 +13,7 @@ function mToken(obj){
 	
 	this.LoadLibrary = function()
 	{
-		//浏览器判断
-		if(isIe() ){	//IE
-				if(!-[1,]){	//IE678
-					g_mTokenPlugin = document.getElementById(obj);
-				}else{	//IE9+
-					if(!!window.ActiveXObject){
-						g_mTokenPlugin = document.getElementById(obj);
-						g_mTokenPlugin.setAttribute("type", "application/x-npmplugin");
-					}else {
-						g_mTokenPlugin = new K1ClientPlugin();
-					}
-					
-				}
-			}else {
-				g_mTokenPlugin = new K1ClientPlugin();
-			}
+		g_mTokenPlugin = new K1ClientPlugin();//新
 		
 		if(g_mTokenPlugin == null)
 		{
@@ -45,7 +22,7 @@ function mToken(obj){
 		
 		return 0;
 	};
-
+	
 	this.K1_mTokenGetVersion = function()
 	{
 		if(g_mTokenPlugin == null)
@@ -273,6 +250,61 @@ function mToken(obj){
 		return g_mTokenPlugin.mTokenDecrypt(keyUID,  method, 1, data);
 	};	
 	
+	this.K1_GetMacAddr = function()
+	{
+		if(g_mTokenPlugin == null)
+		{
+			return null;
+		}
+		
+		return g_mTokenPlugin.mTokenGetMacAddr();
+	};
+	
+	var _TimerErrorMessage;
+	var _ExpireUrl;
+	/*******************************************************
+	*
+	* 函数名称：K1_CheckExist()
+	* 功    能：检查USB Key是否存在
+	* 说	明：此方法结合K1_StartCheckTimer方法可用来定时
+	*           检测USB Key是否存在,不存在即返回到指定页面(
+	*           _ExpireUrl)
+	*
+	**********************************************************/
+	function K1_CheckExist()
+	{
+		var rtn =g_mTokenPlugin.mTokenFindDevice();
+		if(rtn < 1)
+		{
+			if(_TimerErrorMessage != null)
+			{
+				alert(_TimerErrorMessage + "  Error Code: " +g_mTokenPlugin.mTokenGetLastError());
+			}
+			if(_ExpireUrl != null)
+			{
+				window.location = _ExpireUrl;
+			}
+		}
+		return rtn;
+	};
+	/*******************************************************
+	*
+	* 函数名称：K1_StartCheckTimer()
+	* 功    能：定时操作方法
+	* 输    入：interval：时间1000/秒；errMsg：输出的错误信息
+	*           logonUrl：跳转地址
+	* 说	明：此方法结合CheckExist方法可用来定时检测加
+	*           密Key是否存在,不存在即返回到指定页面(_ExpireUrl)
+	*
+	**********************************************************/
+	this.K1_StartCheckTimer = function(interval, errMsg, logonUrl)
+	{
+		_TimerErrorMessage  = errMsg;
+		_ExpireUrl = logonUrl;
+		//定时检测
+		window.setInterval(K1_CheckExist, interval);
+	};
+	
 }
 
 
@@ -290,7 +322,10 @@ function K1ClientPlugin()
 				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 			}
 		}
-
+		if("https:" == document.location.protocol)
+		{
+			url = "https://127.0.0.1:51121/K1_Client";
+		}
 		xmlhttp.open("POST", url, false);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xmlhttp.send("json=" + json);
@@ -571,6 +606,18 @@ function K1ClientPlugin()
 			return "";
 		}	
 	};	
+	
+	this.mTokenGetMacAddr = function()
+	{
+		var json = '{"function":"mTokenGetMacAddr"}';
+		AjaxIO(json);
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var obj = eval("(" + xmlhttp.responseText + ")");
+			return obj.outData;
+		}else{
+			return "";
+		}	
+	}
 	
 }
 

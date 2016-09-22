@@ -270,8 +270,10 @@
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>1.73-SNAPSHOT</version>
+            <version>1.75Bate</version>
         </dependency>
+
+
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>

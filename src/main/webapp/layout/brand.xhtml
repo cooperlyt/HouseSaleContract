@@ -24,15 +24,7 @@
 
                 <ui:insert name="brand">
 
-                <h:form class="navbar-form navbar-left" role="search" style="padding-left: 0">
-                    <div class="form-group">
-                        <h:inputText size="60" value="#{contractSearchList.searchKey}" styleClass="form-control" p:placeholder="合同查询"/>
-                    </div>
 
-                    <h:commandButton style="display: none" action="/developer/ContractList.xhtml" >
-                        <f:param value="0" name="firstResult"/>
-                    </h:commandButton>
-                </h:form>
 
                 </ui:insert>
 
@@ -42,7 +34,7 @@
 
                         <s:link styleClass="header-nav-link tooltipped tooltipped-s"
                                 propagation="end"
-                                view="/developer/Setting.xhtml" p:aria-label="设置">
+                                view="#{settingPage}" p:aria-label="设置">
                             <span class="octicon octicon-gear"></span>
                         </s:link>
                     </li>
@@ -52,7 +44,6 @@
                                 view="/logout.xhtml" data-ga-click="Header, sign out, icon:logout"
                                 p:aria-label="#{messages.logout}"
                                 propagation="none">
-
                             <span class="octicon octicon-sign-out"></span>
                         </s:link>
 

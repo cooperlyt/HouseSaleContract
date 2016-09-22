@@ -1,0 +1,81 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-base.xhtml">
+
+    <ui:define name="body">
+
+
+        <a:outputPanel rendered="#{identity.loggedIn}">
+            <ui:include src="frame/brand.xhtml"/>
+
+
+            <h:outputStylesheet>
+                .wellcome-user {
+                    margin-bottom: 20px;
+                    font-size: 20px;
+                    color: #444;
+                    cursor: pointer;
+                    text-decoration: none;
+                    outline: 0;
+                }
+            </h:outputStylesheet>
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-8" role="main">
+
+                        <div class="wellcome-user">
+                        <span class="mega-octicon octicon-organization">
+
+                        </span>
+                            欢迎回来: #{logonInfo.employeeName}
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4" role="complementary">
+                        <div class="boxed-group flush ">
+                            <h3>
+                                #{logonInfo.groupName}
+                                <span class="counter"></span>
+                            </h3>
+                            <ul class="boxed-group-inner mini-repo-list">
+
+
+
+                                    <li>
+                                        <s:link styleClass="mini-repo-list-item css-truncate"
+                                                view="/developer/BuildGridMap.xhtml">
+
+                                            <span class="repo-icon octicon octicon-repo"></span>
+      <span class="repo-and-owner css-truncate-target">
+        <span class="owner css-truncate-target" title="richfaces">挂牌申请</span>
+      </span>
+
+                                        </s:link>
+                                    </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </a:outputPanel>
+
+
+    </ui:define>
+
+
+</ui:composition>

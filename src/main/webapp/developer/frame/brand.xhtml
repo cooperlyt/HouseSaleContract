@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                template="/layout/brand.xhtml">
+
+
+    <ui:param name="settingPage" value="/developer/Setting.xhtml"/>
+
+        <ui:define name="brand">
+            <h:form class="navbar-form navbar-left" role="search" style="padding-left: 0">
+                <div class="form-group">
+                    <h:inputText size="60" value="#{contractSearchList.searchKey}" styleClass="form-control" p:placeholder="合同查询"/>
+                </div>
+
+                <h:commandButton style="display: none" action="/developer/ContractList.xhtml" >
+                    <f:param value="0" name="firstResult"/>
+                </h:commandButton>
+            </h:form>
+        </ui:define>
+
+</ui:composition>

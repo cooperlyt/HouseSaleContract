@@ -2,6 +2,7 @@ package com.dgsoft;
 
 import com.K1.biz.uitl.Base64;
 import com.dgsoft.common.system.RunParam;
+import com.dgsoft.house.AttachCorpType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.sale.model.ProjectNumber;
@@ -11,9 +12,9 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
-import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 
 import javax.persistence.EntityManager;
@@ -26,7 +27,7 @@ import java.security.SecureRandom;
 public class AuthenticationManager {
 
     public enum LogonType{
-        DEVELOPER(true),CMS_MANAGER(false),USER(false);
+        ATTACH_CORP(true),CMS_MANAGER(false),USER(false);
 
         private boolean useKey;
 
@@ -44,7 +45,7 @@ public class AuthenticationManager {
     @Out(required = false,scope = ScopeType.SESSION)
     private String rndData;
 
-
+    @In(required = false, scope = ScopeType.SESSION)
     @Out(required = false, scope = ScopeType.SESSION)
     private LogonInfo logonInfo;
 
@@ -87,12 +88,21 @@ public class AuthenticationManager {
         }
     }
 
+
     public boolean authenticate() {
 
-        if (LogonType.DEVELOPER.equals(logonType)) {
+        if (LogonType.ATTACH_CORP.equals(logonType)) {
             try {
+                if (identity.getCredentials().getUsername() == null || identity.getCredentials().getUsername().trim().equals("")){
+                    facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "Logon_Key_not_found");
+
+                    return false;
+                }
+
                 Logging.getLog(getClass()).debug(identity.getCredentials().getUsername() + "|" + identity.getCredentials().getPassword() + "|" + rndData);
                 logonInfo = DeveloperSaleServiceImpl.instance().logon(identity.getCredentials().getUsername(), identity.getCredentials().getPassword(), rndData);
+                Logging.getLog(getClass()).debug("out logonInfo out:" + logonInfo);
+
                 if (logonInfo == null) {
                     facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ConnectHouseOrgServerError");
                     return false;
@@ -118,18 +128,26 @@ public class AuthenticationManager {
                             facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_CORP_OUT_TIME");
                             return false;
                         case LOGON:
-                            identity.addRole("developer");
-                            ProjectNumber projectNumber = entityManager.find(ProjectNumber.class, logonInfo.getGroupCode());
-                            if (projectNumber == null) {
+                            if (AttachCorpType.DEVELOPER.equals(logonInfo.getAttachCorpInfo().getAttachCorpType())){
+                                identity.addRole("developer");
+                                ProjectNumber projectNumber = entityManager.find(ProjectNumber.class, logonInfo.getGroupCode());
+                                if (projectNumber == null) {
 
-                                Long max = entityManager.createQuery("select max(p.number) from ProjectNumber p", Long.class).getSingleResult();
+                                    Long max = entityManager.createQuery("select max(p.number) from ProjectNumber p", Long.class).getSingleResult();
 
-                                if (max == null) {
-                                    max = new Long(0);
+                                    if (max == null) {
+                                        max = new Long(0);
+                                    }
+                                    entityManager.persist(new ProjectNumber(logonInfo.getGroupCode(), max + 1));
+                                    entityManager.flush();
                                 }
-                                entityManager.persist(new ProjectNumber(logonInfo.getGroupCode(), max + 1));
-                                entityManager.flush();
+                            }else if (AttachCorpType.AGENCIES.equals(logonInfo.getAttachCorpInfo().getAttachCorpType())){
+                                identity.addRole("agencies");
+                            }else{
+                                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "LogonStatus_NUKNOW_CORP_TYPE");
+                                return false;
                             }
+
                             return true;
                     }
 

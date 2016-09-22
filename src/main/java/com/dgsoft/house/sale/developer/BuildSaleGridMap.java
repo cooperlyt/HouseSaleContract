@@ -5,6 +5,7 @@ import com.dgsoft.house.BuildGridMapBlockInfo;
 import com.dgsoft.house.BuildGridMapInfo;
 import com.dgsoft.house.BuildGridMapRowInfo;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 

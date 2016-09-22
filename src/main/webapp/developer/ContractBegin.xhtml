@@ -11,6 +11,10 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 template="/layout/template-form.xhtml">
 
+    <ui:define name="bodyheader">
+        <ui:include src="frame/brand.xhtml"/>
+    </ui:define>
+
     <ui:include src="/layout/system/CardReader.xhtml"/>
     <h:form>
 

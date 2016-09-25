@@ -1,12 +1,244 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-form.xhtml">
 
-</body>
-</html>
+    <ui:define name="bodyheader">
+        <ui:include src="frame/brand.xhtml"/>
+    </ui:define>
+
+
+    <div class="setup-header">
+        <h1>挂牌申请</h1>
+
+        <!-- Show steps if user is creating an organiation -->
+        <ol class="steps">
+            <li class="current">
+                <div class="octicon octicon-home" />
+                <strong class="step">1:房源信息</strong>
+                房源索引信息
+            </li>
+            <li>
+
+                <div class="octicon octicon-list-unordered" />
+                <strong class="step">2:房源描述</strong>
+                房源描述信息
+            </li>
+            <li>
+                <div class="octicon octicon-file-media" />
+                <strong class="step">3:房源图片</strong>
+                房源展示图
+            </li>
+            <li>
+                <div class="octicon octicon-checklist" />
+                <strong class="step">3:房源审核</strong>
+                提交审核
+            </li>
+        </ol>
+
+    </div>
+
+    <h:form>
+
+
+        <f:subview id="saleProxyPerson">
+
+            <ui:decorate template="/layout/system/PersonInput.xhtml">
+
+                <ui:param name="label" value="产权人"/>
+                <ui:param name="personEntityHelper" value="#{oldHouseSellSubmit.houseQueryData}"/>
+                <ui:param name="personStatus" value="proxyPersonNumberStatus"/>
+
+                <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
+                    <ui:define name="label">
+                        #{messages.Tel}
+                    </ui:define>
+                    <ui:param name="for" value="proxypersionPhoneInput"/>
+                    <h:inputText label="产权人联系电话" size="30" maxlength="15"
+                                 styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
+                                 value="#{oldHouseSellSubmit.houseQueryData.personEntity.ownerTel}" required="true"
+                                 id="proxypersionPhoneInput">
+                        <f:validateRegex
+                                pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                        <r:validator event="blur"/>
+                    </h:inputText>
+
+                </s:decorate>
+
+                <s:decorate id="ownerPowerCardNumberField" styleClass="form-group" template="/layout/edit.xhtml">
+                    <ui:define name="label">
+                        权证号
+                    </ui:define>
+                    <ui:param name="for" value="ownerPowerCardNumberInput"/>
+
+                    <h:inputText label="权证号" styleClass="form-control" required="true" id="ownerPowerCardNumberInput"
+                                 value="#{oldHouseSellSubmit.houseQueryData.personEntity.ownerCardNumber}"/>
+
+
+                </s:decorate>
+
+
+            </ui:decorate>
+        </f:subview>
+
+
+        <a:outputPanel id="houseQueryId">
+
+            <a:region>
+                <h:inputHidden id="saveHouseLocalType"
+                               value="#{oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType}">
+                    <s:convertEnum/>
+                </h:inputHidden>
+
+                <a:jsFunction name="changeLocalType" oncomplete="initDynamicEditInputs('#{r:clientId('houseQueryId')}')"
+                              render="houseQueryId" execute="saveHouseLocalType">
+                    <a:param name="localType" assignTo="#{oldHouseSellSubmit.houseLocateTypeName}"/>
+                    <a:attachQueue requestDelay="0"/>
+                </a:jsFunction>
+
+                <div class="form-checkbox">
+                    <label>
+
+                        <input checked="#{(oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'MAP_NUMBER') ? 'checked' : ''}"
+                               type="radio"
+                               onclick="changeLocalType('MAP_NUMBER')"/>
+                        测绘标识
+                    </label>
+                    <div class="fa icon-map-marker"/>
+
+        <span class="note">
+            测绘部门为房屋编制的标识由图号、丘号、幢号、房号组成. 你可以在你的产权证中找到此标识.
+        </span>
+                </div>
+
+                <a:outputPanel
+                        rendered="#{oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'MAP_NUMBER'}"
+                        layout="block" styleClass="upgrade-upsell">
+
+
+                    <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+
+                        <ui:param name="for" value="houseOrderInput"/>
+                        <ui:param name="showLabel" value="false"/>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">图</span>
+                            <h:inputText value="#{oldHouseSellSubmit.houseQueryData.personEntity.mapNumber}"
+                                         class="form-control"
+                                         id="mapNumberInput" label="图号" p:placeholder="图号"/>
+                            <span class="input-group-addon">丘<span class="required">*</span></span>
+                            <h:inputText value="#{oldHouseSellSubmit.houseQueryData.personEntity.blockNumber}"
+                                         class="form-control" id="blockNumberInput" required="true" label="丘号"
+                                         p:placeholder="丘号"/>
+                            <span class="input-group-addon">幢<span class="required">*</span></span>
+                            <h:inputText value="#{oldHouseSellSubmit.houseQueryData.personEntity.buildNumber}"
+                                         class="form-control" id="buildNumberInput" required="true" label="幢号"
+                                         p:placeholder="幢号"/>
+                            <span class="input-group-addon">房<span class="required">*</span></span>
+                            <h:inputText id="houseOrderInput" required="true" label="房号" p:placeholder="房号"
+                                         value="#{oldHouseSellSubmit.houseQueryData.personEntity.houseOrder}"
+                                         class="form-control"/>
+                        </div>
+
+                        <ui:define name="message">
+                            <r:message for="mapNumberInput" styleClass="edit-below-msg" ajaxRendered="false"/>
+                            <r:message for="blockNumberInput" styleClass="edit-below-msg" ajaxRendered="false"/>
+                            <r:message for="buildNumberInput" styleClass="edit-below-msg" ajaxRendered="false"/>
+                            <r:message for="houseOrderInput" styleClass="edit-below-msg" ajaxRendered="false"/>
+
+                        </ui:define>
+
+                    </s:decorate>
+
+
+                </a:outputPanel>
+
+
+                <div class="form-checkbox">
+                    <label>
+
+                        <input checked="#{(oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'HOUSE_CODE') ? 'checked' : ''}"
+                               type="radio"
+                               onclick="changeLocalType('HOUSE_CODE')"/>
+                        房屋编号
+                    </label>
+                    <div class="fa icon-tag"/>
+
+        <span class="note">
+            房产部门为房屋编制的唯一编码. 你可以在你的产权证中找到此编码.
+        </span>
+                </div>
+
+
+                <a:outputPanel
+                        rendered="#{oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'HOUSE_CODE'}"
+                        layout="block" styleClass="upgrade-upsell">
+
+                    <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+
+                        <ui:param name="for" value="HouseCodeInput"/>
+                        <ui:param name="showLabel" value="false"/>
+
+                        <h:inputText p:placeholder="房屋编号" label="房屋编号" styleClass="form-control" required="true"
+                                     id="HouseCodeInput"
+                                     value="#{oldHouseSellSubmit.houseQueryData.personEntity.houseCode}"/>
+
+
+                    </s:decorate>
+                </a:outputPanel>
+
+
+                <div class="form-checkbox">
+                    <label>
+
+                        <input checked="#{(oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'UNIT_NUMBER') ? 'checked' : ''}"
+                               type="radio"
+                               onclick="changeLocalType('UNIT_NUMBER')"/>
+                        不动产单元号
+                    </label>
+                    <div class="octicon octicon-repo"/>
+
+        <span class="note">
+            不动产登记部门为不动产编制的唯一编码. 你可以在你的不动产权证中找到此编码.
+        </span>
+                </div>
+
+
+                <a:outputPanel
+                        rendered="#{oldHouseSellSubmit.houseQueryData.personEntity.houseLocateType eq 'UNIT_NUMBER'}"
+                        layout="block" styleClass="upgrade-upsell">
+
+                    <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
+
+                        <ui:param name="for" value="unitCodeInput"/>
+                        <ui:param name="showLabel" value="false"/>
+
+                        <h:inputText p:placeholder="不动产单元号" label="不动产单元号" styleClass="form-control" required="true"
+                                     id="unitCodeInput"
+                                     value="#{oldHouseSellSubmit.houseQueryData.personEntity.unitNumber}"/>
+
+
+                    </s:decorate>
+                </a:outputPanel>
+
+            </a:region>
+
+
+        </a:outputPanel>
+
+
+        <hr/>
+
+        <h:commandButton styleClass="btn btn-success" action="#{oldHouseSellSubmit.submitHouseIndex}" value="申请挂牌"/>
+
+    </h:form>
+
+</ui:composition>

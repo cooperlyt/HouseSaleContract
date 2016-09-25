@@ -1,12 +1,209 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-form.xhtml">
 
-</body>
-</html>
+    <ui:define name="bodyheader">
+        <ui:include src="frame/brand.xhtml"/>
+    </ui:define>
+
+
+
+    <div class="setup-header">
+        <h1>挂牌申请</h1>
+
+
+        <ol class="steps">
+            <li class="complete">
+                <div class="octicon octicon-check" />
+                <strong class="step">1:房源信息</strong>
+                房源索引信息
+            </li>
+            <li class="current">
+
+                <div class="octicon octicon-list-unordered" />
+                <strong class="step">2:房源描述</strong>
+                房源描述信息
+            </li>
+            <li>
+                <div class="octicon octicon-file-media" />
+                <strong class="step">3:房源图片</strong>
+                房源展示图
+            </li>
+            <li>
+                <div class="octicon octicon-checklist" />
+                <strong class="step">3:房源审核</strong>
+                提交审核
+            </li>
+        </ol>
+
+    </div>
+
+    <a:outputPanel layout="block" styleClass="row details-info" style="margin: 0">
+
+
+
+        <div class="col-md-8">
+            <label for="inFloorName">小区</label>
+                    <span class="info-value-block">
+                        #{oldHouseSellSubmit.oldHouseQueryData.sectionName}
+                    </span>
+        </div>
+
+        <div class="col-md-4">
+            <label for="inFloorName">城区</label>
+                    <span class="info-value-block">
+                        <h:outputText value="#{helpTools.getDistrictNameById(oldHouseSellSubmit.oldHouseQueryData.district)}">
+                      </h:outputText>
+
+                    </span>
+        </div>
+
+        <div class="col-md-8">
+            <label for="inFloorName">门牌号</label>
+                    <span class="info-value-block">
+                        #{oldHouseSellSubmit.oldHouseQueryData.doorNumber}
+                    </span>
+        </div>
+        <div class="col-md-4">
+            <label for="inFloorName">楼号</label>
+                    <span class="info-value-block">
+                        #{oldHouseSellSubmit.oldHouseQueryData.buildDevNumber}
+                    </span>
+        </div>
+
+        <div class="col-md-12">
+            <label for="address">房屋座落</label>
+                    <span class="info-value-block" id="address">
+                        #{oldHouseSellSubmit.oldHouseQueryData.address}
+                    </span>
+        </div>
+
+        <div class="col-md-3">
+            <label for="inFloorName">所在层</label>
+                    <span class="info-value-block" id="inFloorName">
+                        #{oldHouseSellSubmit.oldHouseQueryData.inFloorName}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="houseUnitName">单元</label>
+                    <span class="info-value-block" id="houseUnitName">
+                        #{oldHouseSellSubmit.oldHouseQueryData.houseUnitName}
+                    </span>
+        </div>
+
+        <div class="col-md-3">
+            <label for="houseType">房屋性质</label>
+                    <span class="info-value-block" id="houseType">
+                        #{oldHouseSellSubmit.oldHouseQueryData.houseType}
+                    </span>
+        </div>
+
+        <div class="col-md-3">
+            <s:label for="loftArea">阁楼面积</s:label>
+
+            <h:outputText value="#{oldHouseSellSubmit.oldHouseQueryData.loftArea}" rendered="#{oldHouseSellSubmit.oldHouseQueryData.shineArea gt 0}" styleClass="info-value-block" id="loftArea">
+                <f:convertNumber pattern="#0.000"/>
+            </h:outputText>
+        </div>
+
+        <div class="col-md-3">
+            <s:label for="houseArea">建筑面积</s:label>
+            <h:outputText value="#{oldHouseSellSubmit.oldHouseQueryData.houseArea}" styleClass="info-value-block" id="houseArea">
+                <f:convertNumber pattern="#0.000"/>
+            </h:outputText>
+
+        </div>
+        <div class="col-md-3">
+            <s:label for="useArea">套内面积</s:label>
+            <h:outputText value="#{oldHouseSellSubmit.oldHouseQueryData.useArea}" rendered="#{oldHouseSellSubmit.oldHouseQueryData.useArea gt 0 }" styleClass="info-value-block" id="useArea">
+                <f:convertNumber pattern="#0.000"/>
+            </h:outputText>
+
+        </div>
+        <div class="col-md-3">
+            <s:label for="commArea">公摊面积</s:label>
+
+            <h:outputText value="#{oldHouseSellSubmit.oldHouseQueryData.commArea}" rendered="#{oldHouseSellSubmit.oldHouseQueryData.useArea gt 0 }"  styleClass="info-value-block" id="commArea">
+                <f:convertNumber pattern="#0.000"/>
+            </h:outputText>
+        </div>
+
+
+        <div class="col-md-3">
+            <s:label for="shineArea">阳台面积</s:label>
+
+            <h:outputText value="#{oldHouseSellSubmit.oldHouseQueryData.shineArea}" rendered="#{oldHouseSellSubmit.oldHouseQueryData.shineArea gt 0}" styleClass="info-value-block" id="shineArea">
+                <f:convertNumber pattern="#0.000"/>
+            </h:outputText>
+        </div>
+
+
+
+        <div class="col-md-3">
+            <label for="useType">设计用途</label>
+                    <span class="info-value-block" id="useType">
+                        #{oldHouseSellSubmit.oldHouseQueryData.useType}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="structure">结构</label>
+                    <span class="info-value-block" id="structure">
+                        #{oldHouseSellSubmit.oldHouseQueryData.structure}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="knotSize">套型</label>
+                    <span class="info-value-block" id="knotSize">
+                        #{oldHouseSellSubmit.oldHouseQueryData.knotSize}
+                    </span>
+        </div>
+
+
+        <div class="col-md-3">
+            <label for="useType">朝向</label>
+                    <span class="info-value-block" id="direction">
+                        #{oldHouseSellSubmit.oldHouseQueryData.direction}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="eastWall">东墙</label>
+                    <span class="info-value-block" id="eastWall">
+                        #{oldHouseSellSubmit.oldHouseQueryData.eastWall}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="westWall">西墙</label>
+                    <span class="info-value-block" id="westWall">
+                        #{oldHouseSellSubmit.oldHouseQueryData.westWall}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="southWall">南墙</label>
+                    <span class="info-value-block" id="southWall">
+                        #{oldHouseSellSubmit.oldHouseQueryData.southWall}
+                    </span>
+        </div>
+        <div class="col-md-3">
+            <label for="northWall">北墙</label>
+                    <span class="info-value-block" id="northWall">
+                        #{oldHouseSellSubmit.oldHouseQueryData.northWall}
+                    </span>
+        </div>
+
+
+    </a:outputPanel>
+
+
+
+
+
+</ui:composition>

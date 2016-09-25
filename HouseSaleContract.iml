@@ -61,7 +61,13 @@
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.el:jboss-el:1.0_02.CR6" level="project" />
     <orderEntry type="library" name="Maven: javax.el:el-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: local.house:houseInterface:1.75Bate" level="project" />
+    <orderEntry type="library" name="Maven: local.house:houseInterface:1.83Bate" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.6" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.6" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.richfaces:richfaces:4.5.4.Final" level="project" />
     <orderEntry type="library" name="Maven: org.richfaces:richfaces-core:4.5.4.Final" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.cssparser:cssparser:0.9.5" level="project" />
@@ -154,7 +160,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.birt.runtime.3_7_1:org.apache.batik.bridge:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.birt.runtime:org.eclipse.core.filesystem:1.4.0.v20130514-1240" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.birt.runtime:viewservlets:4.3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-discovery:commons-discovery:0.5" level="project" />
     <orderEntry type="library" name="Maven: axis:axis:1.4" level="project" />

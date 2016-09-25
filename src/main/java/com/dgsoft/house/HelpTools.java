@@ -1,10 +1,20 @@
 package com.dgsoft.house;
 
+import cc.coopersoft.comm.District;
+import cc.coopersoft.comm.exception.HttpApiServerException;
+import cc.coopersoft.house.sale.HouseSellService;
 import com.dgsoft.common.system.PersonEntity;
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.house.PoolType;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.international.StatusMessage;
+import org.jboss.seam.log.Logging;
+
+import java.util.List;
 
 /**
  * Created by cooper on 9/17/15.
@@ -12,19 +22,16 @@ import org.jboss.seam.annotations.Name;
 @Name("helpTools")
 public class HelpTools {
 
-    @Factory(value = "credentialsTypes",scope = ScopeType.SESSION )
-    public PersonEntity.CredentialsType[] getCredentialsTypes(){
-        return PersonEntity.CredentialsType.values();
-    }
+    @In(value = "districtList",create = true)
+    private List<District> districtList;
 
-    @Factory(value = "poolTypes",scope = ScopeType.SESSION )
-    public PoolType[] getPoolTypes(){
-        return PoolType.values();
-    }
-
-    @Factory(value = "salePayType", scope = ScopeType.SESSION)
-    public SalePayType[] getSalePayType(){
-        return SalePayType.values();
+    public String getDistrictNameById(String id){
+        for(District district: districtList){
+            if (district.getId().equals(id)){
+                return district.getName();
+            }
+        }
+        return id;
     }
 
 }

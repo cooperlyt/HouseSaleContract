@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      login-required="true" conversation-required="true" no-conversation-view-id="/agencies/home.xhtml"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+      <navigation from-action="#{oldHouseSellSubmit.submitHouseIndex}">
+          <rule if-outcome="OK">
+              <redirect view-id="/agencies/sellApply2.xhtml"></redirect>
+          </rule>
+      </navigation>
+
+</page>

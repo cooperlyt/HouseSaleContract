@@ -15,6 +15,31 @@
         <ui:include src="frame/brand.xhtml"/>
     </ui:define>
 
+    <div class="setup-header">
+        <h1>合同草签</h1>
+
+        <!-- Show steps if user is creating an organiation -->
+        <ol class="steps">
+            <li class="complete">
+                <div class="octicon octicon-check" />
+                <strong class="step">1:基本信息</strong>
+                基本信息
+            </li>
+            <li class="current">
+
+                <div class="octicon octicon-person" />
+                <strong class="step">2:买受人</strong>
+                买受人信息
+            </li>
+            <li>
+                <div class="octicon octicon-list-unordered" />
+                <strong class="step">3:合同建立</strong>
+                建立草签合同
+            </li>
+        </ol>
+
+    </div>
+
     <ui:include src="/layout/system/CardReader.xhtml"/>
 
     <h:form>
@@ -26,119 +51,154 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                <s:decorate styleClass="form-group" id="singPersonCardInput" template="/layout/edit.xhtml">
-
-                    <ui:param name="for" value="credentialsNumber"/>
-                    <ui:param name="status" value="#{_person.uuid}_personCredentiaslNumberStatus"/>
-                    <ui:param name="showLabel" value="false"/>
-
-
-                    <ui:decorate template="/layout/system/PersonCardInput.xhtml">
-                        <ui:param name="_person" value="#{_person}"/>
-                        <ui:param name="status" value="#{_person.uuid}_personCredentiaslNumberStatus"/>
-                        <ui:param name="render" value="attFields"/>
-                    </ui:decorate>
+                        
+                        <ui:include src="/layout/system/ContractPersonInput.xhtml">
+                            <ui:param name="_person" value="#{_person}"/>
+                            <ui:param name="allowCredentialsTypeList" value="#{credentialsTypes}"/>
+                            <ui:param name="mainLabel" value="买受人"/>
 
 
-                    <ui:define name="message">
-                        <r:message for="credentialsNumber" styleClass="edit-below-msg" ajaxRendered="false"/>
-                        <r:message for="cerdentialsName" styleClass="edit-below-msg" ajaxRendered="false"/>
-
-                    </ui:define>
-
-                </s:decorate>
+                            <ui:define name="after">
+                                <a:outputPanel rendered="#{runParam.getBooleanParamValue('USE_FINGERPRINT')}" styleClass="input-group-btn">
 
 
 
-                <a:outputPanel id="attFields" layout="block" class="sub-details-body">
+                                <a:commandLink styleClass="btn btn-default">
+                                    <span class="btn-icon  icon-hand-up"></span>
+                                </a:commandLink>
+                                </a:outputPanel>
+                            </ui:define>
+
+
+                            <ui:define name="contractPersonAttInfo">
+
+                                <s:decorate rendered="#{houseContractHome.instance.poolType eq 'TOGETHER_OWNER'}" styleClass="form-group" template="/layout/edit.xhtml">
+                                    <ui:define name="label">
+                                        #{messages.BusinessPool_relation}
+                                    </ui:define>
+                                    <ui:param name="showLabel" value="false"/>
+                                    <ui:param name="for" value="reationInput"/>
+
+                                    <h:selectOneMenu value="#{_person.personEntity.relation}" id="reationInput"
+                                                     styleClass="selectpicker edit-select" p:data-width="100%"
+                                                     label="#{messages.BusinessPool_relation}">
+                                        <s:selectItems var="_word" label="#{_word.value}"
+                                                       itemValue="#{_word.id}"
+                                                       value="#{dictionary.getWordList('67')}"/>
+                                    </h:selectOneMenu>
+
+                                </s:decorate>
+
+
+                                <s:decorate rendered="#{(houseContractHome.instance.poolType eq 'SHARE_OWNER') and (houseContractHome.ownerShareCalcType eq 'SCALE')}" styleClass="form-group" template="/layout/edit.xhtml">
+                                    <ui:define name="label">
+                                        #{messages.BusinessPool_perc}
+                                    </ui:define>
+                                    <ui:param name="showLabel" value="false"/>
+                                    <ui:param name="for" value="poolPercInput"/>
+
+                                    <div class="input-group">
+
+                                        <h:inputText value="#{_person.poolPerc}" id="poolPercInput"
+                                                     p:placeholder="#{messages.BusinessPool_perc}"
+                                                     label="#{messages.BusinessPool_perc}" styleClass="form-control">
+                                            <a:ajax event="blur"
+                                                    execute="@this" render="areaForPerc"/>
+                                        </h:inputText>
+
+
+                                        <a:outputPanel id="areaForPerc" layout="block" class="input-group-addon">
+                                            #{_person.poolArea}  <strong>m<sup>2</sup></strong>
+                                        </a:outputPanel>
+
+                                    </div>
+
+                                </s:decorate>
+
+
+                                <s:decorate rendered="#{(houseContractHome.instance.poolType eq 'SHARE_OWNER') and (houseContractHome.ownerShareCalcType eq 'AREA')}" styleClass="form-group" template="/layout/edit.xhtml">
+                                    <ui:define name="label">
+                                        #{messages.BusinessPool_area}
+                                    </ui:define>
+                                    <ui:param name="showLabel" value="false"/>
+                                    <ui:param name="for" value="poolAreaInput"/>
+
+                                    <div class="input-group">
+
+                                        <h:inputText value="#{_person.poolArea}" id="poolAreaInput"
+                                                     p:placeholder="#{messages.BusinessPool_area}"
+                                                     label="#{messages.BusinessPool_area}" styleClass="form-control"
+                                                     rendered="#{houseContractHome.instance.poolType eq 'SHARE_OWNER'}">
+                                            <f:convertNumber pattern="#0.000"/>
+                                            <a:ajax event="blur"
+                                                    execute="@this" render="percForArea"/>
+                                        </h:inputText>
+
+
+                                        <a:outputPanel id="percForArea" layout="block" class="input-group-addon">
+                                            #{_person.poolPerc}<strong>%</strong>
+                                        </a:outputPanel>
 
 
 
-                    <s:decorate styleClass="form-group" template="/layout/edit.xhtml">
-                        <ui:define name="label">
-                            #{messages.BusinessPool_relation}
-                        </ui:define>
+                                    </div>
 
-                        <ui:param name="for" value="reationInput"/>
-                        <div class="input-group">
-                            <div class="#{(houseContractHome.instance.poolType eq 'SHARE_OWNER') ? 'input-group-btn' : ''}">
-                                <h:selectOneMenu value="#{_person.personEntity.relation}" id="reationInput"
-                                                 styleClass=" selectpicker  #{(houseContractHome.instance.poolType eq 'SHARE_OWNER') ? 'select-menu-btn input-group-first' :'edit-select' } "
-                                                 label="#{messages.BusinessPool_relation}">
-                                    <s:selectItems var="_word" label="#{_word.value}"
-                                                   itemValue="#{_word.id}"
-                                                   value="#{dictionary.getWordList('67')}"/>
-                                    <a:ajax event="blur" execute="@this"/>
+                                </s:decorate>
+
+
+                            </ui:define>
+
+                        </ui:include>
+
+
+                        <f:subview id="#{_person.uuid}_person_proxy">
+
+                            <s:decorate
+                                    id="proxyPersonTypeField" styleClass="form-group" template="/layout/edit.xhtml">
+
+                                <ui:param name="for" value="proxyPersonTypeInput"/>
+                                <ui:param name="showLabel" value="false"/>
+                                <h:selectOneMenu value="#{_person.proxyType}" id="proxyPersonTypeInput"
+                                                 styleClass="selectpicker select-menu-btn">
+
+                                    <s:selectItems value="#{proxyTypes}" var="_proxyType" noSelectionLabel="无代理人"
+                                                   label="#{messages[_proxyType.name()]}" itemValue="#{_proxyType}"/>
+                                    <a:ajax render="proxyPersonPanel" event="valueChange" execute="@this"
+                                        oncomplete="initDynamicEditInputs('#{r:clientId('proxyPersonPanel')}');">
+                                        <a:attachQueue requestDelay="0"/>
+                                    </a:ajax>
+                                    <s:convertEnum/>
+
                                 </h:selectOneMenu>
-                            </div>
+                            </s:decorate>
 
-                            <h:inputText value="#{_person.personEntity.poolArea}" id="poolAreaInput"
-                                         p:placeholder="#{messages.BusinessPool_area}"
-                                         label="#{messages.BusinessPool_area}" styleClass="form-control"
-                                         rendered="#{houseContractHome.instance.poolType eq 'SHARE_OWNER'}">
-                                <f:convertNumber pattern="#0.000"/>
-                                <a:ajax event="blur"
-                                        execute="@this" render="@none"/>
-                            </h:inputText>
+                            <a:outputPanel id="proxyPersonPanel">
+                                <a:outputPanel rendered="#{not empty _person.proxyType}">
 
-                            <a:outputPanel layout="block" class="input-group-addon" rendered="#{houseContractHome.instance.poolType eq 'SHARE_OWNER'}">
-                                %
+
+
+                                    <ui:include src="/layout/system/ContractPersonInput.xhtml">
+                                        <ui:param name="_person" value="#{_person.proxyPersonHelper}"/>
+                                        <ui:param name="showMainLabel" value="false"/>
+                                        <ui:param name="allowCredentialsTypeList" value="#{personCredentialsTypes}"/>
+                                    </ui:include>
+
+
+                                </a:outputPanel>
+
                             </a:outputPanel>
 
-                            <h:inputText value="#{_person.personEntity.perc}" id="poolPercInput"
-                                         p:placeholder="#{messages.BusinessPool_perc}"
-                                         label="#{messages.BusinessPool_perc}" styleClass="form-control"
-                                         rendered="#{houseContractHome.instance.poolType eq 'SHARE_OWNER'}">
-                                <a:ajax event="blur"
-                                        execute="@this" render="@none"/>
-                            </h:inputText>
+                        </f:subview>
 
-                        </div>
-
-                    </s:decorate>
-
-                    <s:decorate rendered="#{(_person.credentialsType.name() eq 'COMPANY_CODE')}"
-                                id="legalPersonField" styleClass="form-group" template="/layout/edit.xhtml">
-                       <ui:param name="showLabel" value="false"/>
-                        <ui:param name="for" value="legalPersonInput"/>
-
-                        <div class="input-group">
-
-                    <span class="input-group-btn">
-
-                        <h:selectOneMenu value="#{_person.personEntity.legalType}" styleClass="selectpicker select-menu-btn input-group-first">
-
-                            <s:selectItems value="#{houseContractHome.legalTypes}" var="_legal"
-                                           label="#{messages[_legal.name()]}" itemValue="#{_legal}"/>
-                            <s:convertEnum/>
-
-                        </h:selectOneMenu>
-                    </span>
-                        <h:inputText id="legalPersonInput" value="#{_person.personEntity.legalPerson}"
-                                     maxlength="50"
-                                     styleClass="form-control"/>
-
-                        </div>
-                    </s:decorate>
-
-
-                    <s:decorate id="businessPersonPhoneField" styleClass="form-group" template="/layout/edit.xhtml">
-                        <ui:define name="label">
-                            #{messages.Tel}
-                        </ui:define>
-                        <ui:param name="for" value="persionPhoneInput"/>
-                        <h:inputText label="#{messages.Tel}" size="30" maxlength="15"
-                                     styleClass="form-control" validatorMessage="#{messages.requiredPhoneValidator}"
-                                     value="#{_person.personEntity.phone}" id="persionPhoneInput">
-
-                        </h:inputText>
-
-                    </s:decorate>
-
-
-                </a:outputPanel>
                     </div>
+
+
+
                 </div>
+
+
+
+
             </f:subview>
 
         </a:repeat>

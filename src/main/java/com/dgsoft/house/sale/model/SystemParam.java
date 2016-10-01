@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class SystemParam {
 
     public enum ParamType{
-        STRING,IMG
+        STRING,BOOLEAN,INTEGER,IMG
     }
 
     private String id;

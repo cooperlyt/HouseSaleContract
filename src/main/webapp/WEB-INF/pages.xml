@@ -80,6 +80,34 @@
                 <redirect view-id="/contract/template/new-sale-template-v1.xhtml"/>
             </rule>
 
+
+            <rule if-outcome="edit-contract-MAP_SELL-v2">
+                <end-conversation/>
+                <redirect view-id="/contract/context/pre-sale-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="edit-contract-NOW_SELL-v2">
+                <end-conversation/>
+                <redirect view-id="/contract/context/new-sale-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="view-contract-MAP_SELL-v2">
+                <redirect view-id="/contract/pre-sale-view-v2.xhtml"/>
+            </rule>
+
+
+            <rule if-outcome="view-contract-NOW_SELL-v2">
+                <redirect view-id="/contract/new-sale-view-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-MAP_SELL-v2">
+                <redirect view-id="/contract/template/pre-sale-template-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-NOW_SELL-v2">
+                <redirect view-id="/contract/template/new-sale-template-v2.xhtml"/>
+            </rule>
+
         </navigation>
     </page>
 

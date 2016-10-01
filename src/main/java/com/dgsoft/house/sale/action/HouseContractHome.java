@@ -1,13 +1,15 @@
 package com.dgsoft.house.sale.action;
 
 import com.dgsoft.common.system.PersonHelper;
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.DeveloperSaleService;
 import com.dgsoft.developersale.LogonInfo;
+import com.dgsoft.house.OwnerShareCalcType;
 import com.dgsoft.house.PoolType;
-import com.dgsoft.house.sale.ContractOwnerPersonHelper;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.house.sale.NumberPool;
+import com.dgsoft.house.sale.PowerPersonHelper;
 import com.dgsoft.house.sale.contract.ContractContextMap;
 import com.dgsoft.house.sale.model.*;
 import org.jboss.seam.Component;
@@ -23,9 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by cooper on 9/15/15.
@@ -33,58 +34,82 @@ import java.util.List;
 @Name("houseContractHome")
 public class HouseContractHome extends EntityHome<HouseContract> {
 
-    public ContractOwner.LegalType[] getLegalTypes(){
-        return ContractOwner.LegalType.values();
+    public BusinessPool.LegalType[] getLegalTypes() {
+        return BusinessPool.LegalType.values();
     }
 
 
     @In
     private FacesMessages facesMessages;
 
-    private List<PersonHelper<BusinessPool>> housePoolList;
-
-    private ContractOwnerPersonHelper contractOwner;
+    private List<PowerPersonHelper> housePoolList;
 
     private ContractContextMap contractContextMap;
 
     private PersonHelper<SaleProxyPerson> proxyPersonHelper;
 
-    private int poolOwnerCount = 0;
+    private OwnerShareCalcType ownerShareCalcType;
+
+    private int poolOwnerCount = 1;
 
     private String contractNumber;
 
-    public String getContractNumber()  {
-         return contractNumber;
+    public String getContractNumber() {
+        return contractNumber;
     }
 
     public void setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
     }
 
-    public PersonHelper<SaleProxyPerson> getProxyPersonHelper(){
-        if (proxyPersonHelper == null){
+    public PersonHelper<SaleProxyPerson> getProxyPersonHelper() {
+        if (proxyPersonHelper == null) {
             getInstance();
         }
         return proxyPersonHelper;
     }
 
+    public OwnerShareCalcType getOwnerShareCalcType() {
+        switch (RunParam.instance().getIntParamValue("OWNER_SHARE_CALC_TYPE")) {
+            case 1:
+                return OwnerShareCalcType.SCALE;
+            case 2:
+                return OwnerShareCalcType.AREA;
+            default:
+                return ownerShareCalcType;
+        }
+
+    }
+
+    public void setOwnerShareCalcType(OwnerShareCalcType ownerShareCalcType) {
+        this.ownerShareCalcType = ownerShareCalcType;
+    }
 
     @Override
-    protected HouseContract createInstance(){
+    protected HouseContract createInstance() {
 
         LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
-        return new HouseContract(NumberPool.instance().genContractNumber(),
-                logonInfo.getGroupCode(),new Date(),
-                HouseContract.ContractStatus.PREPARE,logonInfo.getUserId(),logonInfo.getEmployeeName(), PoolType.SINGLE_OWNER);
+
+        HouseContract houseContract = new HouseContract(NumberPool.instance().genContractNumber(),
+                logonInfo.getGroupCode(), new Date(),
+                HouseContract.ContractStatus.PREPARE, logonInfo.getUserId(), logonInfo.getEmployeeName(), PoolType.SINGLE_OWNER);
+
+        NewHouseContract newHouseContract = new NewHouseContract(houseContract);
+        houseContract.setNewHouseContract(newHouseContract);
+
+        SaleProxyPerson saleProxyPerson = new SaleProxyPerson(houseContract);
+        houseContract.setSaleProxyPerson(saleProxyPerson);
+
+        return houseContract;
     }
 
     private List<ContractTemplate> contractTemplateList;
 
     public List<ContractTemplate> getContractTemplateList() {
-        if (contractTemplateList == null){
+        if (contractTemplateList == null) {
             LogonInfo logonInfo = (LogonInfo) Component.getInstance("logonInfo", ScopeType.SESSION);
-            contractTemplateList = getEntityManager().createQuery("select contract from ContractTemplate contract where contract.type = :contractType and contract.projectCode = :groupCode",ContractTemplate.class)
-                    .setParameter("groupCode",logonInfo.getGroupCode()).setParameter("contractType", getInstance().getType()).getResultList();
+            contractTemplateList = getEntityManager().createQuery("select contract from ContractTemplate contract where contract.type = :contractType and contract.projectCode = :groupCode", ContractTemplate.class)
+                    .setParameter("groupCode", logonInfo.getGroupCode()).setParameter("contractType", getInstance().getType()).getResultList();
         }
         return contractTemplateList;
     }
@@ -98,89 +123,97 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 //    }
 
     @Override
-    protected void initInstance(){
+    protected void initInstance() {
         super.initInstance();
-        ContractOwner owner = getInstance().getContractOwner();
-        if (owner == null){
-            owner = new ContractOwner(getInstance());
-            getInstance().setContractOwner(owner);
-        }
-        contractOwner = new ContractOwnerPersonHelper(owner);
 
-        SaleProxyPerson proxyPerson = getInstance().getSaleProxyPerson();
-        if (proxyPerson == null){
-            proxyPerson = new SaleProxyPerson(getInstance());
-            getInstance().setSaleProxyPerson(proxyPerson);
-        }
-        proxyPersonHelper = new PersonHelper<SaleProxyPerson>(proxyPerson);
-
-
+        proxyPersonHelper = new PersonHelper<SaleProxyPerson>(getInstance().getSaleProxyPerson());
         contractContextMap = null;
-//        try {
-//            fillContextMap();
-//        } catch (JSONException e) {
-//            Logging.getLog(getClass()).error("load contract context error.", e);
-//            throw new IllegalArgumentException("load contract context error.");
-//        }
 
-        housePoolList = new ArrayList<PersonHelper<BusinessPool>>(getInstance().getBusinessPools().size());
-        for(BusinessPool pool: getInstance().getBusinessPools()){
-            housePoolList.add(new PersonHelper<BusinessPool>(pool));
+        housePoolList = new ArrayList<PowerPersonHelper>(getInstance().getBusinessPools().size());
+        for (BusinessPool pool : getInstance().getBusinessPoolList()) {
+            housePoolList.add(new PowerPersonHelper(pool, getInstance().getHouseArea()));
         }
+
     }
 
-    public List<PersonHelper<BusinessPool>> getContractPoolOwners() {
-        if (housePoolList == null){
+    public List<PowerPersonHelper> getContractPoolOwners() {
+        if (housePoolList == null) {
             getInstance();
         }
         return housePoolList;
     }
 
-    public ContractOwnerPersonHelper getContractOwnerHelper(){
-        if (contractOwner == null){
-            getInstance();
-        }
-        return contractOwner;
-    }
+    private void savePoolOwner() {
 
-    private void savePoolOwner(){
         getInstance().getBusinessPools().clear();
-        for(PersonHelper<BusinessPool> pool: housePoolList){
+        for (PersonHelper<BusinessPool> pool : getContractPoolOwners()) {
             getInstance().getBusinessPools().add(pool.getPersonEntity());
         }
     }
 
+    private boolean saveOrUpdateContract() {
+        savePoolOwner();
+        try {
+            JSONArray poja = new JSONArray();
+            for (BusinessPool bp : getInstance().getBusinessPoolList()) {
+                JSONObject jo = new JSONObject();
+
+                String type = bp.getContractPersonType().name();
+
+                jo.put(type + "_name", bp.getPersonName());
+                jo.put(type + "_cer_number",bp.getCredentialsNumber());
+                jo.put(type + "_legal_person",bp.getLegalPerson());
+                if (bp.getPowerProxyPerson() != null){
+                    jo.put(type + "_proxy_name",bp.getPowerProxyPerson().getPersonName());
+                    jo.put(type + "_proxy_cer_number", bp.getPowerProxyPerson().getCredentialsNumber());
+                }
+                poja.put(jo);
+
+            }
+
+            for(ContractNumber co: getInstance().getContractNumbers()){
+                JSONObject jo = new JSONObject();
+                jo.put("contract_number",co.getContractNumber());
+                poja.put(jo);
+            }
+
+            getInstance().setContractIndex(poja.toString());
+
+            if (contractContextMap != null) {
+                getInstance().setContext(contractContextMap.toJson().toString());
+            }
+        } catch (JSONException e) {
+            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "ContractContextFail");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     @Transactional
-    public String persist(){
-        savePoolOwner();
-        if (contractContextMap != null){
-            try {
-                getInstance().setContext(contractContextMap.toJson().toString());
-            } catch (JSONException e) {
-                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"ContractContextFail");
-                return null;
-            }
+    public String persist() {
+        if (saveOrUpdateContract()) {
+            return super.persist();
+        } else {
+            return null;
         }
-
-        return super.persist();
     }
 
 
     @Override
     @Transactional
-    public String update(){
-        savePoolOwner();
-        if (contractContextMap != null){
-            try {
-                getInstance().setContext(contractContextMap.toJson().toString());
-            } catch (JSONException e) {
-                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"ContractContextFail");
-                return null;
-            }
+    public String update() {
+        if (saveOrUpdateContract()) {
+            return super.update();
+        } else {
+            return null;
         }
+    }
 
-        return super.update();
+    public void poolTypeChange() {
+        if (PoolType.SINGLE_OWNER.equals(getPoolType())) {
+            poolOwnerCount = 1;
+        }
     }
 
     public int getPoolOwnerCount() {
@@ -191,13 +224,13 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         this.poolOwnerCount = poolOwnerCount;
     }
 
-    public PoolType getPoolType(){
+    public PoolType getPoolType() {
         return getInstance().getPoolType();
     }
 
-    public void setPoolType(PoolType poolType){
-        if (PoolType.SINGLE_OWNER.equals(poolType)){
-            setPoolOwnerCount(0);
+    public void setPoolType(PoolType poolType) {
+        if (PoolType.SINGLE_OWNER.equals(poolType)) {
+            setPoolOwnerCount(1);
         }
         getInstance().setPoolType(poolType);
     }
@@ -208,49 +241,48 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         contractContextMap = null;
     }
 
-    public void clearContext(){
+    public void clearContext() {
         getInstance().setContext(null);
         contractContextMap = new ContractContextMap();
     }
 
-    public String genPoolOwner(){
+    public void genPoolOwner() {
 
-        while (getContractPoolOwners().size() != poolOwnerCount){
-            if (getContractPoolOwners().size() > getPoolOwnerCount()){
+        while (getContractPoolOwners().size() != poolOwnerCount) {
+            if (getContractPoolOwners().size() > getPoolOwnerCount()) {
                 getInstance().getBusinessPools().remove(getContractPoolOwners().remove(0).getPersonEntity());
-            }else{
-                BusinessPool pool = new BusinessPool(getInstance());
-                getContractPoolOwners().add(new PersonHelper<BusinessPool>(pool));
+            } else {
+                BusinessPool pool = new BusinessPool(getInstance(), BusinessPool.ContractPersonType.BUYER, getContractPoolOwners().size() + 1);
+                getContractPoolOwners().add(new PowerPersonHelper(pool, getInstance().getHouseArea()));
                 getInstance().getBusinessPools().add(pool);
             }
         }
-        return "pool-owner-ok";
     }
 
     public ContractContextMap getContractContextMap() {
-        if (contractContextMap == null){
+        if (contractContextMap == null) {
             Logging.getLog(getClass()).debug("load context");
-           if (getInstance().getContext() == null || getInstance().getContext().trim().equals("")){
-               contractContextMap = new ContractContextMap();
+            if (getInstance().getContext() == null || getInstance().getContext().trim().equals("")) {
+                contractContextMap = new ContractContextMap();
 
-            }else {
-               try {
-                   contractContextMap = new ContractContextMap(new JSONObject(getInstance().getContext()));
-               } catch (JSONException e) {
-                   throw new IllegalArgumentException("context fail");
-               }
-           }
+            } else {
+                try {
+                    contractContextMap = new ContractContextMap(new JSONObject(getInstance().getContext()));
+                } catch (JSONException e) {
+                    throw new IllegalArgumentException("context fail");
+                }
+            }
         }
         return contractContextMap;
     }
 
-    public String viewSingleContract(){
+    public String viewSingleContract() {
 
         return "view-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
 
     }
 
-    public String editContract(){
+    public String editContract() {
         return "edit-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
     }
 
@@ -264,24 +296,25 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         this.searchPassword = searchPassword;
     }
 
-    public String commit(){
-        DeveloperSaleService.CommitResult result = DeveloperSaleServiceImpl.instance().commitContract((DeveloperLogonInfo)Component.getInstance("logonInfo",true,true),toJson().toString());
-        if (DeveloperSaleService.CommitResult.COMMIT_OK.equals(result)){
-            for(ContractNumber cn: getInstance().getContractNumbers()){
+    public String commit() {
+        DeveloperSaleService.CommitResult result = DeveloperSaleServiceImpl.instance().commitContract((DeveloperLogonInfo) Component.getInstance("logonInfo", true, true), toJson().toString());
+        if (DeveloperSaleService.CommitResult.COMMIT_OK.equals(result)) {
+            for (ContractNumber cn : getInstance().getContractNumbers()) {
                 cn.setPassword(searchPassword);
             }
             getInstance().setStatus(HouseContract.ContractStatus.SUBMIT);
             return super.update();
         }
-        facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"commitError_" + result.name());
+        facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR, "commitError_" + result.name());
         return null;
     }
 
+    //提交合同信息
     private JSONObject toJson() {
         JSONObject contractJson = new JSONObject();
         try {
             contractJson.put("id", getInstance().getId());
-            contractJson.put("projectId", getInstance().getProjectCode());
+            contractJson.put("projectId", getInstance().getNewHouseContract().getProjectCode());
             contractJson.put("houseCode", getInstance().getHouseCode());
             contractJson.put("type", getInstance().getType().name());
             contractJson.put("createTime", getInstance().getCreateTime().getTime());
@@ -291,32 +324,28 @@ public class HouseContractHome extends EntityHome<HouseContract> {
             contractJson.put("contract", new JSONObject(getInstance().getContext()));
             contractJson.put("contractVersion", getInstance().getContractVersion());
             contractJson.put("poolType", getInstance().getPoolType().name());
-            contractJson.put("salePayType", getInstance().getSalePayType().name());
+            contractJson.put("salePayType", getInstance().getNewHouseContract().getSalePayType().name());
 
-            contractJson.put("projectCerNumber",getInstance().getProjectCerNumber());
+            contractJson.put("projectCerNumber", getInstance().getNewHouseContract().getProjectCerNumber());
 
             contractJson.put("proxyPerson", getInstance().getSaleProxyPerson().getPersonName());
             contractJson.put("proxyCredentialsType", getInstance().getSaleProxyPerson().getCredentialsType().name());
             contractJson.put("proxyCredentialsNumber", getInstance().getSaleProxyPerson().getCredentialsNumber());
-            contractJson.put("proxyTel",getInstance().getSaleProxyPerson().getTel());
+            contractJson.put("proxyTel", getInstance().getSaleProxyPerson().getTel());
 
-            contractJson.put("name", getInstance().getContractOwner().getPersonName());
-            contractJson.put("credentialsType", getInstance().getContractOwner().getCredentialsType().name());
-            contractJson.put("credentialsNumber", getInstance().getContractOwner().getCredentialsNumber());
-            contractJson.put("tel", getInstance().getContractOwner().getPhone());
-            contractJson.put("rootAddress", getInstance().getContractOwner().getRootAddress());
-            contractJson.put("legalPerson", getInstance().getContractOwner().getLegalPerson());
-            contractJson.put("address", getInstance().getContractOwner().getAddress());
+//            contractJson.put("name", getInstance().getContractOwner().getPersonName());
+//            contractJson.put("credentialsType", getInstance().getContractOwner().getCredentialsType().name());
+//            contractJson.put("credentialsNumber", getInstance().getContractOwner().getCredentialsNumber());
+//            contractJson.put("tel", getInstance().getContractOwner().getPhone());
+//            contractJson.put("rootAddress", getInstance().getContractOwner().getRootAddress());
+//            contractJson.put("legalPerson", getInstance().getContractOwner().getLegalPerson());
+//            contractJson.put("address", getInstance().getContractOwner().getAddress());
 
             JSONArray numberJsonArray = new JSONArray();
             for (ContractNumber contractNumber : getInstance().getContractNumbers()) {
                 numberJsonArray.put(contractNumber.getContractNumber());
             }
             contractJson.put("contractNumber", numberJsonArray);
-
-            if (getInstance().getContractOwner().getLegalType() != null)
-                contractJson.put("legalType", getInstance().getContractOwner().getLegalType().name());
-
 
             if (!PoolType.SINGLE_OWNER.equals(getInstance().getPoolType())) {
                 JSONArray poolArray = new JSONArray();
@@ -327,15 +356,15 @@ public class HouseContractHome extends EntityHome<HouseContract> {
                     poolObj.put("credentialsNumber", businessPool.getCredentialsNumber());
                     if (businessPool.getPoolArea() != null) {
                         poolObj.put("poolArea", businessPool.getPoolArea().doubleValue());
-                    }else{
-                        poolObj.put("poolArea",0.0);
+                    } else {
+                        poolObj.put("poolArea", 0.0);
                     }
                     if (businessPool.getRelation() != null) {
                         poolObj.put("relation", businessPool.getRelation());
-                    }else{
+                    } else {
                         poolObj.put("relation", "0");
                     }
-                    poolObj.put("perc", businessPool.getPerc());
+                    poolObj.put("perc", businessPool.getPoolPerc());
                     poolObj.put("tel", businessPool.getPhone());
                     poolObj.put("legalPerson", businessPool.getLegalPerson());
                     if (businessPool.getLegalType() != null)
@@ -346,7 +375,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
             }
 
             return contractJson;
-        }catch (JSONException e){
+        } catch (JSONException e) {
             throw new IllegalArgumentException(e);
         }
     }

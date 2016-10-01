@@ -15,6 +15,31 @@
         <ui:include src="frame/brand.xhtml"/>
     </ui:define>
 
+    <div class="setup-header">
+        <h1>合同草签</h1>
+
+        <!-- Show steps if user is creating an organiation -->
+        <ol class="steps">
+            <li class="current">
+                <div class="octicon octicon-home" />
+                <strong class="step">1:基本信息</strong>
+                基本信息
+            </li>
+            <li>
+
+                <div class="octicon octicon-person" />
+                <strong class="step">2:买受人</strong>
+                买受人信息
+            </li>
+            <li>
+                <div class="octicon octicon-list-unordered" />
+                <strong class="step">3:合同建立</strong>
+                建立草签合同
+            </li>
+        </ol>
+
+    </div>
+
     <ui:include src="/layout/system/CardReader.xhtml"/>
     <h:form>
 
@@ -40,10 +65,12 @@
                 <ui:param name="label" value="出卖方代理人"/>
                 <ui:param name="personEntityHelper" value="#{houseContractHome.proxyPersonHelper}"/>
                 <ui:param name="personStatus" value="proxyPersonNumberStatus"/>
+                <ui:param name="allowCredentialsTypeList" value="#{personCredentialsTypes}"/>
+
 
                 <ui:define name="after">
                 <span class="input-group-btn">
-                <a:commandLink styleClass="btn btn-default">
+                <a:commandLink styleClass="btn btn-default" style="line-height: 16px">
                     <span class="btn-icon octicon octicon-triangle-down"></span>
                 </a:commandLink>
                 </span>
@@ -59,7 +86,7 @@
                                  value="#{houseContractHome.proxyPersonHelper.personEntity.tel}" required="true"
                                  id="proxypersionPhoneInput">
                         <f:validateRegex
-                                pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
+                                pattern="\+?(\d{2})?((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"/>
                         <r:validator event="blur"/>
                     </h:inputText>
 
@@ -103,7 +130,7 @@
                         <h:selectOneMenu label="付款方式"
                                          id="salePayTypeInput" p:data-width="150"
                                          styleClass="selectpicker select-menu-btn"
-                                         value="#{houseContractHome.instance.salePayType}" required="true">
+                                         value="#{houseContractHome.instance.newHouseContract.salePayType}" required="true">
                             <s:selectItems value="#{salePayType}" var="_type" label="#{messages[_type.name()]}"
                                            itemValue="#{_type}"/>
                             <s:convertEnum/>
@@ -183,10 +210,6 @@
         </ui:decorate>
 
 
-        <ui:include src="ContractOwnerEdit.xhtml">
-            <ui:param name="label" value="#{messages.ContractOwner_personName}"/>
-        </ui:include>
-
 
         <s:decorate id="poolTypeField" template="/layout/edit.xhtml">
             <ui:define name="label">
@@ -201,7 +224,8 @@
                                      value="#{houseContractHome.poolType}" required="true">
                         <s:selectItems value="#{poolTypes}" var="_poolType" label="#{messages[_poolType.name()]}"/>
                         <s:convertEnum/>
-                        <a:ajax render="poolTypeField" event="valueChange" execute="@this">
+                        <a:ajax render="poolTypeField" listener="#{houseContractHome.poolTypeChange}"
+                                event="valueChange" execute="@this" oncomplete="initDynamicEditInputs('#{r:clientId('poolTypeField')}')">
                             <a:attachQueue requestDelay="0"/>
                         </a:ajax>
                     </h:selectOneMenu>
@@ -211,13 +235,23 @@
 
                 <h:inputText label="共有权人数量" p:placeHolder="共有权人数量"
                              styleClass="form-control" required="true"
-                             disabled="#{houseContractHome.poolType eq 'SINGLE_OWNER'}"
+                             readonly="#{houseContractHome.poolType eq 'SINGLE_OWNER'}"
                              id="poolCountInput" value="#{houseContractHome.poolOwnerCount}">
                     <f:converter converterId="javax.faces.Integer"/>
-                    <f:validateLongRange minimum="1"/>
-
+                    <f:validateLongRange minimum="2"/>
                     <r:validator/>
                 </h:inputText>
+
+                <a:outputPanel styleClass="input-group-btn" layout="block" rendered="#{ runParam.getIntParamValue('OWNER_SHARE_CALC_TYPE') eq 3}">
+
+                    <h:selectOneMenu label="#{messages.HouseContract_poolType}" disabled="#{not (houseContractHome.poolType eq 'SHARE_OWNER')}"
+                                     styleClass="selectpicker select-menu-btn"
+                                     value="#{houseContractHome.ownerShareCalcType}" required="true">
+                        <s:selectItems value="#{ownerShareCalcTypes}" var="_togetherType" label="#{messages[_togetherType.name()]}"/>
+                        <s:convertEnum/>
+                    </h:selectOneMenu>
+
+                </a:outputPanel>
 
 
             </div>

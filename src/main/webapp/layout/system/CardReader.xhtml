@@ -68,10 +68,11 @@
         $('.card-reading').removeClass('card-reading');
 
         var card = eval("(" + valStr + ")");
+            if (card.number){
 
         $('[data-person-uuid="'+ uuid +'"]').children(".person-name").val(card.name);
         $('[data-person-uuid="'+ uuid +'"]').children(".person-id").val(card.number);
-
+            }
         }
 
 

@@ -21,10 +21,10 @@
             <h:selectOneMenu label="#{messages.Person_credentialsType}" id="personCredentialsTypeInput"
                              styleClass="selectpicker select-menu-btn input-group-first"
                              value="#{_person.credentialsType}" required="true">
-                <s:selectItems var="_type" value="#{credentialsTypes}" label="#{messages[_type.name()]}"/>
+                <s:selectItems var="_type" value="#{allowCredentialsTypeList}" label="#{messages[_type.name()]}"/>
                 <s:convertEnum/>
-                <a:ajax event="valueChange" listener="#{_person.typeChange}"
-                        render="personCardInput #{render}"
+                <a:ajax event="valueChange"
+                        render="#{empty render ? 'personCardInput' : render}"
                         oncomplete="initDynamicEditInputs('#{r:clientId('credentialsType')}'); initDynamicEditInputs('#{r:clientId('render')}');"
                         execute="@this" status="#{personStatus}">
                     <a:attachQueue requestDelay="0"/>
@@ -40,15 +40,36 @@
             </a>
         </a:outputPanel>
 
-        <h:inputText id="credentialsNumber" readonly="#{(_person.credentialsType.name() eq 'OTHER')}"
+
+        <h:inputText id="cardNumber" readonly="#{(_person.credentialsType.name() eq 'OTHER')}"
+                     rendered="#{not (empty _person.credentialsType.name()) and not (_person.credentialsType.name() eq 'MASTER_ID')}"
                      label="#{messages.Person_credentialsNumber}"
-                     styleClass="form-control person-id"
+                     styleClass="form-control"
                      required="true"
                      size="25"
                      maxlength="100"
                      p:placeholder="#{messages.Person_credentialsNumber}"
                      value="#{_person.credentialsNumber}">
         </h:inputText>
+
+        <h:inputText id="personNumber" rendered="#{(empty _person.credentialsType.name()) or (_person.credentialsType.name() eq 'MASTER_ID')}"
+                     label="#{messages.Person_credentialsNumber}"
+                     styleClass="form-control person-id"
+                     required="true"
+                     size="25"
+                     validatorMessage="身份证编号不合法,请确认"
+                     maxlength="100"
+                     p:placeholder="身份证号"
+                     value="#{_person.credentialsNumber}">
+
+            <f:validateRegex
+                             pattern="^[1-9]\d{5}((1[89]|20)\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dx]$"/>
+            <f:validator validatorId="cc.coopersoft.faces.IdCardNumberValidator"/>
+            <r:validator event="blur"/>
+
+
+        </h:inputText>
+
 
 
         <div class="input-group-addon">

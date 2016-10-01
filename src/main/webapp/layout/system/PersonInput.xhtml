@@ -15,14 +15,15 @@
         <ui:define name="topValue">
             <s:decorate id="personInputFields" styleClass="form-group" template="/layout/edit.xhtml">
 
-                <ui:param name="for" value="credentialsNumber"/>
+                <ui:param name="for" value="personCredentialsTypeInput"/>
                 <ui:param name="status" value="#{personStatus}"/>
                 <ui:define name="label">
                     #{label}
                 </ui:define>
 
                 <ui:define name="message">
-                    <r:message for="credentialsNumber" styleClass="edit-below-msg" ajaxRendered="false"/>
+                    <r:message for="cardNumber" rendered="#{not (empty _person.credentialsType.name()) and not (_person.credentialsType.name() eq 'MASTER_ID')}" styleClass="edit-below-msg" ajaxRendered="false"/>
+                    <r:message for="personNumber" rendered="#{(empty _person.credentialsType.name()) or (_person.credentialsType.name() eq 'MASTER_ID')}" styleClass="edit-below-msg" ajaxRendered="false"/>
                     <r:message for="cerdentialsName" styleClass="edit-below-msg" ajaxRendered="false"/>
 
                 </ui:define>

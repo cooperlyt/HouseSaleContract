@@ -150,8 +150,10 @@
                         <f:facet name="header">
                             买受人
                         </f:facet>
-                        <a:outputPanel styleClass="tooltipped tooltipped-w" p:aria-label="#{_contract.contractOwner.credentialsNumber}">
-                        #{_contract.contractOwner.personName}
+                        <a:outputPanel styleClass="tooltipped tooltipped-w" >
+                        <a:repeat rowKeyVar="_row" value="#{_contract.businessPoolList}" var="_buyer">
+                            <h:outputText value="、" rendered="#{not (_row eq 0)}"/> #{_buyer.personName}
+                        </a:repeat>
                         </a:outputPanel>
                     </h:column>
 
@@ -195,7 +197,7 @@
                         <f:facet name="header">
                             支付方式
                         </f:facet>
-                        #{messages[_contract.salePayType.name()]}
+                        #{messages[_contract.newHouseContract.salePayType.name()]}
                     </h:column>
 
 

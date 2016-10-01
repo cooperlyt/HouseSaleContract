@@ -23,7 +23,7 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     }
 
     private String id;
-    private String projectCode;
+
     private String groupId;
     private String houseCode;
     private SaleType type;
@@ -37,21 +37,27 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     private String houseDescription;
     private int contractVersion;
     private int version;
+    private BigDecimal houseArea;
 
     private PoolType poolType;
-    private SalePayType salePayType;
-    private String projectCerNumber;
 
-    private ContractOwner contractOwner;
     private Set<BusinessPool> businessPools = new HashSet<BusinessPool>(0);
     private Set<ContractNumber> contractNumbers = new HashSet<ContractNumber>(0);
 
+    private NewHouseContract newHouseContract;
+    private OldHouseContract oldHouseContract;
+
     private SaleProxyPerson saleProxyPerson;
+
+    private String contractIndex;
+
 
     public HouseContract() {
     }
 
-    public HouseContract(String id,String groupId, Date createTime, ContractStatus status, String attachEmpId, String attachEmpName, PoolType poolType) {
+    public HouseContract(String id,String groupId, Date createTime,
+                         ContractStatus status, String attachEmpId,
+                         String attachEmpName, PoolType poolType) {
         this.id = id;
         this.groupId = groupId;
        // this.projectCode = projectCode;
@@ -85,26 +91,6 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.groupId = groupId;
     }
 
-    @Column(name = "PROJECT_ID",nullable = true, length = 32)
-    @Size(max = 32)
-    public String getProjectCode() {
-        return projectCode;
-    }
-
-    public void setProjectCode(String projectCode) {
-        this.projectCode = projectCode;
-    }
-
-
-    @Column(name = "PROJECT_CER_NUMBER", nullable = true, length = 100)
-    @Size(max = 100)
-    public String getProjectCerNumber() {
-        return projectCerNumber;
-    }
-
-    public void setProjectCerNumber(String projectCerNumber) {
-        this.projectCerNumber = projectCerNumber;
-    }
 
     @Column(name = "HOUSE_CODE", nullable = false,length = 32, unique = true)
     @NotNull
@@ -215,17 +201,6 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.version = version;
     }
 
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    public ContractOwner getContractOwner() {
-        return contractOwner;
-    }
-
-    public void setContractOwner(ContractOwner contractOwner) {
-        this.contractOwner = contractOwner;
-    }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "POOL_TYPE", length = 32, nullable = false)
     @NotNull
@@ -237,15 +212,14 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.poolType = poolType;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "SALE_PAY_TYPE", nullable = false, length = 32)
+    @Column(name = "HOUSE_AREA",nullable = false, length = 18, scale = 4)
     @NotNull
-    public SalePayType getSalePayType() {
-        return salePayType;
+    public BigDecimal getHouseArea() {
+        return houseArea;
     }
 
-    public void setSalePayType(SalePayType salePayType) {
-        this.salePayType = salePayType;
+    public void setHouseArea(BigDecimal houseArea) {
+        this.houseArea = houseArea;
     }
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "houseContract")
@@ -256,6 +230,19 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
     public void setBusinessPools(Set<BusinessPool> businessPools) {
         this.businessPools = businessPools;
     }
+
+    @Transient
+    public List<BusinessPool> getBusinessPoolList(){
+        List<BusinessPool> result = new ArrayList<BusinessPool>(getBusinessPools());
+        Collections.sort(result, new Comparator<BusinessPool>() {
+            @Override
+            public int compare(BusinessPool o1, BusinessPool o2) {
+                return Integer.valueOf(o1.getPri()).compareTo(o2.getPri());
+            }
+        });
+        return result;
+    }
+
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "houseContract")
     public Set<ContractNumber> getContractNumbers() {
@@ -277,7 +264,27 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
         this.houseDescription = houseDescription;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
+    public NewHouseContract getNewHouseContract() {
+        return newHouseContract;
+    }
+
+    public void setNewHouseContract(NewHouseContract newHouseContract) {
+        this.newHouseContract = newHouseContract;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
+    public OldHouseContract getOldHouseContract() {
+        return oldHouseContract;
+    }
+
+    public void setOldHouseContract(OldHouseContract oldHouseContract) {
+        this.oldHouseContract = oldHouseContract;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     public SaleProxyPerson getSaleProxyPerson() {
         return saleProxyPerson;
@@ -285,6 +292,16 @@ public class HouseContract implements java.io.Serializable, ContractInfo {
 
     public void setSaleProxyPerson(SaleProxyPerson saleProxyPerson) {
         this.saleProxyPerson = saleProxyPerson;
+    }
+
+    @Column(name = "CONTRACT_INDEX", length = 1024)
+    @Size(max = 1024)
+    public String getContractIndex() {
+        return contractIndex;
+    }
+
+    public void setContractIndex(String contractIndex) {
+        this.contractIndex = contractIndex;
     }
 
     @Transient

@@ -5,6 +5,8 @@ import cc.coopersoft.comm.exception.HttpApiServerException;
 import cc.coopersoft.house.sale.HouseSellService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.common.system.RunParam;
+import com.dgsoft.common.system.Sex;
+import com.dgsoft.house.sale.model.PowerProxyPerson;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
@@ -13,6 +15,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,22 +24,44 @@ import java.util.List;
 @Name("commDataFactory")
 public class CommDataFactory {
 
-    @Factory(value = "credentialsTypes",scope = ScopeType.SESSION )
+    @Factory(value = "credentialsTypes",scope = ScopeType.APPLICATION )
     public PersonEntity.CredentialsType[] getCredentialsTypes(){
         return PersonEntity.CredentialsType.values();
     }
 
-    @Factory(value = "poolTypes",scope = ScopeType.SESSION )
+    @Factory(value = "personCredentialsTypes", scope = ScopeType.APPLICATION)
+    public List<PersonEntity.CredentialsType> getPersonCredentialsTypes(){
+        List<PersonEntity.CredentialsType> result = new ArrayList<PersonEntity.CredentialsType>();
+        for(PersonEntity.CredentialsType ct: getCredentialsTypes()){
+            if (!ct.isCorp()){
+                result.add(ct);
+            }
+        }
+        return result;
+    }
+
+    @Factory(value = "poolTypes",scope = ScopeType.APPLICATION )
     public PoolType[] getPoolTypes(){
         return PoolType.values();
     }
 
-    @Factory(value = "salePayType", scope = ScopeType.SESSION)
+    @Factory(value = "salePayType", scope = ScopeType.APPLICATION)
     public SalePayType[] getSalePayType(){
         return SalePayType.values();
     }
 
+    @Factory(value = "ownerShareCalcTypes",scope = ScopeType.APPLICATION)
+    public OwnerShareCalcType[] getOwnerShareCalcTypes(){return OwnerShareCalcType.values();}
 
+    @Factory(value = "sexValues",scope = ScopeType.APPLICATION)
+    public Sex[] getSexValues(){
+        return Sex.values();
+    }
+
+    @Factory(value = "proxyTypes", scope = ScopeType.APPLICATION)
+    public PowerProxyPerson.ProxyType[] getProxyTypes(){
+        return PowerProxyPerson.ProxyType.values();
+    }
 
     @In
     private FacesMessages facesMessages;

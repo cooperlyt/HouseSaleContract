@@ -48,7 +48,7 @@ public class SaleProxyPerson implements PersonEntity, java.io.Serializable{
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @PrimaryKeyJoinColumn
     public HouseContract getHouseContract() {
         return houseContract;

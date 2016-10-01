@@ -5,6 +5,7 @@ import cc.coopersoft.house.sale.HouseSellService;
 import cc.coopersoft.house.sale.data.HouseQueryData;
 import cc.coopersoft.house.sale.data.OldHouseQueryData;
 import cc.coopersoft.house.sale.data.OldHouseQueryResult;
+import cc.coopersoft.house.sale.data.OldHouseSell;
 import com.dgsoft.common.system.PersonHelper;
 import com.dgsoft.common.system.RunParam;
 import org.jboss.seam.ScopeType;
@@ -33,6 +34,8 @@ public class OldHouseSellSubmit {
         return houseQueryData;
     }
 
+    private OldHouseSell oldHouseSell;
+
 
     public void setHouseLocateTypeName(String name){
         houseQueryData.getPersonEntity().setHouseLocateType(HouseQueryData.HouseLocateType.valueOf(name));
@@ -50,6 +53,8 @@ public class OldHouseSellSubmit {
 
 
                 oldHouseQueryData = result.getHouse();
+                oldHouseSell = new OldHouseSell(houseQueryData.getPersonEntity());
+
             }else if (OldHouseQueryResult.ResultStatus.EXISTS.equals(result.getStatus())){
                 //TODO
             }else{

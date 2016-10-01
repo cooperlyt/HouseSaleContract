@@ -49,7 +49,7 @@ public class DaySaleTotal {
             calendar.set(Calendar.MILLISECOND, 0);
             calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
 
-            totalDatas = entityManager.createQuery("select new com.dgsoft.house.sale.developer.TimeCountTotalData(max(contract.createTime),count(contract.id)) from HouseContract contract where contract.projectCode =:groupCode and contract.createTime >= :createTime group by year(contract.createTime), month(contract.createTime), day(contract.createTime) order by contract.createTime", TimeCountTotalData.class)
+            totalDatas = entityManager.createQuery("select new com.dgsoft.house.sale.developer.TimeCountTotalData(max(contract.createTime),count(contract.id)) from HouseContract contract where contract.newHouseContract.projectCode =:groupCode and contract.createTime >= :createTime group by year(contract.createTime), month(contract.createTime), day(contract.createTime) order by contract.createTime", TimeCountTotalData.class)
                     .setParameter("groupCode",logonInfo.getGroupCode())
                     .setParameter("createTime", calendar.getTime()).getResultList();
             calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - 1);

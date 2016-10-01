@@ -16,15 +16,16 @@ import java.util.Arrays;
 public class ContractSearchList extends MultiOperatorEntityQuery<HouseContract> {
 
     private static final String EJBQL = "select c from HouseContract c " +
-            "left join fetch c.contractOwner o where c.groupId = #{logonInfo.groupCode}";
+            "left join fetch c.newHouseContract nc " +
+            "left join fetch c.oldHouseContract " +
+            "left join fetch c.saleProxyPerson " +
+            "where c.groupId = #{logonInfo.groupCode}";
 
 
     private static final String[] RESTRICTIONS = {
             "lower(c.id) = lower(#{contractSearchList.searchKey})",
             "lower(c.houseCode) = lower(#{contractSearchList.searchKey})",
-            "lower(o.personName) like lower(concat('%',#{contractSearchList.searchKey},'%'))) ",
-            "lower(o.credentialsNumber) = lower(#{contractSearchList.searchKey}) ",
-            "lower(o.legalPerson) like lower(concat('%',#{contractSearchList.searchKey},'%'))) "
+            "lower(c.contractIndex) like lower(concat('%:\"',#{contractSearchList.searchKey},'\"%'))) "
     };
 
 

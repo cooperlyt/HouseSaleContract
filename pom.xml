@@ -266,11 +266,10 @@
             <artifactId>jboss-seam-debug</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>1.83Bate</version>
+            <version>1.96Bate</version>
         </dependency>
 
         <dependency>
@@ -448,8 +447,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>jboss-seam-resteasy</artifactId>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>jaxrs-api</artifactId>
+            <version>2.0.1.GA</version>
         </dependency>
 
 

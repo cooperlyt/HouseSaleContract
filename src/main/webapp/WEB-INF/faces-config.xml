@@ -9,6 +9,14 @@
         <converter-class>com.dgsoft.faces.convert.BigMoneyConverter</converter-class>
     </converter>
 
+    <validator>
+        <validator-id>
+            cc.coopersoft.faces.IdCardNumberValidator
+        </validator-id>
+        <validator-class>
+            com.dgsoft.faces.validator.IdCardNumberValidator
+        </validator-class>
+    </validator>
 
     <component>
         <component-type>com.dgsoft.faces.EntryColumn</component-type>

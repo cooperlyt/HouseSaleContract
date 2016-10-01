@@ -58,6 +58,16 @@ public class RunParam {
         }
     }
 
+    public boolean getBooleanParamValue(String name){
+        String result = getParamValue(name);
+        return Boolean.parseBoolean(result);
+    }
+
+    public int getIntParamValue(String name){
+        String result = getParamValue(name);
+        return Integer.parseInt(result);
+    }
+
 
     public static RunParam instance()
     {

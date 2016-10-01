@@ -4,7 +4,6 @@ import com.dgsoft.common.system.DictionaryService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
 import com.dgsoft.house.PledgeInfo;
-import com.dgsoft.house.PoolType;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.common.system.RunParam;
@@ -20,11 +19,9 @@ import org.jboss.seam.international.StatusMessage;
 import org.jboss.seam.log.Logging;
 import org.json.JSONException;
 
+import javax.persistence.NoResultException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cooper on 9/15/15.
@@ -73,8 +70,10 @@ public class ContractCreate {
             }else {
                 house = DeveloperSaleServiceImpl.instance().getHouseInfoBySale((DeveloperLogonInfo) logonInfo, houseCode);
                 if (house.getStatus().isCanSale()){
-                    if (houseContractHome.getEntityManager().createQuery("select count(contract.id) from HouseContract contract where contract.houseCode = :houseCode", Long.class)
-                            .setParameter("houseCode",house.getHouseCode()).getSingleResult().compareTo(Long.valueOf(0)) > 0){
+                    if (houseContractHome.getEntityManager().createQuery("select count(contract.id) from HouseContract contract where contract.houseCode = :houseCode and contract.status = 'PREPARE' and contract.groupId = :groupId and contract.type in (:types)", Long.class)
+                            .setParameter("houseCode",house.getHouseCode())
+                            .setParameter("types", EnumSet.of(SaleType.MAP_SELL,SaleType.NOW_SELL))
+                            .setParameter("groupId",logonInfo.getGroupCode()).getSingleResult().compareTo(Long.valueOf(0)) > 0){
                         house.setStatus(SaleStatus.PREPARE_CONTRACT);
                     }
                 }
@@ -99,8 +98,6 @@ public class ContractCreate {
         return getHouse().getStatus().isCanSale();
 
 
-
-
     }
 
     public String getHouseCode() {
@@ -114,20 +111,40 @@ public class ContractCreate {
     public String createContract(){
 
         if (SaleStatus.PREPARE_CONTRACT.equals(getHouse().getStatus())){
-            houseContractHome.setId(houseContractHome.getEntityManager().createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode", HouseContract.class).setParameter("houseCode",getHouse().getHouseCode()).getSingleResult().getId());
-            houseContractHome.getInstance().setStatus(HouseContract.ContractStatus.PREPARE);
-            if ("updated".equals(houseContractHome.update())) {
-                return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
-            }else
-                return null;
+            houseContractHome.setId(houseContractHome.getEntityManager()
+                    .createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode and hc.type in (:types) and hc.groupId = :groupId and hc.status = :status", HouseContract.class)
+                    .setParameter("houseCode",getHouse().getHouseCode()).setParameter("groupId",logonInfo.getGroupCode())
+                    .setParameter("status",HouseContract.ContractStatus.PREPARE)
+                    .setParameter("types", EnumSet.of(SaleType.MAP_SELL,SaleType.NOW_SELL)).getSingleResult().getId());
+
+            return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
+
+        }
+
+        if (SaleStatus.CAN_SALE.equals(getHouse().getStatus())){
+            try {
+                houseContractHome.getEntityManager().remove(
+                houseContractHome.getEntityManager()
+                        .createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode and hc.type in (:types) and hc.groupId = :groupId and hc.status in (:status)", HouseContract.class)
+                        .setParameter("houseCode", getHouse().getHouseCode())
+                        .setParameter("status",EnumSet.of(HouseContract.ContractStatus.SUBMIT,HouseContract.ContractStatus.RECORD))
+                        .setParameter("groupId",logonInfo.getGroupCode())
+                        .setParameter("types", EnumSet.of(SaleType.MAP_SELL, SaleType.NOW_SELL)).getSingleResult());
+                houseContractHome.getEntityManager().flush();
+            }catch (NoResultException e){
+
+            }
         }
 
         houseContractHome.clearInstance();
         houseContractHome.getInstance().setHouseCode(houseCode);
+        houseContractHome.getInstance().setHouseArea(getHouse().getHouseArea());
 
-        houseContractHome.getInstance().setProjectCode(getHouse().getProjectCode());
+        houseContractHome.getInstance().getNewHouseContract().setProjectCode(getHouse().getProjectCode());
+
+        houseContractHome.getInstance().getNewHouseContract().setProjectCerNumber(getHouse().getSaleBuild().getProjectSellCard().getCardNumber());
+
         houseContractHome.getInstance().setHouseDescription(getHouse().getBuildName() + " " + getHouse().getHouseOrder());
-        houseContractHome.getInstance().setProjectCerNumber(getHouse().getSaleBuild().getProjectSellCard().getCardNumber());
 
         houseContractHome.getInstance().setType(getHouse().getSaleType());
         return "contract-begin";
@@ -270,22 +287,22 @@ public class ContractCreate {
 
 
         //买受人
-        houseContractHome.getContractContextMap().put("owner",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPersonName()));
-
-        if (PersonEntity.CredentialsType.COMPANY_CODE.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
-            houseContractHome.getContractContextMap().put("ownertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getLegalType().name())));
-        }
-        if(PersonEntity.CredentialsType.PASSPORT.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
-            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
-        }else{
-            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
-        }
-        houseContractHome.getContractContextMap().put("ownercityname", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getRootAddress()));
-        houseContractHome.getContractContextMap().put("ownertypevalue", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getLegalPerson()));
-        houseContractHome.getContractContextMap().put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getCredentialsType().name())));
-        houseContractHome.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
-        houseContractHome.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
-        houseContractHome.getContractContextMap().put("ownertel", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPhone()));
+//        houseContractHome.getContractContextMap().put("owner",new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPersonName()));
+//
+//        if (PersonEntity.CredentialsType.COMPANY_CODE.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
+//            houseContractHome.getContractContextMap().put("ownertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getLegalType().name())));
+//        }
+//        if(PersonEntity.CredentialsType.PASSPORT.equals(houseContractHome.getInstance().getContractOwner().getCredentialsType())){
+//            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
+//        }else{
+//            houseContractHome.getContractContextMap().put("ownercitytype",new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
+//        }
+//        houseContractHome.getContractContextMap().put("ownercityname", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getRootAddress()));
+//        houseContractHome.getContractContextMap().put("ownertypevalue", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getLegalPerson()));
+//        houseContractHome.getContractContextMap().put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(houseContractHome.getInstance().getContractOwner().getCredentialsType().name())));
+//        houseContractHome.getContractContextMap().put("ownercernumber", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getCredentialsNumber()));
+//        houseContractHome.getContractContextMap().put("owneraddress", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getAddress()));
+//        houseContractHome.getContractContextMap().put("ownertel", new ContractContextMap.ContarctContextItem(houseContractHome.getInstance().getContractOwner().getPhone()));
 
 
         switch (houseContractHome.getInstance().getPoolType()) {
@@ -304,25 +321,58 @@ public class ContractCreate {
 
 
         List<ContractContextMap> poolOwners = new ArrayList<ContractContextMap>();
-        for(BusinessPool poolOwner: houseContractHome.getInstance().getBusinessPools()){
+        for(BusinessPool poolOwner: houseContractHome.getInstance().getBusinessPoolList()){
             ContractContextMap poolInfoMap = new ContractContextMap();
             poolInfoMap.put("owner", new ContractContextMap.ContarctContextItem(poolOwner.getPersonName()));
 
             if (PersonEntity.CredentialsType.COMPANY_CODE.equals(poolOwner.getCredentialsType())){
                 poolInfoMap.put("ownertype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getLegalType().name())));
+                poolInfoMap.put("ownertypevalue", new ContractContextMap.ContarctContextItem(poolOwner.getLegalPerson()));
             }
             if(PersonEntity.CredentialsType.PASSPORT.equals(poolOwner.getCredentialsType())){
                 poolInfoMap.put("ownercitytype", new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
             }else{
                 poolInfoMap.put("ownercitytype", new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
             }
+            poolInfoMap.put("ownercityname", new ContractContextMap.ContarctContextItem(poolOwner.getRootAddress()));
 
-            poolInfoMap.put("ownertypevalue", new ContractContextMap.ContarctContextItem(poolOwner.getLegalPerson()));
+
             poolInfoMap.put("ownercertype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getCredentialsType().name())));
             poolInfoMap.put("ownercernumber", new ContractContextMap.ContarctContextItem(poolOwner.getCredentialsNumber()));
+
+            poolInfoMap.put("ownerbirthday", new ContractContextMap.ContarctContextItem(poolOwner.getBirthday()));
+            poolInfoMap.put("ownersex", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getSex().name())));
+            poolInfoMap.put("owneraddress", new ContractContextMap.ContarctContextItem(poolOwner.getAddress()));
+            poolInfoMap.put("ownerpost", new ContractContextMap.ContarctContextItem(poolOwner.getPostCode()));
+
             poolInfoMap.put("poolRelation", new ContractContextMap.ContarctContextItem(dictionary.getWordValue(poolOwner.getRelation())));
-            poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPerc()));
+            poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPoolPerc()));
             poolInfoMap.put("ownertel", new ContractContextMap.ContarctContextItem(poolOwner.getPhone()));
+
+            if (poolOwner.getPowerProxyPerson() != null){
+                poolInfoMap.put("ownerproxytype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getProxyType().name())));
+
+                poolInfoMap.put("ownerproxyname", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPersonName()));
+
+                if(PersonEntity.CredentialsType.PASSPORT.equals(poolOwner.getPowerProxyPerson().getCredentialsType())){
+                    poolInfoMap.put("ownerproxycitytype", new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_country")));
+                }else{
+                    poolInfoMap.put("ownerproxycitytype", new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
+                }
+
+                poolInfoMap.put("ownerproxyrootaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getRootAddress()));
+                poolInfoMap.put("ownerproxycertype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getCredentialsType().name())));
+                poolInfoMap.put("ownerproxycernumber", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getCredentialsNumber()));
+                poolInfoMap.put("ownerproxybirthday", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getBirthday()));
+                poolInfoMap.put("ownerproxysex", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getSex().name())));
+                poolInfoMap.put("ownerproxyaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getAddress()));
+                poolInfoMap.put("ownerproxypost", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPostCode()));
+                poolInfoMap.put("ownerproxytel", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPhone()));
+            }
+
+
+
+
             poolOwners.add(poolInfoMap);
         }
 
@@ -378,7 +428,7 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("houseAddress", new ContractContextMap.ContarctContextItem(getHouse().getAddress()));
 
                 //pay Type
-        switch (houseContractHome.getInstance().getSalePayType()){
+        switch (houseContractHome.getInstance().getNewHouseContract().getSalePayType()){
 
             case ALL_PAY:
                 houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("1"));
@@ -479,12 +529,14 @@ public class ContractCreate {
     public String beginContract(){
         houseContractHome.getInstance().setPrice(getTotalMoney());
         houseContractHome.getInstance().setContractVersion(houseContractHome.getInstance().getType().getCurrentVersion());
-        if (!PoolType.SINGLE_OWNER.equals(houseContractHome.getPoolType())) {
-            houseContractHome.genPoolOwner();
-            return "persisted-poolOwner";
-        }else{
-            return fillContractContext();
-        }
+        //if (!PoolType.SINGLE_OWNER.equals(houseContractHome.getPoolType())) {
+
+
+        houseContractHome.genPoolOwner();
+        return "persisted-poolOwner";
+       // }else{
+       //     return fillContractContext();
+       // }
     }
 
 

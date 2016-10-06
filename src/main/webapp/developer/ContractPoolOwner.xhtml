@@ -58,17 +58,6 @@
                             <ui:param name="mainLabel" value="买受人"/>
 
 
-                            <ui:define name="after">
-                                <a:outputPanel rendered="#{runParam.getBooleanParamValue('USE_FINGERPRINT')}" styleClass="input-group-btn">
-
-
-
-                                <a:commandLink styleClass="btn btn-default">
-                                    <span class="btn-icon  icon-hand-up"></span>
-                                </a:commandLink>
-                                </a:outputPanel>
-                            </ui:define>
-
 
                             <ui:define name="contractPersonAttInfo">
 
@@ -164,7 +153,7 @@
                                     <s:selectItems value="#{proxyTypes}" var="_proxyType" noSelectionLabel="无代理人"
                                                    label="#{messages[_proxyType.name()]}" itemValue="#{_proxyType}"/>
                                     <a:ajax render="proxyPersonPanel" event="valueChange" execute="@this"
-                                        oncomplete="initDynamicEditInputs('#{r:clientId('proxyPersonPanel')}');">
+                                        oncomplete="bindclick();initDynamicEditInputs('#{r:clientId('proxyPersonPanel')}');">
                                         <a:attachQueue requestDelay="0"/>
                                     </a:ajax>
                                     <s:convertEnum/>
@@ -208,5 +197,9 @@
 
         <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.fillContractContext}"/>
     </h:form>
+
+
+
+
 
 </ui:composition>

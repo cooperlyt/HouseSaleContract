@@ -1047,9 +1047,11 @@ label {
 
 .btn .btn-icon.glyphicon{
     padding: 4px 0 3px 0;
-
 }
 
+.btn .btn-icon.fa{
+    line-height: 20px;
+}
 
 
 .edit-valid input[type="text"]{

@@ -19,18 +19,29 @@
 
     <h:outputStylesheet>
         .reading-bli.card-reading {
-            color: #8a6d3b;
+            color: #8a6d3b;!important;
         }
+
+        .finger-read-btn{
+            color: #d9534f;
+        }
+
+        .finger-read-btn.finger-readed{
+            color: #5cb85c;
+        }
+
+
 
     </h:outputStylesheet>
 
 
-    <a:outputPanel ajaxRendered="true">
+
 
         <h:outputScript>
 
-            $(document).ready(
-            function () {
+
+
+            function bindclick() {
             $('.card-read-btn').unbind('click')
             $('.card-read-btn').click(function () {
 
@@ -56,26 +67,77 @@
             return false;
             });
 
+
+
+            $('.finger-read-btn').unbind('click')
+            $('.finger-read-btn').click(function () {
+
+            if ($(this).hasClass('card-reading')) {
+
+
+
+            $(this).removeClass('card-reading');
+
+            extCall('ExtendsFinger://');
+            } else {
+
+
+            $('.card-reading').removeClass('card-reading');
+            $(this).addClass('card-reading');
+            if (!$(this).hasClass('reading-bli')) {
+            $(this).addClass('reading-bli');
+            }
+
+            extCall('ExtendsFinger://' + $(this).attr('data-uuid')   + ' 0');
+
+
+            }
+            return false;
             });
+                Holder.run({images:".person-img"})
+            }
+
+            $(document).ready(function(){bindclick();});
         </h:outputScript>
 
 
-    </a:outputPanel>
+
 
     <h:outputScript>
 
         function dataPut(valStr,uuid){
-        $('.card-reading').removeClass('card-reading');
 
-        var card = eval("(" + valStr + ")");
-            if (card.number){
 
-        $('[data-person-uuid="'+ uuid +'"]').children(".person-name").val(card.name);
-        $('[data-person-uuid="'+ uuid +'"]').children(".person-id").val(card.number);
+        var card = (new Function("", "return " + valStr))();
+
+
+        if(card.pushType &amp;&amp; card.pushType == 'finger'){
+            $('.finger-read-btn').removeClass('card-reading');
+            if (card.fingerCode){
+                $('[data-finger-code="'+ uuid +'"]').val(card.fingerCode);
+                $('[data-person-uuid="'+ uuid +'"]').find('.finger-read-btn').addClass('finger-readed');
             }
+
+        }else {
+        $('.card-read-btn').removeClass('card-reading');
+        if (card.number){
+        $('[data-person-uuid="'+ uuid +'"]').find(".person-name").val(card.name);
+        $('[data-person-uuid="'+ uuid +'"]').find(".person-id").val(card.number);
+
+        $('[data-person-uuid="'+ uuid +'"]').find(".person-img").attr('src','#{runParam.getParamValue('IMG_SERVER_ADDRESS')}/img/orig/' + card.img_fid);
+        $('[data-person-uuid="'+ uuid +'"]').find(".person-addr").val(card.address);
+
+        $('[data-person-uuid="'+ uuid +'"]').find(".person-brithday").val(card.dateOfBirth);
+
+        $('[data-person-info="'+ uuid +'"]').val(valStr);
+
+        $('[data-person-uuid="'+ uuid +'"]').find('.person-sex').selectpicker('val',card.sex);;
+
+
+        }
         }
 
-
+        }
 
 
         function readingBil() {
@@ -93,4 +155,5 @@
         setInterval(readingBil, 500)
     </h:outputScript>
 
+    <h:outputScript name="holder.min.js"/>
     </ui:composition>

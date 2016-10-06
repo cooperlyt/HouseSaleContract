@@ -275,8 +275,7 @@ public class BusinessPool implements OwnerPersonEntity, java.io.Serializable {
     }
 
 
-    @Column(name = "FINGERPRINT",length = 512)
-    @Size(max = 512)
+    @Column(name = "FINGERPRINT",length = 1024)
     public String getFingerprint() {
         return fingerprint;
     }

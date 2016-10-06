@@ -276,14 +276,21 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         return contractContextMap;
     }
 
-    public String viewSingleContract() {
+    public String printSingleContract(){
+        return "view-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
 
-        return "view-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
+    }
+
+    public String viewSingleContract() {
+        if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
+            return "vaild-contract-finger";
+        }
+        return printSingleContract();
 
     }
 
     public String editContract() {
-        return "edit-contract-" + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
+        return "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
     }
 
     private String searchPassword;

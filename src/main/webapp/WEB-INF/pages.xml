@@ -53,6 +53,10 @@
 
     <page view-id="/*">
         <navigation>
+            <rule if-outcome="vaild-contract-finger">
+                <redirect view-id="/contract/finger.xhtml"/>
+            </rule>
+
             <rule if-outcome="edit-contract-MAP_SELL-v1">
                 <end-conversation/>
                 <redirect view-id="/contract/context/pre-sale-v1.xhtml"/>
@@ -107,6 +111,37 @@
             <rule if-outcome="template-contract-NOW_SELL-v2">
                 <redirect view-id="/contract/template/new-sale-template-v2.xhtml"/>
             </rule>
+
+
+            <!-- donggang -->
+
+            <rule if-outcome="edit-contract-donggangMAP_SELL-v2">
+                <end-conversation/>
+                <redirect view-id="/contract/context/donggang/pre-sale-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="edit-contract-donggangNOW_SELL-v2">
+                <end-conversation/>
+                <redirect view-id="/contract/context/donggang/new-sale-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="view-contract-donggangMAP_SELL-v2">
+                <redirect view-id="/contract/donggang/pre-sale-view-v2.xhtml"/>
+            </rule>
+
+
+            <rule if-outcome="view-contract-donggangNOW_SELL-v2">
+                <redirect view-id="/contract/donggang/new-sale-view-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-donggangMAP_SELL-v2">
+                <redirect view-id="/contract/template/donggang/pre-sale-template-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-donggangNOW_SELL-v2">
+                <redirect view-id="/contract/template/donggang/new-sale-template-v2.xhtml"/>
+            </rule>
+
 
         </navigation>
     </page>

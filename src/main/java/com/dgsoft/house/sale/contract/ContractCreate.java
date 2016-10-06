@@ -117,7 +117,7 @@ public class ContractCreate {
                     .setParameter("status",HouseContract.ContractStatus.PREPARE)
                     .setParameter("types", EnumSet.of(SaleType.MAP_SELL,SaleType.NOW_SELL)).getSingleResult().getId());
 
-            return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
+            return "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + houseContractHome.getInstance().getType().getCurrentPatch();
 
         }
 
@@ -256,10 +256,9 @@ public class ContractCreate {
         Logging.getLog(getClass()).debug("fill sale info");
         genContractContext();
 
-
         if ("persisted".equals(houseContractHome.persist())) {
             //contractContext.
-            return "edit-contract-" + houseContractHome.getInstance().getType().getCurrentPatch();
+            return "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + houseContractHome.getInstance().getType().getCurrentPatch();
         }
 
         return null;

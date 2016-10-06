@@ -8,6 +8,9 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich">
 
+    <span data-person-uuid="#{_person.uuid}">
+        <h:inputHidden p:data-finger-code="#{_person.uuid}" value="#{_person.personEntity.fingerprint}"/>
+
     <s:decorate styleClass="form-group" id="singPersonCardInput" template="/layout/edit.xhtml">
 
         <ui:param name="for" value="personCredentialsTypeInput"/>
@@ -23,7 +26,21 @@
             <ui:param name="status" value="#{_person.uuid}_personCredentiaslNumberStatus"/>
             <ui:param name="render" value="attFields singPersonCardInput"/>
 
+                      <ui:define name="after">
+                                <a:outputPanel rendered="#{runParam.getBooleanParamValue('USE_FINGERPRINT')}" styleClass="input-group-btn">
+
+
+                                <a data-uuid="#{_person.uuid}" class="btn btn-default finger-read-btn">
+                                    <span class="btn-icon glyphicon glyphicon-hand-up"></span>
+                                </a>
+
+
+
+                                </a:outputPanel>
+                      </ui:define>
+
         </ui:decorate>
+
 
 
         <ui:define name="message">
@@ -37,6 +54,8 @@
 
 
     <a:outputPanel id="attFields" layout="block" class="sub-details-body">
+        <h:inputHidden id="all_info" p:data-person-info="#{_person.uuid}" value="#{_person.personEntity.paperCopyInfo}"/>
+
 
 
         <div class="row">
@@ -49,7 +68,7 @@
                     <ui:param name="for" value="rootAddressInput"/>
                     <h:inputText label="#{_person.credentialsType.name() eq 'PASSPORT' ? '国籍' : '户籍所在地'}" maxlength="50"
                                  p:placeholder="#{_person.credentialsType.name() eq 'PASSPORT' ? '国籍' : '户籍所在地'}"
-                                 styleClass="form-control"
+                                 styleClass="form-control person-addr"
                                  value="#{_person.personEntity.rootAddress}" id="rootAddressInput">
                     </h:inputText>
                 </s:decorate>
@@ -63,12 +82,12 @@
                     </ui:define>
                     <div class="input-group">
 
-                        <h:inputText value="#{_person.personEntity.birthday}" p:placeholder="出生日期" label="出生日期" styleClass="js-datepicker form-control"/>
+                        <h:inputText value="#{_person.personEntity.birthday}" p:placeholder="出生日期" label="出生日期" styleClass="js-datepicker form-control person-brithday"/>
 
 
                     <span class="input-group-btn">
 
-                        <h:selectOneMenu value="#{_person.personEntity.sex}" p:data-width="70px" styleClass="selectpicker select-menu-btn">
+                        <h:selectOneMenu value="#{_person.personEntity.sex}" p:data-width="70px" styleClass="selectpicker select-menu-btn person-sex">
 
                             <s:selectItems value="#{sexValues}" var="_sex"
                                            label="#{messages[_sex.name()]}" itemValue="#{_sex}"/>
@@ -103,9 +122,11 @@
                 </s:decorate>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
-                dd
-            </div>
+                <div class="thumbnail" style="margin-bottom: 0">
+                    <h:graphicImage p:data-src="holder.js/120x126?" styleClass="person-img" style="min-height: 126px;" alt="身份证照片" value="#{runParam.getParamValue('IMG_SERVER_ADDRESS')}/person/img/#{_person.credentialsNumber}" width="120px" height="126px"/>
 
+                </div>
+            </div>
         </div>
 
 
@@ -155,4 +176,6 @@
 
     </a:outputPanel>
 
+
+    </span>
 </ui:composition>

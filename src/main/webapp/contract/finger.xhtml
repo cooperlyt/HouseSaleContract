@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:s="http://jboss.org/schema/seam/taglib">
+<f:view
+        contentType="text/html">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <ui:insert name="head-title">
+            <title>#{messages.mainTitle}</title>
+
+            <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+        </ui:insert>
+
+        <ui:insert name="head"/>
+    </h:head>
+    <h:body>
+
+
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="bootstrap-select" name="/css/bootstrap-select.css"/>
+
+        <h:outputStylesheet library="bootstrap" name="/css/bootstrap-theme.css"/>
+        <h:outputStylesheet library="bootstrap-switch" name="/css/bootstrap3/bootstrap-switch.min.css"/>
+        <h:outputStylesheet library="bootstrap-datepicker" name="/css/bootstrap-datetimepicker.min.css"/>
+        <h:outputStylesheet library="fuelux" name="/css/fuelux.min.css"/>
+
+
+        <h:outputText value="&lt;!--[if lt IE 9]&gt;" escape="false" />
+
+        <h:outputScript library="bootstrap" name="/js/html5shiv.min.js"/>
+        <h:outputScript library="bootstrap" name="/js/respond.min.js"/>
+
+        <h:outputText value="&lt;![endif]--&gt;" escape="false" />
+
+        <h:outputStylesheet  library="fontawesome" name="font-awesome.min.css"/>
+        <h:outputStylesheet library="octicons" name="octicons.css"/>
+
+
+
+        <h:outputStylesheet name="theme.css"/>
+
+
+        <a:queue requestDelay="0" ignoreDupResponses="true"/>
+
+        <iframe style="display:none;" class="ext_iframe" src=""/>
+
+        <h:outputStylesheet>
+            .reading-bli.card-reading.btn-danger {
+                color: #d9534f;
+
+
+                text-shadow: 0 1px 0 #fff;
+                background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e0e0e0));
+                background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+                filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+                background-repeat: repeat-x;
+                border-color: #dbdbdb;
+                border-color: #ccc;
+
+            }
+
+            .reading-bli.card-reading.btn-success {
+                color: #5cb85c;
+
+
+                text-shadow: 0 1px 0 #fff;
+                background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e0e0e0));
+                background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+                filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+                background-repeat: repeat-x;
+                border-color: #dbdbdb;
+                border-color: #ccc;
+
+            }
+
+        </h:outputStylesheet>
+
+        <h:outputScript>
+            function extCall(code) {
+                $('.ext_iframe').attr('src', 'ExtendsFinger://' + code + ' 2');
+            }
+
+
+            $(document).ready(
+                    function () {
+                        $('.card-read-btn').unbind('click')
+                        $('.card-read-btn').click(function () {
+
+                            if ($(this).hasClass('card-reading')) {
+
+
+                                $(this).removeClass('card-reading');
+
+                                extCall('');
+                            } else {
+
+
+                                $('.card-reading').removeClass('card-reading');
+                                $(this).addClass('card-reading');
+                                if (!$(this).hasClass('reading-bli')) {
+                                    $(this).addClass('reading-bli');
+                                }
+                                extCall($(this).attr('data-uuid'));
+
+
+                            }
+                            return false;
+                        });
+                    });
+            
+            
+            function putFingerImage(data,uuid) {
+
+                $('[data-uuid="'+ uuid +'"]').removeClass('card-reading');
+
+                if (data &amp;&amp; data != ''){
+                    $('[data-finger-uuid="'+ uuid +'"]').find(".finger_image").attr('src',data);
+                    $('[data-uuid="'+ uuid +'"]').removeClass('btn-danger');
+                    $('[data-uuid="'+ uuid +'"]').addClass('btn-success');
+                    $('[data-value-uuid="'+ uuid +'"]').val(data);
+                }
+
+
+            }
+
+            function readingBil() {
+                $('.card-reading').each(function () {
+                    if ($(this).hasClass('reading-bli')) {
+
+                        $(this).removeClass('reading-bli');
+                    } else {
+
+                        $(this).addClass('reading-bli');
+                    }
+                });
+            }
+
+            setInterval(readingBil, 500)
+
+        </h:outputScript>
+
+        <div class="container" style="margin-top: 100px">
+
+
+            <h3 >指纹采集</h3>
+            <p>指纹属于个人隐私信息,系统不会进行存储,为保障合同安全采集的指纹将打印于合同上,如跳过将不会生成指纹。</p>
+        <div class="panel panel-default" >
+            <div class="panel-body" align="center">
+
+                <a:repeat value="#{fingerCollection.needFingerImgPersons}" var="_person">
+
+
+                    <h:inputHidden data-value-uuid="#{_person.fingerCode}" value="#{_person.fingerImageCode}"/>
+
+                    <a:push  address="#{_person.fingerCode}" ondataavailable="putFingerImage(event.rf.data,'#{_person.fingerCode}');" >
+
+                    </a:push>
+
+                    <div data-finger-uuid="#{_person.fingerCode}" class="thumbnail" style="display: inline-block;width: 120px; margin-right: auto; margin-left: auto;">
+                        <img  data-src='holder.js/100x100?text=指纹' class="finger_image" alt="指纹'" style="width: 100px; height: 100px">
+
+                        </img>
+                        <div class="caption">
+
+                            <p style="margin-bottom: 0">
+                                <a href="#" data-uuid="#{_person.fingerCode}" class="card-read-btn btn btn-danger" style="width: 100%" role="button">#{_person.name}</a>
+                            </p>
+                        </div>
+                    </div>
+
+
+                </a:repeat>
+
+
+
+
+
+            </div>
+        </div>
+
+            <div align="right">
+
+                <div>
+                    <a href="#" class="btn btn-primary"  role="button">Button</a>
+                    <a href="#" class="btn btn-primary"  role="button">Button</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <h:outputScript name="holder.min.js"/>
+
+
+        <h:outputScript library="bootstrap" name="/js/bootstrap.min.js"/>
+
+
+    </h:body>
+
+
+</f:view>
+
+</html>

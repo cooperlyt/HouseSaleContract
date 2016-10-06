@@ -155,7 +155,8 @@
                                 <s:selectItems value="#{contractCreate.moneyCalcTypes}" var="_mctype"
                                                label="#{messages[_mctype.name()]}" itemValue="#{_mctype}"/>
                                 <s:convertEnum/>
-                                <a:ajax event="valueChange" execute="@this" render="calcFields">
+                                <a:ajax event="valueChange" oncomplete="initDynamicEditInputs('#{r:clientId('calcFields')}');"
+                                        execute="@this" render="calcFields">
                                     <a:attachQueue requestDelay="0"/>
                                 </a:ajax>
                             </h:selectOneMenu>
@@ -188,7 +189,8 @@
                                      value="#{contractCreate.unitPrice}" styleClass="form-control">
                             <f:convertNumber type="currency" locale="#{contractCreate.locale}"
                                              groupingUsed="false" currencySymbol=""/>
-                            <a:ajax event="change" execute="@this" render="calcFields">
+                            <a:ajax event="change" execute="@this" render="calcFields"
+                                    oncomplete="initDynamicEditInputs('#{r:clientId('calcFields')}');">
                                 <a:attachQueue requestDelay="0"/>
                             </a:ajax>
                             <a:ajax event="keyup" execute="@this" render="totalMoney"/>

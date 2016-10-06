@@ -188,8 +188,7 @@ public class PowerProxyPerson implements PersonEntity, java.io.Serializable {
         this.postCode = postCode;
     }
 
-    @Column(name = "FINGERPRINT",length = 512)
-    @Size(max = 512)
+    @Column(name = "FINGERPRINT",length = 1024)
     public String getFingerprint() {
         return fingerprint;
     }

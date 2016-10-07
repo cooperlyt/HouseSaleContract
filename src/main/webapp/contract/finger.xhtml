@@ -94,9 +94,7 @@
         </h:outputStylesheet>
 
         <h:outputScript>
-            function extCall(code) {
-                $('.ext_iframe').attr('src', 'ExtendsFinger://' + code + ' 2');
-            }
+
 
 
             $(document).ready(
@@ -107,9 +105,11 @@
                             if ($(this).hasClass('card-reading')) {
 
 
+
                                 $(this).removeClass('card-reading');
 
-                                extCall('');
+                                $('.ext_iframe').attr('src', 'ExtendsFinger://');
+
                             } else {
 
 
@@ -118,7 +118,8 @@
                                 if (!$(this).hasClass('reading-bli')) {
                                     $(this).addClass('reading-bli');
                                 }
-                                extCall($(this).attr('data-uuid'));
+
+                                $('.ext_iframe').attr('src', 'ExtendsFinger://' + $(this).attr('data-uuid') + ' 2');
 
 
                             }
@@ -129,8 +130,7 @@
             
             function putFingerImage(data,uuid) {
 
-                $('[data-uuid="'+ uuid +'"]').removeClass('card-reading');
-
+                $('.card-reading').removeClass('card-reading');
                 if (data &amp;&amp; data != ''){
                     $('[data-finger-uuid="'+ uuid +'"]').find(".finger_image").attr('src',data);
                     $('[data-uuid="'+ uuid +'"]').removeClass('btn-danger');

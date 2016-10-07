@@ -283,6 +283,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
     public String viewSingleContract() {
         if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
+            FingerCollection.instance().clear();
             return "vaild-contract-finger";
         }
         return printSingleContract();

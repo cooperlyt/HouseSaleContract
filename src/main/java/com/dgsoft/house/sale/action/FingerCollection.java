@@ -1,9 +1,14 @@
 package com.dgsoft.house.sale.action;
 
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.PowerProxyPerson;
+import org.jboss.seam.Component;
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
 import sun.misc.BASE64Decoder;
@@ -22,6 +27,7 @@ import static com.dgsoft.house.sale.model.BusinessPool.LegalType.LEGAL_OWNER;
  * Created by cooper on 06/10/2016.
  */
 @Name("fingerCollection")
+@Scope(ScopeType.SESSION)
 public class FingerCollection {
 
     @In
@@ -103,6 +109,10 @@ public class FingerCollection {
         return houseContractHome.printSingleContract();
     }
 
+    public void clear(){
+        personFingers = null;
+    }
+
     public enum FingerPersonType{
         MASTER,CORP_OWNER,PROXY_PERSON,LEGAL_PROXY_PERSON
     }
@@ -158,7 +168,7 @@ public class FingerCollection {
                 BufferedImage image = ImageIO.read(bis);
                 bis.close();
                 ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-                ImageIO.write(image, "BMP", outStream);
+                ImageIO.write(image, "jpeg", outStream);
                 byte[] imageInByte = outStream.toByteArray();
                 outStream.close();
 
@@ -170,6 +180,16 @@ public class FingerCollection {
 
 
         }
+    }
+
+
+    public static FingerCollection instance()
+    {
+        if ( !Contexts.isEventContextActive() )
+        {
+            throw new IllegalStateException("no active event context");
+        }
+        return (FingerCollection) Component.getInstance(FingerCollection.class, ScopeType.SESSION);
     }
 
 

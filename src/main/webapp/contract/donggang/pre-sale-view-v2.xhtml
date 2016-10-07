@@ -579,14 +579,14 @@
             本合同及附件共_____页,一式_____份,其中出卖人_____份,买受人_____份, 【__________】_________份,【____________】 _________份。合同附件与本合同具有同等法律效力。
         </p:paragraph>
         <p:table keepTogether="true" widthPercentage="90" columns="2" widths="1 1">
-            <f:facet name="defaultCell"><p:cell paddingRight="20" paddingTop="10" paddingBottom="10"  borderWidth="0"/></f:facet>
+            <f:facet name="defaultCell"><p:cell paddingRight="20" paddingTop="0" paddingBottom="0"  borderWidth="0"/></f:facet>
             <p:cell paddingTop="30"/><p:cell paddingTop="30"/>
-            <p:cell>出卖人: #{houseContractHome.contractContextMap.dname.stringValue}</p:cell><p:cell>买受人: <ui:repeat value="#{fingerCollection.masterFingers}" var="_fingers"><p:image scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:cell>
-            <p:cell>【法定代表人】: #{houseContractHome.contractContextMap.downer.stringValue}</p:cell><p:cell>【法定代表人】: <ui:repeat value="#{fingerCollection.corpOwnerFingers}" var="_fingers"><p:image scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:cell>
-            <p:cell>【委托代理人】: #{houseContractHome.contractContextMap.dproxy.stringValue}</p:cell><p:cell>【委托代理人】: <ui:repeat value="#{fingerCollection.porxyPersonFingers}" var="_fingers"><p:image scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:cell>
-            <p:cell></p:cell><p:cell>【法定代理人】: <ui:repeat value="#{fingerCollection.legalProxyPersonFingers}" var="_fingers"><p:image scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:cell>
-            <p:cell>签订时间: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value="#{currentDate}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:font></p:cell>
-            <p:cell>签订时间: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value="#{currentDate}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:font></p:cell>
+            <p:cell>出卖人: #{houseContractHome.contractContextMap.dname.stringValue}</p:cell><p:cell>买受人: <c:forEach items="#{fingerCollection.masterFingers}" var="_fingers"><p:image underlying="true" rendered="#{not empty _fingers.fingerImageCode}"  scalePercent="80" value="#{_fingers.fingerImg}"/></c:forEach></p:cell>
+            <p:cell>【法定代表人】: #{houseContractHome.contractContextMap.downer.stringValue}</p:cell><p:cell><p:paragraph>【法定代表人】: <ui:repeat value="#{fingerCollection.corpOwnerFingers}" var="_fingers"><p:image underlying="true" rendered="#{not empty _fingers.fingerImageCode}"  scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:paragraph></p:cell>
+            <p:cell>【委托代理人】: #{houseContractHome.contractContextMap.dproxy.stringValue}</p:cell><p:cell><p:paragraph>【委托代理人】: <ui:repeat value="#{fingerCollection.porxyPersonFingers}" var="_fingers"><p:image underlying="true" rendered="#{not empty _fingers.fingerImageCode}"  scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:paragraph></p:cell>
+            <p:cell></p:cell><p:cell>【法定代理人】: <ui:repeat value="#{fingerCollection.legalProxyPersonFingers}" var="_fingers"><p:image underlying="true" rendered="#{not empty _fingers.fingerImageCode}" scalePercent="80" value="#{_fingers.fingerImg}"/></ui:repeat></p:cell>
+            <p:cell><p:paragraph>签订时间: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value="#{currentDate}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:font></p:paragraph></p:cell>
+            <p:cell><p:paragraph>签订时间: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H"><p:text value="#{currentDate}"><s:convertDateTime pattern="#{messages.displayDatePattern}"/> </p:text></p:font></p:paragraph></p:cell>
             <p:cell paddingTop="2">签订地点: <p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.contractAddress1.stringValue}</p:font></p:cell><p:cell paddingTop="2">签订地点:<p:font size="13" style="underline" name="STSong-Light" encoding="UniGB-UCS2-H">#{houseContractHome.contractContextMap.contractAddress2.stringValue}</p:font></p:cell>
             <p:cell paddingTop="60"/><p:cell paddingTop="60"/>
         </p:table>

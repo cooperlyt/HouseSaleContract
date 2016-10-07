@@ -1,5 +1,6 @@
 package com.dgsoft.house.sale.action;
 
+import com.dgsoft.common.system.RunParam;
 import com.dgsoft.developersale.DeveloperLogonInfo;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.SaleType;
@@ -104,6 +105,6 @@ public class ContractTemplateHome extends EntityHome<ContractTemplate> {
 
     public String editTemplate(){
 
-        return "template-contract-" + getInstance().getType().getCurrentPatch();
+        return "template-contract-"  + RunParam.instance().getParamValue("CONTRACT_LOCATION") + getInstance().getType().getCurrentPatch();
     }
 }

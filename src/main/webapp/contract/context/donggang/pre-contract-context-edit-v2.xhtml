@@ -440,6 +440,233 @@
             </p>
         </c:if>
 
+        <ul>
+        <li>
+            <div class="fullLine">
+                <div style="display: table-cell;width: 130px">
+                    <h:outputText value="【监护人】:"/>
+
+                </div>
+                <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                             value="#{contractContextMap.ownermgr1_name.stringValue}"/>
+
+            </div>
+        </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: #{templateModel ? '200' : '130'}px">
+                        <h:outputText rendered="#{templateModel}" value="【国籍】【户籍所在地】:"/>
+                        <a:outputPanel rendered="#{not templateModel}">
+                            【
+
+                            <r:inplaceSelect inputWidth="78px" style="width: 80px" rendered="#{not templateModel}"
+                                             value="#{contractContextMap.ownermgr1_localtype.stringValue}">
+
+                                <f:selectItem itemLabel="国籍" itemValue="国籍"/>
+                                <f:selectItem itemLabel="户籍所在地" itemValue="户籍所在地"/>
+
+
+                            </r:inplaceSelect>
+
+                            】
+                        </a:outputPanel>
+
+
+                    </div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr1_local.stringValue}"/>
+
+                </div>
+            </li>
+
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: #{templateModel ? '410' : '250'}px">证件类型: <h:outputText rendered="#{templateModel}"
+                                                                                                                   value="【居民身份证】【护照】【营业执照】"/>
+
+                        <a:outputPanel rendered="#{not templateModel}">
+                            【
+                            <ui:decorate  template="/layout/selectEditInput.xhtml">
+                                <ui:param name="inputStyle" value="width: 80px"/>
+                                <ui:param name="inputValue"
+                                          value="#{contractContextMap.ownermgr1_certype.stringValue}"/>
+                                <li><a href="#">居民身份证</a></li>
+                                <li><a href="#">护照</a></li>
+                                <li><a href="#">营业执照</a></li>
+                            </ui:decorate>
+                            】
+                        </a:outputPanel>,证号:
+                    </div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr1_cernumber.stringValue}"/>
+
+                </div>
+            </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">出生日期:</div>
+                    <s:div styleClass="lineValue" rendered="#{templateModel}" style="width: 300px"/>
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick contract-input"
+                                 style="display: table-cell; width: 300px"
+                                 value="#{contractContextMap.ownermgr1_birthday.dateValue}">
+                        <s:convertDateTime
+                                pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>
+
+                    <div style="display: table-cell;width: 50px">, 性别:</div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr1_sex.stringValue}"/>
+                </div>
+            </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">通讯地址:</div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr1_address.stringValue}"/>
+
+                </div>
+            </li>
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">邮政编码:</div>
+                    <s:div class="lineValue" rendered="#{templateModel}" style="width: 320px"/>
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input" style="width: 320px"
+                                 value="#{contractContextMap.ownermgr1_post.stringValue}"/><div style="display: table-cell;width: 80px">联系电话:</div>
+
+                    <s:div class="lineValue" rendered="#{templateModel}"/>
+
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input"  value="#{contractContextMap.ownermgr1_tel.stringValue}"/>
+
+                </div>
+            </li>
+        </ul>
+
+
+        <ul>
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 130px">
+                        <h:outputText value="【监护人】:"/>
+
+                    </div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr2_name.stringValue}"/>
+
+                </div>
+            </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: #{templateModel ? '200' : '130'}px">
+                        <h:outputText rendered="#{templateModel}" value="【国籍】【户籍所在地】:"/>
+                        <a:outputPanel rendered="#{not templateModel}">
+                            【
+
+                            <r:inplaceSelect inputWidth="78px" style="width: 80px" rendered="#{not templateModel}"
+                                             value="#{contractContextMap.ownermgr2_localtype.stringValue}">
+
+                                <f:selectItem itemLabel="国籍" itemValue="国籍"/>
+                                <f:selectItem itemLabel="户籍所在地" itemValue="户籍所在地"/>
+
+
+                            </r:inplaceSelect>
+
+                            】
+                        </a:outputPanel>
+
+
+                    </div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr2_local.stringValue}"/>
+
+                </div>
+            </li>
+
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: #{templateModel ? '410' : '250'}px">证件类型: <h:outputText rendered="#{templateModel}"
+                                                                                                                   value="【居民身份证】【护照】【营业执照】"/>
+
+                        <a:outputPanel rendered="#{not templateModel}">
+                            【
+                            <ui:decorate  template="/layout/selectEditInput.xhtml">
+                                <ui:param name="inputStyle" value="width: 80px"/>
+                                <ui:param name="inputValue"
+                                          value="#{contractContextMap.ownermgr2_certype.stringValue}"/>
+                                <li><a href="#">居民身份证</a></li>
+                                <li><a href="#">护照</a></li>
+                                <li><a href="#">营业执照</a></li>
+                            </ui:decorate>
+                            】
+                        </a:outputPanel>,证号:
+                    </div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr2_cernumber.stringValue}"/>
+
+                </div>
+            </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">出生日期:</div>
+                    <s:div styleClass="lineValue" rendered="#{templateModel}" style="width: 300px"/>
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-date-pick contract-input"
+                                 style="display: table-cell; width: 300px"
+                                 value="#{contractContextMap.ownermgr2_birthday.dateValue}">
+                        <s:convertDateTime
+                                pattern="#{messages.displayDatePattern}"/>
+                    </h:inputText>
+
+                    <div style="display: table-cell;width: 50px">, 性别:</div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr2_sex.stringValue}"/>
+                </div>
+            </li>
+
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">通讯地址:</div>
+                    <s:div rendered="#{templateModel}" styleClass="lineValue"/>
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input full"
+                                 value="#{contractContextMap.ownermgr2_address.stringValue}"/>
+
+                </div>
+            </li>
+            <li>
+                <div class="fullLine">
+                    <div style="display: table-cell;width: 80px">邮政编码:</div>
+                    <s:div class="lineValue" rendered="#{templateModel}" style="width: 320px"/>
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input" style="width: 320px"
+                                 value="#{contractContextMap.ownermgr2_post.stringValue}"/><div style="display: table-cell;width: 80px">联系电话:</div>
+
+                    <s:div class="lineValue" rendered="#{templateModel}"/>
+
+
+                    <h:inputText rendered="#{not templateModel}" styleClass="contract-input"  value="#{contractContextMap.ownermgr2_tel.stringValue}"/>
+
+                </div>
+            </li>
+
+        </ul>
     </div>
 
     <div class="bs-docs-section">
@@ -582,7 +809,7 @@
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 露台数"
                          style="width: 60px" value="#{contractContextMap.c_lutai.numberValue}"><f:convertNumber
                     pattern="#0"/></h:inputText>￼
-            有
+            个露台,有
             <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
 
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 阳台数"

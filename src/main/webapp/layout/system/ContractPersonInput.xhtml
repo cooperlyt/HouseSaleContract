@@ -75,14 +75,14 @@
 
                 <s:decorate id="birthdayField" styleClass="form-group" template="/layout/edit.xhtml">
 
-                    <ui:param name="for" value="legalPersonInput"/>
+                    <ui:param name="for" value="birthdayInput"/>
                     <ui:param name="showLabel" value="false"/>
                     <ui:define name="label">
                         出生日期
                     </ui:define>
                     <div class="input-group">
 
-                        <h:inputText value="#{_person.personEntity.birthday}" p:placeholder="出生日期" label="出生日期" styleClass="js-datepicker form-control person-brithday"/>
+                        <h:inputText id="birthdayInput" value="#{_person.personEntity.birthday}" p:placeholder="出生日期" label="出生日期" styleClass="js-datepicker form-control person-brithday"/>
 
 
                     <span class="input-group-btn">

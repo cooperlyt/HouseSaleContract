@@ -21,13 +21,14 @@ public class ImageHelper {
     private ByteArrayInputStream getImageFromServer(String serverUrl){
 
         try {
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
             URL url = new URL(serverUrl);
 
             url.openConnection().connect();
 
             BufferedImage image = ImageIO.read(url.openStream());
 
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
             ImageIO.write(image,"JPEG",outStream);
             byte[] imageInByte = outStream.toByteArray();

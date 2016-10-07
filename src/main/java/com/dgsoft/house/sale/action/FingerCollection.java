@@ -6,7 +6,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
+import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,6 +146,29 @@ public class FingerCollection {
 
         public boolean isSeller() {
             return seller;
+        }
+
+        public ByteArrayInputStream getFingerImg() {
+
+            BASE64Decoder decoder = new BASE64Decoder();
+            try {
+
+                byte[] imageByte = decoder.decodeBuffer(getFingerImageCode().substring(getFingerImageCode().indexOf(",") + 1));
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+                BufferedImage image = ImageIO.read(bis);
+                bis.close();
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+                ImageIO.write(image, "BMP", outStream);
+                byte[] imageInByte = outStream.toByteArray();
+                outStream.close();
+
+                return new ByteArrayInputStream(imageInByte);
+
+            } catch (IOException e) {
+                throw new IllegalArgumentException("img convert fail");
+            }
+
+
         }
     }
 

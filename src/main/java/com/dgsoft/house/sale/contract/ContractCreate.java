@@ -7,6 +7,7 @@ import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.common.system.RunParam;
+import com.dgsoft.house.sale.PowerPersonHelper;
 import com.dgsoft.house.sale.action.HouseContractHome;
 import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.ContractNumber;
@@ -245,6 +246,16 @@ public class ContractCreate {
     @Transactional
     public String fillContractContext(){
 
+        if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
+            for(PowerPersonHelper bp: houseContractHome.getContractPoolOwners()){
+                if ((bp.getPersonEntity().getFingerprint() == null || "".equals(bp.getPersonEntity().getFingerprint().trim())) &&
+                        (bp.getPersonEntity().getPowerProxyPerson() == null || (bp.getPersonEntity().getPowerProxyPerson().getFingerprint() == null || "".equals(bp.getPersonEntity().getPowerProxyPerson().getFingerprint().trim())))){
+                    facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",bp.getPersonName());
+                    return null;
+                }
+            }
+
+        }
         if (contractTemplate != null){
             try {
                 houseContractHome.setContext(contractTemplate.getContext());

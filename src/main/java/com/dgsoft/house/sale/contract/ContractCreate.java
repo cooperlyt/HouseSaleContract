@@ -430,6 +430,7 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_3_13", new ContractContextMap.ContarctContextItem(getHouse().getUseArea()));
         houseContractHome.getContractContextMap().put("c_3_14", new ContractContextMap.ContarctContextItem(getHouse().getCommArea()));
         houseContractHome.getContractContextMap().put("houseAddress", new ContractContextMap.ContarctContextItem(getHouse().getAddress()));
+        houseContractHome.getContractContextMap().put("c_geluo",new ContractContextMap.ContarctContextItem(getHouse().getLoftArea()));
 
                 //pay Type
         switch (houseContractHome.getInstance().getNewHouseContract().getSalePayType()){

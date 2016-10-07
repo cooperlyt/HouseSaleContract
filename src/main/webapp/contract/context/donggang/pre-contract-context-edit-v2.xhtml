@@ -571,7 +571,18 @@
                          style="width: 60px" value="#{contractContextMap.c_3_15.numberValue}">
                 <f:convertNumber
                         pattern="#0.000"/>
-            </h:inputText>米,有
+            </h:inputText>米,阁楼面积为
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+            <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel and (contractContextMap.c_geluo.numberValue gt 0)}"
+                                                          value="#{contractContextMap.c_geluo.numberValue}"><f:convertNumber
+                pattern="#0.000"/></h:outputText></span>
+            平方米,有
+            <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
+
+            <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 露台数"
+                         style="width: 60px" value="#{contractContextMap.c_lutai.numberValue}"><f:convertNumber
+                    pattern="#0"/></h:inputText>￼
+            有
             <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
 
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 阳台数"

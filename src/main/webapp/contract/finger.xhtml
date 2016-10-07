@@ -7,6 +7,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:a="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:s="http://jboss.org/schema/seam/taglib">
 <f:view
         contentType="text/html">
@@ -157,7 +158,8 @@
         </h:outputScript>
 
         <div class="container" style="margin-top: 100px">
-
+            <rich:messages globalOnly="true"/>
+            <h:form>
 
             <h3 >指纹采集</h3>
             <p>指纹属于个人隐私信息,系统不会进行存储,为保障合同安全采集的指纹将打印于合同上,如跳过将不会生成指纹。</p>
@@ -167,7 +169,7 @@
                 <a:repeat value="#{fingerCollection.needFingerImgPersons}" var="_person">
 
 
-                    <h:inputHidden data-value-uuid="#{_person.fingerCode}" value="#{_person.fingerImageCode}"/>
+                    <h:inputHidden p:data-value-uuid="#{_person.fingerCode}" value="#{_person.fingerImageCode}"/>
 
                     <a:push  address="#{_person.fingerCode}" ondataavailable="putFingerImage(event.rf.data,'#{_person.fingerCode}');" >
 
@@ -193,16 +195,27 @@
 
 
             </div>
+
+
+
         </div>
 
             <div align="right">
 
                 <div>
-                    <a href="#" class="btn btn-primary"  role="button">Button</a>
-                    <a href="#" class="btn btn-primary"  role="button">Button</a>
+                    <h:commandLink action="#{houseContractHome.printSingleContract}"
+                                   styleClass="btn btn-default" immediate="true" value="跳过">
+                        <f:param name="contractId" value="#{houseContractHome.id}"/>
+                        <f:param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
+                    </h:commandLink>
+                    <h:commandLink styleClass="btn btn-primary" style="margin-left: 10px"
+                                   action="#{fingerCollection.validAndPrintContract}" value="完成">
+                        <f:param name="contractId" value="#{houseContractHome.id}"/>
+                        <f:param name="contractNumber" value="#{houseContractHome.contractNumber}"/>
+                    </h:commandLink>
                 </div>
             </div>
-
+            </h:form>
         </div>
 
 

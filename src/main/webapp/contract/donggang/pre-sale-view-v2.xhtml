@@ -7,6 +7,30 @@
             margins="50 25 25 25"
             title="商品房买卖合同(预售)">
 
+
+    <p:header borderWidthTop="0"
+              borderWidthBottom="1">
+        <p:paragraph>
+        <p:font size="10" color="#777777" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
+            <p:table widthPercentage="100" columns="2">
+                <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
+                <p:cell>
+
+                </p:cell>
+
+
+                <p:cell horizontalAlignment="right">
+                    <p:paragraph>#{houseContractHome.contractContextMap.houseCode.stringValue}</p:paragraph>
+                </p:cell>
+            </p:table>
+            <p:paragraph>合同编号:  #{houseContractHome.instance.id}</p:paragraph>
+
+        </p:font>
+
+        </p:paragraph>
+
+    </p:header>
+
     <p:footer borderWidthTop="0"
               borderWidthBottom="0" alignment="center">
 
@@ -145,6 +169,7 @@
         </p:table>
 
         <a:repeat rendered="#{not empty houseContractHome.contractContextMap.poolOwner}" value="#{houseContractHome.contractContextMap.poolOwner.arrayValue}" var="_pool">
+
             <p:table widthPercentage="90" columns="1">
                 <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
                 <p:cell padding="10"></p:cell>
@@ -156,6 +181,25 @@
                 <p:cell><p:table widthPercentage="100" columns="2" widths="1 7"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>通讯地址:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.owneraddress.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>邮政编码:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerpost.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownertel.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
 
+            </p:table>
+
+            <p:paragraph >
+
+
+
+                <p:image scalePercent="80" underlying="true" rendered="#{(not empty _pool.ownerpaperinfo) and (not empty _pool.ownerpaperinfo.stringValue)}"  value="#{personCardCopyGen.getPersonCardCopy(_pool.ownerpaperinfo.stringValue)}"/>
+                <p:table keepTogether="true" columns="1" widthPercentage="100">
+                    <p:cell borderWidth="0"  horizontalAlignment="center" paddingTop="85" paddingBottom="85">
+                        <p:font size="17" color="#777777" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
+                        <p:paragraph rendered="#{(empty _pool.ownerpaperinfo) or (empty _pool.ownerpaperinfo.stringValue)}" horizontalAlignment="center" >身份证复印件粘贴处</p:paragraph>
+                        </p:font>
+                    </p:cell>
+
+                </p:table>
+            </p:paragraph>
+
+            <p:table widthPercentage="90" columns="1">
+                <f:facet name="defaultCell"><p:cell borderWidth="0" padding="0"/></f:facet>
                 <p:cell rendered="#{(not empty _pool.ownerproxytype) and (not empty _pool.ownerproxytype.stringValue)}"><p:table widthPercentage="100" columns="2" widths="3 11"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>【#{_pool.ownerproxytype.stringValue}】</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerproxyname.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownerproxytype) and (not empty _pool.ownerproxytype.stringValue)}"><p:table widthPercentage="100" columns="2" widths="3 11"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>【#{_pool.ownerproxycitytype.stringValue}】</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerproxyrootaddress.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
                 <p:cell rendered="#{(not empty _pool.ownerproxytype) and (not empty _pool.ownerproxytype.stringValue)}"><p:table widthPercentage="100" columns="2" widths="35 50"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>证件类型:【#{_pool.ownerproxycertype.stringValue}】,证号:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerproxycernumber.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
@@ -164,6 +208,19 @@
                 <p:cell rendered="#{(not empty _pool.ownerproxytype) and (not empty _pool.ownerproxytype.stringValue)}"><p:table widthPercentage="100" columns="4" widths="1 3 1 3"><f:facet name="defaultCell"><p:cell borderWidth="0" padding="0" paddingBottom="4"/></f:facet><p:cell><p:paragraph>邮政编码:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerproxypost.stringValue}</p:paragraph></p:cell><p:cell horizontalAlignment="center"><p:paragraph>联系电话:</p:paragraph></p:cell><p:cell borderWidthBottom="1"><p:paragraph>#{_pool.ownerproxytel.stringValue}</p:paragraph></p:cell></p:table> </p:cell>
 
             </p:table>
+            <p:paragraph rendered="#{(not empty _pool.ownerproxypaperinfo) and (not empty _pool.ownerproxypaperinfo.stringValue)}">
+
+                <p:image scalePercent="80" underlying="true" rendered="#{(not empty _pool.ownerproxypaperinfo) and (not empty _pool.ownerproxypaperinfo.stringValue)}" value="#{personCardCopyGen.getPersonCardCopy(_pool.ownerproxypaperinfo.stringValue)}"/>
+                <p:table keepTogether="true" columns="1" widthPercentage="100">
+                    <p:cell borderWidth="0"  horizontalAlignment="center" paddingTop="85" paddingBottom="85">
+                        <p:font size="17" color="#777777" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
+                            <p:paragraph rendered="#{(empty _pool.ownerproxypaperinfo) or (empty _pool.ownerproxypaperinfo.stringValue)}" horizontalAlignment="center" >身份证复印件粘贴处</p:paragraph>
+                        </p:font>
+                    </p:cell>
+
+                </p:table>
+
+            </p:paragraph>
         </a:repeat>
         <p:font size="14" style="bold" name="STSong-Light" encoding="UniGB-UCS2-H">
             <p:paragraph alignment="center">第二章 商品房基本状况</p:paragraph>

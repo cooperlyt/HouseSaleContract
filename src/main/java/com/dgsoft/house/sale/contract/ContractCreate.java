@@ -348,6 +348,9 @@ public class ContractCreate {
             poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPoolPerc()));
             poolInfoMap.put("ownertel", new ContractContextMap.ContarctContextItem(poolOwner.getPhone()));
 
+            if (poolOwner.getPaperCopyInfo() != null && !"".equals(poolOwner.getPaperCopyInfo()));
+                poolInfoMap.put("ownerpaperinfo", new ContractContextMap.ContarctContextItem(poolOwner.getPaperCopyInfo()));
+
             if (poolOwner.getPowerProxyPerson() != null){
                 poolInfoMap.put("ownerproxytype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getProxyType().name())));
 
@@ -367,6 +370,8 @@ public class ContractCreate {
                 poolInfoMap.put("ownerproxyaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getAddress()));
                 poolInfoMap.put("ownerproxypost", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPostCode()));
                 poolInfoMap.put("ownerproxytel", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPhone()));
+                if (poolOwner.getPowerProxyPerson().getPaperCopyInfo() != null && !"".equals(poolOwner.getPowerProxyPerson().getPaperCopyInfo()));
+                    poolInfoMap.put("ownerproxypaperinfo",new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPaperCopyInfo()));
             }
 
 

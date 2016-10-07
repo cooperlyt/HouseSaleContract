@@ -4,6 +4,8 @@ import com.dgsoft.house.sale.model.BusinessPool;
 import com.dgsoft.house.sale.model.PowerProxyPerson;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.international.StatusMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,8 @@ import static com.dgsoft.house.sale.model.BusinessPool.LegalType.LEGAL_OWNER;
 @Name("fingerCollection")
 public class FingerCollection {
 
-
+    @In
+    private FacesMessages facesMessages;
 
     @In
     private HouseContractHome houseContractHome;
@@ -82,9 +85,22 @@ public class FingerCollection {
         return getPersonFingerByType(FingerPersonType.LEGAL_PROXY_PERSON);
     }
 
+
+    public String validAndPrintContract(){
+
+        for (PersonFinger personFinger: getNeedFingerImgPersons()){
+            if (personFinger.getFingerImageCode() == null || personFinger.getFingerImageCode().trim().equals("")){
+                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",personFinger.getName());
+                return null;
+            }
+        }
+        return houseContractHome.printSingleContract();
+    }
+
     public enum FingerPersonType{
         MASTER,CORP_OWNER,PROXY_PERSON,LEGAL_PROXY_PERSON
     }
+
 
     public class PersonFinger{
 

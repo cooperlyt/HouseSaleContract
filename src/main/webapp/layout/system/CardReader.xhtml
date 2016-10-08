@@ -97,7 +97,20 @@
                 Holder.run({images:".person-img"})
             }
 
-            $(document).ready(function(){bindclick();});
+            $(document).ready(function(){
+            $('.person-body').each(function () {
+            var pid = $(this).find('.person-id').val();
+
+            if (pid &amp;&amp; pid.trim() != ''){
+
+            $(this).find('.person-img').attr('src','#{runParam.getParamValue('IMG_SERVER_ADDRESS')}/person/img/' + pid.trim());
+            }
+            });
+                bindclick();
+
+
+
+            });
         </h:outputScript>
 
 

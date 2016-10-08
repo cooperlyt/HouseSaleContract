@@ -760,8 +760,12 @@
 
         <p>
             ￼￼￼3. 该商品房为第一条规定项目中的
-            <span class="lineValue" style="width: 100px"><h:outputText rendered="#{not templateModel}"
-                                                                       value="#{contractContextMap.c_3_6.stringValue}"/></span>
+            <span class="lineValue" style="width: 100px">
+                <h:outputText rendered="#{not templateModel}"
+                              value="#{contractContextMap.mapNumber.stringValue}"/>图
+                <h:outputText rendered="#{not templateModel}"
+                              value="#{contractContextMap.blockNumber.stringValue}"/>丘
+                <h:outputText rendered="#{not templateModel}" value="#{contractContextMap.c_3_6.stringValue}"/></span>
             <h:outputText value="【幢】"/>
             <span class="lineValue" style="width: 70px"><h:outputText rendered="#{not templateModel}"
                                                                       value="#{contractContextMap.c_3_8.stringValue}"/></span>单元

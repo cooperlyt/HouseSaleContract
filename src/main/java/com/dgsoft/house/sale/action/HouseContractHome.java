@@ -355,13 +355,15 @@ public class HouseContractHome extends EntityHome<HouseContract> {
             }
             contractJson.put("contractNumber", numberJsonArray);
 
-            if (!PoolType.SINGLE_OWNER.equals(getInstance().getPoolType())) {
+
                 JSONArray poolArray = new JSONArray();
                 for (BusinessPool businessPool : getInstance().getBusinessPools()) {
                     JSONObject poolObj = new JSONObject();
                     poolObj.put("name", businessPool.getPersonName());
                     poolObj.put("credentialsType", businessPool.getCredentialsType().name());
                     poolObj.put("credentialsNumber", businessPool.getCredentialsNumber());
+                    poolObj.put("rootAddress",businessPool.getRootAddress());
+                    poolObj.put("address",businessPool.getAddress());
                     if (businessPool.getPoolArea() != null) {
                         poolObj.put("poolArea", businessPool.getPoolArea().doubleValue());
                     } else {
@@ -380,7 +382,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
                     poolArray.put(poolObj);
                 }
                 contractJson.put("pool", poolArray);
-            }
+
 
             return contractJson;
         } catch (JSONException e) {

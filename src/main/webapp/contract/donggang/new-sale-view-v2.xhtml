@@ -52,7 +52,7 @@
             <p:paragraph alignment="center">商品房买卖合同(现售)
 
 
-
+                <p:barCode code="#{houseContractHome.instance.id}"/>
             </p:paragraph>
         </p:font>
 
@@ -61,7 +61,7 @@
             <p:cell paddingTop="16" borderWidth="0"><p:paragraph>出卖人:</p:paragraph></p:cell>
             <p:cell padding="8" borderWidthBottom="1" borderWidthTop="0" borderWidthRight="0" borderWidthLeft="0"><p:paragraph>#{houseContractHome.contractContextMap.dname.stringValue}</p:paragraph></p:cell>
             <p:cell paddingTop="16" borderWidth="0"><p:paragraph>买受人:</p:paragraph></p:cell>
-            <p:cell padding="8" borderWidthBottom="1" borderWidthTop="0" borderWidthRight="0" borderWidthLeft="0"><p:paragraph><c:forEach varStatus="_row" items="#{houseContractHome.contractPoolOwners}" var="_poolOwner">#{not (_row.index eq 0) ? '、' : ''}#{_poolOwner.personName}#{_poolOwner.personName}</c:forEach></p:paragraph></p:cell>
+            <p:cell padding="8" borderWidthBottom="1" borderWidthTop="0" borderWidthRight="0" borderWidthLeft="0"><p:paragraph><c:forEach varStatus="_row" items="#{houseContractHome.contractPoolOwners}" var="_poolOwner">#{not (_row.index eq 0) ? '、' : ''}#{_poolOwner.personName}</c:forEach></p:paragraph></p:cell>
         </p:table>
 
 

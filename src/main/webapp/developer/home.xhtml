@@ -31,6 +31,11 @@
 
             <div class="container">
 
+                <a:outputPanel layout="block" rendered="#{logonInfo.attachCorpInfo.serviceDay lt 30}" styleClass="alert alert-warning">
+
+                    <strong>服务即将到期!</strong> 服务期还剩<strong>#{logonInfo.attachCorpInfo.serviceDay}</strong>天,到期后将无法登录,请注意缴费.
+                </a:outputPanel>
+
                 <div class="row">
 
                     <div class="col-md-8" role="main">

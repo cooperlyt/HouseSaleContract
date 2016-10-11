@@ -16,7 +16,7 @@
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.1" />
           <element id="library" level="project" name="Maven: org.jboss.el:jboss-el:1.0_02.CR6" />
           <element id="library" level="project" name="Maven: javax.el:el-api:1.0" />
-          <element id="library" level="project" name="Maven: local.house:houseInterface:1.96Bate" />
+          <element id="library" level="project" name="Maven: local.house:houseInterface:1.99Bate" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.2" />

@@ -47,9 +47,7 @@
 
                         <li class="vcard-detail"><span class="octicon octicon-clock"></span><span
                                 class="join-label">年审时间</span>
-                            <time class="join-date" datetime="2013-04-22T00:15:46Z" day="numeric" is="local-time"
-                                  month="short" year="numeric" title="Apr 22, 2013, 8:15 AM GMT+8">Apr 22, 2013
-                            </time>
+                            <h:outputText value="#{logonInfo.attachCorpInfo.dateTo}"><s:convertDateTime pattern="#{messages.displayDateTimePattern}"/></h:outputText>
                         </li>
                     </ul>
                     <div class="vcard-stats">

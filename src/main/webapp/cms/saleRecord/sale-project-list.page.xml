@@ -5,6 +5,7 @@
 
 
     <param name="firstResult" value="#{projectList.firstResult}"/>
+    <param name="searchKey" value="#{projectList.searchKey}"/>
 
 
 </page>

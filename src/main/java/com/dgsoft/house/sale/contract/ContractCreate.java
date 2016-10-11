@@ -109,6 +109,7 @@ public class ContractCreate {
         this.houseCode = houseCode;
     }
 
+    @Transactional
     public String createContract(){
 
         if (SaleStatus.PREPARE_CONTRACT.equals(getHouse().getStatus())){
@@ -124,14 +125,13 @@ public class ContractCreate {
 
         if (SaleStatus.CAN_SALE.equals(getHouse().getStatus())){
             try {
-                houseContractHome.getEntityManager().remove(
-                houseContractHome.getEntityManager()
+                houseContractHome.setId(houseContractHome.getEntityManager()
                         .createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode and hc.type in (:types) and hc.groupId = :groupId and hc.status in (:status)", HouseContract.class)
                         .setParameter("houseCode", getHouse().getHouseCode())
                         .setParameter("status",EnumSet.of(HouseContract.ContractStatus.SUBMIT,HouseContract.ContractStatus.RECORD))
                         .setParameter("groupId",logonInfo.getGroupCode())
-                        .setParameter("types", EnumSet.of(SaleType.MAP_SELL, SaleType.NOW_SELL)).getSingleResult());
-                houseContractHome.getEntityManager().flush();
+                        .setParameter("types", EnumSet.of(SaleType.MAP_SELL, SaleType.NOW_SELL)).getSingleResult().getId());
+                houseContractHome.remove();
             }catch (NoResultException e){
 
             }

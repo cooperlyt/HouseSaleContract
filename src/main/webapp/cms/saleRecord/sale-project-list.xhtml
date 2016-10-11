@@ -30,6 +30,30 @@
     <div class="mainContent" style="font-size: 13px">
         <div class="block">
             <h:form>
+                <div class="filter news-filter clearfix">
+
+                        <div class=" filterOptions">
+
+
+
+                            <div class="newsFilterCatWrpr">
+                                <h:inputText p:placeHolder="项目查询" value="#{projectList.searchKey}" size="70"/>
+                            </div>
+
+                        </div>
+
+                        <div class="filterActions">
+				                            <span id="CT_Main_1_spanSearch" class="newsFilterSearchBtn">
+
+                                                <h:commandButton styleClass="btn" action="#{projectList.refresh}" value="查询">
+                                                    <f:param name="firstResult" value="0"/>
+                                                </h:commandButton>
+				                            </span>
+
+
+                        </div>
+
+                </div>
                 <p>
                     项目数据来自《商品房(预)销售许可证》和项目开发商对项目的描述信息，请注意甄别.
                 </p>

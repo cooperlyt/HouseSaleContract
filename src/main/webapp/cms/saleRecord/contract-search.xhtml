@@ -187,11 +187,11 @@
                             <a:repeat value="#{contractSearch.resultData.contract}" var="_contract">
 
                                 <s:link target="_blank"
-                                        action="#{houseContractHome.viewSingleContract}"
+                                        action="#{houseContractHome.printSingleContract}"
                                         value="#{_contract.contractNumber}">
                                     <f:param value="#{_contract.contractNumber}" name="contractNumber"/>
                                     <f:param value="#{_contract.houseContract.id}" name="contractId"/>
-                                </s:link>
+                                </s:link>#{' '}
 
                             </a:repeat>
 

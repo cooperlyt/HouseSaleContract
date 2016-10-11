@@ -39,7 +39,7 @@
 
 
     <p:font size="13" name="STSong-Light" encoding="UniGB-UCS2-H">
-        <p:paragraph>#{houseContractHome.contractNumber}                                                                                          合同编号:#{houseContractHome.instance.id}
+        <p:paragraph>#{houseContractHome.contractNumber}                                                                                               合同编号:#{houseContractHome.instance.id}
                                                                                                                    房屋编号:#{houseContractHome.contractContextMap.houseCode.stringValue}
 
 
@@ -52,9 +52,13 @@
             <p:paragraph alignment="center">商品房买卖合同(预售)
 
 
-                <p:barCode code="#{houseContractHome.instance.id}"/>
             </p:paragraph>
         </p:font>
+        <p:table columns="1" widthPercentage="20" headerRows="0">
+            <p:cell padding="0" borderWidth="0">
+                <p:barCode code="#{houseContractHome.instance.id}"/>
+            </p:cell>
+        </p:table>
 
 
         <p:table columns="2" widthPercentage="60" widths="1 4" headerRows="0">

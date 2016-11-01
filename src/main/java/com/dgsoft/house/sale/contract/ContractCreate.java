@@ -3,6 +3,7 @@ package com.dgsoft.house.sale.contract;
 import com.dgsoft.common.system.DictionaryService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
+import com.dgsoft.house.OwnerShareCalcType;
 import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.SaleType;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -356,7 +358,16 @@ public class ContractCreate {
             poolInfoMap.put("ownerpost", new ContractContextMap.ContarctContextItem(poolOwner.getPostCode()));
 
             poolInfoMap.put("poolRelation", new ContractContextMap.ContarctContextItem(dictionary.getWordValue(poolOwner.getRelation())));
-            poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(poolOwner.getPoolPerc()));
+
+            if (OwnerShareCalcType.SCALE.equals(houseContractHome.getOwnerShareCalcType())){
+                if (poolOwner.getPoolPerc() != null)
+                    poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(new DecimalFormat("#0.##").format(poolOwner.getPoolPerc().doubleValue()) + "%"));
+            }else if (OwnerShareCalcType.AREA.equals(houseContractHome.getOwnerShareCalcType())){
+                if (poolOwner.getPoolArea() != null)
+                    poolInfoMap.put("poolPerc", new ContractContextMap.ContarctContextItem(new DecimalFormat("#0.###").format(poolOwner.getPoolArea().doubleValue()) + "㎡"));
+            }
+
+
             poolInfoMap.put("ownertel", new ContractContextMap.ContarctContextItem(poolOwner.getPhone()));
 
             if (poolOwner.getPaperCopyInfo() != null && !"".equals(poolOwner.getPaperCopyInfo()));
@@ -532,10 +543,15 @@ public class ContractCreate {
         Logging.getLog(getClass()).debug("add number to:" + contractCount);
 
         int count = ((contractCount == null) ? 1 : contractCount) - houseContractHome.getInstance().getContractNumbers().size();
-        if (count > 0)
-            for(String number: DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo,count,houseContractHome.getInstance().getType())){
-                houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number,houseContractHome.getInstance()));
+        if (count > 0) {
+            List<String> resultNumbers = DeveloperSaleServiceImpl.instance().applyContractNumber(logonInfo, count, houseContractHome.getInstance().getType());
+            for (String number : resultNumbers) {
+                houseContractHome.getInstance().getContractNumbers().add(new ContractNumber(number, houseContractHome.getInstance()));
             }
+            if (count != resultNumbers.size()){
+                facesMessages.addFromResourceBundle(StatusMessage.Severity.WARN,"ContractNumberEmpty");
+            }
+        }
 
     }
 

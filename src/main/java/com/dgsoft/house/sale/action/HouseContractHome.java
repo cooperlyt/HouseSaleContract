@@ -357,7 +357,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
 
 
                 JSONArray poolArray = new JSONArray();
-                for (BusinessPool businessPool : getInstance().getBusinessPools()) {
+                for (BusinessPool businessPool : getInstance().getBusinessPoolList()) {
                     JSONObject poolObj = new JSONObject();
                     poolObj.put("name", businessPool.getPersonName());
                     poolObj.put("credentialsType", businessPool.getCredentialsType().name());

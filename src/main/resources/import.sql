@@ -1,7 +1,7 @@
-INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('server_address','STRING','http://localhost:8080/HMPLAT/','产权服务器地址');
+INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('server_address','STRING','http://localhost:8080/HMPLAT_SNAPSHOT/','产权服务器地址');
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('allow_project_pledge_sale','STRING','no','在建工程房屋是否可签约 yes   no');
 
-INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('saleInfoDataProviderURL','STRING','http://localhost:8080/HMPLAT/HouseSaleRecordDataProvider.seam','房屋销售数据提供URL');
+INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('saleInfoDataProviderURL','STRING','http://localhost:8080/HMPLAT_SNAPSHOT/HouseSaleRecordDataProvider.seam','房屋销售数据提供URL');
 
 
 INSERT CONTRACT.SYSTEM_PARAM(ID,TYPE, VALUE, DESCRIPTION) VALUES ('web_url','STRING','www.fcfcdjw.com','网站域名');

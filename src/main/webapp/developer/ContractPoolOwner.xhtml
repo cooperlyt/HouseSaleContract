@@ -52,7 +52,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         
-                        <ui:include src="/layout/system/ContractPersonInput.xhtml">
+                        <ui:decorate template="/layout/system/ContractPersonInput.xhtml">
                             <ui:param name="_person" value="#{_person}"/>
                             <ui:param name="allowCredentialsTypeList" value="#{credentialsTypes}"/>
                             <ui:param name="mainLabel" value="买受人"/>
@@ -137,7 +137,7 @@
 
                             </ui:define>
 
-                        </ui:include>
+                        </ui:decorate>
 
 
                         <f:subview id="#{_person.uuid}_person_proxy">

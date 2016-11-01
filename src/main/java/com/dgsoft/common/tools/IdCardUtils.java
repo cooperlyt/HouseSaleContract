@@ -167,7 +167,7 @@ public class IdCardUtils{
      * 验证身份证是否合法
      */
     public static boolean validateCard(String idCard) {
-        String card = idCard.trim();
+        String card = idCard.trim().toUpperCase();
         if (validateIdCard18(card)) {
             return true;
         }
@@ -432,7 +432,7 @@ public class IdCardUtils{
                 sCode = "9";
                 break;
             case 2:
-                sCode = "x";
+                sCode = "X";
                 break;
             case 1:
                 sCode = "0";

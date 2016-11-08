@@ -457,7 +457,7 @@
         </h2>
 
         <p>
-            1. 出卖人以 <h:outputText rendered="#{templateModel}" value="【出让】【划拨】【 ￼ 】"/>
+            1. 出卖人以 <h:outputText rendered="#{templateModel}" value="【出让】【划拨】【  】"/>
             <h:outputText rendered="#{not templateModel}"
                           value="【#{contractContextMap.c_1_1.stringValue}】"/> 方式取得坐落于
             <span class="lineValue" style="min-width: 150px"><h:outputText rendered="#{not templateModel}"
@@ -472,7 +472,7 @@
                     pattern="#0.000"/></h:outputText></span>平方米。买受人购买的商品房(以下简称该商品
 
             ￼￼￼￼房) 所占用的土地用途为 <span class="lineValue" style="min-width: 90px"><h:outputText rendered="#{not templateModel}"
-                                                                                           value="#{contractContextMap.c_1_6.stringValue}"/></span>￼ ,土地使用权终止日期为
+                                                                                           value="#{contractContextMap.c_1_6.stringValue}"/></span> ,土地使用权终止日期为
             <span class="lineValue" style="width: 200px"><h:outputText rendered="#{not templateModel}"
                                                                        value="#{contractContextMap.c_1_7.dateValue}"><s:convertDateTime
                     pattern="#{messages.displayDatePattern}"/></h:outputText></span>。
@@ -484,7 +484,7 @@
             2. 出卖人经批准,在上述地块上建设的商品房项目核准名称为 <span class="lineValue" style="min-width: 200px"><h:outputText
                 rendered="#{not templateModel}" value="#{contractContextMap.c_1_8.stringValue}"/></span>
             建设工程规划许可证号为 <span class="lineValue" style="min-width: 100px"><h:outputText rendered="#{not templateModel}"
-                                                                                       value="#{contractContextMap.c_1_9.stringValue}"/></span>￼ ,建筑工程施工许可证号为
+                                                                                       value="#{contractContextMap.c_1_9.stringValue}"/></span> ,建筑工程施工许可证号为
             <span class="lineValue" style="min-width: 100px"><h:outputText rendered="#{not templateModel}"
                                                                            value="#{contractContextMap.c_1_10.stringValue}"/></span>。
 
@@ -577,11 +577,11 @@
 
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 阳台数"
                          style="width: 60px" value="#{contractContextMap.c_3_16.numberValue}"><f:convertNumber
-                    pattern="#0"/></h:inputText>￼ 个阳台,其中
+                    pattern="#0"/></h:inputText> 个阳台,其中
             <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 封闭阳台数"
                          style="width: 60px" value="#{contractContextMap.c_3_17.numberValue}"><f:convertNumber
-                    pattern="#0"/></h:inputText>￼ 个阳台为封闭式,
+                    pattern="#0"/></h:inputText> 个阳台为封闭式,
             <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
             <h:inputText rendered="#{not templateModel}"  styleClass="contract-input" label="第二章 第三条 非封闭阳台数"
                          style="width: 60px" value="#{contractContextMap.c_3_18.numberValue}"><f:convertNumber
@@ -872,14 +872,14 @@
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
                 <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
-            ￼ (币种)
+             (币种)
             <a:outputPanel styleClass="lineValue" style="min-width: 100px">
                 <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}" value="#{contractContextMap.total_price.numberValue}">
                     <f:convertNumber type="currency" currencySymbol=""/>
                 </h:outputText>
             </a:outputPanel>
 
-            ￼￼ 元 (大写
+            ￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
                         <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 1}"
                                       value="#{contractContextMap.total_price.numberValue}">
@@ -911,7 +911,7 @@
                 </h:outputText>
             </a:outputPanel>
 
-            ￼￼ 元 (大写
+            ￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
                         <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 2}"
                                       value="#{contractContextMap.total_price.numberValue}">
@@ -932,7 +932,7 @@
                 </h:outputText>
             </a:outputPanel>
 
-            ￼￼ 元 (大写
+            ￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
                         <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 3}"
                                       value="#{contractContextMap.total_price.numberValue}">
@@ -948,7 +948,7 @@
             </a:outputPanel>
 
 
-            ￼ 计算,该商品房总价款为
+             计算,该商品房总价款为
             <a:outputPanel styleClass="lineValue" style="min-width: 60px">
                 <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}" value="#{contractContextMap.money_type.stringValue}"/>
             </a:outputPanel>
@@ -959,7 +959,7 @@
                 </h:outputText>
             </a:outputPanel>
 
-            ￼￼ 元 (大写
+            ￼ 元 (大写
                     <span style="min-width: 100px" class="lineValue">
                         <h:outputText rendered="#{not templateModel and contractContextMap.c_6_1.numberValue eq 4}"
                                       value="#{contractContextMap.total_price.numberValue}">
@@ -985,14 +985,14 @@
                          value="#{contractContextMap.c_7_1_1.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_1_1_big"/>
             </h:inputText>
-            ￼ 元 (大写
+             元 (大写
                     <span style="width: 300px" class="lineValue">
                         <h:outputText id="c_7_1_1_big" rendered="#{not templateModel}"
                                       value="#{contractContextMap.c_7_1_1.numberValue}">
                             <f:converter converterId="dgsoft.faces.BigMoneyConverter"/>
                         </h:outputText>
                     </span>),该定金于
-            <h:outputText value="【本合同签订】【交付首付款】【 ￼ 】" rendered="#{templateModel}"/>
+            <h:outputText value="【本合同签订】【交付首付款】【  】" rendered="#{templateModel}"/>
             <a:outputPanel rendered="#{not templateModel}">
                 【
                 <ui:decorate template="/layout/selectEditInput.xhtml">
@@ -1005,7 +1005,7 @@
                 】
             </a:outputPanel>
             ￼￼时
-            <h:outputText value="【抵作】【 ￼ 】" rendered="#{templateModel}"/>
+            <h:outputText value="【抵作】【  】" rendered="#{templateModel}"/>
             <a:outputPanel rendered="#{not templateModel}">
                 【
                 <ui:decorate template="/layout/selectEditInput.xhtml">
@@ -1047,7 +1047,7 @@
             <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 60px"/>
             <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}" label="第三章 第七条 付款期数"
                          value="#{contractContextMap.c_7_8.numberValue}" style="width: 60px"/>
-            ￼ 期支付该商品房全部价款,首期房价款
+             期支付该商品房全部价款,首期房价款
 
             <a:outputPanel rendered="#{templateModel or not (contractContextMap.c_7_4.stringValue eq '2')}" styleClass="lineValue" style="width: 60px"/>
             <h:inputText styleClass="contract-input" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}"
@@ -1058,7 +1058,7 @@
                          value="#{contractContextMap.c_7_10.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_10_big"/>
             </h:inputText>
-            ￼ 元 (大写
+             元 (大写
                     <span style="width: 300px" class="lineValue">
                         <h:outputText id="c_7_10_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '2')}"
                                       value="#{contractContextMap.c_7_10.numberValue}">
@@ -1112,7 +1112,7 @@
                          value="#{contractContextMap.c_7_16.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_16_big"/>
             </h:inputText>
-            ￼ 元 (大写
+             元 (大写
                     <span style="width: 300px" class="lineValue">
                         <h:outputText id="c_7_16_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                                       value="#{contractContextMap.c_7_16.numberValue}">
@@ -1138,7 +1138,7 @@
                          value="#{contractContextMap.c_7_20.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_20_big"/>
             </h:inputText>
-            ￼ 元 (大写
+             元 (大写
                     <span style="width: 300px" class="lineValue">
                         <h:outputText id="c_7_20_big" rendered="#{not templateModel and (contractContextMap.c_7_4.stringValue eq '3')}"
                                       value="#{contractContextMap.c_7_20.numberValue}">
@@ -1171,7 +1171,7 @@
                         <h:outputText rendered="#{not templateModel}"
                                       value="#{contractContextMap.c_7_23.stringValue}"/>
                     </span>
-            ￼ ,账号为 ￼
+             ,账号为 ￼
                     <span class="lineValue" style="width: 100px">
                         <h:outputText rendered="#{not templateModel}"
                                       value="#{contractContextMap.c_7_25.stringValue}"/>
@@ -1213,16 +1213,16 @@
             <h:inputText label="第三章 第八条 逾期限制（2）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_4.numberValue}"/>
             日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人 有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通 知送达之日起
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_8_5.numberValue}"/>￼ 日内按照累计应付款的
+                         value="#{contractContextMap.c_8_5.numberValue}"/> 日内按照累计应付款的
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_8_6.numberValue}"/>￼ %向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。
+                         value="#{contractContextMap.c_8_6.numberValue}"/> %向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。
 
         </p>
 
         <p>
 
             出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_7.numberValue}"/>￼￼ (该
+            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_7.numberValue}"/>￼ (该
 
             比率不低于第 (1) 项中的比率) 的违约金。
         </p>
@@ -1254,7 +1254,7 @@
 
         <p>
             该商品房交付时应当符合下列第 1、2、
-            <h:inputText styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_1.numberValue}"/>￼￼ 、 ￼
+            <h:inputText styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_1.numberValue}"/>￼ 、 ￼
             <h:inputText styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_2.numberValue}"/>￼项所列条件:
 
         </p>
@@ -1351,7 +1351,7 @@
                 <f:selectItem itemLabel="2" itemValue="2"/>
 
             </r:inplaceSelect>
-            ￼ 种
+             种
             方式处理:
         </p>
 
@@ -1363,13 +1363,13 @@
         <p>
             第 5 项未按时达到交付使用条件的,出卖人按日向买受人支付
             <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_6.numberValue}"/>￼ 元的违约 金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付
+                         value="#{contractContextMap.c_10_6.numberValue}"/> 元的违约 金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付
             <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_7.numberValue}"/>￼￼ 元的违约 金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付
+                         value="#{contractContextMap.c_10_7.numberValue}"/>￼ 元的违约 金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付
             <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_8.numberValue}"/>￼￼ 元的违约 金。出卖人采取措施保证相关设施于约定交付日后
+                         value="#{contractContextMap.c_10_8.numberValue}"/>￼ 元的违约 金。出卖人采取措施保证相关设施于约定交付日后
             <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_9.numberValue}"/>￼￼ 日之内达到交付使用条件。
+                         value="#{contractContextMap.c_10_9.numberValue}"/>￼ 日之内达到交付使用条件。
         </p>
 
         <p>
@@ -1504,7 +1504,7 @@
 
             ￼￼￼￼￼￼￼￼￼￼(二)该商品房达到第十条、第十一条约定的交付条件后,出卖人应当在交付日期届 满前
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_11_2.numberValue}"/>￼￼ 日 (不少于 10 日) 将查验房屋的时间、办理交付手续的时间地点以及应当携 带的证件材料的通知书面送达买受人。买受人未收到交付通知书的,以本合同约定的 交付日期届满之日为办理交付手续的时间,以该商品房所在地为办理交付手续的地点。
+                         value="#{contractContextMap.c_11_2.numberValue}"/>￼ 日 (不少于 10 日) 将查验房屋的时间、办理交付手续的时间地点以及应当携 带的证件材料的通知书面送达买受人。买受人未收到交付通知书的,以本合同约定的 交付日期届满之日为办理交付手续的时间,以该商品房所在地为办理交付手续的地点。
         </p>
 
         <p>
@@ -1592,15 +1592,15 @@
                                   value="#{contractContextMap.c_12_2.numberValue}"/> 日之内 (该期限应当不多于第九条第 1 (1) 项中的期限),自第
             十二条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支付全部房价款万分之
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_12_3.numberValue}"/>￼ 的违约金 (该违约金比率应当不低于第九条第 1 (1) 项中的 比率)。
+                         value="#{contractContextMap.c_12_3.numberValue}"/> 的违约金 (该违约金比率应当不低于第九条第 1 (1) 项中的 比率)。
         </p>
 
         <p>
             (2) 逾期超过
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_12_4.numberValue}"/>￼ 日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照
+                         value="#{contractContextMap.c_12_4.numberValue}"/> 日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照
             <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_12_5.numberValue}"/>￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利 息;同时,出卖人按照全部房价款的 ￼
+                         value="#{contractContextMap.c_12_5.numberValue}"/> % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利 息;同时,出卖人按照全部房价款的 ￼
             <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_12_6.numberValue}"/>%向买受人支付违约金。
         </p>
 
@@ -1694,8 +1694,8 @@
 
         <p>不符合上述标准的,买受人有权要求出卖人按照下列第 (1)、
             <h:inputText styleClass="contract-input" style="width: 40px"
-                         value="#{contractContextMap.c_16_6.stringValue}"/> ￼ 、<h:inputText styleClass="contract-input"
-                                                                                            style="width: 40px" value="#{contractContextMap.c_16_7.stringValue}"/> ￼ 方
+                         value="#{contractContextMap.c_16_6.stringValue}"/>  、<h:inputText styleClass="contract-input"
+                                                                                            style="width: 40px" value="#{contractContextMap.c_16_7.stringValue}"/>  方
             式处理 (可多选):
         </p>
 
@@ -1813,7 +1813,7 @@
         <p>
             出卖人不按照第十四条、第十五条约定承担相关责任的,由
             <h:inputText styleClass="contract-input" style="width: 100px"
-                         value="#{contractContextMap.c_18_1.stringValue}"/>￼ 承担连带责任。
+                         value="#{contractContextMap.c_18_1.stringValue}"/> 承担连带责任。
         </p>
 
         <p>
@@ -1848,7 +1848,7 @@
 
                 <f:selectItem itemLabel="1" itemValue="1"/>
                 <f:selectItem itemLabel="2" itemValue="2"/>
-            </r:inplaceSelect>￼ 种方式处理:
+            </r:inplaceSelect> 种方式处理:
         </p>
 
         <p>
@@ -1911,7 +1911,7 @@
                 <li><a href="#">酬金制</a></li>
             </ui:decorate>
             】。 物 业
-            服务费为 ￼ <h:inputText styleClass="contract-input" style="width: 80px"
+            服务费为  <h:inputText styleClass="contract-input" style="width: 80px"
                                 value="#{contractContextMap.c_21_5.numberValue}"/>元/月·平方米 (建筑面积)。
         </div>
         <p>
@@ -1962,11 +1962,11 @@
         </p>
 
         <p>
-            1. 规划的车位、车库: ￼ <h:inputText styleClass="contract-input" style="width: 70%"
+            1. 规划的车位、车库:  <h:inputText styleClass="contract-input" style="width: 70%"
                                         value="#{contractContextMap.c_22_2.stringValue}"/> ;
         </p>
 
-        <p>2. 会所: ￼ <h:inputText styleClass="contract-input" style="width: 82%"
+        <p>2. 会所:  <h:inputText styleClass="contract-input" style="width: 82%"
                                  value="#{contractContextMap.c_22_3.stringValue}"/>;
         </p>
 
@@ -2377,7 +2377,7 @@
                 <li><a href="#" >铝合金封闭</a></li>
                 <li><a href="#" >断桥铝合金封闭</a></li>
                 <li><a href="#" >不封闭</a></li>
-            </ui:decorate>￼ 】;
+            </ui:decorate> 】;
         </div>
         <p>
             <h:inputText styleClass="contract-input" value="#{contractContextMap.ps_6_24.stringValue}" style="width: 100%"/>
@@ -2442,7 +2442,7 @@
             ￼￼￼￼2. 屋面防水工程、有防水要求的卫生间、房间和外墙面的防渗漏:
         </p>
         <p>
-            保修期限为: <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_3.stringValue}"/>￼ (不得低于 5 年);
+            保修期限为: <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_3.stringValue}"/> (不得低于 5 年);
         </p>
         <p>
             <h:inputText styleClass="contract-input" value="#{contractContextMap.ps_7_4.stringValue}" style="width: 100%"/>
@@ -2451,7 +2451,7 @@
             3. 供热、供冷系统和设备:
         </p>
         <p>
-            保修期限为: ￼<h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_5.stringValue}"/>￼  (不得低于 2 个采暖期、供冷期);
+            保修期限为: ￼<h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_5.stringValue}"/>  (不得低于 2 个采暖期、供冷期);
         </p>
         <p>
             <h:inputText styleClass="contract-input" value="#{contractContextMap.ps_7_6.stringValue}" style="width: 100%"/>
@@ -2460,7 +2460,7 @@
             4. 电气管线、给排水管道、设备安装:
         </p>
         <p>
-            保修期限为: <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_7.stringValue}"/>￼ (不得低于 2 年);
+            保修期限为: <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_7.stringValue}"/> (不得低于 2 年);
         </p>
         <p>
             <h:inputText styleClass="contract-input" value="#{contractContextMap.ps_7_8.stringValue}" style="width: 100%"/>
@@ -2469,12 +2469,12 @@
             5. 装修工程:
         </p>
         <p>
-            保修期限为: ￼ <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_9.stringValue}"/>￼ (不得低于 2 年);
+            保修期限为:  <h:inputText styleClass="contract-input" style="width: 90px" value="#{contractContextMap.ps_7_9.stringValue}"/> (不得低于 2 年);
         </p>
         <p>
             <h:inputText styleClass="contract-input" value="#{contractContextMap.ps_7_10.stringValue}" style="width: 100%"/>
         </p>
-        <p>6. <h:inputText styleClass="contract-input" style="width: 90%" value="#{contractContextMap.ps_7_11.stringValue}"/>￼ ;
+        <p>6. <h:inputText styleClass="contract-input" style="width: 90%" value="#{contractContextMap.ps_7_11.stringValue}"/> ;
         </p>
         <p>7. <h:inputText styleClass="contract-input" style="width: 90%" value="#{contractContextMap.ps_7_12.stringValue}"/>￼;
         </p>

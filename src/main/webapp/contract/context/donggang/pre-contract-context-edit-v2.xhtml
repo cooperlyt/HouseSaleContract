@@ -799,7 +799,7 @@
             <a:outputPanel styleClass="lineValue" style="width: 60px" rendered="#{templateModel}" />
 
             <h:inputText rendered="#{not templateModel}" styleClass="contract-input" label="第二章 第三条 层高"
-                         style="width: 60px" value="#{contractContextMap.c_3_15.numberValue}">
+                         style="width: 60px" value="#{contractContextMap.c_3_15.stringValue}">
                 <f:convertNumber
                         pattern="#0.000"/>
             </h:inputText>米,阁楼面积为
@@ -1148,6 +1148,7 @@
             (币种)
             <a:outputPanel rendered="#{templateModel}" styleClass="lineValue" style="width: 80px"/>
             <h:inputText styleClass="contract-input" rendered="#{not templateModel}"
+                         label="第三章 第七条 (一) 定金"
                          value="#{contractContextMap.c_7_1_1.numberValue}" style="width: 60px">
                 <a:ajax event="change" render="c_7_1_1_big"/>
             </h:inputText>
@@ -1372,17 +1373,17 @@
         </p>
         <p>
             (1) 逾期在
-            <h:inputText label="第三章 第八条 逾期限制（1）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_2.numberValue}"/>
+            <h:inputText label="第三章 第八条 逾期限制 1.（1）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_2.numberValue}"/>
             日之内,买受人按日计算向出卖人支付逾期应付款万分之
-            <h:inputText label="第三章 第八条 违约金比例（1）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_3.numberValue}"/>的违约金。
+            <h:inputText label="第三章 第八条 违约金比例 1.（1）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_3.numberValue}"/>的违约金。
             </p>
         <p>
             (2) 逾期超过
-            <h:inputText label="第三章 第八条 逾期限制（2）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_4.numberValue}"/>
+            <h:inputText label="第三章 第八条 逾期限制 1.（2）" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_4.numberValue}"/>
             日 (该期限应当与本条第 (1) 项中的期限相同) 后,出卖人 有权解除合同。出卖人解除合同的,应当书面通知买受人。买受人应当自解除合同通 知送达之日起
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第三章 第八条 逾期限制 1.（2）时限"
                          value="#{contractContextMap.c_8_5.numberValue}"/>￼ 日内按照累计应付款的
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第三章 第八条 逾期限制 1.（2）违约金"
                          value="#{contractContextMap.c_8_6.numberValue}"/>￼ %向出卖人支付违约金,同时,出卖人退还买受人已付全部房款 (含已付贷款部分)。
 
         </p>
@@ -1390,7 +1391,7 @@
         <p>
 
             出卖人不解除合同的,买受人按日计算向出卖人支付逾期应付款万分之
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_7.numberValue}"/>￼￼ (该
+            <h:inputText label="第三章 第八条 1 违约金" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_8_7.numberValue}"/>￼￼ (该
 
             比率不低于第 (1) 项中的比率) 的违约金。
         </p>
@@ -1423,8 +1424,8 @@
 
         <p>
             该商品房交付时应当符合下列第 1、2、
-            <h:inputText styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_1.numberValue}"/>￼￼ 、 ￼
-            <h:inputText styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_2.numberValue}"/>￼项所列条件:
+            <h:inputText label="第四章 第九条 交付项" styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_1.numberValue}"/>￼￼ 、 ￼
+            <h:inputText label="第四章 第九条 交付项" styleClass="contract-input" style="width: 50px" value="#{contractContextMap.c_9_2.numberValue}"/>￼项所列条件:
 
         </p>
 
@@ -1531,13 +1532,13 @@
 
         <p>
             第 5 项未按时达到交付使用条件的,出卖人按日向买受人支付
-            <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_6.numberValue}"/>￼ 元的违约 金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付
-            <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_7.numberValue}"/>￼￼ 元的违约 金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付
-            <h:inputText styleClass="contract-input" style="width: 70px"
-                         value="#{contractContextMap.c_10_8.numberValue}"/>￼￼ 元的违约 金。出卖人采取措施保证相关设施于约定交付日后
-            <h:inputText styleClass="contract-input" style="width: 70px"
+            <h:inputText styleClass="contract-input" style="width: 70px" label="第四章 第十条 (一) 第 5 项 违约金"
+                         value="#{contractContextMap.c_10_6.numberValue}"/>￼ 元的违约金;第 6 项未按时达到交付使用条件的,出卖人按日向买受人支付
+            <h:inputText styleClass="contract-input" style="width: 70px" label="第四章 第十条 (一) 第 6 项 违约金"
+                         value="#{contractContextMap.c_10_7.numberValue}"/>￼￼ 元的违约金;第 7 项未按时达到交付使用条件的,出卖人按日向买受人支付
+            <h:inputText styleClass="contract-input" style="width: 70px" label="第四章 第十条 (一) 第 7 项 违约金"
+                         value="#{contractContextMap.c_10_8.numberValue}"/>￼￼ 元的违约金。出卖人采取措施保证相关设施于约定交付日后
+            <h:inputText styleClass="contract-input" style="width: 70px" label="第四章 第十条 (一) 交付时限"
                          value="#{contractContextMap.c_10_9.numberValue}"/>￼￼ 日之内达到交付使用条件。
         </p>
 
@@ -1672,7 +1673,7 @@
         <p>
 
             ￼￼￼￼￼￼￼￼￼￼(二)该商品房达到第九条、第十条约定的交付条件后,出卖人应当在交付日期届 满前
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十一条 (二) 时限"
                          value="#{contractContextMap.c_11_2.numberValue}"/>￼￼ 日 (不少于 10 日) 将查验房屋的时间、办理交付手续的时间地点以及应当携 带的证件材料的通知书面送达买受人。买受人未收到交付通知书的,以本合同约定的 交付日期届满之日为办理交付手续的时间,以该商品房所在地为办理交付手续的地点。
         </p>
 
@@ -1699,7 +1700,7 @@
 
         <p>
             2. 买受人查验的该商品房存在下列除地基基础和主体结构外的其他质量问题的, 由出卖人按照有关工程和产品质量规范、标准自查验次日起 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十一条 (三) 2. 时限"
                          value="#{contractContextMap.c_11_4.numberValue}"/>￼日内负责修复,并承 担修复费用,修复后再行交付。
         </p>
 
@@ -1759,25 +1760,25 @@
         </p>
 
         <p>
-            (1) 逾期在 ￼<h:inputText styleClass="contract-input" style="width: 60px"
+            (1) 逾期在 ￼<h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十二条 (三) 1.(1) 时限"
                                   value="#{contractContextMap.c_12_2.numberValue}"/> 日之内 (该期限应当不多于第八条第 1 (1) 项中的期限),自第
             十一条约定的交付期限届满之次日起至实际交付之日止,出卖人按日计算向买受人支 付全部房价款万分之
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十二条 (三) 1.(1) 违约金"
                          value="#{contractContextMap.c_12_3.numberValue}"/>￼ 的违约金 (该违约金比率应当不低于第八条第 1 (1) 项中的 比率)。
         </p>
 
         <p>
             (2) 逾期超过
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十二条 (三) 1.(2) 时限"
                          value="#{contractContextMap.c_12_4.numberValue}"/>￼ 日 (该期限应当与本条第 (1) 项中的期限相同) 后,买受人 有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通 知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之 日起,按照
-            <h:inputText styleClass="contract-input" style="width: 60px"
-                         value="#{contractContextMap.c_12_5.numberValue}"/>￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利 息;同时,出卖人按照全部房价款的 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_12_6.numberValue}"/>%向买受人支付违约金。
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十二条 (三) 1.(2) 利息"
+                         value="#{contractContextMap.c_12_5.numberValue}"/>￼ % (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同时,出卖人按照全部房价款的 ￼
+            <h:inputText label="第四章 第十二条 (三) 1.(2) 违约金" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_12_6.numberValue}"/>%向买受人支付违约金。
         </p>
 
         <p>
             买受人要求继续履行合同的,合同继续履行,出卖人按日计算向买受人支付全部 房价款万分之 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第四章 第十二条 (三) 1. 继续履行合同违约金"
                          value="#{contractContextMap.c_12_7.numberValue}"/>(该比率应当不低于本条第 1 (1) 项中的比率) 的违约金。
         </p>
 
@@ -1826,7 +1827,7 @@
 
         <p>
             买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日 起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第五章 第十三条 1. 利息"
                          value="#{contractContextMap.c_13_2.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
         </p>
 
@@ -1856,7 +1857,7 @@
 
         <p>买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日
             起15日内退还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按 照
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第五章 第十三条 2. 利息"
                          value="#{contractContextMap.c_13_3.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。
         </p>
 
@@ -1917,9 +1918,9 @@
         </p>
 
         <p> (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第六章 第十四条 (三) 利息"
                          value="#{contractContextMap.c_14_1.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_14_2.numberValue}"/>%向买受人支付违约金。
+            <h:inputText label="第六章 第十四条 (三) 违约金" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_14_2.numberValue}"/>%向买受人支付违约金。
         </p>
 
         <p> 买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
@@ -1963,9 +1964,9 @@
 
         <p>
             (三)买受人解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达 之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自买受人付款之日起, 按照 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第六章 第十五条 (三) 利息"
                          value="#{contractContextMap.c_15_4.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息;同 时,出卖人按照全部房价款的 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_15_5.numberValue}"/>%向买受人支付违约金。
+            <h:inputText label="第六章 第十五条 (三) 违约金" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_15_5.numberValue}"/>%向买受人支付违约金。
         </p>
 
         <p>买受人不解除合同的,有权要求出卖人赔偿由此造成的损失,双方约定如下:
@@ -2002,7 +2003,7 @@
 
         <p>
             经检测不合格的,买受人有权解除合同。买受人解除合同的,应当书面通知出卖 人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付 贷款部分),并自买受人付款之日起,按照 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第七章 第十六条 (一) 利息"
                          value="#{contractContextMap.c_16_1.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。给买受人造成损失的,由出卖人支付 【<r:inplaceSelect inputWidth="130px" style="width: 130px"
                                                                                                                                               value="#{contractContextMap.c_16_20.stringValue}">
 
@@ -2034,7 +2035,7 @@
 
         <p>
             (2) 经过更换、修理,仍然严重影响正常使用的,买受人有权解除合同。买受人 解除合同的,应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15 日内退 还买受人已付全部房款(含已付贷款部分),并自买受人付款之日起,按照
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_16_4.numberValue}"/>%
+            <h:inputText label="第七章 第十六条 (二) (2) 利息" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_16_4.numberValue}"/>%
             (不低于中国人民银行公布的同期贷款基准利率)计算给付利息。给买受人造成损失 的,由出卖人承担相应赔偿责任。因此而发生的检测费用由出卖人承担。
             ￼￼
         </p>
@@ -2114,7 +2115,7 @@
 
         <p>
             ￼￼￼￼￼￼该商品房室内空气质量或建筑隔声情况经检测不符合标准,由出卖人负责整改, 整改后仍不符合标准的,买受人有权解除合同。买受人解除合同的,应当书面通知出 卖人。出卖人应当自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已 付贷款部分),并自买受人付款之日起,按照 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第七章 第十六条 (四) 利息"
                          value="#{contractContextMap.c_16_16.numberValue}"/>% (不低于中国人民银行公布的同 期贷款基准利率) 计算给付利息。给买受人造成损失的,由出卖人承担相应赔偿责 任。经检测不符合标准的,检测费用由出卖人承担,整改后再次检测发生的费用仍由 出卖人承担。因整改导致该商品房逾期交付的,出卖人应当承担逾期交付责任。
 
         </p>
@@ -2158,7 +2159,7 @@
         </p>
 
         <p>(三)在保修期内,买受人要求维修的书面通知送达出卖人
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第七章 第十七条 (三) 时限"
                          value="#{contractContextMap.c_17_2.numberValue}"/>日内,出卖人 既不履行保修义务也不提出书面异议的,买受人可以自行或委托他人进行维修,维修
             费用及维修期间造成的其他损失由出卖人承担。
         </p>
@@ -2195,7 +2196,7 @@
         </h2>
 
         <p>
-            (一)出卖人应当自本合同签订之日起【 <h:inputText styleClass="contract-input" style="width: 60px"
+            (一)出卖人应当自本合同签订之日起【 <h:inputText styleClass="contract-input" style="width: 60px" label="第七章 第十九条 (一) 时限"
                                             value="#{contractContextMap.c_19_1.numberValue}"/> 日内】(不超过30日)
             办理商品房预售合同登记备案手续,并将本合同登记备案情况告知买受人。
         </p>
@@ -2223,7 +2224,7 @@
 
         <p>
             (二)因出卖人的原因,买受人未能在该商品房交付之日起
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_20_1.numberValue}"/>日内取得该商
+            <h:inputText label="第七章 第二十条 (二) 时限" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_20_1.numberValue}"/>日内取得该商
             品房的房屋所有权证书的,双方同意按照下列第
             <r:inplaceSelect inputWidth="58px" style="width: 60px"
                              value="#{contractContextMap.c_20_2.stringValue}">
@@ -2236,9 +2237,9 @@
         <p>
             1. 买受人有权解除合同。买受人解除合同的,应当书面通知出卖人。出卖人应当 自解除合同通知送达之日起 15 日内退还买受人已付全部房款 (含已付贷款部分),并自
             买受人付款之日起,按照 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第七章 第二十条 (二) 1. 利息"
                          value="#{contractContextMap.c_20_3.numberValue}"/>% (不低于中国人民银行公布的同期贷款基准利率) 计算给付利息。买受人不解除合同的,自买受人应当完成房屋所有权登记的期限届满 之次日起至实际完成房屋所有权登记之日止,出卖人按日计算向买受人支付全部房价 款万分之 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_20_4.numberValue}"/>的违约金。
+            <h:inputText label="第七章 第二十条 (二) 1. 违约金" styleClass="contract-input" style="width: 60px" value="#{contractContextMap.c_20_4.numberValue}"/>的违约金。
 
         </p>
 
@@ -2293,7 +2294,7 @@
                 <li><a href="#">酬金制</a></li>
             </ui:decorate>
             】。 物 业
-            服务费为 ￼ <h:inputText styleClass="contract-input" style="width: 80px"
+            服务费为 ￼ <h:inputText styleClass="contract-input" style="width: 80px" label="第九章 第二十一条 (三) 服务费"
                                 value="#{contractContextMap.c_21_5.numberValue}"/>元/月·平方米 (建筑面积)。
         </div>
         <p>
@@ -2416,7 +2417,7 @@
                 <li><a href="#">邮寄挂号信</a></li>
             </ui:decorate> 】
             方式送达对方。任何一方变更通讯地址、联系电话的,应在变更之日起 ￼
-            <h:inputText styleClass="contract-input" style="width: 60px"
+            <h:inputText styleClass="contract-input" style="width: 60px" label="第十章 第二十五条 时限"
                          value="#{contractContextMap.c_25_2.numberValue}"/>日 内书面通知对方。变更的一方未履行通知义务导致送达不能的,应承担相应的法律责任。
         </div>
         <h2 id="chapter10-26">

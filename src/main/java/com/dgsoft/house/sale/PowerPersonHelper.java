@@ -1,24 +1,25 @@
 package com.dgsoft.house.sale;
 
+import cc.coopersoft.house.ProxyType;
+import cc.coopersoft.house.sale.data.PowerPerson;
+import cc.coopersoft.house.sale.data.PowerProxyPerson;
 import com.dgsoft.common.system.OwnerPersonHelper;
 import com.dgsoft.common.system.PersonHelper;
-import com.dgsoft.house.sale.model.BusinessPool;
-import com.dgsoft.house.sale.model.PowerProxyPerson;
 
 import java.math.BigDecimal;
 
 /**
  * Created by cooper on 9/29/16.
  */
-public class PowerPersonHelper extends OwnerPersonHelper<BusinessPool> {
+public class PowerPersonHelper extends OwnerPersonHelper<PowerPerson> {
 
     private PersonHelper<PowerProxyPerson> proxyPersonHelper = new PersonHelper<PowerProxyPerson>();
 
-    public PowerPersonHelper(BusinessPool entity, BigDecimal houseArea) {
+    public PowerPersonHelper(PowerPerson entity, BigDecimal houseArea) {
         super(entity, houseArea);
     }
 
-    public PowerProxyPerson.ProxyType getProxyType() {
+    public ProxyType getProxyType() {
         if (getPersonEntity().getPowerProxyPerson() == null){
             return null;
         }else{
@@ -27,14 +28,14 @@ public class PowerPersonHelper extends OwnerPersonHelper<BusinessPool> {
 
     }
 
-    public void setProxyType(PowerProxyPerson.ProxyType proxyType) {
+    public void setProxyType(ProxyType proxyType) {
         if (proxyType == null){
             getPersonEntity().setPowerProxyPerson(null);
             proxyPersonHelper.setPersonEntity(null);
         }else{
             if (getPersonEntity().getPowerProxyPerson() == null){
                 getPersonEntity().setPowerProxyPerson(new PowerProxyPerson(getPersonEntity()));
-                proxyPersonHelper.setPersonEntity(getPersonEntity().getPowerProxyPerson());
+                proxyPersonHelper.setPersonEntity( getPersonEntity().getPowerProxyPerson());
             }
             getPersonEntity().getPowerProxyPerson().setProxyType(proxyType);
         }

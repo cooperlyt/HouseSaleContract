@@ -1,7 +1,6 @@
 package com.dgsoft.house.sale.developer;
 
 import com.dgsoft.developersale.LogonInfo;
-import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 

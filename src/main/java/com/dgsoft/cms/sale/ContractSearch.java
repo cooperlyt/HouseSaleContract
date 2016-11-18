@@ -1,17 +1,14 @@
 package com.dgsoft.cms.sale;
 
+import cc.coopersoft.house.sale.data.HouseContract;
 import com.dgsoft.cms.sale.exceptions.OwnerServerException;
-import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

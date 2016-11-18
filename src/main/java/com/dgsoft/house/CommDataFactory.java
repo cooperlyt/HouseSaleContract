@@ -2,11 +2,11 @@ package com.dgsoft.house;
 
 import cc.coopersoft.comm.District;
 import cc.coopersoft.comm.exception.HttpApiServerException;
+import cc.coopersoft.house.ProxyType;
 import cc.coopersoft.house.sale.HouseSellService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.common.system.RunParam;
 import com.dgsoft.common.system.Sex;
-import com.dgsoft.house.sale.model.PowerProxyPerson;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
@@ -59,8 +59,8 @@ public class CommDataFactory {
     }
 
     @Factory(value = "proxyTypes", scope = ScopeType.APPLICATION)
-    public PowerProxyPerson.ProxyType[] getProxyTypes(){
-        return PowerProxyPerson.ProxyType.values();
+    public ProxyType[] getProxyTypes(){
+        return ProxyType.values();
     }
 
     @In

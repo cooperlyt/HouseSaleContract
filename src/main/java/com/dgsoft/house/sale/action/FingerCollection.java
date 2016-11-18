@@ -1,8 +1,7 @@
 package com.dgsoft.house.sale.action;
 
-import com.dgsoft.common.system.RunParam;
-import com.dgsoft.house.sale.model.BusinessPool;
-import com.dgsoft.house.sale.model.PowerProxyPerson;
+import cc.coopersoft.house.ProxyType;
+import cc.coopersoft.house.sale.data.PowerPerson;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -21,7 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dgsoft.house.sale.model.BusinessPool.LegalType.LEGAL_OWNER;
+import static com.dgsoft.common.system.OwnerPersonEntity.LegalType.LEGAL_OWNER;
+
 
 /**
  * Created by cooper on 06/10/2016.
@@ -41,20 +41,19 @@ public class FingerCollection {
     private List<PersonFinger> getPersonFingers() {
         if (personFingers == null){
             personFingers = new ArrayList<PersonFinger>();
-            for(BusinessPool person: houseContractHome.getInstance().getBusinessPoolList()){
-                boolean isSeller = BusinessPool.ContractPersonType.SELLER.equals(person.getContractPersonType());
+            for(PowerPerson person: houseContractHome.getInstance().getBusinessPoolList()){
+                boolean isSeller = PowerPerson.ContractPersonType.SELLER.equals(person.getContractPersonType());
                 personFingers.add(new PersonFinger(FingerPersonType.MASTER,
                         person.getPersonName(),
                         person.getCredentialsType().isCorp() ? null : person.getFingerprint(),isSeller));
                 if (person.getCredentialsType().isCorp() && LEGAL_OWNER.equals(person.getLegalType())){
                     personFingers.add(new PersonFinger(FingerPersonType.CORP_OWNER,
-                            person.getLegalPerson(),
-                            person.getFingerprint(),isSeller));
+                            person.getLegalPerson(),person.getFingerprint(),isSeller));
                 }
                 if (person.getPowerProxyPerson() != null){
                     personFingers.add(new PersonFinger(
-                            PowerProxyPerson.ProxyType.ENTRUSTED.equals(person.getPowerProxyPerson().getProxyType()) ? FingerPersonType.PROXY_PERSON : FingerPersonType.LEGAL_PROXY_PERSON,
-                            person.getPowerProxyPerson().getPersonName(),person.getPowerProxyPerson().getFingerprint(),isSeller));
+                            ProxyType.ENTRUSTED.equals(person.getPowerProxyPerson().getProxyType()) ? FingerPersonType.PROXY_PERSON : FingerPersonType.LEGAL_PROXY_PERSON,
+                            person.getPowerProxyPerson().getPersonName(),(person.getPowerProxyPerson()).getFingerprint(),isSeller));
                 }
             }
         }

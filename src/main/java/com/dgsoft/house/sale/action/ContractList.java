@@ -1,6 +1,6 @@
 package com.dgsoft.house.sale.action;
 
-import com.dgsoft.house.sale.model.HouseContract;
+import cc.coopersoft.house.sale.data.HouseContract;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.framework.EntityQuery;
 

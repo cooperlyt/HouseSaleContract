@@ -1,8 +1,8 @@
 package com.dgsoft.house.sale.action;
 
+import cc.coopersoft.house.sale.data.HouseContract;
 import com.dgsoft.common.utils.seam.MultiOperatorEntityQuery;
 import com.dgsoft.common.utils.seam.RestrictionGroup;
-import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.Name;

@@ -8,6 +8,25 @@
     <persistence-unit name="entityManagerFactory" transaction-type="JTA">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/HouseContract</jta-data-source>
+        <mapping-file>jpa/contractNumber.xml</mapping-file>
+
+        <mapping-file>jpa/newHouseContract.xml</mapping-file>
+        <mapping-file>jpa/oldHouseContract.xml</mapping-file>
+
+        <mapping-file>jpa/saleProxyPerson.xml</mapping-file>
+
+        <mapping-file>jpa/houseContractEntity.xml</mapping-file>
+        <mapping-file>jpa/powerProxyPerson.xml</mapping-file>
+        <mapping-file>jpa/powerPersonEntity.xml</mapping-file>
+
+
+        <class>com.dgsoft.house.sale.model.ContractTemplate</class>
+        <class>com.dgsoft.house.sale.model.ProjectNumber</class>
+        <class>com.dgsoft.house.sale.model.NumberRecord</class>
+        <class>com.dgsoft.house.sale.model.SystemParam</class>
+        <class>com.dgsoft.cms.model.Article</class>
+        <class>com.dgsoft.cms.model.ArticleCategory</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="com.dgsoft.common.persistence.Mysql5BitBooleanDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

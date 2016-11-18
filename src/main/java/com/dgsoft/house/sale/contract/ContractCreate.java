@@ -1,5 +1,8 @@
 package com.dgsoft.house.sale.contract;
 
+import cc.coopersoft.house.sale.data.ContractNumber;
+import cc.coopersoft.house.sale.data.HouseContract;
+import cc.coopersoft.house.sale.data.PowerPerson;
 import com.dgsoft.common.system.DictionaryService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
@@ -10,10 +13,7 @@ import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.common.system.RunParam;
 import com.dgsoft.house.sale.PowerPersonHelper;
 import com.dgsoft.house.sale.action.HouseContractHome;
-import com.dgsoft.house.sale.model.BusinessPool;
-import com.dgsoft.house.sale.model.ContractNumber;
 import com.dgsoft.house.sale.model.ContractTemplate;
-import com.dgsoft.house.sale.model.HouseContract;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.faces.FacesMessages;
@@ -118,7 +118,7 @@ public class ContractCreate {
             houseContractHome.setId(houseContractHome.getEntityManager()
                     .createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode and hc.type in (:types) and hc.groupId = :groupId and hc.status = :status", HouseContract.class)
                     .setParameter("houseCode",getHouse().getHouseCode()).setParameter("groupId",logonInfo.getGroupCode())
-                    .setParameter("status",HouseContract.ContractStatus.PREPARE)
+                    .setParameter("status", HouseContract.ContractStatus.PREPARE)
                     .setParameter("types", EnumSet.of(SaleType.MAP_SELL,SaleType.NOW_SELL)).getSingleResult().getId());
 
             return "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + houseContractHome.getInstance().getType().getCurrentPatch();
@@ -130,7 +130,7 @@ public class ContractCreate {
                 houseContractHome.setId(houseContractHome.getEntityManager()
                         .createQuery("select hc from HouseContract hc where hc.houseCode=:houseCode and hc.type in (:types) and hc.groupId = :groupId and hc.status in (:status)", HouseContract.class)
                         .setParameter("houseCode", getHouse().getHouseCode())
-                        .setParameter("status",EnumSet.of(HouseContract.ContractStatus.SUBMIT,HouseContract.ContractStatus.RECORD))
+                        .setParameter("status",EnumSet.of(HouseContract.ContractStatus.SUBMIT, HouseContract.ContractStatus.RECORD))
                         .setParameter("groupId",logonInfo.getGroupCode())
                         .setParameter("types", EnumSet.of(SaleType.MAP_SELL, SaleType.NOW_SELL)).getSingleResult().getId());
                 houseContractHome.remove();
@@ -251,7 +251,7 @@ public class ContractCreate {
         if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
             for(PowerPersonHelper bp: houseContractHome.getContractPoolOwners()){
                 if ((bp.getPersonEntity().getFingerprint() == null || "".equals(bp.getPersonEntity().getFingerprint().trim())) &&
-                        (bp.getPersonEntity().getPowerProxyPerson() == null || (bp.getPersonEntity().getPowerProxyPerson().getFingerprint() == null || "".equals(bp.getPersonEntity().getPowerProxyPerson().getFingerprint().trim())))){
+                        (bp.getPersonEntity().getPowerProxyPerson() == null || ((bp.getPersonEntity().getPowerProxyPerson()).getFingerprint() == null || "".equals((bp.getPersonEntity().getPowerProxyPerson()).getFingerprint().trim())))){
                     facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",bp.getPersonName());
                     return null;
                 }
@@ -333,7 +333,7 @@ public class ContractCreate {
 
 
         List<ContractContextMap> poolOwners = new ArrayList<ContractContextMap>();
-        for(BusinessPool poolOwner: houseContractHome.getInstance().getBusinessPoolList()){
+        for(PowerPerson poolOwner: houseContractHome.getInstance().getBusinessPoolList()){
             ContractContextMap poolInfoMap = new ContractContextMap();
             poolInfoMap.put("owner", new ContractContextMap.ContarctContextItem(poolOwner.getPersonName()));
 
@@ -392,8 +392,8 @@ public class ContractCreate {
                 poolInfoMap.put("ownerproxyaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getAddress()));
                 poolInfoMap.put("ownerproxypost", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPostCode()));
                 poolInfoMap.put("ownerproxytel", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPhone()));
-                if (poolOwner.getPowerProxyPerson().getPaperCopyInfo() != null && !"".equals(poolOwner.getPowerProxyPerson().getPaperCopyInfo()));
-                    poolInfoMap.put("ownerproxypaperinfo",new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPaperCopyInfo()));
+                if ((poolOwner.getPowerProxyPerson()).getPaperCopyInfo() != null && !"".equals((poolOwner.getPowerProxyPerson()).getPaperCopyInfo()));
+                    poolInfoMap.put("ownerproxypaperinfo",new ContractContextMap.ContarctContextItem((poolOwner.getPowerProxyPerson()).getPaperCopyInfo()));
             }
 
 
@@ -458,7 +458,7 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_geluo",new ContractContextMap.ContarctContextItem(getHouse().getLoftArea()));
 
                 //pay Type
-        switch (houseContractHome.getInstance().getNewHouseContract().getSalePayType()){
+        switch (houseContractHome.getInstance().getSalePayType()){
 
             case ALL_PAY:
                 houseContractHome.getContractContextMap().put("c_7_4", new ContractContextMap.ContarctContextItem("1"));
@@ -530,7 +530,7 @@ public class ContractCreate {
 
 
     public String removeContract(){
-        for(ContractNumber contractNumber: houseContractHome.getInstance().getContractNumbers()){
+        for(ContractNumber contractNumber : houseContractHome.getInstance().getContractNumbers()){
             if (contractNumber.getContractNumber().equals(removeContractNumber)){
                 houseContractHome.getInstance().getContractNumbers().remove(contractNumber);
                 return houseContractHome.update();

@@ -3,7 +3,7 @@ package com.dgsoft.faces.validator;
 /**
  * Created by cooper on 10/1/16.
  */
-import com.dgsoft.common.tools.IdCardUtils;
+import cc.coopersoft.comm.tools.IdCardUtils;
 import org.jboss.seam.faces.FacesMessages;
 
 import javax.faces.application.FacesMessage;

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: local.house:houseInterface:2.0.23Bate">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/local/house/houseInterface/2.0.23Bate/houseInterface-2.0.23Bate.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/local/house/houseInterface/2.0.23Bate/houseInterface-2.0.23Bate-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/local/house/houseInterface/2.0.23Bate/houseInterface-2.0.23Bate-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

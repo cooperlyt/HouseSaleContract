@@ -88,21 +88,23 @@ public class PersonCardCopyGen {
             return getBirthDay().get(Calendar.DAY_OF_MONTH);
         }
 
-        public Date getValidBeginDate(){
+        public String getValidBeginDateStr(){
             SimpleDateFormat sdf  =   new SimpleDateFormat( "yyyy-MM-dd" );
             try {
-                return sdf.parse(getValidDateBegin());
+                SimpleDateFormat out  =   new SimpleDateFormat( "yyyy.MM.dd" );
+                return out.format(sdf.parse(getValidDateBegin()));
             } catch (ParseException e) {
                 throw new IllegalArgumentException("getValidBeginDate not format date:" + getDateOfBirth());
             }
         }
 
-        public Date getValidEndDate(){
+        public String getValidEndDateStr(){
             SimpleDateFormat sdf  =   new SimpleDateFormat( "yyyy-MM-dd" );
             try {
-                return sdf.parse(getValidDateEnd());
+                SimpleDateFormat out  =   new SimpleDateFormat( "yyyy.MM.dd" );
+                return out.format(sdf.parse(getValidDateEnd()));
             } catch (ParseException e) {
-                throw new IllegalArgumentException("getValidEndDate not format date:" + getDateOfBirth());
+                return "长期";
             }
         }
 
@@ -281,9 +283,7 @@ public class PersonCardCopyGen {
             g.drawString(person.getOrg(), X_OFFSET + 136 ,Y_OFFSET + 153);
 
 
-            SimpleDateFormat sdf  =   new SimpleDateFormat( "yyyy.MM.dd" );
-
-            String validDateString = sdf.format(person.getValidBeginDate()) + "-" + sdf.format(person.getValidEndDate());
+            String validDateString = person.getValidBeginDateStr() + "-" +  person.getValidEndDateStr();
             g.drawString(validDateString, X_OFFSET + 136 ,Y_OFFSET + 180);
 
             //输出

@@ -36,7 +36,7 @@ public class IdCardNumberValidator implements javax.faces.validator.Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value != null){
-            if (!IdCardUtils.validateCard(value.toString())){
+            if (!IdCPersonCardCopyGenardUtils.validateCard(value.toString())){
 
                 throw new ValidatorException(FacesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR, MATCH_CARD_NUMBER_EXCEPTION_MESSAGE_ID, resolveLabel(context,component)));
 

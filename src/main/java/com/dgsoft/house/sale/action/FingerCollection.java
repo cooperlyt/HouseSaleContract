@@ -2,6 +2,7 @@ package com.dgsoft.house.sale.action;
 
 import cc.coopersoft.house.ProxyType;
 import cc.coopersoft.house.sale.data.PowerPerson;
+import cc.coopersoft.house.sale.data.PowerProxyPerson;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -53,7 +54,7 @@ public class FingerCollection {
                 if (person.getPowerProxyPerson() != null){
                     personFingers.add(new PersonFinger(
                             ProxyType.ENTRUSTED.equals(person.getPowerProxyPerson().getProxyType()) ? FingerPersonType.PROXY_PERSON : FingerPersonType.LEGAL_PROXY_PERSON,
-                            person.getPowerProxyPerson().getPersonName(),(person.getPowerProxyPerson()).getFingerprint(),isSeller));
+                            person.getPowerProxyPerson().getPersonName(),((PowerProxyPerson)person.getPowerProxyPerson()).getFingerprint(),isSeller));
                 }
             }
         }

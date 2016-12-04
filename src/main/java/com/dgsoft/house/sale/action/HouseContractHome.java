@@ -6,13 +6,11 @@ import cc.coopersoft.house.sale.data.*;
 import com.dgsoft.common.system.PersonHelper;
 import com.dgsoft.common.system.RunParam;
 import com.dgsoft.developersale.DeveloperLogonInfo;
-import com.dgsoft.developersale.DeveloperSaleService;
 import com.dgsoft.developersale.LogonInfo;
 import com.dgsoft.house.OwnerShareCalcType;
 import com.dgsoft.house.PoolType;
-import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
+import com.dgsoft.house.sale.ContractPowerPersonHelper;
 import com.dgsoft.house.sale.NumberPool;
-import com.dgsoft.house.sale.PowerPersonHelper;
 import com.dgsoft.house.sale.contract.ContractContextMap;
 import com.dgsoft.house.sale.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,7 +44,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
     @In
     private FacesMessages facesMessages;
 
-    private List<PowerPersonHelper> housePoolList;
+    private List<ContractPowerPersonHelper> housePoolList;
 
     private ContractContextMap contractContextMap;
 
@@ -133,14 +131,14 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         proxyPersonHelper = new PersonHelper<SaleProxyPerson>(getInstance().getSaleProxyPerson());
         contractContextMap = null;
 
-        housePoolList = new ArrayList<PowerPersonHelper>(getInstance().getPowerPersons().size());
+        housePoolList = new ArrayList<ContractPowerPersonHelper>(getInstance().getPowerPersons().size());
         for (PowerPerson pool : getInstance().getBusinessPoolList()) {
-            housePoolList.add(new PowerPersonHelper( pool, getInstance().getHouseArea()));
+            housePoolList.add(new ContractPowerPersonHelper( pool, getInstance().getHouseArea()));
         }
 
     }
 
-    public List<PowerPersonHelper> getContractPoolOwners() {
+    public List<ContractPowerPersonHelper> getContractPoolOwners() {
         if (housePoolList == null) {
             getInstance();
         }
@@ -257,7 +255,7 @@ public class HouseContractHome extends EntityHome<HouseContract> {
                 getInstance().getPowerPersons().remove(getContractPoolOwners().remove(0).getPersonEntity());
             } else {
                 PowerPerson pool = new PowerPerson(UUID.randomUUID().toString().replace("-",""), getInstance(), PowerPerson.ContractPersonType.BUYER, getContractPoolOwners().size() + 1);
-                getContractPoolOwners().add(new PowerPersonHelper(pool, getInstance().getHouseArea()));
+                getContractPoolOwners().add(new ContractPowerPersonHelper(pool, getInstance().getHouseArea()));
                 getInstance().getPowerPersons().add(pool);
             }
         }

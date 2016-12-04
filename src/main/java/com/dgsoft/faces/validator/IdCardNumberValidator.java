@@ -3,13 +3,14 @@ package com.dgsoft.faces.validator;
 /**
  * Created by cooper on 10/1/16.
  */
-import cc.coopersoft.comm.tools.IdCardUtils;
 import org.jboss.seam.faces.FacesMessages;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+
+import static cc.coopersoft.comm.tools.IdCardUtils.validateCard;
 
 /**
  * Created by cooper on 10/1/16.
@@ -36,7 +37,7 @@ public class IdCardNumberValidator implements javax.faces.validator.Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value != null){
-            if (!IdCPersonCardCopyGenardUtils.validateCard(value.toString())){
+            if (!validateCard(value.toString())){
 
                 throw new ValidatorException(FacesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR, MATCH_CARD_NUMBER_EXCEPTION_MESSAGE_ID, resolveLabel(context,component)));
 

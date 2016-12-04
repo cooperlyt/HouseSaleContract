@@ -3,15 +3,16 @@ package com.dgsoft.house.sale.contract;
 import cc.coopersoft.house.sale.data.ContractNumber;
 import cc.coopersoft.house.sale.data.HouseContract;
 import cc.coopersoft.house.sale.data.PowerPerson;
+import cc.coopersoft.house.sale.data.PowerProxyPerson;
 import com.dgsoft.common.system.DictionaryService;
 import com.dgsoft.common.system.PersonEntity;
 import com.dgsoft.developersale.*;
 import com.dgsoft.house.OwnerShareCalcType;
 import com.dgsoft.house.PledgeInfo;
 import com.dgsoft.house.SaleType;
+import com.dgsoft.house.sale.ContractPowerPersonHelper;
 import com.dgsoft.house.sale.DeveloperSaleServiceImpl;
 import com.dgsoft.common.system.RunParam;
-import com.dgsoft.house.sale.PowerPersonHelper;
 import com.dgsoft.house.sale.action.HouseContractHome;
 import com.dgsoft.house.sale.model.ContractTemplate;
 import org.jboss.seam.ScopeType;
@@ -249,9 +250,9 @@ public class ContractCreate {
     public String fillContractContext(){
 
         if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
-            for(PowerPersonHelper bp: houseContractHome.getContractPoolOwners()){
+            for(ContractPowerPersonHelper bp: houseContractHome.getContractPoolOwners()){
                 if ((bp.getPersonEntity().getFingerprint() == null || "".equals(bp.getPersonEntity().getFingerprint().trim())) &&
-                        (bp.getPersonEntity().getPowerProxyPerson() == null || ((bp.getPersonEntity().getPowerProxyPerson()).getFingerprint() == null || "".equals((bp.getPersonEntity().getPowerProxyPerson()).getFingerprint().trim())))){
+                        (bp.getPersonEntity().getPowerProxyPerson() == null || (bp.getProxyPerson().getFingerprint() == null || "".equals(bp.getProxyPerson().getFingerprint().trim())))){
                     facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",bp.getPersonName());
                     return null;
                 }
@@ -384,16 +385,18 @@ public class ContractCreate {
                     poolInfoMap.put("ownerproxycitytype", new ContractContextMap.ContarctContextItem(messages.get("ContractOwner_rootAddress")));
                 }
 
-                poolInfoMap.put("ownerproxyrootaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getRootAddress()));
+                PowerProxyPerson proxyPerson = (PowerProxyPerson)poolOwner.getPowerProxyPerson();
+
+                poolInfoMap.put("ownerproxyrootaddress", new ContractContextMap.ContarctContextItem(proxyPerson.getRootAddress()));
                 poolInfoMap.put("ownerproxycertype", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getCredentialsType().name())));
                 poolInfoMap.put("ownerproxycernumber", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getCredentialsNumber()));
-                poolInfoMap.put("ownerproxybirthday", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getBirthday()));
-                poolInfoMap.put("ownerproxysex", new ContractContextMap.ContarctContextItem(messages.get(poolOwner.getPowerProxyPerson().getSex().name())));
-                poolInfoMap.put("ownerproxyaddress", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getAddress()));
-                poolInfoMap.put("ownerproxypost", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPostCode()));
-                poolInfoMap.put("ownerproxytel", new ContractContextMap.ContarctContextItem(poolOwner.getPowerProxyPerson().getPhone()));
-                if ((poolOwner.getPowerProxyPerson()).getPaperCopyInfo() != null && !"".equals((poolOwner.getPowerProxyPerson()).getPaperCopyInfo()));
-                    poolInfoMap.put("ownerproxypaperinfo",new ContractContextMap.ContarctContextItem((poolOwner.getPowerProxyPerson()).getPaperCopyInfo()));
+                poolInfoMap.put("ownerproxybirthday", new ContractContextMap.ContarctContextItem(proxyPerson.getBirthday()));
+                poolInfoMap.put("ownerproxysex", new ContractContextMap.ContarctContextItem(messages.get(proxyPerson.getSex().name())));
+                poolInfoMap.put("ownerproxyaddress", new ContractContextMap.ContarctContextItem(proxyPerson.getAddress()));
+                poolInfoMap.put("ownerproxypost", new ContractContextMap.ContarctContextItem(proxyPerson.getPostCode()));
+                poolInfoMap.put("ownerproxytel", new ContractContextMap.ContarctContextItem(proxyPerson.getPhone()));
+                if (proxyPerson.getPaperCopyInfo() != null && !"".equals(proxyPerson.getPaperCopyInfo()));
+                    poolInfoMap.put("ownerproxypaperinfo",new ContractContextMap.ContarctContextItem(proxyPerson.getPaperCopyInfo()));
             }
 
 

@@ -22,6 +22,8 @@ import java.util.Map;
 @Startup
 public class RunParam {
 
+    @In(create = true)
+    private Map<String,String> messages;
 
     @In(create = true)
     private EntityManager entityManager;
@@ -68,6 +70,17 @@ public class RunParam {
         return Integer.parseInt(result);
     }
 
+    public String getEnumLabel(Enum value){
+        if (value == null){
+            return "";
+        }
+        String result = messages.get(value.getClass().getName() + "." + value.name());
+        if (result == null){
+            return value.getClass().getName() + "." + value.name();
+        }else{
+            return result;
+        }
+    }
 
     public static RunParam instance()
     {

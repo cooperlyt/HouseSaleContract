@@ -3,6 +3,7 @@ package com.dgsoft.house.sale.action;
 import cc.coopersoft.house.ProxyType;
 import cc.coopersoft.house.sale.data.PowerPerson;
 import cc.coopersoft.house.sale.data.PowerProxyPerson;
+import com.dgsoft.common.system.PersonEntity;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dgsoft.common.system.OwnerPersonEntity.LegalType.LEGAL_OWNER;
+import static com.dgsoft.common.system.PowerPersonEntity.LegalType.LEGAL_OWNER;
 
 
 /**
@@ -30,6 +31,19 @@ import static com.dgsoft.common.system.OwnerPersonEntity.LegalType.LEGAL_OWNER;
 @Name("fingerCollection")
 @Scope(ScopeType.SESSION)
 public class FingerCollection {
+
+    private String contractNumber;
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        if (this.contractNumber == null || !this.contractNumber.equals(contractNumber)){
+            clear();
+        }
+        this.contractNumber = contractNumber;
+    }
 
     @In
     private FacesMessages facesMessages;
@@ -44,31 +58,23 @@ public class FingerCollection {
             personFingers = new ArrayList<PersonFinger>();
             for(PowerPerson person: houseContractHome.getInstance().getBusinessPoolList()){
                 boolean isSeller = PowerPerson.ContractPersonType.SELLER.equals(person.getContractPersonType());
-                personFingers.add(new PersonFinger(FingerPersonType.MASTER,
-                        person.getPersonName(),
-                        person.getCredentialsType().isCorp() ? null : person.getFingerprint(),isSeller));
-                if (person.getCredentialsType().isCorp() && LEGAL_OWNER.equals(person.getLegalType())){
-                    personFingers.add(new PersonFinger(FingerPersonType.CORP_OWNER,
-                            person.getLegalPerson(),person.getFingerprint(),isSeller));
-                }
-                if (person.getPowerProxyPerson() != null){
+
+                if(person.getPowerProxyPerson() != null){
                     personFingers.add(new PersonFinger(
                             ProxyType.ENTRUSTED.equals(person.getPowerProxyPerson().getProxyType()) ? FingerPersonType.PROXY_PERSON : FingerPersonType.LEGAL_PROXY_PERSON,
-                            person.getPowerProxyPerson().getPersonName(),((PowerProxyPerson)person.getPowerProxyPerson()).getFingerprint(),isSeller));
+                            person.getPowerProxyPerson(),isSeller));
+                }else if (!person.getCredentialsType().isCorp()){
+                    personFingers.add(new PersonFinger(FingerPersonType.MASTER,
+                            person,isSeller));
                 }
+                //公司 没有代理人不验证指纹
             }
         }
         return personFingers;
     }
 
     public List<PersonFinger> getNeedFingerImgPersons(){
-        List<PersonFinger> result = new ArrayList<PersonFinger>();
-        for(PersonFinger pf: getPersonFingers()){
-            if (pf.getFingerCode() != null && !"".equals(pf.getFingerCode().trim())){
-                result.add(pf);
-            }
-        }
-        return result;
+        return getPersonFingers();
     }
 
     private List<PersonFinger> getPersonFingerByType(FingerPersonType type){
@@ -97,16 +103,23 @@ public class FingerCollection {
         return getPersonFingerByType(FingerPersonType.LEGAL_PROXY_PERSON);
     }
 
+    public boolean isFingerComplete(){
+        for (PersonFinger personFinger: getNeedFingerImgPersons()){
+            if (personFinger.getFingerImageCode() == null || personFinger.getFingerImageCode().trim().equals("")){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public String validAndPrintContract(){
 
-        for (PersonFinger personFinger: getNeedFingerImgPersons()){
-            if (personFinger.getFingerImageCode() == null || personFinger.getFingerImageCode().trim().equals("")){
-                facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",personFinger.getName());
-                return null;
-            }
+        if (isFingerComplete()){
+            return houseContractHome.printSingleContract();
+        }else{
+            facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput");
+            return null;
         }
-        return houseContractHome.printSingleContract();
     }
 
     public void clear(){
@@ -121,16 +134,14 @@ public class FingerCollection {
     public class PersonFinger{
 
         private FingerPersonType type;
-        private String name;
-        private String fingerCode;
+        private PersonEntity person;
+
         private String fingerImageCode;
         private boolean seller;
 
-        public PersonFinger(FingerPersonType type,
-                            String name, String fingerCode, boolean seller) {
+        public PersonFinger(FingerPersonType type, PersonEntity person, boolean seller) {
             this.type = type;
-            this.name = name;
-            this.fingerCode = fingerCode;
+            this.person = person;
             this.seller = seller;
         }
 
@@ -139,12 +150,10 @@ public class FingerCollection {
         }
 
         public String getName() {
-            return name;
+            return person.getPersonName();
         }
 
-        public String getFingerCode() {
-            return fingerCode;
-        }
+        public String getFingerCode(){ return PersonEntity.CredentialsType.MASTER_ID.equals(person.getCredentialsType()) ? person.getCredentialsNumber() : person.getCredentialsType().name() + "-" + person.getCredentialsNumber();}
 
         public String getFingerImageCode() {
             return fingerImageCode;

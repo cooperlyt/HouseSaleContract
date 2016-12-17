@@ -83,9 +83,6 @@
                 <enumerated>STRING</enumerated>
             </basic>
 
-            <basic name="fingerprint" fetch="LAZY">
-                <column name="FINGERPRINT" length="1024"/>
-            </basic>
 
             <basic name="paperCopyInfo" fetch="LAZY">
                 <column name="PAPER_COPY_INFO" length="1024"/>

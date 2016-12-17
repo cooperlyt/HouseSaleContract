@@ -1,0 +1,55 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/layout/template-form.xhtml">
+
+    <ui:define name="bodyheader">
+        <ui:include src="frame/brand.xhtml"/>
+    </ui:define>
+
+    <div class="setup-header">
+        <h1>合同草签</h1>
+
+        <!-- Show steps if user is creating an organiation -->
+        <ol class="steps">
+            <li class="complete">
+                <div class="octicon octicon-check" />
+                <strong class="step">交易信息</strong>
+                交易基本信息
+            </li>
+            <li class="complete">
+
+                <div class="octicon octicon-check" />
+                <strong class="step">买受人</strong>
+                买受人信息
+            </li>
+
+                <li class="current">
+
+                    <div class="octicon octicon-file-zip" />
+                    <strong class="step">指纹采集</strong>
+                    采集买受人指纹
+                </li>
+
+
+            <li>
+                <div class="octicon octicon-list-unordered" />
+                <strong class="step">合同建立</strong>
+                建立草签合同
+            </li>
+        </ol>
+
+    </div>
+
+
+
+</ui:composition>
+

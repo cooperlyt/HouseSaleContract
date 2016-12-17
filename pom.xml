@@ -269,7 +269,7 @@
         <dependency>
             <groupId>local.house</groupId>
             <artifactId>houseInterface</artifactId>
-            <version>2.0.29Bate</version>
+            <version>2.0.31Bate</version>
         </dependency>
 
         <dependency>

@@ -22,18 +22,28 @@
         <ol class="steps">
             <li class="complete">
                 <div class="octicon octicon-check" />
-                <strong class="step">1:基本信息</strong>
-                基本信息
+                <strong class="step">交易信息</strong>
+                交易基本信息
             </li>
             <li class="current">
 
                 <div class="octicon octicon-person" />
-                <strong class="step">2:买受人</strong>
+                <strong class="step">买受人</strong>
                 买受人信息
             </li>
+
+            <c:if test="#{runParam.getParamValue('USE_FINGERPRINT') eq 'VALID'}">
+            <li>
+
+                <div class="octicon octicon-file-zip" />
+                <strong class="step">指纹采集</strong>
+                采集买受人指纹
+            </li>
+            </c:if>
+
             <li>
                 <div class="octicon octicon-list-unordered" />
-                <strong class="step">3:合同建立</strong>
+                <strong class="step">合同建立</strong>
                 建立草签合同
             </li>
         </ol>
@@ -195,7 +205,7 @@
 
         <hr/>
 
-        <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.fillContractContext}"/>
+        <h:commandButton styleClass="btn btn-success" value="建立合同" action="#{contractCreate.contractOwnerComplete}"/>
     </h:form>
 
 

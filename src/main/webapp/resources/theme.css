@@ -1440,7 +1440,7 @@ label {
     letter-spacing: -1px
 }
 
-.setup-header h1 .octicon {
+.setup-header h1 .octicon ,.setup-header h1 .glyphicon {
     color: #bbb
 }
 
@@ -1486,11 +1486,11 @@ label {
     background-color: #fff
 }
 
-.steps li.current .octicon {
+.steps li.current .octicon , .steps li.current .glyphicon{
     color: #4078c0
 }
 
-.steps li .octicon {
+.steps li .octicon , .steps li .glyphicon{
     float: left;
     margin-right: 15px;
     margin-bottom: 5px;
@@ -1509,6 +1509,6 @@ label {
     color: #767676
 }
 
-.steps .complete .octicon {
+.steps .complete .octicon , .steps .complete .glyphicon{
     color: #6cc644
 }

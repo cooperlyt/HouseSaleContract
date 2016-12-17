@@ -249,16 +249,7 @@ public class ContractCreate {
     @Transactional
     public String fillContractContext(){
 
-        if (RunParam.instance().getBooleanParamValue("USE_FINGERPRINT")) {
-            for(ContractPowerPersonHelper bp: houseContractHome.getContractPoolOwners()){
-                if ((bp.getPersonEntity().getFingerprint() == null || "".equals(bp.getPersonEntity().getFingerprint().trim())) &&
-                        (bp.getPersonEntity().getPowerProxyPerson() == null || (bp.getProxyPerson().getFingerprint() == null || "".equals(bp.getProxyPerson().getFingerprint().trim())))){
-                    facesMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,"fingerNotInput",bp.getPersonName());
-                    return null;
-                }
-            }
 
-        }
         if (contractTemplate != null){
             try {
                 houseContractHome.setContext(contractTemplate.getContext());
@@ -276,6 +267,15 @@ public class ContractCreate {
         }
 
         return null;
+    }
+
+    public String contractOwnerComplete(){
+        if ("VALID".equals(RunParam.instance().getParamValue("USE_FINGERPRINT"))) {
+            return "collect-finger";
+
+        }else{
+            return fillContractContext();
+        }
     }
 
     private void genContractContext() {

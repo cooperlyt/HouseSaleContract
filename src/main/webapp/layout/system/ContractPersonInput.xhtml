@@ -25,20 +25,6 @@
             <ui:param name="_person" value="#{_person}"/>
             <ui:param name="status" value="#{_person.uuid}_personCredentiaslNumberStatus"/>
             <ui:param name="render" value="attFields singPersonCardInput"/>
-
-                      <ui:define name="after">
-                                <a:outputPanel rendered="#{runParam.getBooleanParamValue('USE_FINGERPRINT')}" styleClass="input-group-btn">
-
-
-                                <a data-uuid="#{_person.uuid}" class="btn btn-default finger-read-btn">
-                                    <span class="btn-icon glyphicon glyphicon-hand-up"></span>
-                                </a>
-
-
-
-                                </a:outputPanel>
-                      </ui:define>
-
         </ui:decorate>
 
 

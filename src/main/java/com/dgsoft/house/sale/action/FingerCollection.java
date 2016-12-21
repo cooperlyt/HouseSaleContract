@@ -153,7 +153,7 @@ public class FingerCollection {
             return person.getPersonName();
         }
 
-        public String getFingerCode(){ return PersonEntity.CredentialsType.MASTER_ID.equals(person.getCredentialsType()) ? person.getCredentialsNumber() : person.getCredentialsType().name() + "-" + person.getCredentialsNumber();}
+        public String getFingerCode(){ return PersonEntity.CredentialsType.MASTER_ID.equals(person.getCredentialsType()) ? person.getCredentialsNumber() : person.getCredentialsType().name().replace("_","").substring(0,3) + person.getCredentialsNumber();}
 
         public String getFingerImageCode() {
             return fingerImageCode;

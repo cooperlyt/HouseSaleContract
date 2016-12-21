@@ -95,8 +95,9 @@
             </many-to-one>
 
 
-            <one-to-one name="powerProxyPerson" target-entity="cc.coopersoft.house.sale.data.PowerProxyPerson" fetch="LAZY">
+            <one-to-one name="proxyPerson" target-entity="cc.coopersoft.house.sale.data.PowerProxyPerson" fetch="LAZY">
                 <primary-key-join-column/>
+                <cascade><cascade-all/></cascade>
             </one-to-one>
         </attributes>
     </entity>

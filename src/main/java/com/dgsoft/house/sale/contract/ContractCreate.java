@@ -434,6 +434,9 @@ public class ContractCreate {
             houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(sellCard.getCardNumber()));
         }else if (getHouse().getOwnerCardNumber() != null){
             houseContractHome.getContractContextMap().put("c_2_2", new ContractContextMap.ContarctContextItem(getHouse().getOwnerCardNumber()));
+            houseContractHome.getContractContextMap().put("old_owner_card", new ContractContextMap.ContarctContextItem(getHouse().isOldCard() ? "true" : "false") );
+        }else{
+            houseContractHome.getContractContextMap().put("old_owner_card", new ContractContextMap.ContarctContextItem("true"));
         }
 
         //house

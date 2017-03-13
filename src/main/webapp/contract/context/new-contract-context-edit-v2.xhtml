@@ -498,7 +498,7 @@
         </h2>
 
         <p>
-            该商品房已取得【《房屋所有权证》】,【《房屋所有权证》 证号】为
+            该商品房已取得【#{(houseContractHome.contractContextMap.old_owner_card.stringValue eq 'false') ? '项目备案证明文件' : '《房屋所有权证》' }】,【#{(houseContractHome.contractContextMap.old_owner_card.stringValue eq 'false') ? '备案号' : '《房屋所有权证》 证号' }】为
              <span class="lineValue" style="min-width: 300px"><h:outputText rendered="#{not templateModel}"
                                                                             value="#{contractContextMap.c_2_2.stringValue}"/></span>
             ,【房屋登记机构】为

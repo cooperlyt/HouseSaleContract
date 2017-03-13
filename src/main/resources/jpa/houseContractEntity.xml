@@ -101,7 +101,6 @@
             <one-to-one fetch="LAZY" orphan-removal="true" name="saleProxyPerson">
                 <primary-key-join-column/>
                 <cascade> <cascade-all/></cascade>
-
             </one-to-one>
 
             <one-to-one name="oldHouseContract" fetch="LAZY" orphan-removal="true">

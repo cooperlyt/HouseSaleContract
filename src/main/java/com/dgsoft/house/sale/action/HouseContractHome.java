@@ -102,6 +102,8 @@ public class HouseContractHome extends EntityHome<HouseContract> {
         SaleProxyPerson saleProxyPerson = new SaleProxyPerson(houseContractEntity);
         houseContractEntity.setSaleProxyPerson(saleProxyPerson);
 
+        contractTemplateList = null;
+
         return houseContractEntity;
     }
 

@@ -44,6 +44,6 @@ public class ImageHelper {
     }
 
     public ByteArrayInputStream getImage(String fid){
-        return getImageFromServer(RunParam.instance().getParamValue("IMG_SERVER_ADDRESS") + "/img/orig/" + fid);
+        return getImageFromServer(RunParam.instance().getParamValue("nginx_address") + "/img/orig/" + fid);
     }
 }

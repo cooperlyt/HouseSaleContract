@@ -296,7 +296,9 @@ public class HouseContractHome extends EntityHome<HouseContract> {
     }
 
     public String editContract() {
-        return "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
+        String result = "edit-contract-" + RunParam.instance().getParamValue("CONTRACT_LOCATION") + getInstance().getType().getPatchByVersion(getInstance().getContractVersion());
+        Logging.getLog(this.getClass()).info("edit contract:" + result);
+        return result;
     }
 
     private String searchPassword;

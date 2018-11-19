@@ -17,7 +17,7 @@ public class ContractSearchList extends MultiOperatorEntityQuery<HouseContract> 
 
     private static final String EJBQL = "select c from HouseContract c " +
             "left join fetch c.newHouseContract nc " +
-            "left join fetch c.oldHouseContract " +
+
             "left join fetch c.saleProxyPerson " +
             "where c.groupId = #{logonInfo.groupCode}";
 

@@ -11,7 +11,7 @@
         <mapping-file>jpa/contractNumber.xml</mapping-file>
 
         <mapping-file>jpa/newHouseContract.xml</mapping-file>
-        <mapping-file>jpa/oldHouseContract.xml</mapping-file>
+
 
         <mapping-file>jpa/saleProxyPerson.xml</mapping-file>
 

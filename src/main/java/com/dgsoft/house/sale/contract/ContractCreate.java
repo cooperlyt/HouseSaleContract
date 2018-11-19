@@ -427,7 +427,7 @@ public class ContractCreate {
         houseContractHome.getContractContextMap().put("c_1_9", new ContractContextMap.ContarctContextItem(sellCard.getCreatePrepareCardNumber()));
         houseContractHome.getContractContextMap().put("c_1_10", new ContractContextMap.ContarctContextItem(sellCard.getCreateCardNumber()));
 
-        houseContractHome.getContractContextMap().put("c_2_1", new ContractContextMap.ContarctContextItem(dLogonInfo.getOrgName()));
+        houseContractHome.getContractContextMap().put("c_2_1", new ContractContextMap.ContarctContextItem(sellCard.getGovName()));
 
 
         if (getHouse().getSaleType().equals(SaleType.MAP_SELL)) {

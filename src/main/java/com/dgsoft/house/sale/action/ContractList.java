@@ -16,7 +16,7 @@ public class ContractList extends EntityQuery<HouseContract> {
 
     private static final String EJBQL = "select c from HouseContract c " +
             "left join fetch c.newHouseContract nc " +
-            "left join fetch c.oldHouseContract " +
+
             "left join fetch c.saleProxyPerson " ;
 
     private static final String[] RESTRICTIONS = {

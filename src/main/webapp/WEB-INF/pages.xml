@@ -95,6 +95,11 @@
                 <redirect view-id="/contract/context/new-sale-v2.xhtml"/>
             </rule>
 
+            <rule if-outcome="edit-contract-NOW_SELL-v3">
+                <end-conversation/>
+                <redirect view-id="/contract/context/new-sale-v3.xhtml"/>
+            </rule>
+
             <rule if-outcome="view-contract-MAP_SELL-v2">
                 <redirect view-id="/contract/pre-sale-view-v2.xhtml"/>
             </rule>
@@ -104,12 +109,21 @@
                 <redirect view-id="/contract/new-sale-view-v2.xhtml"/>
             </rule>
 
+            <rule if-outcome="view-contract-NOW_SELL-v3">
+                <redirect view-id="/contract/new-sale-view-v3.xhtml"/>
+            </rule>
+
+
             <rule if-outcome="template-contract-MAP_SELL-v2">
                 <redirect view-id="/contract/template/pre-sale-template-v2.xhtml"/>
             </rule>
 
             <rule if-outcome="template-contract-NOW_SELL-v2">
                 <redirect view-id="/contract/template/new-sale-template-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="template-contract-NOW_SELL-v3">
+                <redirect view-id="/contract/template/new-sale-template-v3.xhtml"/>
             </rule>
 
 
@@ -125,12 +139,21 @@
                 <redirect view-id="/contract/context/donggang/new-sale-v2.xhtml"/>
             </rule>
 
+            <rule if-outcome="edit-contract-donggangNOW_SELL-v3">
+                <end-conversation/>
+                <redirect view-id="/contract/context/donggang/new-sale-v2.xhtml"/>
+            </rule>
+
             <rule if-outcome="view-contract-donggangMAP_SELL-v2">
                 <redirect view-id="/contract/donggang/pre-sale-view-v2.xhtml"/>
             </rule>
 
 
             <rule if-outcome="view-contract-donggangNOW_SELL-v2">
+                <redirect view-id="/contract/donggang/new-sale-view-v2.xhtml"/>
+            </rule>
+
+            <rule if-outcome="view-contract-donggangNOW_SELL-v3">
                 <redirect view-id="/contract/donggang/new-sale-view-v2.xhtml"/>
             </rule>
 
@@ -141,6 +164,11 @@
             <rule if-outcome="template-contract-donggangNOW_SELL-v2">
                 <redirect view-id="/contract/template/donggang/new-sale-template-v2.xhtml"/>
             </rule>
+
+            <rule if-outcome="template-contract-donggangNOW_SELL-v3">
+                <redirect view-id="/contract/template/donggang/new-sale-template-v2.xhtml"/>
+            </rule>
+
 
 
         </navigation>

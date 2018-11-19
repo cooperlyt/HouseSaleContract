@@ -21,6 +21,10 @@
                 <column name="HOUSE_CODE" nullable="false" length="32"/>
             </basic>
 
+            <basic name="fileId">
+                <column name="FILE_ID" nullable="true" length="32"/>
+            </basic>
+
             <basic name="type">
                 <column name="TYPE" length="20" nullable="false"/>
                 <enumerated>STRING</enumerated>
@@ -29,6 +33,11 @@
 
             <basic name="createTime">
                 <column name="CREATE_TIME" nullable="false"/>
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+
+            <basic name="commitTime">
+                <column name="COMMIT_TIME" nullable="false"/>
                 <temporal>TIMESTAMP</temporal>
             </basic>
 
@@ -92,6 +101,7 @@
 
 
 
+
             <one-to-many name="powerPersons" fetch="LAZY" orphan-removal="true"
                          mapped-by="houseContract">
                 <cascade><cascade-all/></cascade>
@@ -103,11 +113,7 @@
                 <cascade> <cascade-all/></cascade>
             </one-to-one>
 
-            <one-to-one name="oldHouseContract" fetch="LAZY" orphan-removal="true">
-                <primary-key-join-column/>
-                <cascade><cascade-all/></cascade>
 
-            </one-to-one>
 
             <one-to-one fetch="LAZY" orphan-removal="true" name="newHouseContract">
                 <primary-key-join-column/>
@@ -117,7 +123,7 @@
 
 
 
-
+            <transient name="oldHouseContract" />
 
         </attributes>
     </entity>

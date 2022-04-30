@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.org/schema/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:ci="http://www.dgsoft.com/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="/cms/template-blank.xhtml">
+
+
+    <ui:define name="path-nav">
+        <s:link view="/home.xhtml">首页</s:link><span class="default">/</span>
+        <span>网上办公</span>
+        <span class="default">/</span><span>从业主体备案查询</span>
+    </ui:define>
+
+    <h:outputStylesheet library="octicons" name="octicons.css"/>
+
+    <ui:define name="template-blank-body">
+        <div class="grid_3 leftRail">
+
+            <div class="railNavHeading clearfix">
+                从业主体备案查询
+            </div>
+
+            <div>
+                <ul id="railNav" class="railNav">
+                    <a:repeat value="#{corpTypes}" var="_type">
+                        <li>
+                            <s:link styleClass="#{(_type.name() eq corpList.typeName) ? 'on' : ''}">
+                                #{messages[_type.name()]}
+                                <f:param name="typeName" value="#{_type.name()}"/>
+                            </s:link>
+                        </li>
+                    </a:repeat>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid_9 rightRail">
+
+            <a:outputPanel layout="block" styleClass="page_heading" id="page_heading">
+                <h1>#{messages[corpList.typeName]}</h1>
+            </a:outputPanel>
+
+            <div class="mainContent" style="font-size: 13px">
+                <div class="block">
+                    <h:form>
+                        <div class="filter news-filter clearfix">
+                            <div class=" filterOptions">
+                                <div class="newsFilterCatWrpr">
+                                    <h:inputText p:placeHolder="机构查询" value="#{corpList.searchKey}" size="70"/>
+                                </div>
+
+                            </div>
+
+                            <div class="filterActions">
+                                <span id="CT_Main_1_spanSearch" class="newsFilterSearchBtn">
+                                    <h:commandButton styleClass="btn" action="#{corpList.refresh}" value="查询">
+                                        <f:param name="firstResult" value="0"/>
+                                    </h:commandButton>
+                                </span>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+                <a name="top"></a>
+                <a:outputPanel layout="block" styleClass="paging" rendered="#{not empty corpList.resultMap}">
+                    <div class="sortStatus">
+                        <b>共找到:</b> #{corpList.resultCount} 个备案机构.
+                    </div>
+
+                    <ui:include src="/cms/samll-page-nav.xhtml">
+                        <ui:param name="entityList" value="#{corpList}"/>
+                    </ui:include>
+
+                    <div class="clear"></div>
+                </a:outputPanel>
+
+
+                <a:repeat value="#{corpList.resultMap}" var="_corp">
+
+                    <div class="block">
+                        <table class="houseTbl">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <h2> #{_corp.name}</h2>
+                                    <p>
+                                        <span class="houseLbl">营业执照:</span> #{_corp.licenseNumber}
+                                    </p>
+                                    <p>
+                                        <span class="houseLbl">法人:</span> #{_corp.ownerName}
+                                    </p>
+                                    <p>
+                                        <span class="houseLbl">联系电话:</span> #{_corp.phone}
+                                    </p>
+                                    <p>
+                                        <span class="houseLbl">地址:</span> #{_corp.address}
+                                    </p>
+
+
+                                    <p>
+                                        <span class="houseLbl">备案日期:</span>
+
+                                        <h:outputText value="#{_corp.recordDate}">
+                                            <ci:convertTime pattern="#{messages.displayDatePattern}"></ci:convertTime>
+                                        </h:outputText>
+                                    </p>
+
+
+                                </td>
+                                <td class="houseImg">
+                                    <h:graphicImage value="/img/project-default.jpg"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>
+                                        <span class="houseLbl">从业人员:</span>
+                                    </p>
+
+
+                                        <ul>
+
+
+                                        </ul>
+
+                                    <div class="topOfPage"><a href="#top">返回顶部<span class="octicon octicon-triangle-up"></span></a></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </a:repeat>
+
+                <a:outputPanel layout="block" styleClass="moduleContents" rendered="#{not empty corpList.resultMap}">
+
+                    <a:outputPanel layout="block" styleClass="paging" >
+                        <div class="sortStatus">
+                            <b>共找到:</b> #{corpList.resultCount} 个备案机构.
+                        </div>
+
+                        <ui:include src="/cms/samll-page-nav.xhtml">
+                            <ui:param name="entityList" value="#{corpList}"/>
+                        </ui:include>
+
+                        <div class="clear"></div>
+                    </a:outputPanel>
+                </a:outputPanel>
+
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

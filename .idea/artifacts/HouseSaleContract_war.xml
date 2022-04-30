@@ -1,6 +1,12 @@
 <component name="ArtifactManager">
   <artifact type="war" name="HouseSaleContract:war">
     <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>HouseSaleContract</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
     <root id="archive" name="HouseSaleContract.war">
       <element id="artifact" artifact-name="HouseSaleContract:war exploded" />
     </root>

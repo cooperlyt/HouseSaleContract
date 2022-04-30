@@ -258,7 +258,7 @@
 
                                                        <li>
                                                            <ul>
-                                                               <li><s:link view="/cms/saleRecord/sale-project-list.xhml"><f:param name="firstResult" value="0"/>楼盘一览</s:link>
+                                                               <li><s:link view="/cms/saleRecord/sale-project-list.xhtml"><f:param name="firstResult" value="0"/>楼盘一览</s:link>
 
                                                                </li>
                                                            </ul>
@@ -270,22 +270,11 @@
 
                                                                </li>
                                                            </ul>
+
                                                        </li>
                                                        </ul>
 
-                                                       <ul class="menuCol" style="float:left">
-
-                                                           <li>
-                                                               <ul>
-                                                                   <li><a onclick="return false;">开发商从业机构&amp;从业人员查询</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
-
-                                                                   </li>
-                                                               </ul>
-                                                           </li>
-
-
-                                                           <div class="clear"></div>
-                                                       </ul></div>
+                                                   </div>
                                                </div>
 
                                            </li>
@@ -389,19 +378,6 @@
 
 
                                                        </ul>
-
-                                                       <ul class="menuCol" style="float:left">
-
-                                                           <li>
-                                                               <ul>
-                                                                   <li><a onclick="return false;">中介从业机构&amp;从业人员查询</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
-
-                                                                   </li>
-                                                               </ul>
-                                                           </li>
-                                                           <div class="clear"></div>
-                                                       </ul>
-
                                                    </div>
                                                </div>
 
@@ -414,6 +390,18 @@
                                                <div class="sub" style="display: none;">
                                                    <div class="inner clearfix">
 
+                                                       <ul class="menuCol" style="float:left">
+
+                                                           <li>
+                                                               <ul>
+                                                                   <li>
+                                                                       <s:link view="/cms/saleRecord/corp-register-list.xhtml"><f:param name="firstResult" value="0"/>从业主体备案查询</s:link>
+                                                                   </li>
+                                                               </ul>
+                                                           </li>
+
+
+                                                       </ul>
 
                                                        <ul class="menuCol" style="float:left">
 
@@ -432,31 +420,6 @@
                                                                    </li>
                                                                </ul>
                                                            </li>
-
-                                                       </ul>
-
-
-
-                                                       <ul class="menuCol" style="float:left">
-
-                                                           <li>
-                                                               <ul>
-                                                                   <li><a onclick="return false;" >从业主体管理子系统</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
-
-                                                                   </li>
-                                                               </ul>
-                                                           </li>
-
-
-                                                           <li>
-                                                               <ul>
-                                                                   <li><a onclick="return false;">项目主体管理系统</a><div style="display:block; position:relative; top:-6px; font-size:12px; color:#ff0000;">该功能正在建设中...</div>
-
-                                                                   </li>
-                                                               </ul>
-                                                           </li>
-
-
 
                                                        </ul>
 
@@ -629,9 +592,8 @@
                                 <li><s:link view="/cms/saleRecord/newHouseSaleTotal.xhtml">商品房网上备案数据统计</s:link></li>
                                 <li><s:link view="/cms/saleRecord/projectSaleTopTen.xhtml">项目销售TOP10</s:link></li>
                                 <li><a onclick="return false;">商品房销售分布</a></li>
-                                <li><s:link view="/cms/saleRecord/sale-project-list.xhml"><f:param name="firstResult" value="0"/>楼盘一览</s:link></li>
+                                <li><s:link view="/cms/saleRecord/sale-project-list.xhtml"><f:param name="firstResult" value="0"/>楼盘一览</s:link></li>
                                 <li><a onclick="return false;">可售商品房查询</a></li>
-                                <li><a onclick="return false;">开发商从业机构&amp;从业人员查询</a></li>
                             </ul>
 
                             <h5><s:link view="/cms/saleRecord/business-search.xhtml">自助查询</s:link></h5>
@@ -655,7 +617,6 @@
                                 <li><a onclick="return false;">租赁房屋查询</a></li>
                                 <li><a onclick="return false;">租赁信息发布</a></li>
                                 <li><a onclick="return false;">求租信息发布</a></li>
-                                <li><a onclick="return false;">中介从业机构&amp;从业人员查询</a></li>
                             </ul>
 
 
@@ -664,9 +625,7 @@
 
                             <ul>
                                 <li><s:link view="/login.xhtml"><f:param name="logonType" value="ATTACH_CORP"/>开发商登录</s:link></li>
-                                <li><a onclick="return false;">中介机构登录</a></li>
-                                <li><a onclick="return false;">从业主体管理子系统</a></li>
-                                <li><a onclick="return false;">项目主体管理系统</a></li>
+                                <li><s:link view="/cms/saleRecord/corp-register-list.xhtml"><f:param name="firstResult" value="0"/> 从业主体备案查询 </s:link></li>
                                 <li><a onclick="return false;">商品房资金监管理系统</a></li>
                                 <li><a onclick="return false;">二手房资金监管理系统</a></li>
                                 <li><a onclick="return false;">保障房申请审核系统</a></li>

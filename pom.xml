@@ -18,6 +18,7 @@
             <url>file://${project.basedir}/lib/</url>
         </repository>
 
+
         <repository>
             <id>repository.jboss.org</id>
             <name>JBoss Public Maven Repository Group</name>
@@ -271,6 +272,7 @@
             <artifactId>houseInterface</artifactId>
             <version>2.0.127Bate</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

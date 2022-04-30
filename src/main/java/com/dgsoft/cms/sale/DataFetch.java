@@ -104,4 +104,15 @@ public abstract class DataFetch {
         return result;
     }
 
+    public List<Map<String,Object>> simpleJsonObjectArrayToList(JSONArray jsonArray){
+        if (jsonArray == null){
+            return new ArrayList<Map<String, Object>>(0);
+        }
+        try {
+            return jsonObjectArrayToList(jsonArray,new SimapleJSONObjectConverter());
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("data error");
+        }
+    }
+
 }

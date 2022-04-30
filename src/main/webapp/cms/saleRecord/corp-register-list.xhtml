@@ -35,6 +35,7 @@
                             <s:link styleClass="#{(_type.name() eq corpList.typeName) ? 'on' : ''}">
                                 #{messages[_type.name()]}
                                 <f:param name="typeName" value="#{_type.name()}"/>
+                                <f:param name="searchKey" value=""/>
                             </s:link>
                         </li>
                     </a:repeat>
@@ -128,7 +129,14 @@
 
 
                                         <ul>
+                                            <a:repeat  value="#{corpList.simpleJsonObjectArrayToList(_corp.employee) }" var="_employee">
+                                                <li>
+                                                    <span class="more">
+                                                        #{_employee.name}
+                                                    </span>
 
+                                                </li>
+                                            </a:repeat>
 
                                         </ul>
 
